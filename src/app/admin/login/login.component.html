@@ -1,0 +1,9 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <app-input [inputType]="'text'" [name]="'username'" [label]="'Username'"></app-input>
+      <app-input [inputType]="'password'" [name]="'password'" [label]="'Password'"></app-input>
+      <app-button (click)="login($event)"></app-button>
+    </div>
+  </div>
+</div>
