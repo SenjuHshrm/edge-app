@@ -1,0 +1,30 @@
+.custom {
+  &-navigation-sidebar {
+    width: 20rem;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 1050;
+    background-color: #f79721;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+    transition: all ease-in-out 0.5s;
+  }
+  &-sidenav-label {
+    color: rgb(43, 39, 39);
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    border-radius: 0;
+    color: white;
+  }
+  &-sidenav-label:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgb(61, 129, 218);
+  }
+  &-sidenav-active {
+    background-color: white;
+    color: rgb(61, 129, 218);
+  }
+  &-sidenav-icon {
+    font-size: 1.5rem;
+  }
+}

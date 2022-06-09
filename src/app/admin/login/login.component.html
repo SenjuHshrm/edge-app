@@ -1,9 +1,28 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-6 offset-3">
-      <app-input [inputType]="'text'" [name]="'username'" [label]="'Username'"></app-input>
-      <app-input [inputType]="'password'" [name]="'password'" [label]="'Password'"></app-input>
-      <app-button (click)="login($event)"></app-button>
+<div class="container-fluid my-5 py-5">
+  <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 text-center my-5">
+      <img src="/assets/logo.png" class="img-fluid w-50" />
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="my-3">
+          <app-input
+            [inputType]="'text'"
+            [name]="'username'"
+            [label]="'Username'"
+          ></app-input>
+        </div>
+        <div class="my-3">
+          <app-input
+            [inputType]="'password'"
+            [name]="'password'"
+            [label]="'Password'"
+          ></app-input>
+        </div>
+        <div class="col-md-4 offset-md-4">
+          <app-button (click)="login($event)" [label]="'Sign In'"></app-button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
