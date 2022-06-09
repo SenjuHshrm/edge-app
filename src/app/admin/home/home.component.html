@@ -1,12 +1,29 @@
-<h3>Navigation</h3>
-<ul>
-  <li><a routerLink="dashboard">Dashboard</a></li>
-  <li><a routerLink="booking-list">Booking List</a></li>
-  <li><a routerLink="key-partners">Key Partners</a></li>
-  <li><a routerLink="report">Report</a></li>
-  <li><a routerLink="acct-request">Account Request</a></li>
-  <li><a routerLink="inventory">Inventory</a></li>
-  <li><a routerLink="settings">Settings</a></li>
-  <li><a (click)="logout($event)">Logout</a></li>
-</ul>
+<div class="custom-navigation-sidebar">
+  <div class="container my-4 text-center">
+    <img src="/assets/logo.png" class="img-fluid w-75" />
+  </div>
+  <ul class="nav nav-pills flex-column mb-auto dark-text">
+    <li class="navbar-item" *ngFor="let link of links">
+      <a
+        class="nav-link custom-sidenav-label d-flex align-items-center"
+        routerLink="{{ link.path }}"
+        routerLinkActive="custom-sidenav-active"
+      >
+        <i class="{{ link.icon }} custom-sidenav-icon"></i>
+        <span class="mx-2">{{ link.name }}</span></a
+      >
+    </li>
+    <li class="navbar-item">
+      <a
+        class="nav-link custom-sidenav-label d-flex align-items-center"
+        style="cursor: pointer"
+        (click)="logout($event)"
+        routerLinkActive="custom-sidenav-active"
+      >
+        <i class="bi bi-box-arrow-left custom-sidenav-icon"></i>
+        <span class="mx-2">Logout</span></a
+      >
+    </li>
+  </ul>
+</div>
 <router-outlet></router-outlet>
