@@ -2,12 +2,13 @@
   &-navigation-sidebar {
     width: 20rem;
     height: 100vh;
-    position: absolute;
-    top: 0;
-    z-index: 1050;
+    // position: absolute;
+    // top: 0;
+    // z-index: 1050;
     background-color: #f79721;
     box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
     transition: all ease-in-out 0.5s;
+    // overflow-y: auto;
   }
   &-sidenav-label {
     color: rgb(43, 39, 39);

@@ -1,50 +1,29 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>Hello, world!</title>
-  </head>
-  <body>
-
-    <table class="table">
-        <thead >
-          <tr>
-            <th scope="col" *ngFor="let th of tableHeader">{{th.thead}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let td of tableData">
-            <th scope="row">{{td.id}}</th>
-            <td>{{td.date}}</td>
-            <td>{{td.receivename}}</td>
-            <td>{{td.phoneno}}</td>
-            <td>{{td.address}}</td>
-            <td>{{td.zipcode}}</td>
-            <td>{{td.province}}</td>
-            <td>{{td.city}}</td>
-            <td>{{td.barangay}}</td>
-            <td>{{td.products}}</td>
-            <td>{{td.quantity}}</td>
-            <td>{{td.cod}}</td>
-            <td>{{td.senderpagename}}</td>
-            <td>{{td.contact}}</td>
-            <td>{{td.remarks}}</td>
-            <td>{{td.fullfillment}}</td>
-            <td>{{td.trackno}}</td>
-            <td>{{td.area}}</td>
-          </tr>
-        </tbody>
-      </table>
-     <!-- <div class="booklist_container" class="table table-hover">
-         <div class="t_header" *ngFor="let th of tableHeader">
-              <div class="t_header_data">{{th.thead}}</div>
-         </div>
-         <div class="t_row">
-             <div class="t_row_data"></div>
-         </div>
-     </div>  -->
-  </body>
-</html>
+<table>
+  <thead >
+    <tr>
+      <th scope="col" *ngFor="let th of tableHeader">{{th.thead}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let td of tableData">
+      <th scope="row">{{td.id}}</th>
+      <td>{{td.date}}</td>
+      <td>{{td.receivename}}</td>
+      <td>{{td.phoneno}}</td>
+      <td>{{td.address}}</td>
+      <td>{{td.zipcode}}</td>
+      <td>{{td.province}}</td>
+      <td>{{td.city}}</td>
+      <td>{{td.barangay}}</td>
+      <td>{{td.products}}</td>
+      <td>{{td.quantity}}</td>
+      <td>{{td.cod}}</td>
+      <td>{{td.senderpagename}}</td>
+      <td>{{td.contact}}</td>
+      <td>{{td.remarks}}</td>
+      <td>{{td.fullfillment}}</td>
+      <td>{{td.trackno}}</td>
+      <td>{{td.area}}</td>
+    </tr>
+  </tbody>
+</table>

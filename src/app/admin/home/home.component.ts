@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     { name: 'Inventory', icon: 'bi bi-card-checklist', path: 'inventory' },
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
   ];
+  status: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -23,5 +24,9 @@ export class HomeComponent implements OnInit {
 
   logout(e: any): void {
     this.router.navigateByUrl('/admin/login');
+  }
+
+  clickEvent() {
+    this.status = !this.status
   }
 }
