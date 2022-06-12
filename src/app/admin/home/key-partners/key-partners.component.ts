@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./key-partners.component.scss'],
 })
 export class KeyPartnersComponent implements OnInit {
-  tableDatas: any = [, , , , , , , , , , , , , , , , , , , , , , , , , ,];
+  tableDatas: any = [, , , , , , , ,];
 
   constructor() {}
 
