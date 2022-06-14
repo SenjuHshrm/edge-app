@@ -1,23 +1,29 @@
-<div class="container-fluid my-5 py-5">
+<div class="container-fluid">
   <div class="col-md-6 offset-md-3">
-    <div class="col-md-6 offset-md-3 text-center my-5">
+    <div class="col-md-6 offset-md-3 text-center my-3">
       <img src="/assets/logo.png" class="img-fluid w-50" />
     </div>
     <div class="row">
-      <div class="col-md-6 offset-md-3">
+      <form class="col-md-6 offset-md-3" [formGroup]="cred" (submit)="login($event, cred)">
         <div class="my-3">
-          <app-input
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" formControlName="username"/>
+          <!-- <app-input
+            formControlName="username"
             [inputType]="'text'"
             [name]="'username'"
             [label]="'Username'"
-          ></app-input>
+          ></app-input> -->
         </div>
         <div class="my-3">
-          <app-input
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" formControlName="password"/>
+          <!-- <app-input
+            formControlName="password"
             [inputType]="'password'"
             [name]="'password'"
             [label]="'Password'"
-          ></app-input>
+          ></app-input> -->
         </div>
         <div class="col-md-12 my-3 text-center">
           <a class="btn btn=transparent shadow-0 p-0 fw-bold"
@@ -25,9 +31,9 @@
           >
         </div>
         <div class="col-md-4 offset-md-4">
-          <app-button (click)="login($event)" [label]="'Sign In'"></app-button>
+          <app-button [label]="'Sign In'" [inputType]="'submit'"></app-button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
