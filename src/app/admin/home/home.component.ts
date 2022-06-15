@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
@@ -17,10 +18,20 @@ export class HomeComponent implements OnInit {
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
   ];
   status: boolean = false;
+  showToggle: boolean = false;
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  @HostListener('window:resize', ['$event'])
+  onResize(e: any) {
+    this.showToggle = (window.innerWidth <= 767) ? true : false
+    // this.status = (window.innerWidth > 767) ? false : true
+  }
+
+  ngOnInit(): void {
+    this.showToggle = (window.innerWidth <= 767) ? true : false
+    // this.status = (window.innerWidth <= 767) ? false : true
+  }
 
   logout(e: any): void {
     this.router.navigateByUrl('/admin/login');

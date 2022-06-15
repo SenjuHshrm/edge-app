@@ -1,36 +1,3 @@
-<!-- <div class="d-flex flex-row justify-content-start">
-  <div class="custom-navigation-sidebar">
-    <div class="container my-4 text-center">
-      <img src="/assets/logo.png" class="img-fluid w-75" />
-    </div>
-    <ul class="nav nav-pills flex-column mb-auto dark-text">
-      <li class="navbar-item" *ngFor="let link of links">
-        <a
-          class="nav-link custom-sidenav-label d-flex align-items-center"
-          routerLink="{{ link.path }}"
-          routerLinkActive="custom-sidenav-active"
-        >
-          <i class="{{ link.icon }} custom-sidenav-icon"></i>
-          <span class="mx-2">{{ link.name }}</span></a
-        >
-      </li>
-      <li class="navbar-item">
-        <a
-          class="nav-link custom-sidenav-label d-flex align-items-center"
-          style="cursor: pointer"
-          (click)="logout($event)"
-          routerLinkActive="custom-sidenav-active"
-        >
-          <i class="bi bi-box-arrow-left custom-sidenav-icon"></i>
-          <span class="mx-2">Logout</span></a
-        >
-      </li>
-    </ul>
-  </div>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-</div> -->
 <div class="d-flex" id="wrapper">
 
   <!-- Sidebar -->
@@ -67,7 +34,7 @@
   <!-- Page Content -->
   <div id="page-content-wrapper">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav *ngIf="showToggle" class="navbar navbar-expand-lg navbar-light bg-light">
      
       <div class="container-fluid">
         <button class="btn btn-light" (click)="clickEvent()">

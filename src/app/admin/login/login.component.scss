@@ -1,0 +1,15 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  
+  .login-form {
+    width: 40em;
+
+    div {
+      .logo {
+        width: 16em;
+        height: 20em;
+      }
+    }
+  }
+}
