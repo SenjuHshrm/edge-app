@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-my-inventory',
   templateUrl: './my-inventory.component.html',
-  styleUrls: ['./my-inventory.component.scss']
+  styleUrls: ['./my-inventory.component.scss'],
 })
 export class MyInventoryComponent implements OnInit {
+  public tableData = [{}, {}, {}, {}, {}];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
