@@ -1,1 +1,63 @@
-<p>register works!</p>
+<div class="container">
+  <h1 class="h1 h1-responsive my-5 py-3">Create an Account</h1>
+  <div class="col-md-8 offset-md-2">
+    <form>
+      <div class="form-floating my-4 w-100">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Name:"
+          name="name"
+        />
+        <label for="name">Name:</label>
+      </div>
+      <div class="form-floating my-3 w-100">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="address"
+          placeholder="Address:"
+          name="address"
+        />
+        <label for="address">Address:</label>
+      </div>
+      <div class="form-floating my-4 w-100">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="mobile"
+          placeholder="Contact Number:"
+          name="mobile"
+        />
+        <label for="mobile">Contact Number:</label>
+      </div>
+      <div class="form-floating my-4 w-100">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          placeholder="Email:"
+          name="email"
+        />
+        <label for="email">Email:</label>
+      </div>
+      <div class="form-floating my-4 w-100">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="company"
+          placeholder="Company Name:"
+          name="company"
+        />
+        <label for="company">Company name:</label>
+      </div>
+      <div class="col-md-4 offset-md-4">
+        <app-button
+          [label]="'Request User ID'"
+          [inputType]="'submit'"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+</div>
