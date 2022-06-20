@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { InputComponent } from './input/input.component';
 import { LoadingComponent } from './loading/loading.component';
+import { FlashMsgComponent } from './flash-msg/flash-msg.component';
 
 
 
@@ -10,14 +11,17 @@ import { LoadingComponent } from './loading/loading.component';
   declarations: [
     ButtonComponent,
     InputComponent,
-    LoadingComponent
+    LoadingComponent,
+    FlashMsgComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
     ButtonComponent,
-    InputComponent
+    InputComponent,
+    LoadingComponent,
+    FlashMsgComponent
   ]
 })
 export class ComponentsModule { }

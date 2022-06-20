@@ -14,18 +14,32 @@ export class LoginComponent implements OnInit {
     username: new FormControl('', [Validators.required, Validators.minLength(6)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
+  public isLoading: boolean = false;
 
   constructor(
     private router: Router,
     private user: UserService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login(e: any, data: any): void {
     e.preventDefault()
-    console.log(data)
-    this.router.navigateByUrl('/admin/home')
+    if(data.valid) {
+      this.isLoading = !this.isLoading
+      this.user.login({...data.value, access: 'admin'}).subscribe({
+        next: (res: any) => {
+          this.isLoading = !this.isLoading
+          localStorage.setItem('ACCESS', res.info)
+          window.location.href = '/admin/home'
+        },
+        error: ({ error }: any) => {
+          this.isLoading = !this.isLoading
+          console.log(error)
+        }
+      })
+    }
+    // this.router.navigateByUrl('/admin/home')
   }
 
 }
