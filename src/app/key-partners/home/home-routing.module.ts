@@ -21,6 +21,9 @@ const routes: Routes = [
         path: 'coa-nda',
         loadChildren: () => import('./coa-nda/coa-nda.module').then(m => m.CoaNdaModule)
       }, {
+        path: 'inquiry',
+        loadChildren: () => import('./inquiry/inquiry.module').then(m => m.InquiryModule)
+      }, {
         path: 'my-quotation',
         loadChildren: () => import('./my-quotation/my-quotation.module').then(m => m.MyQuotationModule)
       }, {

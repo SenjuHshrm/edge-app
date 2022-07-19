@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { InputComponent } from './input/input.component';
 import { LoadingComponent } from './loading/loading.component';
-import { FlashMsgComponent } from './flash-msg/flash-msg.component';
+import { CreateInquiryComponent } from './modals/create-inquiry/create-inquiry.component';
+import { ViewInquiryComponent } from './modals/view-inquiry/view-inquiry.component';
+import { CreateQuotationComponent } from './modals/create-quotation/create-quotation.component';
+import { ViewQuotationComponent } from './modals/view-quotation/view-quotation.component';
+import { ViewPurchaseOrderComponent } from './modals/view-purchase-order/view-purchase-order.component';
+import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/create-purchase-order.component';
 
 
 
@@ -12,7 +17,12 @@ import { FlashMsgComponent } from './flash-msg/flash-msg.component';
     ButtonComponent,
     InputComponent,
     LoadingComponent,
-    FlashMsgComponent
+    CreateInquiryComponent,
+    ViewInquiryComponent,
+    CreateQuotationComponent,
+    ViewQuotationComponent,
+    ViewPurchaseOrderComponent,
+    CreatePurchaseOrderComponent
   ],
   imports: [
     CommonModule
@@ -20,8 +30,7 @@ import { FlashMsgComponent } from './flash-msg/flash-msg.component';
   exports: [
     ButtonComponent,
     InputComponent,
-    LoadingComponent,
-    FlashMsgComponent
+    LoadingComponent
   ]
 })
 export class ComponentsModule { }
