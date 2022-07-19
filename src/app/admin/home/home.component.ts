@@ -7,10 +7,20 @@ import { Component, OnInit, HostListener } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
+    { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list' },
+    {
+      name: 'Quotations',
+      icon: 'bi bi-file-earmark-text',
+      path: 'quotation-list',
+    },
+    {
+      name: 'Purchase Order',
+      icon: 'bi bi-basket2',
+      path: 'purchase-order',
+    },
     { name: 'Key Partners', icon: 'bi bi-people', path: 'key-partners' },
     { name: 'Report', icon: 'bi bi-file-medical', path: 'report' },
     { name: 'Account Request', icon: 'bi bi-chat-left', path: 'acct-request' },
@@ -24,12 +34,12 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
-    this.showToggle = (window.innerWidth <= 767) ? true : false
+    this.showToggle = window.innerWidth <= 767 ? true : false;
     // this.status = (window.innerWidth > 767) ? false : true
   }
 
   ngOnInit(): void {
-    this.showToggle = (window.innerWidth <= 767) ? true : false
+    this.showToggle = window.innerWidth <= 767 ? true : false;
     // this.status = (window.innerWidth <= 767) ? false : true
   }
 
@@ -38,6 +48,6 @@ export class HomeComponent implements OnInit {
   }
 
   clickEvent() {
-    this.status = !this.status
+    this.status = !this.status;
   }
 }

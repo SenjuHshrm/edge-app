@@ -1,8 +1,11 @@
 <div class="d-flex" id="wrapper">
-
   <!-- Sidebar -->
-  <div class="custom-navigation-sidebar" id="sidebar-wrapper"  [ngClass]="status ? 'hide' : 'show'">
-    <div class="text-center">
+  <div
+    class="custom-navigation-sidebar"
+    id="sidebar-wrapper"
+    [ngClass]="status ? 'hide' : 'show'"
+  >
+    <div class="text-center my-4">
       <img src="/assets/logo.png" class="img-fluid w-50" />
     </div>
     <ul class="nav nav-pills flex-column mb-auto dark-text">
@@ -33,9 +36,10 @@
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
-
-    <nav *ngIf="showToggle" class="navbar navbar-expand-lg navbar-light bg-light">
-     
+    <nav
+      *ngIf="showToggle"
+      class="navbar navbar-expand-lg navbar-light bg-light"
+    >
       <div class="container-fluid">
         <button class="btn btn-light" (click)="clickEvent()">
           <span class="navbar-toggler-icon"></span>
@@ -48,6 +52,5 @@
     </div>
   </div>
   <!-- /#page-content-wrapper -->
-
 </div>
 <!-- /#wrapper -->
