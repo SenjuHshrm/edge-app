@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { QuotationListRoutingModule } from './quotation-list-routing.module';
 import { QuotationListComponent } from './quotation-list.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { QuotationListComponent } from './quotation-list.component';
   ],
   imports: [
     CommonModule,
-    QuotationListRoutingModule
+    QuotationListRoutingModule,
+    ComponentsModule
   ]
 })
 export class QuotationListModule { }

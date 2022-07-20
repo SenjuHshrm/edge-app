@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewPurchaseOrderComponent } from 'src/app/components/modals/view-purchase-order/view-purchase-order.component';
+import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-purchase-order/create-purchase-order.component';
 
 @Component({
   selector: 'app-purchase-order',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchaseOrderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private mdCtrl: NgbModal
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  createPurchaseOrder () {
+    let createPO = this.mdCtrl.open(CreatePurchaseOrderComponent)
+  }
+
+  viewPurchaseOrder() {
+    let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent)
+    viewPO.componentInstance.data = {}
   }
 
 }

@@ -1,3 +1,5 @@
+import { ViewInquiryComponent } from './../../../components/modals/view-inquiry/view-inquiry.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InquiryListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private mdCtrl: NgbModal
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  viewInquiry() {
+    let viewInq = this.mdCtrl.open(ViewInquiryComponent)
+    viewInq.componentInstance.data = {}
   }
 
 }

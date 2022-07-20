@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-inquiry',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-inquiry.component.scss']
 })
 export class ViewInquiryComponent implements OnInit {
+
+  @Input() public data: any | undefined
 
   constructor() { }
 

@@ -1,4 +1,6 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { CreateBookingComponent } from 'src/app/components/modals/create-booking/create-booking.component';
 
 @Component({
   selector: 'app-booking',
@@ -88,7 +90,13 @@ export class BookingComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private mdCtrl: NgbModal
+  ) {}
 
   ngOnInit(): void {}
+
+  createNewBooking() {
+    let createBooking = this.mdCtrl.open(CreateBookingComponent)
+  }
 }

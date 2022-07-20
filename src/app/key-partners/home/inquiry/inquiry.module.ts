@@ -1,3 +1,4 @@
+import { ComponentsModule } from 'src/app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { InquiryComponent } from './inquiry.component';
   ],
   imports: [
     CommonModule,
-    InquiryRoutingModule
+    InquiryRoutingModule,
+    ComponentsModule
   ]
 })
 export class InquiryModule { }

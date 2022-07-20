@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-purchase-order.component.scss']
 })
 export class ViewPurchaseOrderComponent implements OnInit {
+
+  @Input() public data: any | undefined
 
   constructor() { }
 

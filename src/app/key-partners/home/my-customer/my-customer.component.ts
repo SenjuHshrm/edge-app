@@ -1,4 +1,6 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { CreateCustomerComponent } from 'src/app/components/modals/create-customer/create-customer.component';
 
 @Component({
   selector: 'app-my-customer',
@@ -8,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class MyCustomerComponent implements OnInit {
   tableDatas: any = [, , , ,];
 
-  constructor() {}
+  constructor(
+    private mdCtrl: NgbModal
+  ) {}
 
   ngOnInit(): void {}
+
+  createNewCustomer() {
+    let createCustomer = this.mdCtrl.open(CreateCustomerComponent)
+  }
 }

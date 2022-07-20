@@ -9,6 +9,8 @@ import { CreateQuotationComponent } from './modals/create-quotation/create-quota
 import { ViewQuotationComponent } from './modals/view-quotation/view-quotation.component';
 import { ViewPurchaseOrderComponent } from './modals/view-purchase-order/view-purchase-order.component';
 import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/create-purchase-order.component';
+import { CreateBookingComponent } from './modals/create-booking/create-booking.component';
+import { CreateCustomerComponent } from './modals/create-customer/create-customer.component';
 
 
 
@@ -22,7 +24,9 @@ import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/cre
     CreateQuotationComponent,
     ViewQuotationComponent,
     ViewPurchaseOrderComponent,
-    CreatePurchaseOrderComponent
+    CreatePurchaseOrderComponent,
+    CreateBookingComponent,
+    CreateCustomerComponent
   ],
   imports: [
     CommonModule
@@ -30,7 +34,15 @@ import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/cre
   exports: [
     ButtonComponent,
     InputComponent,
-    LoadingComponent
+    LoadingComponent,
+    CreateInquiryComponent,
+    ViewInquiryComponent,
+    CreateQuotationComponent,
+    ViewQuotationComponent,
+    ViewPurchaseOrderComponent,
+    CreatePurchaseOrderComponent,
+    CreateBookingComponent,
+    CreateCustomerComponent
   ]
 })
 export class ComponentsModule { }

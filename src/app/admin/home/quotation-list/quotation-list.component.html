@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="h1 h1-responsive my-5">Quotations List</h1>
   <div class="col-md-12 text-end">
-    <button class="btn btn-warning text-white fw-bold mx-2">
+    <button class="btn btn-warning text-white fw-bold mx-2" (click)="createQuotation()">
       <i class="bi bi-plus"></i> Create new Quotation
     </button>
   </div>
@@ -33,7 +33,7 @@
           <td>QUOTE-10258</td>
           <td>07-19-1992</td>
           <td>
-            <button class="btn btn-warning text-white fw-bolder py-0">
+            <button class="btn btn-warning text-white fw-bolder py-0" (click)="viewQuotation()">
               View
             </button>
           </td>

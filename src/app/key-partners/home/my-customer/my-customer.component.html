@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="h1 h1-responsive mt-5 mb-3">My Customer</h1>
-  <form>
+  <!-- <form>
     <fieldset>
       <legend>Create new Customer</legend>
       <div class="col-md-12">
@@ -41,7 +41,7 @@
   </form>
   <div class="col mb-5 mt-3 text-end">
     <button class="btn btn-warning text-white">Save</button>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="col-md-6 my-3">
@@ -56,6 +56,9 @@
             <option value="1">Name</option>
             <option value="2">Email</option>
           </select>
+        </div>
+        <div class="col-4 p-0">
+          <button class="btn btn-secondary" (click)="createNewCustomer()">Create new Customer</button>
         </div>
       </div>
     </div>
