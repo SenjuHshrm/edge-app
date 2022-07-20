@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-quotation.component.scss']
 })
 export class MyQuotationComponent implements OnInit {
-
+  
+  tableDatas: any = [, , , ,];
   constructor() { }
 
   ngOnInit(): void {
