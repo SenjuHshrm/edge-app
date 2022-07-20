@@ -17,7 +17,7 @@ export class InquiryListComponent implements OnInit {
   }
 
   viewInquiry() {
-    let viewInq = this.mdCtrl.open(ViewInquiryComponent)
+    let viewInq = this.mdCtrl.open(ViewInquiryComponent, ({size: 'xl'}))
     viewInq.componentInstance.data = {}
   }
 
