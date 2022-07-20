@@ -1,1 +1,80 @@
-<p>acct-request works!</p>
+<div class="container">
+  <h1 class="h1 h1-responsive my-5">Account Request</h1>
+  <div class="col-md-6 my-3">
+    <div class="row">
+      <div class="col-8 p-0 position-relative">
+        <input type="text" class="form-control" />
+        <i class="bi bi-search custom-search-icon"></i>
+      </div>
+      <div class="col-4 p-0">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Search by:</option>
+          <option value="1">Name</option>
+          <option value="4">Email</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover text-center position-relative">
+      <thead class="sticky-top bg-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Contact Number</th>
+          <th scope="col">Email</th>
+          <th scope="col">Store Name</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let table of tableDatas">
+          <th scope="row">1</th>
+          <td>Juan Dela Cruz</td>
+          <td>San Pablo City, Laguna</td>
+          <td>09516022352</td>
+          <td>juan.delcruz@gmail.com</td>
+          <td>Dela Cruz Bakery Store</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-light custom-btn"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-light"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>
+                  <button class="dropdown-item text-sm">Approve</button>
+                </li>
+                <li>
+                  <button class="dropdown-item text-sm">Reject</button>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="d-flex justify-content-end my-4">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link custom-pagination-label" href="#">Previous</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">1</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

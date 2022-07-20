@@ -1,1 +1,55 @@
-<p>inquiry works!</p>
+<div class="container">
+  <h1 class="h1 h1-responsive my-5">My Inquiry</h1>
+  <div class="col-md-12 text-end">
+    <button class="btn btn-warning text-white fw-bold mx-2">
+      <i class="bi bi-plus"></i> Create new Inquiry
+    </button>
+  </div>
+  <div class="col-md-6 my-3">
+    <div class="row">
+      <div class="col-8 p-0 position-relative">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by Inquiry Number"
+        />
+        <i class="bi bi-search custom-search-icon"></i>
+      </div>
+    </div>
+  </div>
+  <div>
+    <table class="hoverable table table-hover text-center">
+      <thead>
+        <tr>
+          <th>Inquiry Number</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>INQ-10258</td>
+          <td>07-19-1992</td>
+          <td>
+            <button class="btn btn-warning text-white fw-bolder py-0">
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="d-flex justify-content-end my-4">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link custom-pagination-label" href="#">Previous</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">1</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

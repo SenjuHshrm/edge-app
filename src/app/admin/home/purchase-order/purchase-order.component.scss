@@ -1,0 +1,22 @@
+.custom {
+  &-search-icon {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.8rem;
+  }
+}
+
+.custom-pagination-label {
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.text-sm {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.custom-btn {
+  padding: 0;
+}
