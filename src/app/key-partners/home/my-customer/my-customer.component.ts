@@ -10,13 +10,13 @@ import { CreateCustomerComponent } from 'src/app/components/modals/create-custom
 export class MyCustomerComponent implements OnInit {
   tableDatas: any = [, , , ,];
 
-  constructor(
-    private mdCtrl: NgbModal
-  ) {}
+  constructor(private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {}
 
   createNewCustomer() {
-    let createCustomer = this.mdCtrl.open(CreateCustomerComponent)
+    let createCustomer = this.mdCtrl.open(CreateCustomerComponent, {
+      size: 'lg',
+    });
   }
 }

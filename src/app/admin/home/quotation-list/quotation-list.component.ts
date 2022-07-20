@@ -6,24 +6,19 @@ import { CreateQuotationComponent } from 'src/app/components/modals/create-quota
 @Component({
   selector: 'app-quotation-list',
   templateUrl: './quotation-list.component.html',
-  styleUrls: ['./quotation-list.component.scss']
+  styleUrls: ['./quotation-list.component.scss'],
 })
 export class QuotationListComponent implements OnInit {
+  constructor(private mdCtrl: NgbModal) {}
 
-  constructor(
-    private mdCtrl: NgbModal
-  ) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   viewQuotation() {
-    let viewQuot = this.mdCtrl.open(ViewQuotationComponent)
-    viewQuot.componentInstance.data = {}
+    let viewQuot = this.mdCtrl.open(ViewQuotationComponent, { size: 'xl' });
+    viewQuot.componentInstance.data = {};
   }
 
   createQuotation() {
-    let createQuot = this.mdCtrl.open(CreateQuotationComponent)
+    let createQuot = this.mdCtrl.open(CreateQuotationComponent, { size: 'lg' });
   }
-
 }

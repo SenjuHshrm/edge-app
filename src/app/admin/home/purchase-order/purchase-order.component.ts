@@ -6,24 +6,21 @@ import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-p
 @Component({
   selector: 'app-purchase-order',
   templateUrl: './purchase-order.component.html',
-  styleUrls: ['./purchase-order.component.scss']
+  styleUrls: ['./purchase-order.component.scss'],
 })
 export class PurchaseOrderComponent implements OnInit {
+  constructor(private mdCtrl: NgbModal) {}
 
-  constructor(
-    private mdCtrl: NgbModal
-  ) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  createPurchaseOrder () {
-    let createPO = this.mdCtrl.open(CreatePurchaseOrderComponent)
+  createPurchaseOrder() {
+    let createPO = this.mdCtrl.open(CreatePurchaseOrderComponent, {
+      size: 'xl',
+    });
   }
 
   viewPurchaseOrder() {
-    let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent)
-    viewPO.componentInstance.data = {}
+    let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent, { size: 'xl' });
+    viewPO.componentInstance.data = {};
   }
-
 }

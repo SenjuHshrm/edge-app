@@ -90,13 +90,13 @@ export class BookingComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private mdCtrl: NgbModal
-  ) {}
+  constructor(private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {}
 
   createNewBooking() {
-    let createBooking = this.mdCtrl.open(CreateBookingComponent)
+    let createBooking = this.mdCtrl.open(CreateBookingComponent, {
+      size: 'xl',
+    });
   }
 }

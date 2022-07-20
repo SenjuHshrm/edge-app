@@ -1,1 +1,75 @@
-<p>create-inquiry works!</p>
+<div class="container p-4">
+  <h4 class="h4 h4-responsive">Create New Inquiry</h4>
+  <form (submit)="handleSaveInquiry($event)" class="form-inquiry">
+    <div
+      *ngFor="let item of inquiry; let i = index"
+      class="col-md-12 d-flex my-3 pb-4 {{
+        i + 1 !== inquiry.length && 'border-bottom-dark'
+      }}"
+    >
+      <div class="me-2 flex-grow-1">
+        <div class="form-group">
+          <label for="item{{ i }}" class="fs-6 fw-bold">Item Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="item{{ i }}"
+            name="item{{ i }}"
+            [(ngModel)]="inquiry[i].description"
+          />
+        </div>
+      </div>
+      <div class="me-2">
+        <div class="form-group">
+          <label for="quantity{{ i }}" class="fs-6 fw-bold">Quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity{{ i }}"
+            name="quantity{{ i }}"
+            [(ngModel)]="inquiry[i].quantity"
+          />
+        </div>
+      </div>
+      <div class="me-2">
+        <div class="form-group">
+          <label for="units{{ i }}" class="fs-6 fw-bold">Units</label>
+          <input
+            type="text"
+            class="form-control"
+            id="units{{ i }}"
+            name="units{{ i }}"
+            [(ngModel)]="inquiry[i].units"
+          />
+        </div>
+      </div>
+      <div class="me-2 flex-grow-1">
+        <div class="form-group">
+          <label for="remarks{{ i }}" class="fs-6 fw-bold">Remarks</label>
+          <textarea
+            class="form-control"
+            id="remarks{{ i }}"
+            rows="3"
+            style="resize: none"
+            name="remarks{{ i }}"
+            [(ngModel)]="inquiry[i].remarks"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="border-bottom-dark pb-4">
+      <button
+        type="button"
+        (click)="handleNewItem()"
+        class="btn btn-warning px-5 fw-bold text-white"
+      >
+        Add Item
+      </button>
+    </div>
+    <div class="py-4 text-end">
+      <button type="submit" class="btn btn-warning px-5 fw-bold text-white">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

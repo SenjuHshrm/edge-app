@@ -6,23 +6,18 @@ import { ViewInquiryComponent } from 'src/app/components/modals/view-inquiry/vie
 @Component({
   selector: 'app-inquiry',
   templateUrl: './inquiry.component.html',
-  styleUrls: ['./inquiry.component.scss']
+  styleUrls: ['./inquiry.component.scss'],
 })
 export class InquiryComponent implements OnInit {
+  constructor(private mdCtrl: NgbModal) {}
 
-  constructor(
-    private mdCtrl: NgbModal
-  ) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   createNewInquiry() {
-    let createInq = this.mdCtrl.open(CreateInquiryComponent)
+    let createInq = this.mdCtrl.open(CreateInquiryComponent, { size: 'xl' });
   }
 
   viewInquiry() {
-    let viewInq = this.mdCtrl.open(ViewInquiryComponent)
+    let viewInq = this.mdCtrl.open(ViewInquiryComponent);
   }
-
 }
