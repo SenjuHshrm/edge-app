@@ -1,1 +1,74 @@
-<p>create-purchase-order works!</p>
+<div class="container p-4">
+  <h4 class="h4 h4-responsive">Create New Purchase Order</h4>
+  <form (submit)="handleSavePO($event)" class="form-inquiry">
+    <div
+      *ngFor="let item of pos; let i = index"
+      class="col-md-12 d-flex my-3 pb-4 {{
+        i + 1 !== pos.length && 'border-bottom-dark'
+      }}"
+    >
+      <div class="me-2 flex-grow-1">
+        <div class="form-group">
+          <label for="item{{ i }}" class="fs-6 fw-bold">Item Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="item{{ i }}"
+            name="item{{ i }}"
+            [(ngModel)]="pos[i].item"
+          />
+        </div>
+      </div>
+      <div class="me-2">
+        <div class="form-group">
+          <label for="quantity{{ i }}" class="fs-6 fw-bold">Quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity{{ i }}"
+            name="quantity{{ i }}"
+            [(ngModel)]="pos[i].quantity"
+          />
+        </div>
+      </div>
+      <div class="me-2">
+        <div class="form-group">
+          <label for="units{{ i }}" class="fs-6 fw-bold">Units</label>
+          <input
+            type="text"
+            class="form-control"
+            id="units{{ i }}"
+            name="units{{ i }}"
+            [(ngModel)]="pos[i].units"
+          />
+        </div>
+      </div>
+      <div class="me-2">
+        <div class="form-group">
+          <label for="unitPrice{{ i }}" class="fs-6 fw-bold">Unit Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="unitPrice{ i }}"
+            name="unitPrice{{ i }}"
+            [(ngModel)]="pos[i].unitPrice"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="border-bottom-dark pb-4">
+      <button
+        type="button"
+        (click)="handleNewItem()"
+        class="btn btn-warning px-5 fw-bold text-white"
+      >
+        Add Item
+      </button>
+    </div>
+    <div class="py-4 text-end">
+      <button type="submit" class="btn btn-warning px-5 fw-bold text-white">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -11,8 +11,7 @@ import { ViewPurchaseOrderComponent } from './modals/view-purchase-order/view-pu
 import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/create-purchase-order.component';
 import { CreateBookingComponent } from './modals/create-booking/create-booking.component';
 import { CreateCustomerComponent } from './modals/create-customer/create-customer.component';
-
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,11 +25,9 @@ import { CreateCustomerComponent } from './modals/create-customer/create-custome
     ViewPurchaseOrderComponent,
     CreatePurchaseOrderComponent,
     CreateBookingComponent,
-    CreateCustomerComponent
+    CreateCustomerComponent,
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule, FormsModule],
   exports: [
     ButtonComponent,
     InputComponent,
@@ -42,7 +39,7 @@ import { CreateCustomerComponent } from './modals/create-customer/create-custome
     ViewPurchaseOrderComponent,
     CreatePurchaseOrderComponent,
     CreateBookingComponent,
-    CreateCustomerComponent
-  ]
+    CreateCustomerComponent,
+  ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

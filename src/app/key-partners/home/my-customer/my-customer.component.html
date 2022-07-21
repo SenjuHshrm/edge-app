@@ -1,48 +1,13 @@
 <div class="container">
   <h1 class="h1 h1-responsive mt-5 mb-3">My Customer</h1>
-  <!-- <form>
-    <fieldset>
-      <legend>Create new Customer</legend>
-      <div class="col-md-12">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <app-input
-              [inputType]="'text'"
-              [name]="'name'"
-              [label]="'Full Name'"
-            ></app-input>
-          </div>
-          <div class="col-md-6">
-            <app-input
-              [inputType]="'text'"
-              [name]="'address'"
-              [label]="'Address'"
-            ></app-input>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <app-input
-              [inputType]="'text'"
-              [name]="'mobile'"
-              [label]="'Contact Number'"
-            ></app-input>
-          </div>
-          <div class="col-md-6">
-            <app-input
-              [inputType]="'email'"
-              [name]="'email'"
-              [label]="'Email'"
-            ></app-input>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </form>
-  <div class="col mb-5 mt-3 text-end">
-    <button class="btn btn-warning text-white">Save</button>
-  </div> -->
-
+  <div class="col-md-12 text-end">
+    <button
+      class="btn btn-warning text-white fw-bolder"
+      (click)="createNewCustomer()"
+    >
+      <i class="bi bi-plus"></i> Create new Customer
+    </button>
+  </div>
   <div class="row">
     <div class="col-md-6 my-3">
       <div class="row">
@@ -56,9 +21,6 @@
             <option value="1">Name</option>
             <option value="2">Email</option>
           </select>
-        </div>
-        <div class="col-4 p-0">
-          <button class="btn btn-secondary" (click)="createNewCustomer()">Create new Customer</button>
         </div>
       </div>
     </div>
