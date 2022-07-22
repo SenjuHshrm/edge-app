@@ -16,4 +16,8 @@ export class UserService {
     return this.http.post(`${environment.apiV1}/api/v1/post/login`, data)
   }
 
+  logout(): Observable<any> {
+    return this.http.delete(`${environment.apiV1}/api/v1/delete/logout`)
+  }
+
 }

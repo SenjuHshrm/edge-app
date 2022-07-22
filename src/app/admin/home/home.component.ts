@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, HostListener } from '@angular/core';
 
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
   status: boolean = false;
   showToggle: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private user: UserService) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
@@ -44,7 +45,15 @@ export class HomeComponent implements OnInit {
   }
 
   logout(e: any): void {
-    this.router.navigateByUrl('/admin/login');
+    this.user.logout().subscribe({
+      next: (res) => {
+        localStorage.removeItem('ACCESS')
+        this.router.navigateByUrl('/admin/login')
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
   clickEvent() {

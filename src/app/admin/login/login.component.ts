@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     e.preventDefault()
     if(data.valid) {
       this.isLoading = !this.isLoading
-      this.user.login({...data.value, access: 'admin'}).subscribe({
+      this.user.login({...data.value, access: 1 }).subscribe({
         next: (res: any) => {
           this.isLoading = !this.isLoading
           localStorage.setItem('ACCESS', res.info)
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
         }
       })
     }
-    // this.router.navigateByUrl('/admin/home')
   }
 
 }
