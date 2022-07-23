@@ -1,30 +1,51 @@
-<div class="container">
-  <h1 class="h1 h1-responsive my-5">Key Partners</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">Key Partners</h2>
+  <div class="col-md-6 my-3">
+    <div class="row ms-1">
+      <div class="col-8 p-0">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search" />
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+      </div>
+      <div class="col-4">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Search by:</option>
+          <option value="1">Name</option>
+          <option value="4">Email</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div class="table-responsive">
     <table class="table table-hover text-center position-relative">
       <thead class="sticky-top bg-light">
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-          <th scope="col">Contact Number</th>
-          <th scope="col">Email</th>
-          <th scope="col">Store Name</th>
-          <th scope="col">Status</th>
-          <th scope="col">Actions</th>
+          <th scope="col" class="text-truncate px-1">ID</th>
+          <th scope="col" class="text-truncate px-1">Name</th>
+          <th scope="col" class="text-truncate px-1">Address</th>
+          <th scope="col" class="text-truncate px-1">Contact Number</th>
+          <th scope="col" class="text-truncate px-1">Email</th>
+          <th scope="col" class="text-truncate px-1">Store Name</th>
+          <th scope="col" class="text-truncate px-1">Status</th>
+          <th scope="col" class="text-truncate px-1">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let table of tableDatas">
-          <th scope="row">1</th>
-          <td>Juan Dela Cruz</td>
-          <td>San Pablo City, Laguna</td>
-          <td>09516022352</td>
-          <td>juan.delcruz@gmail.com</td>
-          <td>Dela Cruz Bakery Store</td>
+        <tr *ngFor="let table of tableDatas; let i = index">
+          <th class="text-truncate px-1" scope="row">1</th>
+          <td class="text-truncate px-1">Juan Dela Cruz</td>
+          <td class="text-truncate px-1">San Pablo City, Laguna</td>
+          <td class="text-truncate px-1">09516022352</td>
+          <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
+          <td class="text-truncate px-1">Dela Cruz Bakery Store</td>
           <td>
-            <span class="badge badge-pill bg-success">Active</span>
-            <span class="badge badge-pill bg-danger">Inactive</span>
+            <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
+              >Active</span
+            >
+            <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
+              >Inactive</span
+            >
           </td>
           <td>
             <div class="dropdown">

@@ -1,1 +1,67 @@
-<p>dashboard works!</p>
+<div class="container-fluid px-3">
+  <div class="row py-3">
+    <div class="col-md-3 mb-2 mb-md-0">
+      <div class="card shadow py-1 bg-warning text-white border-0">
+        <div class="card-body">
+          <h2 class="h2 fw-bold"><i class="bi bi-journals"></i> My Booking</h2>
+          <div class="text-end">
+            <a
+              routerLink="/key-partners/home/booking"
+              class="btn btn-transparent text-white py-0 fw-bold fs-2"
+              ><i class="bi bi-arrow-right-circle"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-2 mb-md-0">
+      <div class="card shadow py-1 bg-info text-white border-0">
+        <div class="card-body">
+          <h2 class="h2 fw-bold"><i class="bi bi-card-list"></i> My Inquiry</h2>
+          <div class="text-end">
+            <a
+              routerLink="/key-partners/home/inquiry"
+              class="btn btn-transparent text-white py-0 fw-bold fs-2"
+              ><i class="bi bi-arrow-right-circle"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-2 mb-md-0">
+      <div class="card shadow py-1 bg-danger text-white border-0">
+        <div class="card-body">
+          <h2 class="h2 fw-bold">
+            <i class="bi bi-file-earmark-text"></i> My Quotation
+          </h2>
+          <div class="text-end">
+            <a
+              routerLink="/key-partners/home/my-quotation"
+              class="btn btn-transparent text-white py-0 fw-bold fs-2"
+              ><i class="bi bi-arrow-right-circle"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-2 mb-md-0">
+      <div class="card shadow py-1 bg-success text-white border-0">
+        <div class="card-body">
+          <h2 class="h2 fw-bold"><i class="bi bi-people"></i> My Customers</h2>
+          <div class="text-end">
+            <a
+              routerLink="/key-partners/home/my-customer"
+              class="btn btn-transparent text-white py-0 fw-bold fs-2"
+              ><i class="bi bi-arrow-right-circle"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-bar-chart></app-bar-chart>
+    </div>
+  </div>
+</div>

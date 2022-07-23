@@ -1,64 +1,66 @@
-<div class="container">
-    <h1 class="h1 h1-responsive mt-5 mb-3">My Quotations</h1>
-    <div class="row">
-        <div class="col-md-6 my-3">
-          <div class="row">
-            <div class="col-8 p-0 position-relative">
-              <input type="text" class="form-control" />
-              <i class="bi bi-search custom-search-icon"></i>
-            </div>
-            <div class="col-4 p-0">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Search by:</option>
-                <option value="1">Name</option>
-                <option value="2">Email</option>
-              </select>
-            </div>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">My Quotations</h2>
+  <div class="row">
+    <div class="col-md-6 my-3">
+      <div class="row ms-1">
+        <div class="col-8 p-0">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
+        <div class="col-4">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Search by:</option>
+            <option value="1">Name</option>
+            <option value="2">Email</option>
+          </select>
+        </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table-hover text-center position-relative">
-          <thead class="sticky-top bg-light">
-            <tr>
-              <th scope="col">Customer Id</th>
-              <th scope="col">Qoute Number</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let table of tableDatas">
-              <td>12345</td>
-              <td>45656</td>
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">View</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Approve</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item text-sm">Reject</button>
-                      </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> 
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover text-center position-relative">
+      <thead class="sticky-top bg-light">
+        <tr>
+          <th scope="col" class="text-truncate px-1">Customer Id</th>
+          <th scope="col" class="text-truncate px-1">Qoute Number</th>
+          <th scope="col" class="text-truncate px-1">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let table of tableDatas">
+          <td class="text-truncate px-1">12345</td>
+          <td class="text-truncate px-1">45656</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-light custom-btn"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-light"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>
+                  <button class="dropdown-item text-sm">View</button>
+                </li>
+                <li>
+                  <button class="dropdown-item text-sm">Approve</button>
+                </li>
+                <li>
+                  <button class="dropdown-item text-sm">Reject</button>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

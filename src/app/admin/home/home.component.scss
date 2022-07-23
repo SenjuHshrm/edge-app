@@ -1,31 +1,97 @@
+.custom-sidebar {
+  height: 100vh;
+  background-color: #f79721;
+  transition: all ease-in-out 0.5s;
+  position: fixed;
+  z-index: 1100;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.custom-transition {
+  transition: all ease-in-out 0.5s;
+}
+
+.custom-dark-close {
+  background-color: rgba(0, 0, 0, 0.575);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1099;
+}
+
+.top-nav {
+  background-color: #110f0fe3;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.custom-pointer {
+  cursor: pointer;
+}
+
+.sidebar-toggle-container {
+  position: relative;
+}
+
 .custom {
-  &-navigation-sidebar {
-    width: 20rem;
-    height: 100vh;
-    // position: absolute;
-    // top: 0;
-    // z-index: 1050;
-    background-color: #f79721;
-    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
-    transition: all ease-in-out 0.5s;
-    overflow-y: auto;
+  &-sidebar-nav-logo {
+    height: 5rem;
+    width: auto;
+    overflow: hidden;
   }
-  &-sidenav-label {
-    color: rgb(43, 39, 39);
-    font-weight: 700;
-    letter-spacing: 0.05rem;
-    border-radius: 0;
+
+  &-sidebar-menu {
+  }
+
+  &-sidebar-menu ul {
+    padding: 0;
+  }
+
+  &-sidebar-menu ul li a {
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    align-items: center;
+    width: 85%;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    margin: 0.25rem auto;
+    border-radius: 0.5rem;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all ease-in-out 0.5s;
+  }
+
+  &-sidebar-menu ul li a .menu-icon {
+    font-size: 1.5rem;
+    padding: 0.25rem 1.6rem;
+    width: 1.25rem;
     color: white;
   }
-  &-sidenav-label:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgb(61, 129, 218);
+
+  &-sidebar-menu ul li a span {
+    white-space: nowrap;
+    color: white;
+    font-weight: bolder;
   }
-  &-sidenav-active {
-    background-color: white;
-    color: rgb(61, 129, 218);
+
+  &-sidebar-menu ul li a.active {
+    background-color: #110f0fe3;
   }
-  &-sidenav-icon {
-    font-size: 1.5rem;
+
+  &-sidebar-menu ul li a.active .menu-icon,
+  &-sidebar-menu ul li a.active span {
+    color: white;
   }
+}
+
+.name-none {
+  display: none;
 }

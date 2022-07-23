@@ -1,5 +1,5 @@
-<div class="container">
-  <h1 class="h1 h1-responsive my-5">Booking List</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">Booking List</h2>
   <div class="row">
     <div class="col-md-6 d-flex align-items-center">
       <div class="dropdown col-4">
@@ -54,12 +54,15 @@
       </div>
     </div>
     <div class="col-md-6 my-3">
-      <div class="row">
-        <div class="col-8 p-0 position-relative">
-          <input type="text" class="form-control" />
-          <i class="bi bi-search custom-search-icon"></i>
+      <div class="row mx-1">
+        <div class="col-8 p-0">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
         </div>
-        <div class="col-4 p-0">
+
+        <div class="col-4">
           <select class="form-select" aria-label="Default select example">
             <option selected>Search by:</option>
             <option value="1">Name</option>

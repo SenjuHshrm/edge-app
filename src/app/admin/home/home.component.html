@@ -1,53 +1,82 @@
-<div class="d-flex" id="wrapper">
+<div id="wrapper">
   <!-- Sidebar -->
   <div
-    class="custom-navigation-sidebar"
-    id="sidebar-wrapper"
-    [ngClass]="status ? 'hide' : 'show'"
+    class="custom-sidebar"
+    [style.width]="!status ? '20rem' : screen < 768 ? '0rem' : '5.5rem'"
   >
-    <div class="text-center my-4">
-      <img src="/assets/logo.png" class="img-fluid w-50" />
+    <div class="text-center py-4">
+      <img
+        src="{{
+          status
+            ? '/assets/images/navigation/logo.png'
+            : '/assets/images/navigation/label.png'
+        }}"
+        class="img-fluid custom-sidebar-nav-logo"
+      />
     </div>
-    <ul class="nav nav-pills flex-column mb-auto dark-text">
-      <li class="navbar-item" *ngFor="let link of links">
-        <a
-          class="nav-link custom-sidenav-label d-flex align-items-center"
-          routerLink="{{ link.path }}"
-          routerLinkActive="custom-sidenav-active"
-        >
-          <i class="{{ link.icon }} custom-sidenav-icon"></i>
-          <span class="mx-2">{{ link.name }}</span></a
-        >
-      </li>
-      <li class="navbar-item">
-        <a
-          class="nav-link custom-sidenav-label d-flex align-items-center"
-          style="cursor: pointer"
-          (click)="logout($event)"
-          routerLinkActive="custom-sidenav-active"
-        >
-          <i class="bi bi-box-arrow-left custom-sidenav-icon"></i>
-          <span class="mx-2">Logout</span></a
-        >
-      </li>
-    </ul>
+    <div class="custom-sidebar-menu overflow-auto">
+      <ul>
+        <li *ngFor="let link of links" class="text-white">
+          <a
+            routerLink="{{ link.path }}"
+            routerLinkActive="active"
+            class="text-decoration-none text-white"
+            (click)="handleToggle()"
+          >
+            <i class="{{ link.icon }} menu-icon"></i>
+            <span class="{{ status ? 'name-none' : '' }}">
+              {{ link.name }}
+            </span>
+          </a>
+        </li>
+        <li class="text-white">
+          <a
+            class="text-decoration-none text-white"
+            style="cursor: pointer"
+            (click)="logout($event)"
+          >
+            <i class="bi bi-box-arrow-left menu-icon"></i>
+            <span class="{{ status ? 'name-none' : '' }}">Logout</span></a
+          >
+        </li>
+      </ul>
+    </div>
   </div>
+  <div
+    class="custom-dark-close custom-transition"
+    (click)="clickEvent()"
+    *ngIf="screen < 768 && !status"
+  ></div>
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <nav
-      *ngIf="showToggle"
-      class="navbar navbar-expand-lg navbar-light bg-light"
-    >
-      <div class="container-fluid">
-        <button class="btn btn-light" (click)="clickEvent()">
-          <span class="navbar-toggler-icon"></span>
+  <div
+    id="page-content-wrapper"
+    class="custom-transition"
+    [style.paddingLeft]="screen > 768 ? (status ? '5.5rem' : '20rem') : '0rem'"
+  >
+    <div class="container-fluid p-0 m-0">
+      <div class="top-nav p-2 d-flex justify-content-between">
+        <button
+          (click)="clickEvent()"
+          class="btn text-white bg-transparent border-0"
+        >
+          <i class="bi bi-list fs-4"></i>
         </button>
+        <!-- <div
+          class="d-flex align-items-center justify-content-end py-1 px-4 custom-pointer"
+        >
+          <img
+            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+            class="rounded-circle"
+            style="width: 2.5rem"
+            alt="Avatar"
+          />
+          <div class="custom-name text-white fw-bold ms-3">
+            Edge Administrator
+          </div>
+        </div> -->
       </div>
-    </nav>
-
-    <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
   </div>

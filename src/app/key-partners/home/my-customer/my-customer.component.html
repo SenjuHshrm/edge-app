@@ -1,5 +1,5 @@
-<div class="container">
-  <h1 class="h1 h1-responsive mt-5 mb-3">My Customer</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">My Customer</h2>
   <div class="col-md-12 text-end">
     <button
       class="btn btn-warning text-white fw-bolder"
@@ -10,12 +10,14 @@
   </div>
   <div class="row">
     <div class="col-md-6 my-3">
-      <div class="row">
+      <div class="row ms-1">
         <div class="col-8 p-0 position-relative">
-          <input type="text" class="form-control" />
-          <i class="bi bi-search custom-search-icon"></i>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
         </div>
-        <div class="col-4 p-0">
+        <div class="col-4">
           <select class="form-select" aria-label="Default select example">
             <option selected>Search by:</option>
             <option value="1">Name</option>
@@ -29,19 +31,19 @@
     <table class="table table-hover text-center position-relative">
       <thead class="sticky-top bg-light">
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-          <th scope="col">Contact Number</th>
-          <th scope="col">Email</th>
-          <th scope="col">Actions</th>
+          <th scope="col" class="text-truncate px-1">Name</th>
+          <th scope="col" class="text-truncate px-1">Address</th>
+          <th scope="col" class="text-truncate px-1">Contact Number</th>
+          <th scope="col" class="text-truncate px-1">Email</th>
+          <th scope="col" class="text-truncate px-1">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let table of tableDatas">
-          <td>Juan Dela Cruz</td>
-          <td>San Pablo City, Laguna</td>
-          <td>09512345678</td>
-          <td>juan.delcruz@gmail.com</td>
+          <td class="text-truncate px-1">Juan Dela Cruz</td>
+          <td class="text-truncate px-1">San Pablo City, Laguna</td>
+          <td class="text-truncate px-1">09512345678</td>
+          <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
 
           <td>
             <div class="dropdown">

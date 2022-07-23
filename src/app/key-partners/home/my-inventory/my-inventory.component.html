@@ -1,10 +1,10 @@
-<div class="container">
-  <h1 class="h1 h1-responsive my-5">My Inventory</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">My Inventory</h2>
   <div class="row">
     <div class="col-md-6 d-flex align-items-center">
       <div class="dropdown col-3">
         <button
-          class="btn btn-warning dropdown-toggle custom-btn w-100 text-white fw-bold"
+          class="btn btn-warning dropdown-toggle custom-btn w-100 text-white fw-bold py-1"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -25,18 +25,20 @@
               View Best Seller Items
             </button>
           </li>
-          <li><button class="dropdown-item text-sm">Print</button></li>
+          <li><button class="dropdown-item text-sm py-3">Print</button></li>
           <li><button class="dropdown-item text-sm">Export</button></li>
         </ul>
       </div>
     </div>
     <div class="col-md-6 my-3">
-      <div class="row">
+      <div class="row ms-1">
         <div class="col-8 p-0 position-relative">
-          <input type="text" class="form-control" />
-          <i class="bi bi-search custom-search-icon"></i>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
         </div>
-        <div class="col-4 p-0">
+        <div class="col-4">
           <select class="form-select" aria-label="Default select example">
             <option selected>Search by:</option>
             <option value="1">Description</option>

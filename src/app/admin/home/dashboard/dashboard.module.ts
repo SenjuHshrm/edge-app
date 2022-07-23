@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-
+import { ComponentsModule } from 'src/app/components/components.module';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule
-  ]
+    DashboardRoutingModule,
+    ComponentsModule,
+    NgApexchartsModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
