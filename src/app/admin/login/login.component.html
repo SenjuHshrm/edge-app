@@ -1,8 +1,8 @@
 <div class="login-page d-flex justify-content-center align-items-center">
   <div class="card login-form">
-    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-      <img src="/assets/logo.png" class="logo" />
-      <form [formGroup]="cred" (submit)="login($event, cred)" class="w-75">
+    <div class=" custom-border card-body d-flex flex-column justify-content-center align-items-center">
+      <img src="/assets/logo.png" class="logo" class="img-fluid mb-3" style="width:50%" />
+      <form [formGroup]="cred" (submit)="login($event, cred)" class="w-75 w-md-100">
         <div class="form-floating my-3 w-100">
           <input type="text" class="form-control" formControlName="username" placeholder="Username:"/>
           <label for="username">Username:</label>
@@ -11,11 +11,13 @@
           <input type="password" class="form-control" formControlName="password" placeholder="Password:"/>
           <label for="password">Password:</label>
         </div>
-        <div class="col-md-12 my-3 text-center">
-          <a class="btn btn=transparent shadow-0 p-0 fw-bold">Forgot Password</a>
+ 
+        <div class="custom-btn col-md-4 offset-md-4 mt-4 mt-lg-5">
+          <app-button  [label]="'Sign In'" [inputType]="'submit'"></app-button>
         </div>
-        <div class="col-md-4 offset-md-4">
-          <app-button [label]="'Sign In'" [inputType]="'submit'" [isLoading]="isLoading"></app-button>
+
+        <div class="d-flex justify-content-sm-center flex-column  mt-4 mt-lg-5">
+          <a class="btn btn=transparent shadow-0 p-0 fw-bold mb-3"  routerLink="/key-partners/forgot-password" style="color:grey">Forgot Password</a>
         </div>
       </form>
     </div>
