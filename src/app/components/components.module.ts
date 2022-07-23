@@ -12,6 +12,8 @@ import { CreatePurchaseOrderComponent } from './modals/create-purchase-order/cre
 import { CreateBookingComponent } from './modals/create-booking/create-booking.component';
 import { CreateCustomerComponent } from './modals/create-customer/create-customer.component';
 import { FormsModule } from '@angular/forms';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,9 @@ import { FormsModule } from '@angular/forms';
     CreatePurchaseOrderComponent,
     CreateBookingComponent,
     CreateCustomerComponent,
+    BarChartComponent,
   ],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgApexchartsModule],
   exports: [
     ButtonComponent,
     InputComponent,
@@ -40,6 +43,7 @@ import { FormsModule } from '@angular/forms';
     CreatePurchaseOrderComponent,
     CreateBookingComponent,
     CreateCustomerComponent,
+    BarChartComponent,
   ],
 })
 export class ComponentsModule {}

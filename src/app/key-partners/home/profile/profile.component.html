@@ -1,0 +1,171 @@
+<div class="container-fluid px-md-5 px-3">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">Key-partner's Profile</h2>
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <div class="row py-2">
+        <div
+          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0"
+        >
+          <div class="img-container position-relative">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+              class="rounded-3"
+              style="width: 300px"
+              alt="Avatar"
+            />
+            <input type="file" id="profile-change" style="display: none" />
+            <button class="btn btn-info text-white fs-2 px-3 custom-upload-btn">
+              <i class="bi bi-upload"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label for="basic-url" class="form-label fw-bold p-0 m-0"
+              >Fullname</label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="bi bi-person-circle"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                value="Key Partner's Fullname"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="basic-url" class="form-label fw-bold p-0 m-0"
+              >Address</label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="bi bi-house-door-fill"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                value="Key Partner's Address"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="basic-url" class="form-label fw-bold p-0 m-0"
+              >Contact</label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="bi bi-telephone"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                value="Key Partner's Contact"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="basic-url" class="form-label fw-bold p-0 m-0"
+              >E-mail</label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="bi bi-mailbox2"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                value="Key Partner's E-mail Address"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="basic-url" class="form-label fw-bold p-0 m-0"
+              >Company / Store</label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="bi bi-building"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                value="Key Partner's Company/Store"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 text-end">
+            <button class="btn btn-warning fw-bolder px-5 text-white">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="row p-3">
+            <h5 class="card-title fw-bold pb-4">Change Username</h5>
+            <div class="col-md-12">
+              <div class="col-md-10 offset-md-1 mb-3 position-relative">
+                <app-input
+                  [inputType]="'text'"
+                  [name]="'password'"
+                  [label]="'Username'"
+                ></app-input>
+              </div>
+
+              <div class="col-md-10 offset-md-1 text-end">
+                <button class="btn btn-warning fw-bolder px-5 text-white">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="row p-3">
+            <h5 class="card-title fw-bold pb-4">Change Password</h5>
+            <div class="col-md-12">
+              <div class="col-md-10 offset-md-1 mb-3 position-relative">
+                <app-input
+                  [inputType]="'password'"
+                  [name]="'password'"
+                  [label]="'Password'"
+                ></app-input>
+                <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+              </div>
+              <div class="col-md-10 offset-md-1 mb-3 position-relative">
+                <app-input
+                  [inputType]="'password'"
+                  [name]="'confirm_password'"
+                  [label]="'Confirm Password'"
+                ></app-input>
+                <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+              </div>
+              <div class="col-md-10 offset-md-1 text-end">
+                <button class="btn btn-warning fw-bolder px-5 text-white">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

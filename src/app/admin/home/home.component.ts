@@ -8,6 +8,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  screen: any = window.innerWidth;
+
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
     { name: 'Inventory', icon: 'bi bi-card-checklist', path: 'inventory' },
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
   ];
-  status: boolean = false;
+  status: boolean = window.innerWidth < 768 ? true : false;
   showToggle: boolean = false;
 
   constructor(private router: Router, private user: UserService) {}
@@ -47,16 +49,20 @@ export class HomeComponent implements OnInit {
   logout(e: any): void {
     this.user.logout().subscribe({
       next: (res) => {
-        localStorage.removeItem('ACCESS')
-        this.router.navigateByUrl('/admin/login')
+        localStorage.removeItem('ACCESS');
+        this.router.navigateByUrl('/admin/login');
       },
       error: (err) => {
-        console.log(err)
-      }
-    })
+        console.log(err);
+      },
+    });
   }
 
   clickEvent() {
     this.status = !this.status;
+  }
+
+  handleToggle() {
+    this.status = window.innerWidth < 768 ? true : this.status;
   }
 }

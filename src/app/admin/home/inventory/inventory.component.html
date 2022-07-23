@@ -1,5 +1,6 @@
-<div class="container">
-  <h1 class="h1 h1-responsive my-5">My Inventory</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">My Inventory</h2>
+
   <div class="row">
     <div class="col-md-12 text-end p-0">
       <button
@@ -44,12 +45,14 @@
       </div>
     </div>
     <div class="col-md-6 my-3">
-      <div class="row">
-        <div class="col-8 p-0 position-relative">
-          <input type="text" class="form-control" />
-          <i class="bi bi-search custom-search-icon"></i>
+      <div class="row ms-1">
+        <div class="col-8 p-0">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
         </div>
-        <div class="col-4 p-0">
+        <div class="col-4">
           <select class="form-select" aria-label="Default select example">
             <option selected>Search by:</option>
             <option value="1">Description</option>
@@ -64,55 +67,55 @@
     <table class="hoverable table table-hover text-center">
       <thead>
         <tr>
-          <th colspan="9">Product</th>
-          <th colspan="5">Moving Inventory</th>
-          <th colspan="2">Capital</th>
-          <th colspan="3">Non Moving Inventory</th>
+          <th colspan="9" class="text-truncate px-1">Product</th>
+          <th colspan="5" class="text-truncate px-1">Moving Inventory</th>
+          <th colspan="2" class="text-truncate px-1">Capital</th>
+          <th colspan="3" class="text-truncate px-1">Non Moving Inventory</th>
         </tr>
         <tr>
-          <th class="text-truncate px-3">No.</th>
-          <th class="text-truncate px-3 bg-white">Description</th>
-          <th class="text-truncate px-3">Classification</th>
-          <th class="text-truncate px-3">Code</th>
-          <th class="text-truncate px-3">Type</th>
-          <th class="text-truncate px-3">Color</th>
-          <th class="text-truncate px-3">Size</th>
-          <th class="text-truncate px-3">Sequence</th>
-          <th class="text-truncate px-3">SKU Number</th>
-          <th class="text-truncate px-3">In</th>
-          <th class="text-truncate px-3">Out</th>
-          <th class="text-truncate px-3">Defective</th>
-          <th class="text-truncate px-3">RTS</th>
-          <th class="text-truncate px-3">Quantity</th>
-          <th class="text-truncate px-3">Price/Unit</th>
-          <th class="text-truncate px-3">Total Amount</th>
-          <th class="text-truncate px-3">Quantity</th>
-          <th class="text-truncate px-3">Price/Unit</th>
-          <th class="text-truncate px-3">Total Amount</th>
-          <th class="text-truncate px-3">Actions</th>
+          <th class="text-truncate px-1">No.</th>
+          <th class="text-truncate px-1 bg-white">Description</th>
+          <th class="text-truncate px-1">Classification</th>
+          <th class="text-truncate px-1">Code</th>
+          <th class="text-truncate px-1">Type</th>
+          <th class="text-truncate px-1">Color</th>
+          <th class="text-truncate px-1">Size</th>
+          <th class="text-truncate px-1">Sequence</th>
+          <th class="text-truncate px-1">SKU Number</th>
+          <th class="text-truncate px-1">In</th>
+          <th class="text-truncate px-1">Out</th>
+          <th class="text-truncate px-1">Defective</th>
+          <th class="text-truncate px-1">RTS</th>
+          <th class="text-truncate px-1">Quantity</th>
+          <th class="text-truncate px-1">Price/Unit</th>
+          <th class="text-truncate px-1">Total Amount</th>
+          <th class="text-truncate px-1">Quantity</th>
+          <th class="text-truncate px-1">Price/Unit</th>
+          <th class="text-truncate px-1">Total Amount</th>
+          <th class="text-truncate px-1">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of tableData">
-          <td class="text-truncate px-3">1</td>
-          <td class="text-truncate px-3">Basin</td>
-          <td class="text-truncate px-3">Appliances</td>
-          <td class="text-truncate px-3">EC-AP</td>
-          <td class="text-truncate px-3">NA</td>
-          <td class="text-truncate px-3">000</td>
-          <td class="text-truncate px-3">000</td>
-          <td class="text-truncate px-3">00001</td>
-          <td class="text-truncate px-3">EC-AP-NA-000-000-00001</td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3">₱ 280.00</td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3">15</td>
-          <td class="text-truncate px-3">₱ 180.00</td>
-          <td class="text-truncate px-3">₱ 280.00</td>
+          <td class="text-truncate px-1">1</td>
+          <td class="text-truncate px-1">Basin</td>
+          <td class="text-truncate px-1">Appliances</td>
+          <td class="text-truncate px-1">EC-AP</td>
+          <td class="text-truncate px-1">NA</td>
+          <td class="text-truncate px-1">000</td>
+          <td class="text-truncate px-1">000</td>
+          <td class="text-truncate px-1">00001</td>
+          <td class="text-truncate px-1">EC-AP-NA-000-000-00001</td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1">₱ 280.00</td>
+          <td class="text-truncate px-1"></td>
+          <td class="text-truncate px-1">15</td>
+          <td class="text-truncate px-1">₱ 180.00</td>
+          <td class="text-truncate px-1">₱ 280.00</td>
           <td>
             <div class="dropdown">
               <button

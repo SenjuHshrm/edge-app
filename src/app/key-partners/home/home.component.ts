@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public screen: any = window.innerWidth;
+
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking', icon: 'bi bi-book', path: 'booking' },
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
       path: 'my-inventory',
     },
   ];
-  status: boolean = false;
+  status: boolean = window.innerWidth < 768 ? true : false;
   showToggle: boolean = false;
 
   @HostListener('window:resize', ['$event'])
@@ -49,5 +51,9 @@ export class HomeComponent implements OnInit {
 
   clickEvent() {
     this.status = !this.status;
+  }
+
+  handleToggle() {
+    this.status = window.innerWidth < 768 ? true : this.status;
   }
 }

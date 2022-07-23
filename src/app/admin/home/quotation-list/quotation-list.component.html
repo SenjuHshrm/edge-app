@@ -1,20 +1,25 @@
-<div class="container">
-  <h1 class="h1 h1-responsive my-5">Quotations List</h1>
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">Quotations List</h2>
   <div class="col-md-12 text-end">
-    <button class="btn btn-warning text-white fw-bold mx-2" (click)="createQuotation()">
+    <button
+      class="btn btn-warning text-white fw-bold mx-2"
+      (click)="createQuotation()"
+    >
       <i class="bi bi-plus"></i> Create new Quotation
     </button>
   </div>
   <div class="row">
     <div class="col-md-6 my-3">
-      <div class="row">
+      <div class="row ms-1">
         <div class="col-8 p-0 position-relative">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by Quotation Number"
-          />
-          <i class="bi bi-search custom-search-icon"></i>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by Quotation Number"
+            />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
         </div>
       </div>
     </div>
@@ -23,17 +28,20 @@
     <table class="hoverable table table-hover text-center">
       <thead>
         <tr>
-          <th>Quotation Number</th>
-          <th>Date</th>
-          <th>Actions</th>
+          <th class="text-truncate px-1">Quotation Number</th>
+          <th class="text-truncate px-1">Date</th>
+          <th class="text-truncate px-1">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>QUOTE-10258</td>
-          <td>07-19-1992</td>
+          <td class="text-truncate px-1">QUOTE-10258</td>
+          <td class="text-truncate px-1">07-19-1992</td>
           <td>
-            <button class="btn btn-warning text-white fw-bolder py-0" (click)="viewQuotation()">
+            <button
+              class="btn btn-warning text-white fw-bolder py-0"
+              (click)="viewQuotation()"
+            >
               View
             </button>
           </td>
