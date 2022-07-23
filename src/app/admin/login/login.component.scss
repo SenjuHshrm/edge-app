@@ -4,12 +4,24 @@
   
   .login-form {
     width: 40em;
+    border-style:none !important;
 
     div {
       .logo {
         width: 16em;
         height: 20em;
       }
+    }
+
+    @media (max-width: 500px) {
+      .w-md-100 {
+         width:100% !important;
+      }
+    }
+
+    .custom-btn{
+      text-align: center !important;
+      padding-right: 6px;
     }
   }
 }

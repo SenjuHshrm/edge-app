@@ -1,23 +1,30 @@
 <div class="container">
   <h1 class="h1 h1-responsive my-4">Settings</h1>
+  <div class="card mb-3">
+    <div class="card-body px-5 py-4">
+      <h5 class="card-title">Change Username</h5>
+      <div class="col-12">
+        <div class="col-md-8 offset-md-2 mb-3 position-relative">
+          <app-input [inputType]="'username'" [name]="'username'" [label]="'Username'"></app-input>
+        </div>
+        <div class="col-md-8 offset-md-2 text-end">
+          <button class="btn btn-warning fw-bolder px-5 text-white">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card">
     <div class="card-body px-5 py-4">
       <h5 class="card-title">Change Password</h5>
       <div class="col-12">
         <div class="col-md-8 offset-md-2 mb-3 position-relative">
-          <app-input
-            [inputType]="'password'"
-            [name]="'password'"
-            [label]="'Password'"
-          ></app-input>
+          <app-input [inputType]="'password'" [name]="'password'" [label]="'Password'"></app-input>
           <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
         </div>
         <div class="col-md-8 offset-md-2 mb-3 position-relative">
-          <app-input
-            [inputType]="'password'"
-            [name]="'confirm_password'"
-            [label]="'Confirm Password'"
-          ></app-input>
+          <app-input [inputType]="'password'" [name]="'confirm_password'" [label]="'Confirm Password'"></app-input>
           <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
         </div>
       </div>
