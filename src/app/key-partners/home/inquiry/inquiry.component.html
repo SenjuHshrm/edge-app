@@ -2,7 +2,7 @@
   <h2 class="h2 h2-responsive my-3 fw-bolder">My Inquiry</h2>
   <div class="col-md-12 text-end">
     <button
-      class="btn btn-warning text-white fw-bold mx-2"
+      class="btn btn-dark text-white fw-bold mx-2"
       (click)="createNewInquiry()"
     >
       <i class="bi bi-plus"></i> Create new Inquiry
@@ -22,30 +22,34 @@
       </div>
     </div>
   </div>
-  <div>
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th class="text-truncate px-1">Inquiry Number</th>
-          <th class="text-truncate px-1">Date</th>
-          <th class="text-truncate px-1">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-truncate px-1">INQ-10258</td>
-          <td class="text-truncate px-1">07-19-1992</td>
-          <td>
-            <button
-              class="btn btn-warning text-white fw-bolder py-0"
-              (click)="viewInquiry()"
-            >
-              View
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div>
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="text-truncate px-1">Inquiry Number</th>
+              <th class="text-truncate px-1">Date</th>
+              <th class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-truncate px-1">INQ-10258</td>
+              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+              <td>
+                <button
+                  class="btn btn-dark text-white fw-bolder py-0"
+                  (click)="viewInquiry()"
+                >
+                  <i class="bi bi-door-open"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

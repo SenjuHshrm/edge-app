@@ -11,13 +11,20 @@ export class HomeComponent implements OnInit {
 
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
-    { name: 'Booking', icon: 'bi bi-book', path: 'booking' },
-    { name: 'COA / NDA', icon: 'bi bi-envelope-paper', path: 'coa-nda' },
+    { name: 'My Booking', icon: 'bi bi-book', path: 'booking' },
+    {
+      name: 'My COA / NDA',
+      icon: 'bi bi-envelope-paper',
+      path: 'my-coa-nda',
+      data: '3',
+    },
+    { name: 'My SOA', icon: 'bi bi-wallet', path: 'my-soa', data: '10' },
     { name: 'My Inquiry', icon: 'bi bi-card-checklist', path: 'inquiry' },
     {
       name: 'My Quotation',
       icon: 'bi bi-blockquote-right',
       path: 'my-quotation',
+      data: '4',
     },
     {
       name: 'My Customer',
@@ -26,7 +33,7 @@ export class HomeComponent implements OnInit {
     },
     {
       name: 'My Inventory',
-      icon: 'bi bi-card-checklist',
+      icon: 'bi bi-card-list',
       path: 'my-inventory',
     },
   ];

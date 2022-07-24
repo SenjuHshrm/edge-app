@@ -26,9 +26,7 @@ export class BookingListComponent implements OnInit {
     { thead: 'Sender/Page Name' },
     { thead: 'Contact No.' },
     { thead: 'Remarks' },
-    { thead: 'Fullfillment' },
-    { thead: 'Tracking Number' },
-    { thead: 'Area' },
+    { thead: 'Actions' },
   ];
 
   public tableData = [

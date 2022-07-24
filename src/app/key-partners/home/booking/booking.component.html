@@ -3,12 +3,12 @@
   <div class="row">
     <div class="col-md-12 text-end my-2">
       <button
-        class="btn btn-warning text-white fw-bold mx-2"
+        class="btn btn-dark text-white fw-bold mx-2"
         (click)="createNewBooking()"
       >
         <i class="bi bi-plus"></i> Create new Booking
       </button>
-      <button class="btn btn-warning text-white fw-bold">
+      <button class="btn btn-dark text-white fw-bold">
         <i class="bi bi-upload"></i> Upload Booking
       </button>
     </div>
@@ -17,7 +17,7 @@
     <div class="col-md-6 d-flex align-items-center">
       <div class="dropdown col-3 me-1">
         <button
-          class="btn dropdown-toggle btn-warning custom-btn w-100 text-white fw-bold py-1"
+          class="btn dropdown-toggle btn-dark custom-btn w-100 text-white fw-bold py-1"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -42,7 +42,7 @@
       </div>
       <div class="dropdown col-3">
         <button
-          class="btn dropdown-toggle btn-warning custom-btn w-100 text-white fw-bold py-1"
+          class="btn dropdown-toggle btn-dark custom-btn w-100 text-white fw-bold py-1"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -87,37 +87,41 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th
-            scope="col"
-            *ngFor="let th of tableHeader"
-            class="text-truncate px-3"
-          >
-            {{ th.thead }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let td of tableData">
-          <td class="text-truncate px-3">{{ td.receivename }}</td>
-          <td class="text-truncate px-3">{{ td.phoneno }}</td>
-          <td class="text-truncate px-3">{{ td.address }}</td>
-          <td class="text-truncate px-3">{{ td.zipcode }}</td>
-          <td class="text-truncate px-3">{{ td.province }}</td>
-          <td class="text-truncate px-3">{{ td.city }}</td>
-          <td class="text-truncate px-3">{{ td.barangay }}</td>
-          <td class="text-truncate px-3">{{ td.products }}</td>
-          <td class="text-truncate px-3">{{ td.quantity }}</td>
-          <td class="text-truncate px-3">{{ td.cod }}</td>
-          <td class="text-truncate px-3">{{ td.senderpagename }}</td>
-          <td class="text-truncate px-3">{{ td.contact }}</td>
-          <td class="text-truncate px-3">{{ td.remarks }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                *ngFor="let th of tableHeader"
+                class="text-truncate px-3"
+              >
+                {{ th.thead }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let td of tableData">
+              <td class="text-truncate px-3">{{ td.receivename }}</td>
+              <td class="text-truncate px-3">{{ td.phoneno }}</td>
+              <td class="text-truncate px-3">{{ td.address }}</td>
+              <td class="text-truncate px-3">{{ td.zipcode }}</td>
+              <td class="text-truncate px-3">{{ td.province }}</td>
+              <td class="text-truncate px-3">{{ td.city }}</td>
+              <td class="text-truncate px-3">{{ td.barangay }}</td>
+              <td class="text-truncate px-3">{{ td.products }}</td>
+              <td class="text-truncate px-3">{{ td.quantity }}</td>
+              <td class="text-truncate px-3">{{ td.cod }}</td>
+              <td class="text-truncate px-3">{{ td.senderpagename }}</td>
+              <td class="text-truncate px-3">{{ td.contact }}</td>
+              <td class="text-truncate px-3">{{ td.remarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

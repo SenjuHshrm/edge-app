@@ -2,7 +2,7 @@
   <h2 class="h2 h2-responsive my-3 fw-bolder">My Customer</h2>
   <div class="col-md-12 text-end">
     <button
-      class="btn btn-warning text-white fw-bolder"
+      class="btn btn-dark text-white fw-bolder"
       (click)="createNewCustomer()"
     >
       <i class="bi bi-plus"></i> Create new Customer
@@ -27,51 +27,59 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="table table-hover text-center position-relative">
-      <thead class="sticky-top bg-light">
-        <tr>
-          <th scope="col" class="text-truncate px-1">Name</th>
-          <th scope="col" class="text-truncate px-1">Address</th>
-          <th scope="col" class="text-truncate px-1">Contact Number</th>
-          <th scope="col" class="text-truncate px-1">Email</th>
-          <th scope="col" class="text-truncate px-1">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let table of tableDatas">
-          <td class="text-truncate px-1">Juan Dela Cruz</td>
-          <td class="text-truncate px-1">San Pablo City, Laguna</td>
-          <td class="text-truncate px-1">09512345678</td>
-          <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover text-center position-relative">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col" class="text-truncate px-1">Name</th>
+              <th scope="col" class="text-truncate px-1">Address</th>
+              <th scope="col" class="text-truncate px-1">Contact Number</th>
+              <th scope="col" class="text-truncate px-1">Email</th>
+              <th scope="col" class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let table of tableDatas">
+              <td class="text-truncate px-1">Juan Dela Cruz</td>
+              <td class="text-truncate px-1">San Pablo City, Laguna</td>
+              <td class="text-truncate px-1">09512345678</td>
+              <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
 
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn btn-light custom-btn"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="bi bi-three-dots-vertical"></i>
-              </button>
-              <ul
-                class="dropdown-menu dropdown-menu-light"
-                aria-labelledby="dropdownMenuButton2"
-              >
-                <li>
-                  <button class="dropdown-item text-sm">Update Record</button>
-                </li>
-                <li>
-                  <button class="dropdown-item text-sm">Delete Record</button>
-                </li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Update Record
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Delete Record
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

@@ -19,13 +19,18 @@
           <a
             routerLink="{{ link.path }}"
             routerLinkActive="active"
-            class="text-decoration-none text-white"
+            class="text-decoration-none text-white d-flex position-relative"
             (click)="handleToggle()"
           >
             <i class="{{ link.icon }} menu-icon"></i>
             <span class="{{ status ? 'name-none' : '' }}">
               {{ link.name }}
             </span>
+            <span
+              *ngIf="link.data"
+              class="badge bg-danger ms-auto me-3 custom-icon-badge"
+              >{{ link.data }}</span
+            >
           </a>
         </li>
         <li class="text-white">

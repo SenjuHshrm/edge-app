@@ -4,7 +4,7 @@
     <div class="col-md-6 d-flex align-items-center">
       <div class="dropdown col-4">
         <button
-          class="btn btn-warning custom-btn w-100 text-white fw-bold"
+          class="btn btn-dark custom-btn w-100 text-white fw-bold"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -29,7 +29,7 @@
       </div>
       <div class="dropdown col-4 ps-1">
         <button
-          class="btn btn-warning custom-btn w-100 text-white fw-bold"
+          class="btn btn-dark custom-btn w-100 text-white fw-bold"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -74,42 +74,46 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th
-            scope="col"
-            *ngFor="let th of tableHeader"
-            class="text-truncate px-3"
-          >
-            {{ th.thead }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let td of tableData">
-          <th scope="row">{{ td.id }}</th>
-          <td class="text-truncate px-3">{{ td.date }}</td>
-          <td class="text-truncate px-3">{{ td.receivename }}</td>
-          <td class="text-truncate px-3">{{ td.phoneno }}</td>
-          <td class="text-truncate px-3">{{ td.address }}</td>
-          <td class="text-truncate px-3">{{ td.zipcode }}</td>
-          <td class="text-truncate px-3">{{ td.province }}</td>
-          <td class="text-truncate px-3">{{ td.city }}</td>
-          <td class="text-truncate px-3">{{ td.barangay }}</td>
-          <td class="text-truncate px-3">{{ td.products }}</td>
-          <td class="text-truncate px-3">{{ td.quantity }}</td>
-          <td class="text-truncate px-3">{{ td.cod }}</td>
-          <td class="text-truncate px-3">{{ td.senderpagename }}</td>
-          <td class="text-truncate px-3">{{ td.contact }}</td>
-          <td class="text-truncate px-3">{{ td.remarks }}</td>
-          <td class="text-truncate px-3">{{ td.fullfillment }}</td>
-          <td class="text-truncate px-3">{{ td.trackno }}</td>
-          <td class="text-truncate px-3">{{ td.area }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                *ngFor="let th of tableHeader"
+                class="text-truncate px-3"
+              >
+                {{ th.thead }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let td of tableData">
+              <th scope="row">{{ td.id }}</th>
+              <td class="text-truncate px-3">{{ td.date }}</td>
+              <td class="text-truncate px-3">{{ td.receivename }}</td>
+              <td class="text-truncate px-3">{{ td.phoneno }}</td>
+              <td class="text-truncate px-3">{{ td.address }}</td>
+              <td class="text-truncate px-3">{{ td.zipcode }}</td>
+              <td class="text-truncate px-3">{{ td.province }}</td>
+              <td class="text-truncate px-3">{{ td.city }}</td>
+              <td class="text-truncate px-3">{{ td.barangay }}</td>
+              <td class="text-truncate px-3">{{ td.products }}</td>
+              <td class="text-truncate px-3">{{ td.quantity }}</td>
+              <td class="text-truncate px-3">{{ td.cod }}</td>
+              <td class="text-truncate px-3">{{ td.senderpagename }}</td>
+              <td class="text-truncate px-3">{{ td.contact }}</td>
+              <td class="text-truncate px-3">{{ td.remarks }}</td>
+              <td class="text-truncate px-3">
+                <button class="btn btn-dark fw-bold">Fulfilled?</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

@@ -25,7 +25,7 @@ const routes: Routes = [
           import('./booking/booking.module').then((m) => m.BookingModule),
       },
       {
-        path: 'coa-nda',
+        path: 'my-coa-nda',
         loadChildren: () =>
           import('./coa-nda/coa-nda.module').then((m) => m.CoaNdaModule),
       },
@@ -66,6 +66,11 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
+      },
+      {
+        path: 'my-soa',
+        loadChildren: () =>
+          import('./my-soa/my-soa.module').then((m) => m.MySoaModule),
       },
     ],
   },

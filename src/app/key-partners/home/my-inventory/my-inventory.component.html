@@ -4,7 +4,7 @@
     <div class="col-md-6 d-flex align-items-center">
       <div class="dropdown col-3">
         <button
-          class="btn btn-warning dropdown-toggle custom-btn w-100 text-white fw-bold py-1"
+          class="btn btn-dark dropdown-toggle custom-btn w-100 text-white fw-bold py-1"
           type="button"
           id="dropdownMenuButton2"
           data-bs-toggle="dropdown"
@@ -49,83 +49,57 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th colspan="9">Product</th>
-          <th colspan="5">Moving Inventory</th>
-          <th colspan="2">Capital</th>
-          <th colspan="3">Non Moving Inventory</th>
-        </tr>
-        <tr>
-          <th class="text-truncate px-3">No.</th>
-          <th class="text-truncate px-3 bg-white">Description</th>
-          <th class="text-truncate px-3">Classification</th>
-          <th class="text-truncate px-3">Code</th>
-          <th class="text-truncate px-3">Type</th>
-          <th class="text-truncate px-3">Color</th>
-          <th class="text-truncate px-3">Size</th>
-          <th class="text-truncate px-3">Sequence</th>
-          <th class="text-truncate px-3">SKU Number</th>
-          <th class="text-truncate px-3">In</th>
-          <th class="text-truncate px-3">Out</th>
-          <th class="text-truncate px-3">Defective</th>
-          <th class="text-truncate px-3">RTS</th>
-          <th class="text-truncate px-3">Quantity</th>
-          <th class="text-truncate px-3">Price/Unit</th>
-          <th class="text-truncate px-3">Total Amount</th>
-          <th class="text-truncate px-3">Quantity</th>
-          <th class="text-truncate px-3">Price/Unit</th>
-          <th class="text-truncate px-3">Total Amount</th>
-          <th class="text-truncate px-3">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of tableData">
-          <td class="text-truncate px-3">1</td>
-          <td class="text-truncate px-3">Basin</td>
-          <td class="text-truncate px-3">Appliances</td>
-          <td class="text-truncate px-3">EC-AP</td>
-          <td class="text-truncate px-3">NA</td>
-          <td class="text-truncate px-3">000</td>
-          <td class="text-truncate px-3">000</td>
-          <td class="text-truncate px-3">00001</td>
-          <td class="text-truncate px-3">EC-AP-NA-000-000-00001</td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3">₱ 280.00</td>
-          <td class="text-truncate px-3"></td>
-          <td class="text-truncate px-3">15</td>
-          <td class="text-truncate px-3">₱ 180.00</td>
-          <td class="text-truncate px-3">₱ 280.00</td>
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn btn-light custom-btn"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="bi bi-three-dots-vertical"></i>
-              </button>
-              <ul
-                class="dropdown-menu dropdown-menu-light"
-                aria-labelledby="dropdownMenuButton2"
-              >
-                <li>
-                  <button class="dropdown-item text-sm">View Item</button>
-                </li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="text-truncate px-1">Date</th>
+              <th class="text-truncate px-1">Item Name</th>
+              <th class="text-truncate px-1">Description</th>
+              <th class="text-truncate px-1">Quantity</th>
+              <th class="text-truncate px-1">Price/Unit</th>
+              <th class="text-truncate px-1">Color</th>
+              <th class="text-truncate px-1">Sizes</th>
+              <th class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of tableData">
+              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+              <td class="text-truncate px-1">Basin</td>
+              <td class="text-truncate px-1">Appliances</td>
+              <td class="text-truncate px-1">1</td>
+              <td class="text-truncate px-1">₱ 180.00</td>
+              <td class="text-truncate px-1">Black</td>
+              <td class="text-truncate px-1">sm, md, lg, xl</td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">View Item</button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">
