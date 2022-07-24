@@ -1,13 +1,5 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Purchase Order</h2>
-  <div class="col-md-12 text-end">
-    <button
-      class="btn btn-warning text-white fw-bold mx-2"
-      (click)="createPurchaseOrder()"
-    >
-      <i class="bi bi-plus"></i> Create new Purchase Order
-    </button>
-  </div>
   <div class="row">
     <div class="col-md-6 my-3">
       <div class="row ms-1">
@@ -24,32 +16,36 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th class="text-truncate px-2">Purchase Order Number</th>
-          <th class="text-truncate px-2">Buyer</th>
-          <th class="text-truncate px-2">Date</th>
-          <th class="text-truncate px-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-truncate">QUOTE-10258</td>
-          <td class="text-truncate">Juan Dela Cruz</td>
-          <td class="text-truncate">07-19-1992</td>
-          <td>
-            <button
-              class="btn btn-warning text-white fw-bolder py-0"
-              (click)="viewPurchaseOrder()"
-            >
-              View
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="text-truncate px-1">Purchase Order Number</th>
+              <th class="text-truncate px-1">Buyer</th>
+              <th class="text-truncate px-1">Date</th>
+              <th class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-truncate px-1">QUOTE-10258</td>
+              <td class="text-truncate px-1">Juan Dela Cruz</td>
+              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+              <td>
+                <button
+                  class="btn btn-dark text-white fw-bolder py-0"
+                  (click)="viewPurchaseOrder()"
+                >
+                  <i class="bi bi-door-open"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

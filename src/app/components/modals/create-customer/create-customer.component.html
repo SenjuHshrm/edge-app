@@ -1,36 +1,38 @@
 <div class="container p-4">
   <h4 class="h4 h4-responsive mb-4">Create New Customer</h4>
-  <div class="col-md-12">
-    <div class="col-md-10 offset-md-1">
-      <app-input
-        [inputType]="'text'"
-        [name]="'name'"
-        [label]="'Full Name'"
-      ></app-input>
+  <div class="card shadow px-3 py-3">
+    <div class="card-shadow">
+      <div class="col-md-12 mb-3">
+        <app-input
+          [inputType]="'text'"
+          [name]="'name'"
+          [label]="'Full Name'"
+        ></app-input>
+      </div>
+      <div class="col-md-12 mb-3">
+        <app-input
+          [inputType]="'text'"
+          [name]="'address'"
+          [label]="'Address'"
+        ></app-input>
+      </div>
+      <div class="col-md-12 mb-3">
+        <app-input
+          [inputType]="'text'"
+          [name]="'mobile'"
+          [label]="'Contact Number'"
+        ></app-input>
+      </div>
+      <div class="col-md-12 mb-3">
+        <app-input
+          [inputType]="'email'"
+          [name]="'email'"
+          [label]="'Email'"
+        ></app-input>
+      </div>
     </div>
-    <div class="col-md-10 offset-md-1">
-      <app-input
-        [inputType]="'text'"
-        [name]="'address'"
-        [label]="'Address'"
-      ></app-input>
+    <div class="col-md-12 mt-2 mb-2 text-end">
+      <button class="btn btn-dark text-white px-5">Save</button>
     </div>
-    <div class="col-md-10 offset-md-1">
-      <app-input
-        [inputType]="'text'"
-        [name]="'mobile'"
-        [label]="'Contact Number'"
-      ></app-input>
-    </div>
-    <div class="col-md-10 offset-md-1">
-      <app-input
-        [inputType]="'email'"
-        [name]="'email'"
-        [label]="'Email'"
-      ></app-input>
-    </div>
-  </div>
-  <div class="col-md-10 offset-md-1 mt-3 text-end">
-    <button class="btn btn-warning text-white px-5">Save</button>
   </div>
 </div>

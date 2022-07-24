@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
+    { name: 'COA / NDA', icon: 'bi bi-envelope-paper', path: 'coa-nda' },
+    { name: 'SOA', icon: 'bi bi-wallet', path: 'soa' },
     { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list' },
     {
       name: 'Quotations',
@@ -23,11 +25,27 @@ export class HomeComponent implements OnInit {
       name: 'Purchase Order',
       icon: 'bi bi-basket2',
       path: 'purchase-order',
+      data: '3',
     },
     { name: 'Key Partners', icon: 'bi bi-people', path: 'key-partners' },
-    { name: 'Report', icon: 'bi bi-file-medical', path: 'report' },
-    { name: 'Account Request', icon: 'bi bi-chat-left', path: 'acct-request' },
-    { name: 'Inventory', icon: 'bi bi-card-checklist', path: 'inventory' },
+    { name: 'Reports', icon: 'bi bi-file-medical', path: 'report' },
+    {
+      name: 'Account Request',
+      icon: 'bi bi-chat-left',
+      path: 'acct-request',
+      data: '10',
+    },
+    {
+      name: 'Inventory',
+      icon: 'bi bi-card-list',
+      path: 'inventory',
+      data: '10',
+    },
+    {
+      name: 'Return To Sender',
+      icon: 'bi bi-layer-backward',
+      path: 'rts',
+    },
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
   ];
   status: boolean = window.innerWidth < 768 ? true : false;

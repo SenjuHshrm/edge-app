@@ -14,6 +14,8 @@ import { CreateCustomerComponent } from './modals/create-customer/create-custome
 import { FormsModule } from '@angular/forms';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { CreateItemComponent } from './modals/create-item/create-item.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CreateBookingComponent,
     CreateCustomerComponent,
     BarChartComponent,
+    LineChartComponent,
+    CreateItemComponent,
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule],
   exports: [
@@ -44,6 +48,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CreateBookingComponent,
     CreateCustomerComponent,
     BarChartComponent,
+    LineChartComponent,
   ],
 })
 export class ComponentsModule {}
