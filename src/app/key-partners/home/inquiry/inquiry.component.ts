@@ -18,6 +18,6 @@ export class InquiryComponent implements OnInit {
   }
 
   viewInquiry() {
-    let viewInq = this.mdCtrl.open(ViewInquiryComponent);
+    let viewInq = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
   }
 }

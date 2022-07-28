@@ -17,69 +17,79 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="table table-hover text-center position-relative">
-      <thead class="sticky-top bg-light">
-        <tr>
-          <th scope="col" class="text-truncate px-1">ID</th>
-          <th scope="col" class="text-truncate px-1">Name</th>
-          <th scope="col" class="text-truncate px-1">Address</th>
-          <th scope="col" class="text-truncate px-1">Contact Number</th>
-          <th scope="col" class="text-truncate px-1">Email</th>
-          <th scope="col" class="text-truncate px-1">Store Name</th>
-          <th scope="col" class="text-truncate px-1">Status</th>
-          <th scope="col" class="text-truncate px-1">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let table of tableDatas; let i = index">
-          <th class="text-truncate px-1" scope="row">1</th>
-          <td class="text-truncate px-1">Juan Dela Cruz</td>
-          <td class="text-truncate px-1">San Pablo City, Laguna</td>
-          <td class="text-truncate px-1">09516022352</td>
-          <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
-          <td class="text-truncate px-1">Dela Cruz Bakery Store</td>
-          <td>
-            <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
-              >Active</span
-            >
-            <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
-              >Inactive</span
-            >
-          </td>
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn btn-light custom-btn"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="bi bi-three-dots-vertical"></i>
-              </button>
-              <ul
-                class="dropdown-menu dropdown-menu-light"
-                aria-labelledby="dropdownMenuButton2"
-              >
-                <li>
-                  <button class="dropdown-item text-sm">Change Password</button>
-                </li>
-                <li>
-                  <button class="dropdown-item text-sm">Update Details</button>
-                </li>
-                <li>
-                  <button class="dropdown-item text-sm">Assign Code</button>
-                </li>
-                <li>
-                  <button class="dropdown-item text-sm">Delete Record</button>
-                </li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover text-center position-relative">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col" class="text-truncate px-1">ID</th>
+              <th scope="col" class="text-truncate px-1">Name</th>
+              <th scope="col" class="text-truncate px-1">Address</th>
+              <th scope="col" class="text-truncate px-1">Contact Number</th>
+              <th scope="col" class="text-truncate px-1">Email</th>
+              <th scope="col" class="text-truncate px-1">Store Name</th>
+              <th scope="col" class="text-truncate px-1">Status</th>
+              <th scope="col" class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let table of tableDatas; let i = index">
+              <th class="text-truncate px-1" scope="row">1</th>
+              <td class="text-truncate px-1">Juan Dela Cruz</td>
+              <td class="text-truncate px-1">San Pablo City, Laguna</td>
+              <td class="text-truncate px-1">09516022352</td>
+              <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
+              <td class="text-truncate px-1">Dela Cruz Bakery Store</td>
+              <td>
+                <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
+                  >Active</span
+                >
+                <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
+                  >Inactive</span
+                >
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Change Password
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Update Details
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">Assign Code</button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Delete Record
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

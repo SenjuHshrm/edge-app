@@ -14,30 +14,112 @@
       </div>
     </div>
   </div>
-  <div>
-    <table class="hoverable table table-hover text-center">
-      <thead>
-        <tr>
-          <th class="text-truncate px-1">Inquiry Number</th>
-          <th class="text-truncate px-1">Date</th>
-          <th class="text-truncate px-1">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-truncate px-1">INQ-10258</td>
-          <td class="text-truncate px-1">07-19-1992</td>
-          <td>
-            <button
-              class="btn btn-warning text-white fw-bolder py-0"
-              (click)="viewInquiry()"
-            >
-              View
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <h4 class="h4 fw-bold mb-4">New Inquiries</h4>
+      <div>
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="text-truncate px-1">Inquiry Number</th>
+              <th class="text-truncate px-1">Name</th>
+              <th class="text-truncate px-1">Company Name</th>
+              <th class="text-truncate px-1">Date</th>
+              <th class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-truncate px-1">INQ-10258</td>
+              <td class="text-truncate px-1">Key Partner's Name</td>
+              <td class="text-truncate px-1">Key Partner's Company Name</td>
+              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+              <td>
+                <button
+                  class="btn btn-dark text-white fw-bolder py-0"
+                  (click)="viewInquiry()"
+                  data-tool-tip="View Inquiry"
+                >
+                  <i class="bi bi-door-open"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <nav class="d-flex justify-content-end my-4">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link custom-pagination-label" href="#">Previous</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">1</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="card shadow p-3 mt-4">
+    <div class="card-body">
+      <h4 class="h4 fw-bold mb-4">For Requote</h4>
+      <div>
+        <table class="hoverable table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="text-truncate px-1">Inquiry Number</th>
+              <th class="text-truncate px-1">Name</th>
+              <th class="text-truncate px-1">Company Name</th>
+              <th class="text-truncate px-1">Date</th>
+              <th class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-truncate px-1">INQ-10258</td>
+              <td class="text-truncate px-1">Key Partner's Name</td>
+              <td class="text-truncate px-1">Key Partner's Company Name</td>
+              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        View Inquiry
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Create New Quotation
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Delete Inquiry
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">

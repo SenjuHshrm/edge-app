@@ -14,22 +14,27 @@
         class="img-fluid custom-sidebar-nav-logo"
       />
     </div>
-    <div class="custom-sidebar-menu overflow-auto">
+    <div class="custom-sidebar-menu d-block">
       <ul>
         <li *ngFor="let link of links" class="text-white">
           <a
             routerLink="{{ link.path }}"
             routerLinkActive="active"
-            class="text-decoration-none text-white"
+            class="text-decoration-none text-white position-relative"
             (click)="handleToggle()"
           >
             <i class="{{ link.icon }} menu-icon"></i>
             <span class="{{ status ? 'name-none' : '' }}">
               {{ link.name }}
             </span>
+            <span
+              *ngIf="link.data"
+              class="badge bg-danger ms-auto me-3 custom-icon-badge"
+              >{{ link.data }}</span
+            >
           </a>
         </li>
-        <li class="text-white">
+        <li class="text-white pb-5">
           <a
             class="text-decoration-none text-white"
             style="cursor: pointer"

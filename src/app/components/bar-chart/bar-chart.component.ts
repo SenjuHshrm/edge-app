@@ -15,6 +15,7 @@ export class BarChartComponent implements OnInit {
   ];
   chart: ApexChart = {
     height: 500,
+    width: '100%',
     type: 'bar',
   };
 

@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <h2 class="h2 h2-responsive my-3 fw-bolder">My SOA</h2>
+  <div class="row">
+    <div class="col-md-6 offset-md-6">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by Date" />
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mb-5">
+    <div class="card shadow p-3">
+      <div class="card-body">
+        <div>
+          <table class="hoverable table table-hover text-center">
+            <thead>
+              <tr>
+                <th class="text-truncate px-1">Date Received</th>
+                <th class="text-truncate px-1">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+                <td>
+                  <button
+                    class="btn btn-dark text-white fw-bolder py-0 me-2"
+                    data-tool-tip="View SOA"
+                  >
+                    <i class="bi bi-door-open"></i>
+                  </button>
+                  <button
+                    class="btn btn-dark text-white fw-bolder py-0"
+                    data-tool-tip="Download SOA"
+                  >
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <nav class="d-flex justify-content-end my-4">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link custom-pagination-label" href="#">Previous</a>
+        </li>
+        <li class="page-item custom-pagination-label">
+          <a class="page-link custom-pagination-label" href="#">1</a>
+        </li>
+        <li class="page-item custom-pagination-label">
+          <a class="page-link custom-pagination-label" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
