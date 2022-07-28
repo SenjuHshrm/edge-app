@@ -21,9 +21,10 @@
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
+      <h4 class="h4 fw-bold">Quotations for Approval</h4>
       <div class="table-responsive">
         <table class="table table-hover text-center position-relative">
-          <thead class="bg-light">
+          <thead>
             <tr>
               <th scope="col" class="text-truncate px-1">Customer Id</th>
               <th scope="col" class="text-truncate px-1">Qoute Number</th>
@@ -57,7 +58,12 @@
                         class="dropdown-item text-sm"
                         (click)="createQuotation()"
                       >
-                        Approve
+                        Create Purchase Order
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Mark As Pending
                       </button>
                     </li>
                     <li>
@@ -72,4 +78,104 @@
       </div>
     </div>
   </div>
+  <nav class="d-flex justify-content-end my-4">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link custom-pagination-label" href="#">Previous</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">1</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- Pending Quotations -->
+  <div class="row">
+    <div class="col-md-6 my-3">
+      <div class="row ms-1">
+        <div class="col-8 p-0">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
+        </div>
+        <div class="col-4">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Search by:</option>
+            <option value="1">Name</option>
+            <option value="2">Email</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <h4 class="h4 fw-bold">Pending Quotations</h4>
+      <div class="table-responsive">
+        <table class="table table-hover text-center position-relative">
+          <thead>
+            <tr>
+              <th scope="col" class="text-truncate px-1">Customer Id</th>
+              <th scope="col" class="text-truncate px-1">Qoute Number</th>
+              <th scope="col" class="text-truncate px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let table of tableDatas">
+              <td class="text-truncate px-1">12345</td>
+              <td class="text-truncate px-1">45656</td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">View</button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item text-sm"
+                        (click)="createQuotation()"
+                      >
+                        Create Purchase Order
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">Decline</button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <nav class="d-flex justify-content-end my-4">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link custom-pagination-label" href="#">Previous</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">1</a>
+      </li>
+      <li class="page-item custom-pagination-label">
+        <a class="page-link custom-pagination-label" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
