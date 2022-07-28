@@ -13,6 +13,33 @@ body {
   overflow-x: hidden;
 }
 
+button[data-tool-tip] {
+  position: relative;
+}
+
+button[data-tool-tip]::after {
+  content: attr(data-tool-tip);
+  display: block;
+  position: absolute;
+  background-color: #292b2c;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  bottom: 0;
+  left: -2.5rem;
+  white-space: nowrap;
+  transform: scale(0);
+  transition: transform ease-out 100ms, bottom ease-out 100ms,
+    left ease-out 100ms;
+  font-weight: 500;
+}
+
+button[data-tool-tip]:hover::after {
+  transform: scale(1);
+  bottom: 110%;
+  left: -100%;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
