@@ -133,6 +133,72 @@
             ></textarea>
           </div>
 
+          <ng-template>
+            <div class="card px-3 mt-3">
+              <div class="card-body">
+                <div class="d-flex align-items-end">
+                  <div class="flex-grow-1 me-2">
+                    <label for="contact" class="fs-6 fw-bold"
+                      >Individual Item</label
+                    >
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="form-group me-2">
+                    <label for="contact" class="fs-6 fw-bold">Quantity</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="contact"
+                      name="contact"
+                    />
+                  </div>
+                  <div>
+                    <button class="btn btn-dark">Add Item</button>
+                  </div>
+                </div>
+                <div class="responsive">
+                  <table class="hoverable table table-hover text-center">
+                    <thead>
+                      <tr>
+                        <th class="text-truncate px-1">Item Name</th>
+                        <th class="text-truncate px-1">Description</th>
+                        <th class="text-truncate px-1">Quantity</th>
+                        <th class="text-truncate px-1">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-truncate px-1">
+                          7/24/2022, 8:59:17 PM
+                        </td>
+                        <td class="text-truncate px-1">Key Partners Name</td>
+                        <td class="text-truncate px-1">
+                          Key Partners Company Name
+                        </td>
+                        <td>
+                          <button
+                            class="btn btn-dark text-white fw-bolder py-0"
+                            data-tool-tip="Remove Item"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
           <div class="pt-3 text-end">
             <button class="btn btn-dark px-5 fw-bolder text-white">SAVE</button>
           </div>

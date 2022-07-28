@@ -19,6 +19,8 @@ export class QuotationListComponent implements OnInit {
   }
 
   createQuotation() {
-    let createQuot = this.mdCtrl.open(CreateQuotationComponent, { size: 'lg' });
+    let createQuot = this.mdCtrl.open(CreateQuotationComponent, {
+      size: 'xl',
+    });
   }
 }
