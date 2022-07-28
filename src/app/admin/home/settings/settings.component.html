@@ -1,3 +1,52 @@
+<div class="container">
+  <h1 class="h1 h1-responsive my-4">Settings</h1>
+
+
+  <div class="accordion" id="accordionFlushExample">
+
+    <!---User settings-->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-settings">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <h5>USER INFORMATION</h5>
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-settings" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <div class="card mb-3">
+            <div class="card-body px-5 py-4">
+              <h5 class="card-title">Change Username</h5>
+              <div class="col-12">
+                <div class="col-md-8 offset-md-2 mb-3 position-relative">
+                  <app-input [inputType]="'username'" [name]="'username'" [label]="'Username'"></app-input>
+                </div>
+                <div class="col-md-8 offset-md-2 text-end">
+                  <button class="btn btn-warning fw-bolder px-5 text-white">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body px-5 py-4">
+              <h5 class="card-title">Change Password</h5>
+              <div class="col-12">
+                <div class="col-md-8 offset-md-2 mb-3 position-relative">
+                  <app-input [inputType]="'password'" [name]="'password'" [label]="'Password'"></app-input>
+                  <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+                </div>
+                <div class="col-md-8 offset-md-2 mb-3 position-relative">
+                  <app-input [inputType]="'password'" [name]="'confirm_password'" [label]="'Confirm Password'"></app-input>
+                  <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+                </div>
+              </div>
+              <div class="col-md-8 offset-md-2 text-end">
+                <button class="btn btn-warning fw-bolder px-5 text-white">
+                  Update
+                </button>
+              </div>
+            </div>
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Settings</h2>
   <div class="col-md-10 offset-md-1">
@@ -20,6 +69,20 @@
         </div>
       </div>
     </div>
+   <!--CLASSIFICATION-->
+   <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+       <h5>CLASSIFICATION</h5>
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    </div>
+  </div>
+
+  </div>
+</div>
     <div class="card shadow">
       <div class="card-body px-5 py-4">
         <h5 class="card-title">Change Password</h5>
