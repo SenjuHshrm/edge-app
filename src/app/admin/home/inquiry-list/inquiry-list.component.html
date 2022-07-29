@@ -35,13 +35,38 @@
               <td class="text-truncate px-1">Key Partner's Company Name</td>
               <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
               <td>
-                <button
-                  class="btn btn-dark text-white fw-bolder py-0"
-                  (click)="viewInquiry()"
-                  data-tool-tip="View Inquiry"
-                >
-                  <i class="bi bi-door-open"></i>
-                </button>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button
+                        class="dropdown-item text-sm"
+                        (click)="viewInquiry()"
+                      >
+                        View Inquiry
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item text-sm"
+                        (click)="createQuotation()"
+                      >
+                        Create Quotation
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
           </tbody>

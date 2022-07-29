@@ -3,13 +3,40 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-create-item',
   templateUrl: './create-item.component.html',
-  styleUrls: ['./create-item.component.scss']
+  styleUrls: ['./create-item.component.scss'],
 })
 export class CreateItemComponent implements OnInit {
+  public active: string = 'individual';
 
-  constructor() { }
+  public bundle: any = [
+    {
+      date: '',
+      name: '',
+      description: '',
+      quantity: '',
+      price: '',
+      color: '',
+      size: '',
+    },
+  ];
 
-  ngOnInit(): void {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  handleActive(str: string) {
+    this.active = str;
   }
 
+  handleNewItem() {
+    this.bundle.push({
+      date: '',
+      name: '',
+      description: '',
+      quantity: '',
+      price: '',
+      color: '',
+      size: '',
+    });
+  }
 }

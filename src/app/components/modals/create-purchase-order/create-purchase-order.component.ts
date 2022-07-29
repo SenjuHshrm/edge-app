@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-purchase-order.component.scss'],
 })
 export class CreatePurchaseOrderComponent implements OnInit {
-  public pos = [
+  public pos: any = [
     {
       item: '',
       quantity: '',
