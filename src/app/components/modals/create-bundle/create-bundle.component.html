@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <h4 class="h4 h4-responsive my-3">Create New Bundled Item</h4>
+  <div class="card shadow px-3 mb-3">
+    <div class="card-body">
+      <div class="form-group mb-3">
+        <label for="name" class="fs-6 fw-bold">Bundle Name</label>
+        <input type="text" class="form-control" id="name" name="name" />
+      </div>
+      <div class="d-flex align-items-end mb-3">
+        <div class="form-group me-2 flex-grow-1">
+          <label for="items" class="fs-6 fw-bold">Select Items</label>
+          <select class="form-select" name="items" id="items">
+            <option>Item Name - Item Description</option>
+          </select>
+        </div>
+        <div class="form-group me-2">
+          <label for="name" class="fs-6 fw-bold">Quantity</label>
+          <input type="text" class="form-control" id="name" name="name" />
+        </div>
+        <button type="button" class="btn btn-dark">Add Item</button>
+      </div>
+      <div class="text-end">
+        <small class="fw-bold">*Maximum of 7 Items per Bundle</small>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover text-center position-relative">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col" class="text-truncate px-1">Item Name</th>
+              <th scope="col" class="text-truncate px-1">Description</th>
+              <th scope="col" class="text-truncate px-1">Quantity</th>
+              <th scope="col" class="text-truncate px-1">Price</th>
+              <th scope="col" class="text-truncate px-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-truncate px-1 align-middle">Pad Paper</td>
+              <td class="text-truncate px-1 align-middle">Writing Pad</td>
+              <td class="text-truncate px-1 align-middle">2</td>
+              <td class="text-truncate px-1 align-middle">25.00</td>
+              <td>
+                <button class="btn btn-dark" data-tool-tip="Remove Item">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

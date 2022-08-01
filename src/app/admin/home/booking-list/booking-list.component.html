@@ -1,82 +1,52 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Booking List</h2>
   <div class="row">
-    <div class="col-md-6 d-flex align-items-center">
-      <div class="dropdown col-4">
-        <button
-          class="btn btn-dark custom-btn w-100 text-white fw-bold"
-          type="button"
-          id="dropdownMenuButton2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Export
-        </button>
-        <ul
-          class="dropdown-menu dropdown-menu-light"
-          aria-labelledby="dropdownMenuButton2"
-        >
-          <li>
-            <button class="dropdown-item text-sm">Flash Template</button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm">JNT Template</button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm">All</button>
-          </li>
-        </ul>
-      </div>
-      <div class="dropdown col-4 ps-1">
-        <button
-          class="btn btn-dark custom-btn w-100 text-white fw-bold"
-          type="button"
-          id="dropdownMenuButton2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Print
-        </button>
-        <ul
-          class="dropdown-menu dropdown-menu-light"
-          aria-labelledby="dropdownMenuButton2"
-        >
-          <li>
-            <button class="dropdown-item text-sm">Flash Template</button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm">JNT Template</button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm">All</button>
-          </li>
-        </ul>
-      </div>
-    </div>
     <div class="col-md-6 my-3">
-      <div class="row mx-1">
-        <div class="col-8 p-0">
-          <div class="input-group mb-3">
+      <div class="d-flex align-items-center">
+        <div class="me-2 flex-grow-1">
+          <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" />
             <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
-
-        <div class="col-4">
+        <div class="me-2">
           <select class="form-select" aria-label="Default select example">
             <option selected>Search by:</option>
-            <option value="1">Name</option>
+            <option value="1">Receiver Name</option>
             <option value="2">Sender / Page Name</option>
             <option value="3">ID Number</option>
-            <option value="4">Date</option>
           </select>
         </div>
+        <button class="btn btn-dark">Go</button>
       </div>
     </div>
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
-      <div class="col-md-12"></div>
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <span class="me-2">Filter by date:</span>
+          <div class="me-2">
+            <input type="date" class="form-control" />
+          </div>
+          <button class="btn btn-dark">Go</button>
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <span class="me-2">Action:</span>
+          <div class="me-2">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>--------</option>
+              <option value="1">Mark All Selected As Fulfilled</option>
+              <option value="1">Export All Selected Using JNT Template</option>
+              <option value="1">
+                Export All Selected Using Flash Template
+              </option>
+              <option value="1">Export All</option>
+            </select>
+          </div>
+          <button class="btn btn-dark">Go</button>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="hoverable table table-hover text-center">
           <thead>
@@ -143,17 +113,40 @@
               <td class="text-truncate px-3">{{ td.senderpagename }}</td>
               <td class="text-truncate px-3">{{ td.contact }}</td>
               <td class="text-truncate px-3">{{ td.remarks }}</td>
-              <td class="text-truncate px-3">
-                <button class="btn btn-dark fw-bold">Fulfilled?</button>
+              <td class="px-3">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Mark As Fulfilled
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">
+                        Mark As Unfulfilled
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">Export</button>
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="mt-3 text-end">
-        <button class="btn btn-dark fw-bold">
-          Set All Selected Item as Fulfilled
-        </button>
       </div>
     </div>
   </div>

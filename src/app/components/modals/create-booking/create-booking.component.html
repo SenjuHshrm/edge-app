@@ -133,8 +133,30 @@
             ></textarea>
           </div>
 
-          <ng-template>
-            <div class="card px-3 mt-3">
+          <ul class="nav nav-tabs mt-3">
+            <li class="nav-item">
+              <button
+                class="nav-link text-dark {{
+                  active === 'individual' && 'active fw-bold'
+                }}"
+                (click)="handleActive('individual')"
+              >
+                Individual Item
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link text-dark {{
+                  active === 'bundle' && 'active fw-bold'
+                }}"
+                (click)="handleActive('bundle')"
+              >
+                Bundle Item
+              </button>
+            </li>
+          </ul>
+          <ng-template [ngIf]="active === 'individual'">
+            <div class="card px-3">
               <div class="card-body">
                 <div class="d-flex align-items-end">
                   <div class="flex-grow-1 me-2">
@@ -176,14 +198,100 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="text-truncate px-1">
-                          7/24/2022, 8:59:17 PM
-                        </td>
-                        <td class="text-truncate px-1">Key Partners Name</td>
-                        <td class="text-truncate px-1">
-                          Key Partners Company Name
-                        </td>
+                        <td class="text-truncate px-1">Pad Paper</td>
+                        <td class="text-truncate px-1">Writing Pad Paper</td>
+                        <td class="text-truncate px-1">10</td>
                         <td>
+                          <button
+                            class="btn btn-dark text-white fw-bolder py-0"
+                            data-tool-tip="Remove Item"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngIf]="active === 'bundle'">
+            <div class="card px-3">
+              <div class="card-body">
+                <div class="d-flex align-items-end">
+                  <div class="flex-grow-1 me-2">
+                    <label for="contact" class="fs-6 fw-bold"
+                      >Bundle Item</label
+                    >
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="form-group me-2">
+                    <label for="contact" class="fs-6 fw-bold">Quantity</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="contact"
+                      name="contact"
+                    />
+                  </div>
+                  <div>
+                    <button class="btn btn-dark">Add Item</button>
+                  </div>
+                </div>
+                <div class="responsive">
+                  <table class="hoverable table table-hover text-center">
+                    <thead>
+                      <tr>
+                        <th class="text-truncate px-1">Bundle Name</th>
+                        <th class="text-truncate px-1">Items</th>
+                        <th class="text-truncate px-1">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-truncate align-middle">Bundle Id</td>
+                        <td>
+                          <table
+                            class="table table-striped table-borderless text-sm"
+                          >
+                            <thead class="border-0">
+                              <tr class="border-0">
+                                <th class="text-truncate">Name</th>
+                                <th class="text-truncate">Description</th>
+                                <th class="text-truncate">Quantity</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="text-truncate">Pad Paper</td>
+                                <td class="text-truncate w-100">
+                                  {{
+                                    handleTextLimit(
+                                      "Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad Writing Pad"
+                                    )
+                                  }}
+                                </td>
+                                <td class="text-truncate">8</td>
+                              </tr>
+                              <tr>
+                                <td class="text-truncate">Notebook</td>
+                                <td class="text-truncate">Newbie</td>
+                                <td class="text-truncate">10</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="align-middle">
                           <button
                             class="btn btn-dark text-white fw-bolder py-0"
                             data-tool-tip="Remove Item"

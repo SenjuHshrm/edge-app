@@ -40,6 +40,34 @@ button[data-tool-tip]:hover::after {
   left: -100%;
 }
 
+.sidebar-tool-tip {
+  position: relative;
+}
+
+.sidebar-tool-tip::after {
+  display: block;
+  content: attr(data-sidebar-tooltip);
+  position: absolute;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+  bottom: 0;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  left: 0;
+  white-space: nowrap;
+  background-color: #292b2c;
+  transform: scale(0);
+  transition: transform ease-out 150ms, bottom ease-out 150ms,
+    left ease-out 150ms;
+}
+
+.sidebar-tool-tip:hover::after {
+  transform: scale(1);
+  bottom: 50%;
+  left: 70%;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
