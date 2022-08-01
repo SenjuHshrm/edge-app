@@ -10,6 +10,7 @@ export class InputComponent implements OnInit {
   @Input() public inputType: string = '';
   @Input() public name: string = '';
   @Input() public label: string = '';
+  
 
   constructor() { }
 
