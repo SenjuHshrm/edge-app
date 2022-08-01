@@ -70,19 +70,25 @@
             <div class="card mb-3">
               <div class="card-body px-5 py-4">
                 <div class="row">
-                  <div class="col-5">
-                    <app-input [inputType]="'classification'" [name]="'classification'" [label]="'Classification'">
-                    </app-input>
+                  <div class="col-5"> 
+                    <input type="text" id="classification" class="form-control" name="classification" placeholder="Description" #classification/>
                   </div>
                   <div class="col-5">
-                    <app-input [inputType]="'code'" [name]="'code'" [label]="'Code'"></app-input>
+                    <input type="number" id="code" class="form-control" name="code" placeholder="Code" #code/>
                   </div>
-                  <div class="col d-flex flex-column justify-content-end">
-                    <div><button class="btn btn-dark fw-bolder px-5 text-white">Add</button></div>
+                  <div class="col d-flex flex-row justify-content-end ">
+                    <div *ngIf="addButton"><button class="btn btn-dark fw-bolder px-5 text-white" (click)="addClassi(classification.value,code.value)">Add</button></div>
+                    <div class="me-1" *ngIf="updateButton">
+                      <button class="btn btn-dark fw-bolder text-white" (click)="updateBtn(classification.value,code.value)">Update</button>
+                    </div>
+                    <div *ngIf="updateButton">
+                      <button class="btn btn-dark fw-bolder text-white" (click)="updateCancel()">Cancel</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+   
 
             <div class="card-body">
               <div class="table-responsive">
@@ -95,15 +101,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let classi of classiData">
-                      <td class="text-truncate px-1">APPLIANCES</td>
-                      <td class="text-truncate px-1">000</td>
+                    <tr *ngFor="let classiDatas of classiData; let i = index">
+                      <td class="text-truncate px-1">{{classiDatas.description}}</td>
+                      <td class="text-truncate px-1">{{classiDatas.code}}</td>
                       <td>
                         <div class="dropdown">
                         <button type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-light custom-btn"><i class="bi bi-three-dots-vertical"></i></button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Update</a></li>
-                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                          <li><a class="btn dropdown-item " (click)="updateClassi(i)">Update</a></li>
+                          <li><a class="btn dropdown-item" (click)="deleteClassi(i)">Delete</a></li>
                         </ul>  
                       </div>
                       </td>
