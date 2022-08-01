@@ -42,16 +42,13 @@
   &-sidebar-nav-logo {
     height: 5rem;
     width: auto;
-    overflow: hidden;
   }
 
   &-sidebar-menu {
-    overflow-y: auto;
   }
 
   &-sidebar-menu ul {
     padding: 0;
-    overflow: auto;
   }
 
   &-sidebar-menu ul li a {
@@ -65,7 +62,6 @@
     margin: 0.1rem auto;
     border-radius: 0.5rem;
     flex-wrap: nowrap;
-    overflow: hidden;
     cursor: pointer;
     transition: all ease-in-out 0.15s;
   }

@@ -16,6 +16,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { CreateItemComponent } from './modals/create-item/create-item.component';
+import { CreateBundleComponent } from './modals/create-bundle/create-bundle.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CreateItemComponent } from './modals/create-item/create-item.component'
     BarChartComponent,
     LineChartComponent,
     CreateItemComponent,
+    CreateBundleComponent,
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule],
   exports: [

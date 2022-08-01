@@ -16,7 +16,11 @@
     </div>
     <div class="custom-sidebar-menu d-block">
       <ul>
-        <li *ngFor="let link of links" class="text-white">
+        <li
+          *ngFor="let link of links"
+          class="text-white {{ status && 'sidebar-tool-tip' }}"
+          [attr.data-sidebar-tooltip]="link.name"
+        >
           <a
             routerLink="{{ link.path }}"
             routerLinkActive="active"
@@ -34,7 +38,10 @@
             >
           </a>
         </li>
-        <li class="text-white pb-5">
+        <li
+          class="text-white {{ status && 'sidebar-tool-tip' }}"
+          [attr.data-sidebar-tooltip]="'Logout'"
+        >
           <a
             class="text-decoration-none text-white"
             style="cursor: pointer"
