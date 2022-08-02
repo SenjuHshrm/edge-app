@@ -1,11 +1,12 @@
 .custom-sidebar {
-  height: 100vh;
-  background-color: #fc9211;
+  background-color: #f79721;
   transition: all ease-in-out 0.15s;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 0;
-  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: visible;
 }
 
 .custom-transition {
@@ -46,12 +47,13 @@
   }
 
   &-sidebar-menu {
+    overflow: auto;
   }
 
   &-sidebar-menu ul {
     padding: 0;
+    overflow: auto;
   }
-
   &-sidebar-menu ul li a {
     list-style-type: none;
     list-style-position: inside;
