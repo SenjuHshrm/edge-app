@@ -23,15 +23,26 @@
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
+      <div class="row mb-3">
+        <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Filter by date:</span>
           <div class="me-2">
             <input type="date" class="form-control" />
           </div>
           <button class="btn btn-dark">Go</button>
         </div>
-        <div class="col-md-6 d-flex align-items-center">
+        <div class="col-md-4 d-flex align-items-center">
+          <span class="me-2">Filter by status:</span>
+          <div class="me-2">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>--------</option>
+              <option value="1">Fulfilled</option>
+              <option value="1">Unfulfilled</option>
+            </select>
+          </div>
+          <button class="btn btn-dark">Go</button>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Action:</span>
           <div class="me-2">
             <select class="form-select" aria-label="Default select example">
