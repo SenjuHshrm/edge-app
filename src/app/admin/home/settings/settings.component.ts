@@ -1,85 +1,159 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ClassificationService } from 'src/app/services/classification.service';
+import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClassificationUpdateComponent } from 'src/app/components/modals/codes-update/classification-update/classification-update.component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-
   addButton: boolean = true;
   updateButton: boolean = false;
   indexNum: any;
+  public classifications: any = [];
+  public colors: any = [];
+  public sizes: any = [];
 
-  constructor() { }
+  constructor(
+    private classServ: ClassificationService,
+    private mdCtrl: NgbModal
+  ) {}
 
   ngOnInit(): void {
+    this.handleGetAllClassifications();
+    this.handleGetAllColors();
+    this.handleGetAllSizes();
   }
 
-
-  classiData: any = [
-    { description: 'APLIANCES', code: 456985 },
-    { description: 'SCHOOLSUPPLIES', code: 823122 },
-    { description: 'HARDWARE', code: 56987 }
-  ]
-
-
-  
-
-  addClassi(classificationName: string, codeData: any) {
-    this.classiData.push({ description: classificationName, code: codeData });
-    (<HTMLInputElement>document.getElementById("classification")).value = "";
-    (<HTMLInputElement>document.getElementById("code")).value = "";
-  }
-
-
-  updateClassi(indexNumber: number) {
-    this.indexNum = indexNumber;
-    console.log("This is index num" + this.indexNum);
-    for (let i = 0; i < this.classiData.length; i++) {
-      if (indexNumber == i) {
-        (<HTMLInputElement>document.getElementById("classification")).value = this.classiData[i].description;
-        (<HTMLInputElement>document.getElementById("code")).value = this.classiData[i].code;
-        this.addButton = false;
-        this.updateButton = true;
+  handleGetAllColors() {
+    this.classServ.getByType('color').subscribe((res) => {
+      if (res.success) {
+        this.colors = res.info;
+      } else {
+        Swal.fire({
+          title: res.msg,
+          icon: 'error',
+        });
       }
-
-    }
+    });
   }
 
-
-  updateBtn(classificationName: string, codeData: any) {
-    for (let i = 0; i < this.classiData.length; i++) {
-      if (this.indexNum == i) {
-        console.log("True" + this.indexNum)
-        this.classiData.splice(i, 1, { description: classificationName, code: codeData });
+  handleGetAllSizes() {
+    this.classServ.getByType('size').subscribe((res) => {
+      if (res.success) {
+        this.sizes = res.info;
+      } else {
+        Swal.fire({
+          title: res.msg,
+          icon: 'error',
+        });
       }
-    }
-    this.addButton = true;
-    this.updateButton = false;
-    (<HTMLInputElement>document.getElementById("classification")).value = "";
-    (<HTMLInputElement>document.getElementById("code")).value = "";
+    });
   }
 
-  updateCancel(){
-    this.addButton = true;
-    this.updateButton = false;
-    (<HTMLInputElement>document.getElementById("classification")).value = "";
-    (<HTMLInputElement>document.getElementById("code")).value = "";
-  }
-
-  deleteClassi(indexNumber: number) {
-    for (let i = 0; i < this.classiData.length; i++) {
-      if (indexNumber == i) {
-        this.classiData.splice(i, 1);
+  handleGetAllClassifications() {
+    this.classServ.getByType('classification').subscribe((res) => {
+      if (res.success) {
+        this.classifications = res.info;
+      } else {
+        Swal.fire({
+          title: res.msg,
+          icon: 'error',
+        });
       }
-    }
-
-    this.addButton = true;
-    this.updateButton = false;
-    (<HTMLInputElement>document.getElementById("classification")).value = "";
-    (<HTMLInputElement>document.getElementById("code")).value = "";
+    });
   }
 
+  handleClassificationCreate(e: any, type: string) {
+    e.preventDefault();
+    const { classification, classCode } = e.target;
+
+    this.classServ
+      .create({ name: classification.value, code: classCode.value, type })
+      .subscribe((res) => {
+        if (res.success) {
+          Swal.fire({
+            title: `New ${type} has been added.`,
+            icon: 'success',
+          });
+          this.handleReset(type);
+        } else {
+          Swal.fire({
+            title: res.msg,
+            icon: 'error',
+          });
+        }
+      });
+  }
+
+  handleReset(type: string) {
+    let formId = '';
+
+    switch (type) {
+      case 'classification':
+        this.handleGetAllClassifications();
+        formId = 'classification-form';
+        break;
+
+      case 'color':
+        this.handleGetAllColors();
+        formId = 'color-form';
+        break;
+
+      default:
+        this.handleGetAllSizes();
+        formId = 'size-form';
+        break;
+    }
+    (<HTMLFormElement>document.getElementById(formId)).reset();
+  }
+
+  handleClassificationUpdate(data: any) {
+    let updateClassification = this.mdCtrl.open(ClassificationUpdateComponent, {
+      size: 'md',
+      centered: true,
+    });
+    updateClassification.componentInstance.data = data;
+    updateClassification.result.then((res) => {
+      if (res.success) {
+        this.handleGetAllClassifications();
+        this.handleReset(res.type);
+      }
+    });
+  }
+
+  handleClassificationDelete(id: string, type: string) {
+    Swal.fire({
+      title: 'Are you sure you want to continue?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.classServ.delete(id).subscribe((res) => {
+          if (res.success) {
+            Swal.fire({
+              title: 'Classification has been deleted!.',
+              icon: 'success',
+            });
+            this.handleReset(type);
+          } else {
+            Swal.fire({
+              title: res.msg,
+              icon: 'error',
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'Deletion cancelled.',
+          icon: 'info',
+        });
+      }
+    });
+  }
 }
