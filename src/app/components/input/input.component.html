@@ -1,2 +1,9 @@
-<label class="fw-bold m-0 p-0" [for]="name">{{ label }}</label>
-<input [type]="inputType" class="form-control" [name]="name" />
+<label class="fw-bold m-0 p-0 text-capitalize" [for]="name">{{ label }}</label>
+<input
+  [type]="inputType"
+  class="form-control"
+  [name]="name"
+  [required]="required"
+  [value]="value"
+  [maxLength]="max"
+/>

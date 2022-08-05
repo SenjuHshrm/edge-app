@@ -98,54 +98,39 @@
         <div class="accordion-body">
           <div class="card mb-3">
             <div class="card-body px-5 py-4">
-              <div class="row">
-                <div class="col-5">
-                  <input
-                    type="text"
-                    id="classification"
-                    class="form-control"
-                    name="classification"
-                    placeholder="Description"
-                    #classification
-                  />
-                </div>
-                <div class="col-5">
-                  <input
-                    type="number"
-                    id="code"
-                    class="form-control"
-                    name="code"
-                    placeholder="Code"
-                    #code
-                  />
-                </div>
-                <div class="col d-flex flex-row justify-content-end">
-                  <div *ngIf="addButton">
-                    <button
-                      class="btn btn-dark fw-bolder px-5 text-white"
-                      (click)="addClassi(classification.value, code.value)"
+              <form
+                (submit)="handleClassificationCreate($event, 'classification')"
+                id="classification-form"
+              >
+                <div class="d-flex align-items-end">
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classification'"
+                      [label]="'Classification'"
+                      [required]="true"
                     >
-                      Add
-                    </button>
+                    </app-input>
                   </div>
-                  <div class="me-1" *ngIf="updateButton">
-                    <button
-                      class="btn btn-dark fw-bolder text-white"
-                      (click)="updateBtn(classification.value, code.value)"
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classCode'"
+                      [label]="'Classification Code'"
+                      [required]="true"
+                      [max]="2"
                     >
-                      Update
-                    </button>
+                    </app-input>
                   </div>
-                  <div *ngIf="updateButton">
-                    <button
-                      class="btn btn-dark fw-bolder text-white"
-                      (click)="updateCancel()"
-                    >
-                      Cancel
-                    </button>
+                  <div class="d-flex flex-row justify-content-end">
+                    <div>
+                      <button class="btn btn-dark fw-bolder px-5 text-white">
+                        SAVE
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 
@@ -162,11 +147,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let classiDatas of classiData; let i = index">
+                  <tr *ngFor="let data of classifications">
                     <td class="text-truncate px-1">
-                      {{ classiDatas.description }}
+                      {{ data.name }}
                     </td>
-                    <td class="text-truncate px-1">{{ classiDatas.code }}</td>
+                    <td class="text-truncate px-1">{{ data.code }}</td>
                     <td>
                       <div class="dropdown">
                         <button
@@ -180,18 +165,22 @@
                         </button>
                         <ul class="dropdown-menu">
                           <li>
-                            <a
-                              class="btn dropdown-item"
-                              (click)="updateClassi(i)"
-                              >Update</a
+                            <button
+                              class="btn dropdown-item text-sm"
+                              (click)="handleClassificationUpdate(data)"
                             >
+                              Update
+                            </button>
                           </li>
                           <li>
-                            <a
-                              class="btn dropdown-item"
-                              (click)="deleteClassi(i)"
-                              >Delete</a
+                            <button
+                              class="btn dropdown-item text-sm"
+                              (click)="
+                                handleClassificationDelete(data._id, data.type)
+                              "
                             >
+                              Delete
+                            </button>
                           </li>
                         </ul>
                       </div>
@@ -231,38 +220,42 @@
         <div class="accordion-body">
           <div class="card mb-3">
             <div class="card-body px-5 py-4">
-              <div class="row">
-                <div class="col-5">
-                  <app-input
-                    [inputType]="'sizename'"
-                    [name]="'colorname'"
-                    [label]="'Color'"
-                  >
-                  </app-input>
-                </div>
-                <div class="col-5">
-                  <app-input
-                    [inputType]="'code'"
-                    [name]="'code'"
-                    [label]="'Code'"
-                  ></app-input>
-                </div>
-                <div class="col d-flex flex-column justify-content-end">
+              <form
+                (submit)="handleClassificationCreate($event, 'color')"
+                id="color-form"
+              >
+                <div class="d-flex align-items-end">
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classification'"
+                      [label]="'Color'"
+                      [required]="true"
+                    >
+                    </app-input>
+                  </div>
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classCode'"
+                      [label]="'Color Code'"
+                      [required]="true"
+                      [max]="3"
+                    ></app-input>
+                  </div>
                   <div>
                     <button class="btn btn-dark fw-bolder px-5 text-white">
-                      Add
+                      SAVE
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 
           <div class="card-body">
-            <div class="table-responsive">
-              <table
-                class="table table-hover table align-middle text-center position-relative"
-              >
+            <div>
+              <table class="table table-hover table align-middle text-center">
                 <thead class="bg-light">
                   <tr>
                     <th scope="col" class="text-truncate px-1">Color name</th>
@@ -271,9 +264,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let classi of classiData">
-                    <td class="text-truncate px-1">Black Orange</td>
-                    <td class="text-truncate px-1">000</td>
+                  <tr *ngFor="let data of colors">
+                    <td class="text-truncate px-1">{{ data.name }}</td>
+                    <td class="text-truncate px-1">{{ data.code }}</td>
                     <td>
                       <div class="dropdown">
                         <button
@@ -286,8 +279,24 @@
                           <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Update</a></li>
-                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                          <li>
+                            <button
+                              class="dropdown-item text-sm"
+                              (click)="handleClassificationUpdate(data)"
+                            >
+                              Update
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              class="dropdown-item text-sm"
+                              (click)="
+                                handleClassificationDelete(data._id, data.type)
+                              "
+                            >
+                              Delete
+                            </button>
+                          </li>
                         </ul>
                       </div>
                     </td>
@@ -326,30 +335,39 @@
         <div class="accordion-body">
           <div class="card mb-3">
             <div class="card-body px-5 py-4">
-              <div class="row">
-                <div class="col-5">
-                  <app-input
-                    [inputType]="'sizename'"
-                    [name]="'sizename'"
-                    [label]="'Size'"
-                  >
-                  </app-input>
-                </div>
-                <div class="col-5">
-                  <app-input
-                    [inputType]="'code'"
-                    [name]="'code'"
-                    [label]="'Code'"
-                  ></app-input>
-                </div>
-                <div class="col d-flex flex-column justify-content-end">
-                  <div>
-                    <button class="btn btn-dark fw-bolder px-5 text-white">
-                      Add
-                    </button>
+              <form
+                (submit)="handleClassificationCreate($event, 'size')"
+                id="size-form"
+              >
+                <div class="d-flex align-items-end">
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classification'"
+                      [label]="'Size'"
+                      [required]="true"
+                    >
+                    </app-input>
+                  </div>
+                  <div class="me-2 flex-grow-1">
+                    <app-input
+                      [inputType]="'text'"
+                      [name]="'classCode'"
+                      [label]="'Size Code'"
+                      [required]="true"
+                      [max]="3"
+                    >
+                    </app-input>
+                  </div>
+                  <div class="d-flex flex-row justify-content-end">
+                    <div>
+                      <button class="btn btn-dark fw-bolder px-5 text-white">
+                        SAVE
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 
@@ -366,9 +384,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let classi of classiData">
-                    <td class="text-truncate px-1">Extra Large</td>
-                    <td class="text-truncate px-1">000</td>
+                  <tr *ngFor="let data of sizes">
+                    <td class="text-truncate px-1">{{ data.name }}</td>
+                    <td class="text-truncate px-1">{{ data.code }}</td>
                     <td>
                       <div class="dropdown">
                         <button
@@ -381,8 +399,24 @@
                           <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Update</a></li>
-                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                          <li>
+                            <button
+                              class="dropdown-item text-sm"
+                              (click)="handleClassificationUpdate(data)"
+                            >
+                              Update
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              class="dropdown-item text-sm"
+                              (click)="
+                                handleClassificationDelete(data._id, data.type)
+                              "
+                            >
+                              Delete
+                            </button>
+                          </li>
                         </ul>
                       </div>
                     </td>
