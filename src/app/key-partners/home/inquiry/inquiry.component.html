@@ -35,13 +35,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-truncate px-1">INQ-10258</td>
-              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+            <tr *ngFor="let inq of inquiryList">
+              <td class="text-truncate px-1">{{ inq.inqId }}</td>
+              <td class="text-truncate px-1">{{ inq.createdAt | customDate: 'MM/DD/YYYY, hh:mm:ss a' }}</td>
               <td>
                 <button
                   class="btn btn-dark text-white fw-bolder py-0"
-                  (click)="viewInquiry()"
+                  (click)="viewInquiry(inq)"
                   data-tool-tip="View Inquiry"
                 >
                   <i class="bi bi-door-open"></i>

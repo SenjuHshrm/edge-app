@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 export class LoginGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // let token: string | null = localStorage.getItem('ACCESS')
-    // if(token) {
-    //   let access: number = (jwtDecode(token) as any).access;
-    //   (access === 1) ? window.location.href = '/admin/home' : window.location.href = '/key-partners/home'
-    //   return false
-    // }
+    let token: string | null = localStorage.getItem('ACCESS')
+    if(token) {
+      let access: number = (jwtDecode(token) as any).access;
+      (access === 1) ? window.location.href = '/admin/home' : window.location.href = '/key-partners/home'
+      return false
+    }
     return true
   }
   

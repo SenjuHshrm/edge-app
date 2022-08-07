@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 export class AdminAuthGuard implements CanActivate {
   
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      // let token: string | null = localStorage.getItem('ACCESS')
-      // if(!token) {
-      //   window.location.href = 'admin/login'
-      //   return false;
-      // }
+      let token: string | null = localStorage.getItem('ACCESS')
+      if(!token) {
+        window.location.href = 'admin/login'
+        return false;
+      }
       return true;
   }
   

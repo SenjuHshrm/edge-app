@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +14,21 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  constructor(private router: Router) {}
+  constructor(private user: UserService) {}
 
   ngOnInit(): void {}
 
   login(e: any, data: any): void {
     e.preventDefault()
-    console.log(data)
-    this.router.navigateByUrl('/key-partners/home')
+    this.user.login({ ...data.value, access: 3 }).subscribe({
+      next: (res) => {
+        localStorage.setItem('ACCESS', res.info)
+        window.location.href = '/key-partners/home'
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
+
   }
 }

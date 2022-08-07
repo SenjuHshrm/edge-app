@@ -22,15 +22,15 @@
           <div class="info pt-4">
             <div class="row">
               <div class="col text-end">NAME:</div>
-              <div class="col fw-normal text-start">Kath S. Lat</div>
+              <div class="col fw-normal text-start">{{ data.keyPartnerId.name }}</div>
               <div class="col text-end">INQUIRY NO.:</div>
-              <div class="col fw-normal text-start">INQ-00001</div>
+              <div class="col fw-normal text-start">{{ data.inqId }}</div>
             </div>
             <div class="row">
               <div class="col text-end">STORE/S NAME:</div>
-              <div class="col fw-normal text-start">O2door</div>
+              <div class="col fw-normal text-start">{{ data.keyPartnerId.company }}</div>
               <div class="col text-end">DATE:</div>
-              <div class="col fw-normal text-start">DATE:</div>
+              <div class="col fw-normal text-start">{{ data.createdAt | customDate: 'MMMM DD, YYYY' }}</div>
             </div>
           </div>
         </div>
@@ -48,33 +48,12 @@
               REMARKS
             </th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Description of Product 1</td>
-            <td>1</td>
-            <td>100.00</td>
-            <td style="background-color: #f0b663">115.00</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Description of Product 2</td>
-            <td>1</td>
-            <td>100.00</td>
-            <td style="background-color: #f0b663">115.00</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Description of Product 4</td>
-            <td>1</td>
-            <td>100.00</td>
-            <td style="background-color: #f0b663">115.00</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Description of Product 5</td>
-            <td>1</td>
-            <td>100.00</td>
-            <td style="background-color: #f0b663">115.00</td>
+          <tr *ngFor="let item of data.items; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.units }}</td>
+            <td style="background-color: #f0b663">{{ item.remarks }}</td>
           </tr>
         </table>
       </div>

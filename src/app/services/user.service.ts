@@ -20,4 +20,8 @@ export class UserService {
     return this.http.delete(`${environment.apiV1}/api/v1/delete/logout`)
   }
 
+  requestNewToken(): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/refresh/access`)
+  }
+
 }

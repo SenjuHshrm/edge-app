@@ -1,23 +1,48 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 import { CreateInquiryComponent } from 'src/app/components/modals/create-inquiry/create-inquiry.component';
 import { ViewInquiryComponent } from 'src/app/components/modals/view-inquiry/view-inquiry.component';
-
+import { InquiryService } from 'src/app/services/inquiry.service';
 @Component({
   selector: 'app-inquiry',
   templateUrl: './inquiry.component.html',
   styleUrls: ['./inquiry.component.scss'],
 })
 export class InquiryComponent implements OnInit {
-  constructor(private mdCtrl: NgbModal) {}
 
-  ngOnInit(): void {}
+  public inquiryList: any = []
+
+  constructor(
+    private mdCtrl: NgbModal,
+    private inq: InquiryService
+  ) {}
+
+  ngOnInit(): void {
+    this.inq.getInquiries().subscribe({
+      next: (res) => {
+        res.info.map((i: any) => {
+          // i.createdAt = moment(i.createdAt).format('MM/DD/YYYY, hh:mm a')
+          this.inquiryList.push(i)
+        })
+      },
+      error: (e) => {
+        console.log(e)
+        if(e.status === 401) {
+          
+        }
+      }
+    })
+  }
 
   createNewInquiry() {
     let createInq = this.mdCtrl.open(CreateInquiryComponent, { size: 'xl' });
   }
 
-  viewInquiry() {
-    let viewInq = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
+  viewInquiry(data: any) {
+    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl', backdrop: false });
+    viewInq.componentInstance.data = data
+    viewInq.result.then(result => {
+      console.log(result)
+    })
   }
 }

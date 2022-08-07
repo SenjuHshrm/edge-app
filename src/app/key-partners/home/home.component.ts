@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -46,14 +47,19 @@ export class HomeComponent implements OnInit {
     // this.status = (window.innerWidth > 767) ? false : true
   }
 
-  constructor(private router: Router) {}
+  constructor(private user: UserService) {}
 
   ngOnInit(): void {
     this.showToggle = window.innerWidth <= 767 ? true : false;
   }
 
   logout(e: any): void {
-    this.router.navigateByUrl('/key-partners/login');
+    this.user.logout().subscribe({
+      next: (res) => {
+        localStorage.removeItem('ACCESS')
+        window.location.href = '/key-partners/login'
+      }
+    })
   }
 
   clickEvent() {

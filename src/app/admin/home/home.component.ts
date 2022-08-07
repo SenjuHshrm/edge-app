@@ -67,8 +67,8 @@ export class HomeComponent implements OnInit {
   logout(e: any): void {
     this.user.logout().subscribe({
       next: (res) => {
-        localStorage.removeItem('ACCESS');
-        this.router.navigateByUrl('/admin/login');
+        localStorage.removeItem('ACCESS')
+        window.location.href = '/admin/login'
       },
       error: (err) => {
         console.log(err);

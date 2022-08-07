@@ -18,6 +18,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { CreateItemComponent } from './modals/create-item/create-item.component';
 import { CreateBundleComponent } from './modals/create-bundle/create-bundle.component';
 import { ClassificationUpdateComponent } from './modals/codes-update/classification-update/classification-update.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ClassificationUpdateComponent } from './modals/codes-update/classificat
     CreateBundleComponent,
     ClassificationUpdateComponent,
   ],
-  imports: [CommonModule, FormsModule, NgApexchartsModule],
+  imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [
     ButtonComponent,
     InputComponent,
@@ -52,7 +53,7 @@ import { ClassificationUpdateComponent } from './modals/codes-update/classificat
     CreateBookingComponent,
     CreateCustomerComponent,
     BarChartComponent,
-    LineChartComponent,
+    LineChartComponent
   ],
 })
 export class ComponentsModule {}
