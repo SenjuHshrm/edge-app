@@ -4,7 +4,6 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import jwtDecode from 'jwt-decode';
 import address from 'src/assets/address';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-create-customer',
@@ -103,12 +102,9 @@ export class CreateCustomerComponent implements OnInit {
   changeBrgys(str: string): void {
     this.brgys = [];
     let prov = this.customer.addr.province;
-    _.forEach(address[prov as keyof typeof address], (value, key) => {
-      _.forEach(value[str as keyof typeof value], (items: any, key) => {
-        items.map((brgy: any) => {
-          this.brgys.push(brgy);
-        });
-      });
+    let provs: any = address[prov as keyof typeof address].municipality_list;
+    provs[str].barangay_list.map((brgy: any) => {
+      this.brgys.push(brgy);
     });
   }
 }
