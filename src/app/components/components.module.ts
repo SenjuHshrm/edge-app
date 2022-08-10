@@ -19,6 +19,7 @@ import { CreateItemComponent } from './modals/create-item/create-item.component'
 import { CreateBundleComponent } from './modals/create-bundle/create-bundle.component';
 import { ClassificationUpdateComponent } from './modals/codes-update/classification-update/classification-update.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { UpdateCustomerComponent } from './modals/codes-update/update-customer/update-customer.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PipesModule } from '../pipes/pipes.module';
     CreateItemComponent,
     CreateBundleComponent,
     ClassificationUpdateComponent,
+    UpdateCustomerComponent,
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [

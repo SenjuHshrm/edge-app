@@ -1,5 +1,5 @@
 <div class="container p-4">
-  <h4 class="h4 h4-responsive mb-4">Create New Customer</h4>
+  <h4 class="h4 h4-responsive mb-4">Create New data</h4>
   <form (submit)="saveCustomer($event)">
     <div class="card shadow px-3 py-3">
       <div class="card-shadow">
@@ -13,7 +13,7 @@
               class="form-control"
               id="name"
               name="name"
-              [(ngModel)]="customer.name"
+              [(ngModel)]="data.name"
             />
           </div>
         </div>
@@ -25,14 +25,15 @@
               >
               <select
                 class="form-select"
-                [(ngModel)]="customer.addr.province"
+                [(ngModel)]="data.addr.province"
                 name="province"
-                (change)="changeCities(customer.addr.province)"
+                (change)="changeCities(data.addr.province)"
               >
                 <option value="">SELECT PROVINCE</option>
                 <option
                   *ngFor="let province of provinces; let i = index"
                   [value]="province"
+                  [selected]="province === data.addr.province"
                 >
                   {{ province }}
                 </option>
@@ -44,14 +45,15 @@
               >
               <select
                 class="form-select"
-                [(ngModel)]="customer.addr.city"
+                [(ngModel)]="data.addr.city"
                 name="city"
-                (change)="changeBrgys(customer.addr.city)"
+                (change)="changeBrgys(data.addr.city)"
               >
                 <option value="">SELECT CITY</option>
                 <option
                   *ngFor="let city of cities; let i = index"
                   [value]="city"
+                  [selected]="city === data.addr.city"
                 >
                   {{ city }}
                 </option>
@@ -65,13 +67,14 @@
               >
               <select
                 class="form-select"
-                [(ngModel)]="customer.addr.brgy"
+                [(ngModel)]="data.addr.brgy"
                 name="brgy"
               >
                 <option value="">SELECT CITY</option>
                 <option
                   *ngFor="let brgy of brgys; let i = index"
                   [value]="brgy"
+                  [selected]="brgy === data.addr.brgy"
                 >
                   {{ brgy }}
                 </option>
@@ -79,15 +82,15 @@
             </div>
             <div class="me-1 flex-grow-1">
               <div class="form-group">
-                <label class="fw-bold m-0 p-0 text-capitalize" for="province"
+                <label class="fw-bold m-0 p-0 text-capitalize" for="hsStNum"
                   >House No./Street</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  id="name"
-                  name="name"
-                  [(ngModel)]="customer.addr.hsStNum"
+                  id="hsStNum"
+                  name="hsStNum"
+                  [(ngModel)]="data.addr.hsStNum"
                 />
               </div>
             </div>
@@ -103,7 +106,7 @@
               class="form-control"
               id="contact"
               name="contact"
-              [(ngModel)]="customer.contact"
+              [(ngModel)]="data.contact"
             />
           </div>
         </div>
@@ -117,7 +120,7 @@
               class="form-control"
               id="email"
               name="email"
-              [(ngModel)]="customer.email"
+              [(ngModel)]="data.email"
             />
           </div>
         </div>

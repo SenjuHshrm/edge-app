@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
-import { CustomerService } from 'src/app/services/customer.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import jwtDecode from 'jwt-decode';
-import address from 'src/assets/address';
 import * as _ from 'lodash';
+import { CustomerService } from 'src/app/services/customer.service';
+import address from 'src/assets/address';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-create-customer',
-  templateUrl: './create-customer.component.html',
-  styleUrls: ['./create-customer.component.scss'],
+  selector: 'app-update-customer',
+  templateUrl: './update-customer.component.html',
+  styleUrls: ['./update-customer.component.scss'],
 })
-export class CreateCustomerComponent implements OnInit {
+export class UpdateCustomerComponent implements OnInit {
+  @Input() data: any;
+
   public provinces: string[] = [];
   public cities: string[] = [];
   public brgys: string[] = [];
@@ -35,26 +37,27 @@ export class CreateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data);
     Object.keys(address).forEach((e) => {
       this.provinces.push(e);
     });
+    this.changeCities(this.data.addr.province);
+    this.changeBrgys(this.data.addr.city);
   }
 
   saveCustomer(evt: any) {
     evt.preventDefault();
     if (this.validateCustomer(evt.target)) {
-      let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-      this.customer.keyPartnerId = token.sub;
-      this.custServ.create(this.customer).subscribe((res) => {
+      this.custServ.update(this.data, this.data._id).subscribe((res) => {
         if (res.success) {
           Swal.fire({
-            title: 'New Customer has been added.',
+            title: 'Customer has been updated.',
             icon: 'success',
           });
           this.mdCtrl.close({ success: true });
         } else {
           Swal.fire({
-            title: 'Failed to create a new Customer',
+            title: 'Failed to update the Customer',
             icon: 'warning',
           });
         }
@@ -64,18 +67,18 @@ export class CreateCustomerComponent implements OnInit {
 
   validateCustomer(data: any): boolean {
     let message = '';
-    if (this.customer.name === '') {
+    if (this.data.name === '') {
       message = 'Please enter fullname.';
     } else if (
-      this.customer.addr.brgy === '' ||
-      this.customer.addr.province === '' ||
-      this.customer.addr.city === '' ||
-      this.customer.addr.hsStNum === ''
+      this.data.addr.brgy === '' ||
+      this.data.addr.province === '' ||
+      this.data.addr.city === '' ||
+      this.data.addr.hsStNum === ''
     ) {
       message = 'Please complete the address details.';
-    } else if (this.customer.contact === '') {
+    } else if (this.data.contact === '') {
       message = 'Please enter contact.';
-    } else if (this.customer.email === '') {
+    } else if (this.data.email === '') {
       message = 'Please enter email.';
     }
 
@@ -102,7 +105,7 @@ export class CreateCustomerComponent implements OnInit {
 
   changeBrgys(str: string): void {
     this.brgys = [];
-    let prov = this.customer.addr.province;
+    let prov = this.data.addr.province;
     _.forEach(address[prov as keyof typeof address], (value, key) => {
       _.forEach(value[str as keyof typeof value], (items: any, key) => {
         items.map((brgy: any) => {

@@ -13,24 +13,34 @@
       <div class="d-flex align-items-center">
         <div class="me-2 flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search"
+              name="search"
+              [(ngModel)]="search"
+            />
             <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
         <div class="me-2">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Search by:</option>
-            <option value="1">Email</option>
-            <option value="2">Name</option>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="search"
+            [(ngModel)]="category"
+          >
+            <option value="email" selected>Email</option>
+            <option value="name">Name</option>
           </select>
         </div>
-        <button class="btn btn-dark">Go</button>
+        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
       </div>
     </div>
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
-      <div class="table-responsive">
+      <div>
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light">
             <tr>
@@ -42,41 +52,60 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let table of tableDatas">
-              <td class="text-truncate px-1">Juan Dela Cruz</td>
-              <td class="text-truncate px-1">San Pablo City, Laguna</td>
-              <td class="text-truncate px-1">09512345678</td>
-              <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
+            <ng-template
+              [ngIf]="handlePagination(customers, page, size).length === 0"
+            >
+              <tr>
+                <td colspan="5">No Customer Record found.</td>
+              </tr>
+            </ng-template>
+            <ng-template
+              [ngIf]="handlePagination(customers, page, size).length !== 0"
+            >
+              <tr *ngFor="let item of handlePagination(customers, page, size)">
+                <td class="text-truncate px-1">{{ item.name }}</td>
+                <td class="text-truncate px-1 text-capitalize">
+                  {{ fullAddress(item.addr) }}
+                </td>
+                <td class="text-truncate px-1">{{ item.contact }}</td>
+                <td class="text-truncate px-1">{{ item.email }}</td>
 
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Update Record
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Delete Record
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="updateCustomer(item)"
+                        >
+                          Update Record
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="deleteCustomer(item._id)"
+                        >
+                          Delete Record
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
@@ -85,13 +114,33 @@
   <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
+        <button
+          type="button"
+          class="page-link custom-pagination-label"
+          [disabled]="page <= 1"
+          (click)="handlePage('previous')"
+        >
+          Previous
+        </button>
       </li>
       <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
+        <button
+          class="page-link custom-pagination-label"
+          type="button"
+          disabled
+        >
+          {{ page + " of " + totalpage }}
+        </button>
       </li>
       <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
+        <button
+          type="button"
+          class="page-link custom-pagination-label"
+          [disabled]="page >= totalpage"
+          (click)="handlePage('next')"
+        >
+          Next
+        </button>
       </li>
     </ul>
   </nav>
