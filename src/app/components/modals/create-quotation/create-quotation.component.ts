@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-create-quotation',
@@ -6,17 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-quotation.component.scss'],
 })
 export class CreateQuotationComponent implements OnInit {
-  public quotations = [
-    {
-      item: '',
-      unitPrice: '',
-      quantity: '',
-    },
-  ];
+
+  @Input() public data: any = {}
+  public quotations: any = [];
+  public quoteData: any = {
+    itemId: '',
+    description: '',
+    unitPrice: '',
+    quantity: '',
+    markUp: '',
+    totalPrice: ''
+  }
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.data)
+  }
 
   handleNewItem() {
     this.quotations.push({
@@ -29,5 +35,9 @@ export class CreateQuotationComponent implements OnInit {
   handleSaveQuotation(e: any) {
     e.preventDefault();
     console.log(this.quotations);
+  }
+
+  addQuotation(item: any) {
+    console.log(item)
   }
 }

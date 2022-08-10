@@ -20,4 +20,8 @@ export class InquiryService {
     return this.http.get(`${environment.apiV1}/api/v1/get/inquiries/${token.sub}`)
   }
 
+  public getAllInquiries(): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/inquiries/all`)
+  }
+
 }

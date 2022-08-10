@@ -30,11 +30,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-truncate px-1">INQ-10258</td>
-              <td class="text-truncate px-1">Key Partner's Name</td>
-              <td class="text-truncate px-1">Key Partner's Company Name</td>
-              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+            <tr *ngFor="let inq of inqList">
+              <td class="text-truncate px-1">{{ inq.inqId }}</td>
+              <td class="text-truncate px-1">{{ inq.keyPartnerId.name }}</td>
+              <td class="text-truncate px-1">{{ inq.keyPartnerId.company }}</td>
+              <td class="text-truncate px-1">{{ inq.createdAt | customDate: 'MM/DD/YYYY, hh:mm:ss a' }}</td>
               <td>
                 <div class="dropdown">
                   <button
@@ -53,7 +53,7 @@
                     <li>
                       <button
                         class="dropdown-item text-sm"
-                        (click)="viewInquiry()"
+                        (click)="viewInquiry(inq)"
                       >
                         View Inquiry
                       </button>
@@ -61,7 +61,7 @@
                     <li>
                       <button
                         class="dropdown-item text-sm"
-                        (click)="createQuotation()"
+                        (click)="createQuotation(inq)"
                       >
                         Create Quotation
                       </button>

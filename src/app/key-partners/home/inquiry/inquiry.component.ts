@@ -39,7 +39,7 @@ export class InquiryComponent implements OnInit {
   }
 
   viewInquiry(data: any) {
-    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl', backdrop: false });
+    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
     viewInq.componentInstance.data = data
     viewInq.result.then(result => {
       console.log(result)

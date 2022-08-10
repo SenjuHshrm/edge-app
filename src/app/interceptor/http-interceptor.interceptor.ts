@@ -1,15 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
 
+  private requestAccess: boolean = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null)
+
   constructor(private user: UserService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let authReq = this.addAuthToken(req)
+    return next.handle(authReq)
+      .pipe(
+        catchError((e: HttpErrorResponse): Observable<any> => {
+          if(e instanceof HttpErrorResponse && e && e.status === 401) {
+            return this.handleUnauthorized(authReq, next)
+          }
+          return throwError(() => e)
+        })
+      )
+  }
+
+  private handleUnauthorized(req: HttpRequest<any>, next: HttpHandler) {
+    if(!this.requestAccess) {
+      this.requestAccess = true
+      this.refreshTokenSubject.next(null)
+      return this.user.requestNewToken().pipe(
+        switchMap((res) => {
+          this.requestAccess = false
+          localStorage.setItem('ACCESS', res.token)
+          this.refreshTokenSubject.next(res.token)
+          return next.handle(this.addAuthToken(req))
+        })
+      )
+    }
+    return this.refreshTokenSubject.pipe(
+      filter(token => token !== null),
+      take(1),
+      switchMap((token) => next.handle(this.addAuthToken(req)))
+    )
+  }
+
+  private addAuthToken(req: HttpRequest<any>): HttpRequest<any> {
     if(!req.headers.has('Content-Type')) {
       req = req.clone({
         setHeaders: {
@@ -17,27 +53,6 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
         }
       })
     }
-    req = this.addAuthToken(req)
-    return next.handle(req)
-      .pipe(
-        // map((e: HttpEvent<any>): any => {
-        //   return e;
-        // }),
-        catchError((e: HttpErrorResponse): Observable<any> => {
-          if(e && e.status === 401) {
-            this.user.requestNewToken().subscribe({
-              next: (res: any) => {
-                localStorage.setItem('ACCESS', res.token)
-                return next.handle(req)
-              }
-            })
-          }
-          return throwError(() => e)
-        })
-      )
-  }
-
-  private addAuthToken(req: HttpRequest<any>): HttpRequest<any> {
     let access: string | null = localStorage.getItem('ACCESS')
     if(!access) {
       return req

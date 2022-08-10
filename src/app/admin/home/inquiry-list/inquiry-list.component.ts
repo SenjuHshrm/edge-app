@@ -1,5 +1,6 @@
+import { InquiryService } from './../../../services/inquiry.service';
 import { ViewInquiryComponent } from './../../../components/modals/view-inquiry/view-inquiry.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 import { CreateQuotationComponent } from 'src/app/components/modals/create-quotation/create-quotation.component';
 
@@ -9,18 +10,31 @@ import { CreateQuotationComponent } from 'src/app/components/modals/create-quota
   styleUrls: ['./inquiry-list.component.scss'],
 })
 export class InquiryListComponent implements OnInit {
-  constructor(private mdCtrl: NgbModal) {}
 
-  ngOnInit(): void {}
+  public inqList: any = []
 
-  viewInquiry() {
-    let viewInq = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
-    viewInq.componentInstance.data = {};
+  constructor(
+    private mdCtrl: NgbModal,
+    private inq: InquiryService
+  ) {}
+
+  ngOnInit(): void {
+    this.inq.getAllInquiries().subscribe({
+      next: (res: any) => {
+        this.inqList = res.info
+      }
+    })
   }
 
-  createQuotation() {
-    let createQuote = this.mdCtrl.open(CreateQuotationComponent, {
+  viewInquiry(inq: any) {
+    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
+    viewInq.componentInstance.data = inq;
+  }
+
+  createQuotation(inq: any) {
+    let createQuote: NgbModalRef = this.mdCtrl.open(CreateQuotationComponent, {
       size: 'lg',
     });
+    createQuote.componentInstance.data = inq
   }
 }
