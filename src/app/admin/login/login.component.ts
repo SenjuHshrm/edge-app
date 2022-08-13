@@ -1,8 +1,8 @@
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Toast } from 'bootstrap'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+// import { Toast } from '@ng-bootstrap'
 
 @Component({
   selector: 'app-login',
@@ -11,9 +11,9 @@ import { Toast } from 'bootstrap'
 })
 export class LoginComponent implements OnInit {
 
-  public cred: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+  public cred: UntypedFormGroup = new UntypedFormGroup({
+    username: new UntypedFormControl('', [Validators.required, Validators.minLength(6)]),
+    password: new UntypedFormControl('', [Validators.required, Validators.minLength(6)])
   });
   public isLoading: boolean = false;
 
