@@ -1,4 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+
 .img-container {
   width: 17em;
   max-height: 20em;
+}
+
+.custom-section-size {
+  min-height: 100vh;
+  height: fit-content;
+  font-family: "Open Sans", sans-serif;
+}
+
+.custom-header-container {
+  background-image: url("/assets/images/landingpage/header/BG.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.custom-about-container {
+  background-image: radial-gradient(circle, red, white, white);
+}
+
+.custom-header-image {
+  img {
+    width: 40rem;
+    height: auto;
+  }
+}
+
+.custom-header-paragraph {
+  p {
+    width: 75%;
+  }
+}
+
+.custom-about-container {
 }
