@@ -11,9 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  { path: 'key-partners', loadChildren: () => import('./key-partners/key-partners.module').then(m => m.KeyPartnersModule) },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-  { path: 'su', loadChildren: () => import('./su/su.module').then(m => m.SuModule) }
+  {
+    path: 'key-partners',
+    loadChildren: () => import('./key-partners/key-partners.module').then(m => m.KeyPartnersModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'su',
+    loadChildren: () => import('./su/su.module').then(m => m.SuModule)
+  }
 ];
 
 @NgModule({

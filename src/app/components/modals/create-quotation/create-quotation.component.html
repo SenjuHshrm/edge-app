@@ -6,8 +6,8 @@
         <div class="w-50 h-50 d-flex flex-column justify-content-start align-items-start">
           <div class="form-group w-75">
             <label for="item" class="fs-6 fw-bold">Select Item</label>
-            <select class="form-select" [(ngModel)]="quoteData.itemId">
-              <option *ngFor="let i of data.items" [value]="i._id">{{ i.description }}</option>
+            <select class="form-select" [(ngModel)]="quoteData.itemId" (change)="displayInfo(quoteData.itemId)">
+              <option *ngFor="let i of items" [value]="i._id">{{ i.description }}</option>
             </select>
           </div>
           <div class="form-group w-75">
@@ -16,23 +16,44 @@
           </div>
           <div class="form-group w-75">
             <label for="quantity" class="fs-6 fw-bold">Quantity</label>
-            <input type="number" class="form-control" name="quantity" [(ngModel)]="quoteData.quantity" />
+            <input type="number" class="form-control" name="quantity" [(ngModel)]="quoteData.quantity" (input)="computeTotalPrice()" />
           </div>
           <div class="form-group w-75">
             <label for="units" class="fs-6 fw-bold">Units</label>
-            <input type="text" class="form-control" name="units" [(ngModel)]="quoteData.unitPrice" />
+            <input type="text" class="form-control" name="units" [(ngModel)]="quoteData.unitPrice" (input)="computeTotalPrice()" />
           </div>
-          <div class="form-group w-75">
-            <label for="units" class="fs-6 fw-bold">Mark Up</label>
-            <input type="text" class="form-control" name="units" [(ngModel)]="quoteData.markUp" />
+          <div>
+            <p *ngIf="quoteData.totalPrice !== ''">Total price: P {{ quoteData.totalPrice }}</p>
           </div>
           <br />
           <button type="button" class="btn btn-primary w-75" (click)="addQuotation(quoteData)">Add</button>
         </div>
         <div class="w-50 h-50 d-flex flex-row justify-content-center align-items-start">
-
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Item Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Units</th>
+                <th scope="col">Total Price</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let quote of quotations; let i=index">
+                <td>{{ quote.description }}</td>
+                <td>{{ quote.quantity }}</td>
+                <td>{{ quote.unitPrice }}</td>
+                <td>{{ quote.totalPrice }}</td>
+                <th scope="row"><i class="bi bi-x-lg text-danger" (click)="removeFromList(i)"></i></th>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-dark" (click)="handleSaveQuotation($event)">Save</button>
     </div>
   </div>
 </div>

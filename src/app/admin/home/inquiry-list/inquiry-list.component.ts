@@ -33,7 +33,7 @@ export class InquiryListComponent implements OnInit {
 
   createQuotation(inq: any) {
     let createQuote: NgbModalRef = this.mdCtrl.open(CreateQuotationComponent, {
-      size: 'lg',
+      size: 'xl',
     });
     createQuote.componentInstance.data = inq
   }
