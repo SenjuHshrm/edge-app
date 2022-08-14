@@ -1,5 +1,5 @@
 <div class="container">
-  <h4 class="h4 h4-responsive pt-4 pb-3">Create New Item</h4>
+  <h4 class="h4 h4-responsive pt-4 pb-3">Update Item</h4>
 
   <form (submit)="saveData($event)">
     <div class="card shadow px-1 mb-3">
@@ -13,7 +13,7 @@
               <select
                 class="form-select text-lowercase"
                 name="keyPartner"
-                [(ngModel)]="data.keyPartnerId"
+                [(ngModel)]="itemData.keyPartnerId"
               >
                 <option
                   *ngFor="let item of keyPartners"
@@ -34,7 +34,7 @@
                   class="form-control"
                   id="item"
                   name="itemName"
-                  [(ngModel)]="data.desc"
+                  [(ngModel)]="itemData.desc"
                 />
               </div>
               <div class="mb-2">
@@ -42,7 +42,7 @@
                   >Type Code</label
                 >
                 <input
-                  [(ngModel)]="data.code"
+                  [(ngModel)]="itemData.code"
                   minlength="2"
                   maxlength="2"
                   type="text"
@@ -66,7 +66,7 @@
               <select
                 class="form-select text-lowercase"
                 name="classification"
-                [(ngModel)]="data.classification"
+                [(ngModel)]="itemData.classification"
               >
                 <option
                   *ngFor="let item of classification"
@@ -85,7 +85,7 @@
               <select
                 class="form-select text-lowercase"
                 name="color"
-                [(ngModel)]="data.color"
+                [(ngModel)]="itemData.color"
               >
                 <option
                   *ngFor="let item of color"
@@ -98,7 +98,11 @@
             </div>
             <div class="mb-2">
               <label for="size" class="form-label fw-bold m-0 p-0">Sizes</label>
-              <select class="form-select" name="size" [(ngModel)]="data.size">
+              <select
+                class="form-select"
+                name="size"
+                [(ngModel)]="itemData.size"
+              >
                 <option
                   *ngFor="let item of size"
                   [value]="item._id"
@@ -118,7 +122,7 @@
                 >Quantity</label
               >
               <input
-                [(ngModel)]="data.quantity"
+                [(ngModel)]="itemData.quantity"
                 type="text"
                 class="form-control"
                 id="quantity"
@@ -134,7 +138,7 @@
                 class="form-control"
                 id="price"
                 name="price"
-                [(ngModel)]="data.price"
+                [(ngModel)]="itemData.price"
               />
             </div>
           </div>
