@@ -1,4 +1,6 @@
+import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
+import { KeyPartnerService } from 'src/app/services/key-partner.service';
 
 @Component({
   selector: 'app-acct-request',
@@ -6,9 +8,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./acct-request.component.scss'],
 })
 export class AcctRequestComponent implements OnInit {
-  tableDatas: any = [, , , , , , , ,];
+  
+  public keyPartners: any = []
 
-  constructor() {}
+  constructor(
+    private kp: KeyPartnerService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.kp.getKeyPartnerForApproval().subscribe({
+      next: (res: any) => {
+        res.info.forEach((x: any) => {
+          this.keyPartners.push(x)
+        })
+        console.log(this.keyPartners)
+      },
+      error: (e: any) => {
+        console.log(e)
+      }
+    })
+  }
+
+  approveKeyPartner(id: string) {
+    this.kp.approveKeyPartner(id).subscribe({
+      next: (res: any) => {
+        Swal.fire('Success', res.msg, 'success')
+          .then((result: any) => {
+            let i = this.keyPartners.findIndex((x: any) => x._id === id)
+            this.keyPartners.splice(i, 1)
+          })
+      },
+      error: (e: any) => {
+        console.log(e)
+      }
+    })
+  }
 }

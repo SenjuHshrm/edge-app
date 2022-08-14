@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators, UntypedFormGroup } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Login } from 'src/app/interfaces/login';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,9 +10,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  public cred: UntypedFormGroup = new UntypedFormGroup({
-    username: new UntypedFormControl('', [Validators.required, Validators.minLength(6)]),
-    password: new UntypedFormControl('', [Validators.required, Validators.minLength(6)])
+  public cred: FormGroup<Login> = new FormGroup<Login>({
+    username: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(private user: UserService) {}

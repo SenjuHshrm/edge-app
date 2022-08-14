@@ -26,7 +26,6 @@
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light">
             <tr>
-              <th scope="col" class="text-truncate px-1">ID</th>
               <th scope="col" class="text-truncate px-1">Name</th>
               <th scope="col" class="text-truncate px-1">Address</th>
               <th scope="col" class="text-truncate px-1">Contact Number</th>
@@ -37,20 +36,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let table of tableDatas; let i = index">
-              <th class="text-truncate px-1" scope="row">1</th>
-              <td class="text-truncate px-1">Juan Dela Cruz</td>
-              <td class="text-truncate px-1">San Pablo City, Laguna</td>
-              <td class="text-truncate px-1">09516022352</td>
-              <td class="text-truncate px-1">juan.delcruz@gmail.com</td>
-              <td class="text-truncate px-1">Dela Cruz Bakery Store</td>
+            <tr *ngFor="let i of keyPartners">
+              <td class="text-truncate px-1">{{ i.name }}</td>
+              <td class="text-truncate px-1">{{ i.addr }}</td>
+              <td class="text-truncate px-1">{{ i.contact }}</td>
+              <td class="text-truncate px-1">{{ i.email }}</td>
+              <td class="text-truncate px-1">{{ i.company }}</td>
               <td>
-                <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
+                <span class="{{ (i.isActivated) ? 'badge badge-pill bg-success' : 'badge badge-pill bg-danger' }}">{{ (i.isActivated) ? 'Active' : 'Inactive' }}</span>
+                <!-- <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
                   >Active</span
                 >
                 <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
                   >Inactive</span
-                >
+                > -->
               </td>
               <td>
                 <div class="dropdown">
@@ -68,7 +67,7 @@
                     aria-labelledby="dropdownMenuButton2"
                   >
                     <li>
-                      <button class="dropdown-item text-sm">
+                      <button class="dropdown-item text-sm" (click)="setPassword(i._id)">
                         Change Password
                       </button>
                     </li>
@@ -78,7 +77,7 @@
                       </button>
                     </li>
                     <li>
-                      <button class="dropdown-item text-sm">Set Status</button>
+                      <button class="dropdown-item text-sm" (click)="setActiveStatus(i._id, i.isActivated)">{{ (i.isActivated) ? 'Set Inactive' : 'Set Active' }}</button>
                     </li>
                     <li></li>
                     <li>

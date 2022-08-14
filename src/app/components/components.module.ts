@@ -22,6 +22,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { UpdateCustomerComponent } from './modals/codes-update/update-customer/update-customer.component';
 import { ViewItemComponent } from './modals/inventory/view-item/view-item.component';
 import { UpdateItemComponent } from './modals/inventory/update-item/update-item.component';
+import { SetKeypartnerPasswordComponent } from './modals/set-keypartner-password/set-keypartner-password.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UpdateItemComponent } from './modals/inventory/update-item/update-item.
     UpdateCustomerComponent,
     ViewItemComponent,
     UpdateItemComponent,
+    SetKeypartnerPasswordComponent
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [
@@ -59,7 +61,8 @@ import { UpdateItemComponent } from './modals/inventory/update-item/update-item.
     CreateBookingComponent,
     CreateCustomerComponent,
     BarChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    SetKeypartnerPasswordComponent
   ],
 })
 export class ComponentsModule {}

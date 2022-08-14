@@ -24,4 +24,9 @@ export class UserService {
   getKeyPartners(): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-key-partners`);
   }
+  
+  registerKeyPartner(data: any): Observable<any> {
+    return this.http.post(`${environment.apiV1}/api/v1/post/register`, data)
+  }
+
 }
