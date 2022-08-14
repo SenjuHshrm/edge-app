@@ -46,32 +46,41 @@
       <div class="d-flex align-items-center">
         <div class="me-2 flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search"
+              [(ngModel)]="search"
+            />
             <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
         <div class="me-2">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Search by:</option>
-            <option value="1">Description</option>
-            <option value="2">Code</option>
-            <option value="3">SKU Number</option>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="category"
+            [(ngModel)]="category"
+          >
+            <option value="description">Description</option>
+            <option value="email">Key Partners Email</option>
+            <option value="sku">SKU Number</option>
           </select>
         </div>
-        <button class="btn btn-dark">Go</button>
+        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
       </div>
     </div>
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold mb-4">Inventory Items</h4>
-      <div class="table-responsive">
+      <div>
         <table class="hoverable table table-hover text-center">
           <thead>
             <tr>
               <th class="text-truncate px-1">Date</th>
-              <th class="text-truncate px-1">Item Name</th>
               <th class="text-truncate px-1">Description</th>
+              <th class="text-truncate px-1">Classification</th>
               <th class="text-truncate px-1">SKU Number</th>
               <th class="text-truncate px-1">Quantity</th>
               <th class="text-truncate px-1">Price/Unit</th>
@@ -82,65 +91,118 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of tableData">
-              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
-              <td class="text-truncate px-1">Basin</td>
-              <td class="text-truncate px-1">Appliances</td>
-              <td class="text-truncate px-1">EC-AP-NA-000-000-00001</td>
-              <td class="text-truncate px-1">1</td>
-              <td class="text-truncate px-1">₱ 180.00</td>
-              <td class="text-truncate px-1">Black</td>
-              <td class="text-truncate px-1">sm, md, lg, xl</td>
-              <td class="text-truncate px-1">
-                Key Partners Company Name - Key Partner's Email
-              </td>
+            <ng-template [ngIf]="items === 0">
+              <tr>
+                <td colspan="5">No Customer Record found.</td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="items !== 0">
+              <tr *ngFor="let data of handlePagination(items, page, size)">
+                <td class="text-truncate px-1">
+                  {{ handleDate(data.createdAt) }}
+                </td>
+                <td class="text-truncate px-1">{{ data.desc }}</td>
+                <td class="text-truncate px-1">
+                  {{ data.classification.name }}
+                </td>
+                <td class="text-truncate px-1">{{ data.sku }}</td>
+                <td class="text-truncate px-1">
+                  {{ data.movingInv?.quantity }}
+                </td>
+                <td class="text-truncate px-1">
+                  ₱ {{ data.movingInv?.price }}
+                </td>
+                <td class="text-truncate px-1">{{ data.color?.name }}</td>
+                <td class="text-truncate px-1">{{ data.size?.name }}</td>
+                <td class="text-truncate px-1">
+                  {{
+                    data.keyPartnerId?.name + " - " + data.keyPartnerId?.email
+                  }}
+                </td>
 
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">View Item</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Update Item</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Delete Item</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="viewItem(data)"
+                        >
+                          View Item
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="updateItem(data)"
+                        >
+                          Update Item
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="deleteItem(data._id)"
+                        >
+                          Delete Item
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
+      <nav class="d-flex justify-content-end mt-4">
+        <ul class="pagination">
+          <li class="page-item">
+            <button
+              type="button"
+              class="page-link custom-pagination-label"
+              [disabled]="page <= 1"
+              (click)="handlePage('previous')"
+            >
+              Previous
+            </button>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <button
+              class="page-link custom-pagination-label"
+              type="button"
+              disabled
+            >
+              {{ page + " of " + totalpage }}
+            </button>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <button
+              type="button"
+              class="page-link custom-pagination-label"
+              [disabled]="page >= totalpage"
+              (click)="handlePage('next')"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
+
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold mb-4">Defective Items</h4>
@@ -149,8 +211,8 @@
           <thead>
             <tr>
               <th class="text-truncate px-1">Date</th>
-              <th class="text-truncate px-1">Item Name</th>
               <th class="text-truncate px-1">Description</th>
+              <th class="text-truncate px-1">Classification</th>
               <th class="text-truncate px-1">SKU Number</th>
               <th class="text-truncate px-1">Quantity</th>
               <th class="text-truncate px-1">Price/Unit</th>

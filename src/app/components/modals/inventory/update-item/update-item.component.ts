@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { UserService } from 'src/app/services/user.service';
 import { InventoryService } from 'src/app/services/inventory.service';
@@ -6,18 +6,19 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-create-item',
-  templateUrl: './create-item.component.html',
-  styleUrls: ['./create-item.component.scss'],
+  selector: 'app-update-item',
+  templateUrl: './update-item.component.html',
+  styleUrls: ['./update-item.component.scss'],
 })
-export class CreateItemComponent implements OnInit {
-  public active: string = 'individual';
+export class UpdateItemComponent implements OnInit {
+  @Input() public data: any;
+
   public classification: any = [];
   public color: any = [];
   public size: any = [];
   public keyPartners: any = [];
 
-  public data = {
+  public itemData = {
     keyPartnerId: '',
     desc: '',
     code: '',
@@ -26,6 +27,9 @@ export class CreateItemComponent implements OnInit {
     size: '',
     quantity: '',
     price: '',
+    sequence: '',
+    codeName: '',
+    codeId: '',
   };
 
   constructor(
@@ -51,18 +55,35 @@ export class CreateItemComponent implements OnInit {
         this.keyPartners = res.info;
       }
     });
+
+    this.itemData.keyPartnerId = this.data.keyPartnerId._id;
+    this.itemData.desc = this.data.desc;
+    this.itemData.code = this.data.code.code;
+    this.itemData.classification = this.data.classification._id;
+    this.itemData.color = this.data.color._id;
+    this.itemData.size = this.data.size._id;
+    this.itemData.quantity = this.data.movingInv.quantity;
+    this.itemData.price = this.data.movingInv.price;
+    this.itemData.sequence = this.data.sequence;
+    this.itemData.codeName = this.data.code.code;
+    this.itemData.codeId = this.data.code._id;
   }
 
   saveData(evt: any) {
     evt.preventDefault();
-    if (this.validateData(this.data)) {
-      this.invServ.create(this.data).subscribe((res) => {
+    if (this.validateData(this.itemData)) {
+      this.invServ.update(this.itemData, this.data._id).subscribe((res) => {
         if (res.success) {
           Swal.fire({
-            title: 'Item has been added successfully.',
+            title: 'Item has been updated.',
             icon: 'success',
           });
           this.mdCtrl.close({ success: true });
+        } else {
+          Swal.fire({
+            title: 'Failed to update the item.',
+            icon: 'warning',
+          });
         }
       });
     }

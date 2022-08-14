@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="card px-3 my-3 shadow">
+    <div class="card-body">
+      <h4>View Item</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>Date:</th>
+            <td>{{ handleDate(data.createdAt) }}</td>
+          </tr>
+          <tr>
+            <th>Description:</th>
+            <td>{{ data.desc }}</td>
+          </tr>
+          <tr>
+            <th>Classification:</th>
+            <td>{{ data.classification?.name }}</td>
+          </tr>
+          <tr>
+            <th>SKU Number:</th>
+            <td>{{ data.sku }}</td>
+          </tr>
+          <tr>
+            <th>Size:</th>
+            <td>{{ data.size?.name }}</td>
+          </tr>
+          <tr>
+            <th>Key Partners:</th>
+            <td>
+              {{ data.keyPartnerId?.name + " - " + data.keyPartnerId?.email }}
+            </td>
+          </tr>
+          <tr>
+            <th>Quantity:</th>
+            <td>{{ data.movingInv?.quantity }}</td>
+          </tr>
+          <tr>
+            <th>Price / Unit:</th>
+            <td>₱ {{ handleMoney(data.movingInv?.price) }}</td>
+          </tr>
+          <tr>
+            <th>Total Price:</th>
+            <td>₱ {{ handleMoney(data.movingInv?.totalAmt) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,8 @@ import { CreateBundleComponent } from './modals/create-bundle/create-bundle.comp
 import { ClassificationUpdateComponent } from './modals/codes-update/classification-update/classification-update.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { UpdateCustomerComponent } from './modals/codes-update/update-customer/update-customer.component';
+import { ViewItemComponent } from './modals/inventory/view-item/view-item.component';
+import { UpdateItemComponent } from './modals/inventory/update-item/update-item.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { UpdateCustomerComponent } from './modals/codes-update/update-customer/u
     CreateBundleComponent,
     ClassificationUpdateComponent,
     UpdateCustomerComponent,
+    ViewItemComponent,
+    UpdateItemComponent,
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [
