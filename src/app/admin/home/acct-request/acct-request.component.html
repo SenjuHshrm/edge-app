@@ -26,7 +26,6 @@
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light">
             <tr>
-              <th scope="col" class="px-1 text-truncate">ID</th>
               <th scope="col" class="px-1 text-truncate">Name</th>
               <th scope="col" class="px-1 text-truncate">Address</th>
               <th scope="col" class="px-1 text-truncate">Contact Number</th>
@@ -36,13 +35,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let table of tableDatas">
-              <th class="px-1 text-truncate" scope="row">1</th>
-              <td class="px-1 text-truncate">Juan Dela Cruz</td>
-              <td class="px-1 text-truncate">San Pablo City, Laguna</td>
-              <td class="px-1 text-truncate">09516022352</td>
-              <td class="px-1 text-truncate">juan.delcruz@gmail.com</td>
-              <td class="px-1 text-truncate">Dela Cruz Bakery Store</td>
+            <tr *ngFor="let i of keyPartners">
+              <td class="px-1 text-truncate">{{ i.name }}</td>
+              <td class="px-1 text-truncate">{{ i.addr }}</td>
+              <td class="px-1 text-truncate">{{ i.contact }}</td>
+              <td class="px-1 text-truncate">{{ i.email }}</td>
+              <td class="px-1 text-truncate">{{ i.company }}</td>
               <td>
                 <div class="dropdown">
                   <button
@@ -59,7 +57,7 @@
                     aria-labelledby="dropdownMenuButton2"
                   >
                     <li>
-                      <button class="dropdown-item text-sm">Approve</button>
+                      <button class="dropdown-item text-sm" (click)="approveKeyPartner(i._id)">Approve</button>
                     </li>
                     <li>
                       <button class="dropdown-item text-sm">Reject</button>
@@ -73,7 +71,7 @@
       </div>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
+  <!-- <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -85,5 +83,5 @@
         <a class="page-link custom-pagination-label" href="#">Next</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="h1 h1-responsive my-3 py-3">Create an Account</h1>
   <div class="col-md-8 offset-md-2">
-    <form>
+    <form [formGroup]="registerForm" (submit)="register($event, registerForm)">
       <div class="form-floating my-4 w-100">
         <input
           type="text"
@@ -16,7 +16,7 @@
         <input
           type="text"
           class="form-control"
-          formControlName="address"
+          formControlName="addr"
           placeholder="Address:"
           name="address"
         />
@@ -26,7 +26,7 @@
         <input
           type="text"
           class="form-control"
-          formControlName="mobile"
+          formControlName="contact"
           placeholder="Contact Number:"
           name="mobile"
         />

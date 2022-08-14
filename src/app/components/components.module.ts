@@ -20,6 +20,7 @@ import { CreateBundleComponent } from './modals/create-bundle/create-bundle.comp
 import { ClassificationUpdateComponent } from './modals/codes-update/classification-update/classification-update.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { UpdateCustomerComponent } from './modals/codes-update/update-customer/update-customer.component';
+import { SetKeypartnerPasswordComponent } from './modals/set-keypartner-password/set-keypartner-password.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UpdateCustomerComponent } from './modals/codes-update/update-customer/u
     CreateBundleComponent,
     ClassificationUpdateComponent,
     UpdateCustomerComponent,
+    SetKeypartnerPasswordComponent,
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [
@@ -55,7 +57,8 @@ import { UpdateCustomerComponent } from './modals/codes-update/update-customer/u
     CreateBookingComponent,
     CreateCustomerComponent,
     BarChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    SetKeypartnerPasswordComponent
   ],
 })
 export class ComponentsModule {}
