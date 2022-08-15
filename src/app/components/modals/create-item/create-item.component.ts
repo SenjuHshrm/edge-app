@@ -62,7 +62,7 @@ export class CreateItemComponent implements OnInit {
             title: 'Item has been added successfully.',
             icon: 'success',
           });
-          this.mdCtrl.close({ success: true });
+          this.mdCtrl.close({ success: true, data: res.info });
         }
       });
     }
@@ -100,7 +100,7 @@ export class CreateItemComponent implements OnInit {
       message = 'Invalid quantity.';
     } else if (price === '') {
       message = 'Please enter the price.';
-    } else if (!/^[0-9]+$/i.test(price)) {
+    } else if (!/^[0-9]*\.?[0-9]*$/i.test(price)) {
       message = 'Invalid price.';
     }
 

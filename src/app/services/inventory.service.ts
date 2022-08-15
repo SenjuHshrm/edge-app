@@ -20,9 +20,22 @@ export class InventoryService {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-all-inventory`);
   }
 
+  getAllByKeyPartners(keyId: any): Observable<any> {
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/get-all-inventory-byKey/${keyId}`
+    );
+  }
+
   update(data: any, id: any): Observable<any> {
     return this.http.put(
       `${environment.apiV1}/api/v1/put/update-inventory/${id}`,
+      data
+    );
+  }
+
+  updateManyStatus(data: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/update-many-status`,
       data
     );
   }
