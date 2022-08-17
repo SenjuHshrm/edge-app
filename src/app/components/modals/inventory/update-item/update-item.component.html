@@ -18,7 +18,7 @@
                 <option
                   *ngFor="let item of keyPartners"
                   [value]="item._id"
-                  class="text-lowercase"
+                  class="text-capitalize"
                 >
                   {{ item.username + " - " + item.name }}
                 </option>
@@ -117,29 +117,75 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="mb-2">
-              <label for="quantity" class="form-label fw-bold m-0 p-0"
-                >Quantity</label
-              >
-              <input
-                [(ngModel)]="itemData.quantity"
-                type="text"
-                class="form-control"
-                id="quantity"
-                name="quantity"
-              />
+            <div class="d-flex align-items-center">
+              <div class="mb-2 me-2">
+                <label for="in" class="form-label fw-bold m-0 p-0">In</label>
+                <input
+                  [(ngModel)]="itemData.in"
+                  type="text"
+                  class="form-control"
+                  id="in"
+                  name="in"
+                />
+              </div>
+              <div class="mb-2 me-2 flex-grow-1">
+                <label for="out" class="form-label fw-bold m-0 p-0">Out</label>
+                <input
+                  [(ngModel)]="itemData.out"
+                  type="text"
+                  class="form-control"
+                  id="out"
+                  name="out"
+                />
+              </div>
+              <div class="mb-2 me-2 flex-grow-1">
+                <label for="rts" class="form-label fw-bold m-0 p-0">RTS</label>
+                <input
+                  [(ngModel)]="itemData.rts"
+                  type="text"
+                  class="form-control"
+                  id="rts"
+                  name="rts"
+                />
+              </div>
+              <div class="mb-2 flex-grow-1">
+                <label for="defective" class="form-label fw-bold m-0 p-0"
+                  >Defective</label
+                >
+                <input
+                  [(ngModel)]="itemData.defective"
+                  type="text"
+                  class="form-control"
+                  id="defective"
+                  name="defective"
+                />
+              </div>
             </div>
-            <div class="mb-2">
-              <label for="price" class="form-label fw-bold m-0 p-0"
-                >Price / Unit</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="price"
-                name="price"
-                [(ngModel)]="itemData.price"
-              />
+            <div class="d-flex">
+              <div class="mb-2 me-2 flex-grow-1">
+                <label for="currentQty" class="form-label fw-bold m-0 p-0"
+                  >Current Quantity</label
+                >
+                <input
+                  [(ngModel)]="itemData.currentQty"
+                  type="text"
+                  class="form-control"
+                  id="currentQty"
+                  name="currentQty"
+                />
+              </div>
+              <div class="mb-2 flex-grow-1">
+                <label for="price" class="form-label fw-bold m-0 p-0"
+                  >Price / Unit</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="price"
+                  name="price"
+                  [(ngModel)]="itemData.price"
+                />
+              </div>
             </div>
           </div>
         </div>

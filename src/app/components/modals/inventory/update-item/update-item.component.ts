@@ -25,7 +25,11 @@ export class UpdateItemComponent implements OnInit {
     classification: '',
     color: '',
     size: '',
-    quantity: '',
+    currentQty: '',
+    in: '',
+    out: '',
+    rts: '',
+    defective: '',
     price: '',
     sequence: '',
     codeName: '',
@@ -62,8 +66,14 @@ export class UpdateItemComponent implements OnInit {
     this.itemData.classification = this.data.classification._id;
     this.itemData.color = this.data.color._id;
     this.itemData.size = this.data.size._id;
-    this.itemData.quantity = this.data.movingInv.quantity;
-    this.itemData.price = this.data.movingInv.price;
+
+    this.itemData.in = this.data.in;
+    this.itemData.currentQty = this.data.currentQty;
+    this.itemData.out = this.data.out;
+    this.itemData.rts = this.data.rts;
+    this.itemData.defective = this.data.defective;
+
+    this.itemData.price = this.data.price;
     this.itemData.sequence = this.data.sequence;
     this.itemData.codeName = this.data.code.code;
     this.itemData.codeId = this.data.code._id;
@@ -78,7 +88,7 @@ export class UpdateItemComponent implements OnInit {
             title: 'Item has been updated.',
             icon: 'success',
           });
-          this.mdCtrl.close({ success: true });
+          this.mdCtrl.close({ success: true, data: res.info });
         } else {
           Swal.fire({
             title: 'Failed to update the item.',
@@ -97,7 +107,10 @@ export class UpdateItemComponent implements OnInit {
       classification,
       color,
       size,
-      quantity,
+      out,
+      rts,
+      defective,
+      currentQty,
       price,
     } = data;
 
@@ -115,13 +128,29 @@ export class UpdateItemComponent implements OnInit {
       message = 'Please select a color.';
     } else if (size === '') {
       message = 'Please select a size.';
-    } else if (quantity === '') {
-      message = 'Please enter the quantity';
-    } else if (!/^[0-9]+$/i.test(quantity)) {
-      message = 'Invalid quantity.';
+    } else if (data.in === '') {
+      message = 'Please enter in value.';
+    } else if (!/^[0-9]+$/i.test(data.in)) {
+      message = 'Invalid in value.';
+    } else if (out === '') {
+      message = 'Please enter out size.';
+    } else if (!/^[0-9]+$/i.test(out)) {
+      message = 'Invalid out value.';
+    } else if (rts === '') {
+      message = 'Please enter rts size.';
+    } else if (!/^[0-9]+$/i.test(rts)) {
+      message = 'Invalid rts value.';
+    } else if (defective === '') {
+      message = 'Please enter defective.';
+    } else if (!/^[0-9]+$/i.test(rts)) {
+      message = 'Invalid defective value.';
+    } else if (currentQty === '') {
+      message = 'Please enter the current quantity';
+    } else if (!/^[0-9]+$/i.test(currentQty)) {
+      message = 'Invalid current quantity.';
     } else if (price === '') {
       message = 'Please enter the price.';
-    } else if (!/^[0-9]+$/i.test(price)) {
+    } else if (!/^[0-9]*\.?[0-9]*$/i.test(price)) {
       message = 'Invalid price.';
     }
 
