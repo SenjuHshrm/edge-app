@@ -37,7 +37,7 @@ export class KeyPartnersComponent implements OnInit {
       return Swal.fire('Account is inactive', 'Activate the account first and try again', 'error')
     }
     let sp: NgbModalRef = this.md.open(SetKeypartnerPasswordComponent, { size: 'md' })
-    sp.componentInstance.props.id = id
+    sp.componentInstance.id = id
   }
 
   setActiveStatus(id: string, isActivated: boolean) {

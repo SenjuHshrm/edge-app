@@ -1,3 +1,5 @@
+import { KeyPartnerService } from 'src/app/services/key-partner.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -8,10 +10,26 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SetKeypartnerPasswordComponent implements OnInit {
 
   @Input() public id: string = ''
+  public characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789'
+  public password: string = ''
 
-  constructor() { }
+  constructor(private md: NgbModal, private kp: KeyPartnerService) { }
 
   ngOnInit(): void {
+    console.log(this.id)
+  }
+
+  randomPassword(ln: number) {
+    const chLn = this.characters.length
+    let res = ''
+    for(let i = 0; i < ln; i++) {
+      res += this.characters.charAt(Math.floor(Math.random() * chLn))
+    }
+    this.password = res
+  }
+
+  setPassword() {
+    
   }
 
 }
