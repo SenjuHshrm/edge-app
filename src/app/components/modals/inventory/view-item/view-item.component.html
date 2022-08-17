@@ -5,7 +5,7 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <th>Date:</th>
+            <th>Date In:</th>
             <td>{{ handleDate(data.createdAt) }}</td>
           </tr>
           <tr>
@@ -31,16 +31,38 @@
             </td>
           </tr>
           <tr>
-            <th>Quantity:</th>
-            <td>{{ data.movingInv?.quantity }}</td>
+            <th>Status:</th>
+            <td>{{ data.status }}</td>
+          </tr>
+          <tr>
+            <th>In:</th>
+            <td>{{ data.in }}</td>
+          </tr>
+          <tr>
+            <th>Out:</th>
+            <td>{{ data.out }}</td>
+          </tr>
+          <tr>
+            <th>RTS:</th>
+            <td>{{ data.rts }}</td>
+          </tr>
+          <tr>
+            <th>Defective:</th>
+            <td>{{ data.defective }}</td>
+          </tr>
+          <tr>
+            <th>Current Quantity:</th>
+            <td>{{ data.currentQty }}</td>
           </tr>
           <tr>
             <th>Price / Unit:</th>
-            <td>₱ {{ handleMoney(data.movingInv?.price) }}</td>
+            <td>₱ {{ handleMoney(data.price) }}</td>
           </tr>
           <tr>
             <th>Total Price:</th>
-            <td>₱ {{ handleMoney(data.movingInv?.totalAmt) }}</td>
+            <td>
+              ₱ {{ handleMoney(handleTotal(data.price, data.currentQty)) }}
+            </td>
           </tr>
         </tbody>
       </table>

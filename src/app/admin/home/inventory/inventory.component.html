@@ -28,12 +28,34 @@
           class="dropdown-menu dropdown-menu-light"
           aria-labelledby="dropdownMenuButton2"
         >
-          <li><button class="dropdown-item text-sm">View All Items</button></li>
-          <li><button class="dropdown-item text-sm">View In Items</button></li>
-          <li><button class="dropdown-item text-sm">View Out Items</button></li>
-          <li><button class="dropdown-item text-sm">View Balances</button></li>
           <li>
-            <button class="dropdown-item text-sm">
+            <button class="dropdown-item text-sm" (click)="handleSort('all')">
+              View All Items
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item text-sm" (click)="handleSort('in')">
+              View In Items
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item text-sm" (click)="handleSort('out')">
+              View Out Items
+            </button>
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-sm"
+              (click)="handleSort('balance')"
+            >
+              View Balances
+            </button>
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-sm"
+              (click)="handleSort('bestseller')"
+            >
               View Best Seller Items
             </button>
           </li>
@@ -73,11 +95,35 @@
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
-      <h4 class="h4 fw-bold mb-4">Inventory Items</h4>
+      <h4 class="h4 fw-bold">Inventory Items</h4>
+      <div class="d-flex align-items-center justify-content-end mb-4">
+        <span class="me-2">Action:</span>
+        <div class="me-2">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="selectCategory"
+          >
+            <option value="" selected>--------</option>
+            <option value="nonmoving">Mark All Selected As Non Moving</option>
+          </select>
+        </div>
+        <button class="btn btn-dark" (click)="changeNonMoving()">Go</button>
+      </div>
       <div>
         <table class="hoverable table table-hover text-center">
           <thead>
             <tr>
+              <th class="px-1 text-truncate">
+                <div class="py-0 my-0 form-check d-flex justify-content-center">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="check-all"
+                    (change)="handleSelectAll($event)"
+                  />
+                </div>
+              </th>
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Description</th>
               <th class="text-truncate px-1">Classification</th>
@@ -85,19 +131,37 @@
               <th class="text-truncate px-1">Quantity</th>
               <th class="text-truncate px-1">Price/Unit</th>
               <th class="text-truncate px-1">Color</th>
-              <th class="text-truncate px-1">Sizes</th>
+              <th class="text-truncate px-1">Size</th>
               <th class="text-truncate px-1">Key Partners</th>
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <ng-template [ngIf]="items === 0">
+            <ng-template [ngIf]="items.length === 0">
               <tr>
-                <td colspan="5">No Customer Record found.</td>
+                <td colspan="11">No Item Record found.</td>
               </tr>
             </ng-template>
-            <ng-template [ngIf]="items !== 0">
-              <tr *ngFor="let data of handlePagination(items, page, size)">
+            <ng-template [ngIf]="items.length !== 0">
+              <tr
+                *ngFor="
+                  let data of handlePagination(items, page, size);
+                  let i = index
+                "
+              >
+                <td class="text-center">
+                  <div
+                    class="py-0 my-0 form-check d-flex justify-content-center"
+                  >
+                    <input
+                      type="checkbox"
+                      class="form-check-input custom-check-me"
+                      id="check-{{ i }}"
+                      [value]="data._id"
+                      (change)="handleSelect($event)"
+                    />
+                  </div>
+                </td>
                 <td class="text-truncate px-1">
                   {{ handleDate(data.createdAt) }}
                 </td>
@@ -107,11 +171,9 @@
                 </td>
                 <td class="text-truncate px-1">{{ data.sku }}</td>
                 <td class="text-truncate px-1">
-                  {{ data.movingInv?.quantity }}
+                  {{ data.currentQty }}
                 </td>
-                <td class="text-truncate px-1">
-                  ₱ {{ data.movingInv?.price }}
-                </td>
+                <td class="text-truncate px-1">₱ {{ data.price }}</td>
                 <td class="text-truncate px-1">{{ data.color?.name }}</td>
                 <td class="text-truncate px-1">{{ data.size?.name }}</td>
                 <td class="text-truncate px-1">
@@ -202,84 +264,4 @@
       </nav>
     </div>
   </div>
-
-  <div class="card shadow p-3">
-    <div class="card-body">
-      <h4 class="h4 fw-bold mb-4">Defective Items</h4>
-      <div class="table-responsive">
-        <table class="hoverable table table-hover text-center">
-          <thead>
-            <tr>
-              <th class="text-truncate px-1">Date</th>
-              <th class="text-truncate px-1">Description</th>
-              <th class="text-truncate px-1">Classification</th>
-              <th class="text-truncate px-1">SKU Number</th>
-              <th class="text-truncate px-1">Quantity</th>
-              <th class="text-truncate px-1">Price/Unit</th>
-              <th class="text-truncate px-1">Color</th>
-              <th class="text-truncate px-1">Sizes</th>
-              <th class="text-truncate px-1">Key Partners</th>
-              <th class="text-truncate px-1">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of tableData">
-              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
-              <td class="text-truncate px-1">Basin</td>
-              <td class="text-truncate px-1">Appliances</td>
-              <td class="text-truncate px-1">EC-AP-NA-000-000-00001</td>
-              <td class="text-truncate px-1">1</td>
-              <td class="text-truncate px-1">₱ 180.00</td>
-              <td class="text-truncate px-1">Black</td>
-              <td class="text-truncate px-1">sm, md, lg, xl</td>
-              <td class="text-truncate px-1">
-                Key Partners Company Name - Key Partner's Email
-              </td>
-
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">View Item</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Update Item</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Delete Item</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>

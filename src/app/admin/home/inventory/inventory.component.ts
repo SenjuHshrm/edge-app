@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent implements OnInit {
-  public tableData = [{}, {}, {}, {}, {}];
+  // good items
   public items: any = [];
   public allItems: any = [];
   public page: any = 1;
@@ -21,6 +21,8 @@ export class InventoryComponent implements OnInit {
   public category: string = 'email';
   public search: string = '';
 
+  public selectCategory: string = '';
+
   constructor(private mdCtrl: NgbModal, private invServ: InventoryService) {}
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class InventoryComponent implements OnInit {
   }
 
   handleDate(date: any): string {
-    return new Date(date).toLocaleDateString();
+    return new Date(date).toLocaleString();
   }
 
   getAllItems() {
@@ -43,6 +45,10 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+  createSKU(data: any): string {
+    return `SKU-EC-${data.classification?.code}-${data.code?.code}-${data.color?.code}-${data.size?.code}-${data.sequence}`;
+  }
+
   createNewItem() {
     let createBooking = this.mdCtrl.open(CreateItemComponent, {
       size: 'lg',
@@ -50,7 +56,12 @@ export class InventoryComponent implements OnInit {
     createBooking.result
       .then((res) => {
         if (res.success) {
-          this.getAllItems();
+          res.data.sku = this.createSKU(res.data);
+          this.items = [res.data, ...this.allItems];
+          this.allItems = [res.data, ...this.allItems];
+          let totalPages = Math.floor(this.items.length / this.size);
+          if (this.items.length % this.size > 0) totalPages += 1;
+          this.totalpage = totalPages;
         }
       })
       .catch((e) => console.log());
@@ -61,6 +72,17 @@ export class InventoryComponent implements OnInit {
       size: 'lg',
     });
     updateItem.componentInstance.data = data;
+    updateItem.result
+      .then((res) => {
+        if (res.success) {
+          res.data.sku = this.createSKU(res.data);
+          let ind = this.allItems.findIndex((e: any) => e._id === res.data._id);
+          this.allItems[ind] = res.data;
+          let ind2 = this.items.findIndex((e: any) => e._id === res.data._id);
+          this.items[ind2] = res.data;
+        }
+      })
+      .catch((e) => console.log());
   }
 
   viewItem(data: any) {
@@ -72,7 +94,7 @@ export class InventoryComponent implements OnInit {
 
   deleteItem(id: string) {
     Swal.fire({
-      title: 'Are you sure you want to continue?',
+      title: 'Are you sure you want to delete this item?',
       icon: 'question',
       showDenyButton: true,
       confirmButtonText: 'Yes',
@@ -85,7 +107,13 @@ export class InventoryComponent implements OnInit {
               title: 'Item has been deleted!.',
               icon: 'success',
             });
-            this.getAllItems();
+            this.allItems = this.allItems.filter(
+              (e: any) => e._id !== res.info
+            );
+            this.items = this.items.filter((e: any) => e._id !== res.info);
+            let totalPages = Math.floor(this.items.length / this.size);
+            if (this.items.length % this.size > 0) totalPages += 1;
+            this.totalpage = totalPages;
           } else {
             Swal.fire({
               title: res.msg,
@@ -156,5 +184,115 @@ export class InventoryComponent implements OnInit {
     if (data.length % this.size > 0) totalPages += 1;
     this.page = 1;
     this.totalpage = totalPages;
+  }
+
+  handleSort(category: any) {
+    switch (category) {
+      case 'in':
+        this.items.sort(
+          (a: any, b: any) => parseFloat(b.in) - parseFloat(a.in)
+        );
+        break;
+
+      case 'out':
+        this.items.sort(
+          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
+        );
+        break;
+
+      case 'balance':
+        this.items.sort(
+          (a: any, b: any) =>
+            parseFloat(b.currentQty) - parseFloat(a.currentQty)
+        );
+        break;
+
+      case 'bestseller':
+        this.items.sort(
+          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
+        );
+        break;
+
+      default:
+        this.items = this.allItems;
+        break;
+    }
+  }
+
+  handleSelectAll(evt: any) {
+    const checks: any = document.getElementsByClassName('custom-check-me');
+    if (checks.length !== 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
+      }
+    }
+  }
+
+  handleSelect(evt: any) {
+    const all: any = document.getElementById('check-all');
+    if (!evt.target.checked) {
+      if (all.checked) {
+        all.checked = false;
+      }
+    }
+  }
+
+  changeNonMoving() {
+    if (this.selectCategory !== '') {
+      let ids: any = [];
+      const checks: any = document.getElementsByClassName('custom-check-me');
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          ids.push(checks[i].value);
+        }
+      }
+      if (ids.length !== 0) {
+        Swal.fire({
+          title:
+            'Are you sure you want to set the selected items as non moving?',
+          icon: 'question',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: `No`,
+        }).then((res) => {
+          if (res.isConfirmed) {
+            this.invServ.updateManyStatus({ ids }).subscribe((res) => {
+              if (res.success) {
+                Swal.fire({
+                  title: 'Items has been updated successfully.',
+                  icon: 'success',
+                });
+                res.info.map((id: any) => {
+                  let ind = this.allItems.findIndex((e: any) => e._id === id);
+                  let ind2 = this.items.findIndex((e: any) => e._id === id);
+                  this.allItems[ind].status = 'non-moving';
+                  this.items[ind2].status = 'non-moving';
+                });
+              } else {
+                Swal.fire({
+                  title: 'Failed to update the status.',
+                  icon: 'info',
+                });
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Update cancelled.',
+              icon: 'info',
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'No selected item.',
+          icon: 'info',
+        });
+      }
+    } else {
+      Swal.fire({
+        title: 'Please select an action for the selected items.',
+        icon: 'info',
+      });
+    }
   }
 }

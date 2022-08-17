@@ -19,4 +19,8 @@ export class ViewItemComponent implements OnInit {
   handleMoney(amount: any): string {
     return Number(Number(amount).toFixed(2)).toLocaleString();
   }
+
+  handleTotal(price: any, qty: any): number {
+    return parseFloat(price) * parseFloat(qty);
+  }
 }
