@@ -23,6 +23,8 @@ import { UpdateCustomerComponent } from './modals/codes-update/update-customer/u
 import { ViewItemComponent } from './modals/inventory/view-item/view-item.component';
 import { UpdateItemComponent } from './modals/inventory/update-item/update-item.component';
 import { SetKeypartnerPasswordComponent } from './modals/set-keypartner-password/set-keypartner-password.component';
+import { ViewBundleComponent } from './modals/bundles/view-bundle/view-bundle.component';
+import { UpdateBundleComponent } from './modals/bundles/update-bundle/update-bundle.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { SetKeypartnerPasswordComponent } from './modals/set-keypartner-password
     UpdateCustomerComponent,
     ViewItemComponent,
     UpdateItemComponent,
-    SetKeypartnerPasswordComponent
+    SetKeypartnerPasswordComponent,
+    ViewBundleComponent,
+    UpdateBundleComponent
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [

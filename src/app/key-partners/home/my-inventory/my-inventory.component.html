@@ -84,7 +84,7 @@
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Description</th>
               <th class="text-truncate px-1">Classification</th>
-              <th class="text-truncate px-1">Quantity</th>
+              <th class="text-truncate px-1">Current Quantity</th>
               <th class="text-truncate px-1">Price/Unit</th>
               <th class="text-truncate px-1">Color</th>
               <th class="text-truncate px-1">Sizes</th>
@@ -94,7 +94,9 @@
           <tbody>
             <ng-template [ngIf]="items.length === 0">
               <tr>
-                <td colspan="8">No Item Record found.</td>
+                <td colspan="8">
+                  <small class="fw-bold">No Item Record found.</small>
+                </td>
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
@@ -177,17 +179,24 @@
     </div>
   </div>
 
-  <div class="col-md-6 my-3">
-    <div class="position-relative d-flex align-items-center">
-      <div class="input-group me-2">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search by Bundle Name"
-        />
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
+  <div class="row mt-4">
+    <div class="col-md-6 my-3 offset-md-6">
+      <div class="row ms-1">
+        <div class="position-relative d-flex align-items-center">
+          <div class="input-group me-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by Bundle Name"
+              [(ngModel)]="bSearch"
+            />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
+          <button class="btn btn-dark" (click)="handleSearchBundle()">
+            Go
+          </button>
+        </div>
       </div>
-      <button class="btn btn-dark">Go</button>
     </div>
   </div>
 
@@ -198,76 +207,104 @@
           <thead>
             <tr>
               <th class="text-truncate px-1">Bundle Name</th>
-              <th class="text-truncate px-1" colspan="4">Items</th>
               <th class="text-truncate px-1">Total Price</th>
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of tableData">
-              <td class="text-truncate px-1 align-middle">Writing Bundle</td>
-              <td class="text-truncate px-1 align-middle" colspan="4">
-                <table class="table table-striped table-borderless text-sm">
-                  <thead>
-                    <tr>
-                      <th class="text-truncate px-1">Name</th>
-                      <th class="text-truncate px-1">Quantity</th>
-                      <th class="text-truncate px-1">Price / Unit</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-truncate px-1">Writing Pad</td>
-                      <td class="text-truncate px-1">2</td>
-                      <td class="text-truncate px-1">50</td>
-                    </tr>
-                    <tr>
-                      <td class="text-truncate px-1">Mongo Pencil 2</td>
-                      <td class="text-truncate px-1">5</td>
-                      <td class="text-truncate px-1">10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td class="text-truncate px-1 align-middle">150</td>
-              <td class="align-middle">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">View Item</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            <ng-template [ngIf]="bundles.length === 0">
+              <tr>
+                <td colspan="3">
+                  <small class="fw-bold">No Bundle Record found.</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="bundles.length !== 0">
+              <tr *ngFor="let data of handlePagination(bundles, bPage, bSize)">
+                <td class="text-truncate px-1 align-middle">{{ data.name }}</td>
+                <td class="text-truncate px-1 align-middle">
+                  ₱ {{ handleAmount(data.items) }}
+                </td>
+                <td class="align-middle">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="viewBundleItem(data)"
+                        >
+                          View Bundle
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="updateBundleItem(data)"
+                        >
+                          Update Bundle
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="deleteBundle(data._id)"
+                        >
+                          Delete Bundle
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
+        <nav class="d-flex justify-content-end">
+          <ul class="pagination">
+            <li class="page-item">
+              <button
+                type="button"
+                class="page-link custom-pagination-label"
+                [disabled]="bPage <= 1"
+                (click)="handleBPage('previous')"
+              >
+                Previous
+              </button>
+            </li>
+            <li class="page-item custom-pagination-label">
+              <button
+                class="page-link custom-pagination-label"
+                type="button"
+                disabled
+              >
+                {{ bPage + " of " + bTotalpage }}
+              </button>
+            </li>
+            <li class="page-item custom-pagination-label">
+              <button
+                type="button"
+                class="page-link custom-pagination-label"
+                [disabled]="bPage >= bTotalpage"
+                (click)="handleBPage('next')"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>

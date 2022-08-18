@@ -147,49 +147,100 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of classifications">
-                    <td class="text-truncate px-1">
-                      {{ data.name }}
-                    </td>
-                    <td class="text-truncate px-1">{{ data.code }}</td>
-                    <td>
-                      <div class="dropdown">
-                        <button
-                          type="button"
-                          id="dropdownMenuButton2"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          class="btn btn-light custom-btn"
-                        >
-                          <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <button
-                              class="btn dropdown-item text-sm"
-                              (click)="handleClassificationUpdate(data)"
-                            >
-                              Update
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              class="btn dropdown-item text-sm"
-                              (click)="
-                                handleClassificationDelete(data._id, data.type)
-                              "
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
+                  <ng-template [ngIf]="classifications.length === 0">
+                    <tr>
+                      <td colspan="3">
+                        <small class="fw-bold">No Code Found.</small>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template [ngIf]="classifications.length !== 0">
+                    <tr
+                      *ngFor="
+                        let data of handlePagination(
+                          classifications,
+                          clPage,
+                          clSize
+                        )
+                      "
+                    >
+                      <td class="text-truncate px-1">
+                        {{ data.name }}
+                      </td>
+                      <td class="text-truncate px-1">{{ data.code }}</td>
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            type="button"
+                            id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            class="btn btn-light custom-btn"
+                          >
+                            <i class="bi bi-three-dots-vertical"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <button
+                                class="btn dropdown-item text-sm"
+                                (click)="handleClassificationUpdate(data)"
+                              >
+                                Update
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                class="btn dropdown-item text-sm"
+                                (click)="
+                                  handleClassificationDelete(
+                                    data._id,
+                                    data.type
+                                  )
+                                "
+                              >
+                                Delete
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
                 </tbody>
-
-                <tbody></tbody>
               </table>
+              <nav class="d-flex justify-content-end mt-4">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="clPage <= 1"
+                      (click)="handlePage('previous', 'classification')"
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      class="page-link custom-pagination-label"
+                      type="button"
+                      disabled
+                    >
+                      {{ clPage + " of " + clTotalpage }}
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="clPage >= clTotalpage"
+                      (click)="handlePage('next', 'classification')"
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -264,47 +315,94 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of colors">
-                    <td class="text-truncate px-1">{{ data.name }}</td>
-                    <td class="text-truncate px-1">{{ data.code }}</td>
-                    <td>
-                      <div class="dropdown">
-                        <button
-                          type="button"
-                          id="dropdownMenuButton2"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          class="btn btn-light custom-btn"
-                        >
-                          <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <button
-                              class="dropdown-item text-sm"
-                              (click)="handleClassificationUpdate(data)"
-                            >
-                              Update
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              class="dropdown-item text-sm"
-                              (click)="
-                                handleClassificationDelete(data._id, data.type)
-                              "
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
+                  <ng-template [ngIf]="colors.length === 0">
+                    <tr>
+                      <td colspan="3">
+                        <small class="fw-bold">No Code Found.</small>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template [ngIf]="colors.length !== 0">
+                    <tr
+                      *ngFor="
+                        let data of handlePagination(colors, cPage, cSize)
+                      "
+                    >
+                      <td class="text-truncate px-1">{{ data.name }}</td>
+                      <td class="text-truncate px-1">{{ data.code }}</td>
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            type="button"
+                            id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            class="btn btn-light custom-btn"
+                          >
+                            <i class="bi bi-three-dots-vertical"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <button
+                                class="dropdown-item text-sm"
+                                (click)="handleClassificationUpdate(data)"
+                              >
+                                Update
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                class="dropdown-item text-sm"
+                                (click)="
+                                  handleClassificationDelete(
+                                    data._id,
+                                    data.type
+                                  )
+                                "
+                              >
+                                Delete
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
                 </tbody>
-
-                <tbody></tbody>
               </table>
+              <nav class="d-flex justify-content-end mt-4">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="cPage <= 1"
+                      (click)="handlePage('previous', 'color')"
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      class="page-link custom-pagination-label"
+                      type="button"
+                      disabled
+                    >
+                      {{ cPage + " of " + cTotalpage }}
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="cPage >= cTotalpage"
+                      (click)="handlePage('next', 'color')"
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -384,47 +482,92 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of sizes">
-                    <td class="text-truncate px-1">{{ data.name }}</td>
-                    <td class="text-truncate px-1">{{ data.code }}</td>
-                    <td>
-                      <div class="dropdown">
-                        <button
-                          type="button"
-                          id="dropdownMenuButton2"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          class="btn btn-light custom-btn"
-                        >
-                          <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <button
-                              class="dropdown-item text-sm"
-                              (click)="handleClassificationUpdate(data)"
-                            >
-                              Update
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              class="dropdown-item text-sm"
-                              (click)="
-                                handleClassificationDelete(data._id, data.type)
-                              "
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
+                  <ng-template [ngIf]="sizes.length === 0">
+                    <tr>
+                      <td colspan="3">
+                        <small class="fw-bold">No Code Found.</small>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template [ngIf]="sizes.length !== 0">
+                    <tr
+                      *ngFor="let data of handlePagination(sizes, sPage, sSize)"
+                    >
+                      <td class="text-truncate px-1">{{ data.name }}</td>
+                      <td class="text-truncate px-1">{{ data.code }}</td>
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            type="button"
+                            id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            class="btn btn-light custom-btn"
+                          >
+                            <i class="bi bi-three-dots-vertical"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <button
+                                class="dropdown-item text-sm"
+                                (click)="handleClassificationUpdate(data)"
+                              >
+                                Update
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                class="dropdown-item text-sm"
+                                (click)="
+                                  handleClassificationDelete(
+                                    data._id,
+                                    data.type
+                                  )
+                                "
+                              >
+                                Delete
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
                 </tbody>
-
-                <tbody></tbody>
               </table>
+              <nav class="d-flex justify-content-end mt-4">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="sPage <= 1"
+                      (click)="handlePage('previous', 'size')"
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      class="page-link custom-pagination-label"
+                      type="button"
+                      disabled
+                    >
+                      {{ sPage + " of " + sTotalpage }}
+                    </button>
+                  </li>
+                  <li class="page-item custom-pagination-label">
+                    <button
+                      type="button"
+                      class="page-link custom-pagination-label"
+                      [disabled]="sPage >= sTotalpage"
+                      (click)="handlePage('next', 'size')"
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

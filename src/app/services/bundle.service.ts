@@ -16,33 +16,28 @@ export class BundleService {
     );
   }
 
-  // getAll(): Observable<any> {
-  //   return this.http.get(`${environment.apiV1}/api/v1/get/get-all-inventory`);
-  // }
+  getAllByKeyPartners(keyId: any): Observable<any> {
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/get-all-bundles-byKey/${keyId}`
+    );
+  }
 
-  // getAllByKeyPartners(keyId: any): Observable<any> {
-  //   return this.http.get(
-  //     `${environment.apiV1}/api/v1/get/get-all-inventory-byKey/${keyId}`
-  //   );
-  // }
+  getBundle(id: any): Observable<any> {
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/get-all-bundle/${id}`
+    );
+  }
 
-  // update(data: any, id: any): Observable<any> {
-  //   return this.http.put(
-  //     `${environment.apiV1}/api/v1/put/update-inventory/${id}`,
-  //     data
-  //   );
-  // }
+  update(data: any, id: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/update-bundle/${id}`,
+      data
+    );
+  }
 
-  // updateManyStatus(data: any): Observable<any> {
-  //   return this.http.put(
-  //     `${environment.apiV1}/api/v1/put/update-many-status`,
-  //     data
-  //   );
-  // }
-
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete(
-  //     `${environment.apiV1}/api/v1/delete/delete-inventory/${id}`
-  //   );
-  // }
+  delete(id: any): Observable<any> {
+    return this.http.delete(
+      `${environment.apiV1}/api/v1/delete/delete-bundle/${id}`
+    );
+  }
 }
