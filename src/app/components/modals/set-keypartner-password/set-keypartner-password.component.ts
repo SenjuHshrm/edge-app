@@ -1,6 +1,7 @@
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-set-keypartner-password',
@@ -29,7 +30,17 @@ export class SetKeypartnerPasswordComponent implements OnInit {
   }
 
   setPassword() {
-    
+    this.kp.setKeyPartnerPassword(this.id, this.password).subscribe({
+      next: (res: any) => {
+        Swal.fire('Success', res.msg, 'success')
+          .then((_) => {
+            this.md.dismissAll()
+          })
+      },
+      error: (e: any) => {
+        console.log(e)
+      }
+    })
   }
 
 }
