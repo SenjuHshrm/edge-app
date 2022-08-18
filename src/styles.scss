@@ -141,3 +141,7 @@ button[data-tool-tip]:hover::after {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.show {
+  margin-left: 0px !important;
+}

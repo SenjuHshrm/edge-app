@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <h4 class="h4 h4-responsive my-3">Update Bundled Item</h4>
+  <div class="card shadow px-3 mb-3">
+    <div class="card-body">
+      <div class="form-group mb-3">
+        <label for="name" class="fs-6 fw-bold">Bundle Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="data.name"
+        />
+      </div>
+      <div class="d-flex align-items-end mb-3">
+        <div class="form-group me-2 flex-grow-1">
+          <label for="items" class="fs-6 fw-bold">Select Items</label>
+          <select
+            class="form-select"
+            name="items"
+            id="items"
+            [(ngModel)]="item.id"
+          >
+            <option value="" selected>Choose Item...</option>
+            <option *ngFor="let data of items" [value]="data._id">
+              {{ data.desc }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group me-2">
+          <label for="name" class="fs-6 fw-bold">Quantity</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="item.quantity"
+          />
+        </div>
+        <button type="button" class="btn btn-dark" (click)="handleAddedItem()">
+          Add Item
+        </button>
+      </div>
+      <div class="text-end">
+        <small class="fw-bold">*Maximum of 7 Items per Bundle</small>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover text-center position-relative">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col" class="text-truncate px-1">Description</th>
+              <th scope="col" class="text-truncate px-1">Quantity</th>
+              <th scope="col" class="text-truncate px-1">Price</th>
+              <th scope="col" class="text-truncate px-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template [ngIf]="data.items.length === 0">
+              <tr>
+                <td colspan="4">No Selected Item.</td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="data.items.length !== 0">
+              <tr *ngFor="let data of data.items; let i = index">
+                <td class="text-truncate px-1 align-middle">{{ data.item }}</td>
+                <td class="text-truncate px-1 align-middle">
+                  {{ data.quantity }}
+                </td>
+                <td class="text-truncate px-1 align-middle">
+                  {{ data.price }}
+                </td>
+                <td>
+                  <button
+                    class="btn btn-dark"
+                    data-tool-tip="Remove Item"
+                    (click)="removeItem(i)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+        <div class="col text-end">
+          <button (click)="saveData()" class="btn btn-dark px-5">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

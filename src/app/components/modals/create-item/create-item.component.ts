@@ -16,8 +16,10 @@ export class CreateItemComponent implements OnInit {
   public color: any = [];
   public size: any = [];
   public keyPartners: any = [];
+  public keyList: any = [];
 
   public data = {
+    keyPartner: '',
     keyPartnerId: '',
     desc: '',
     code: '',
@@ -53,6 +55,24 @@ export class CreateItemComponent implements OnInit {
     });
   }
 
+  handleSearch(evt: any) {
+    const search = evt.target.value;
+    const data =
+      search !== ''
+        ? this.keyPartners.filter((e: any) =>
+            e.email.toLowerCase().startsWith(search.toLowerCase())
+          )
+        : [];
+    this.keyList = data;
+    console.log(data, this.keyPartners, search);
+  }
+
+  keyListClick(id: string, name: string) {
+    this.data.keyPartnerId = id;
+    this.data.keyPartner = name;
+    this.keyList = [];
+  }
+
   saveData(evt: any) {
     evt.preventDefault();
     if (this.validateData(this.data)) {
@@ -79,13 +99,17 @@ export class CreateItemComponent implements OnInit {
       quantity,
       price,
     } = data;
-
+    const isIdValid = this.keyPartners.filter(
+      (e: any) => e._id === keyPartnerId
+    );
     let message = '';
 
     if (keyPartnerId === '') {
       message = 'Please select a key partner.';
+    } else if (isIdValid.length === 0) {
+      message = 'Invalid KeyPartner.';
     } else if (desc === '') {
-      message = 'Please enter the item name,';
+      message = 'Please enter the item name.';
     } else if (code === '') {
       message = 'Please enter the type code.';
     } else if (classification === '') {

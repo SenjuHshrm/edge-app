@@ -13,9 +13,30 @@ export class SettingsComponent implements OnInit {
   addButton: boolean = true;
   updateButton: boolean = false;
   indexNum: any;
+
+  // classifications
   public classifications: any = [];
+  public allClassifications: any = [];
+  public clPage: any = 1;
+  public clSize: any = 10;
+  public clTotalpage: any = 0;
+  public clSearch: string = '';
+
+  // color
   public colors: any = [];
+  public allColors: any = [];
+  public cPage: any = 1;
+  public cSize: any = 10;
+  public cTotalpage: any = 0;
+  public cSearch: string = '';
+
+  // color
   public sizes: any = [];
+  public allSizes: any = [];
+  public sPage: any = 1;
+  public sSize: any = 10;
+  public sTotalpage: any = 0;
+  public sSearch: string = '';
 
   constructor(
     private classServ: ClassificationService,
@@ -32,6 +53,8 @@ export class SettingsComponent implements OnInit {
     this.classServ.getByType('color').subscribe((res) => {
       if (res.success) {
         this.colors = res.info;
+        this.allColors = res.info;
+        this.handlePaging(res.info, 'color');
       } else {
         Swal.fire({
           title: res.msg,
@@ -45,6 +68,8 @@ export class SettingsComponent implements OnInit {
     this.classServ.getByType('size').subscribe((res) => {
       if (res.success) {
         this.sizes = res.info;
+        this.allSizes = res.info;
+        this.handlePaging(res.info, 'size');
       } else {
         Swal.fire({
           title: res.msg,
@@ -58,6 +83,8 @@ export class SettingsComponent implements OnInit {
     this.classServ.getByType('classification').subscribe((res) => {
       if (res.success) {
         this.classifications = res.info;
+        this.allClassifications = res.info;
+        this.handlePaging(res.info, 'classification');
       } else {
         Swal.fire({
           title: res.msg,
@@ -155,5 +182,71 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+  }
+
+  handlePagination(data: any, page: any, size: any): any {
+    return data.slice((page - 1) * size, size + (page - 1) * size);
+  }
+
+  handlePaging(data: any, category: string) {
+    switch (category) {
+      case 'classification':
+        let clTotalPages = Math.floor(data.length / this.clSize);
+        if (data.length % this.clSize > 0) clTotalPages += 1;
+        this.clTotalpage = clTotalPages;
+        break;
+
+      case 'color':
+        let cTotalPages = Math.floor(data.length / this.cSize);
+        if (data.length % this.cSize > 0) cTotalPages += 1;
+        this.cTotalpage = cTotalPages;
+        break;
+
+      default:
+        let sTotalPages = Math.floor(data.length / this.sSize);
+        if (data.length % this.sSize > 0) sTotalPages += 1;
+        this.sTotalpage = sTotalPages;
+        break;
+    }
+  }
+
+  handlePage(str: string, category: string) {
+    switch (category) {
+      case 'classification':
+        if (str === 'next') {
+          if (this.clPage < this.clTotalpage) {
+            this.clPage += 1;
+          }
+        } else {
+          if (this.clPage > 1) {
+            this.clPage -= 1;
+          }
+        }
+        break;
+
+      case 'color':
+        if (str === 'next') {
+          if (this.cPage < this.cTotalpage) {
+            this.cPage += 1;
+          }
+        } else {
+          if (this.cPage > 1) {
+            this.cPage -= 1;
+          }
+        }
+        break;
+
+      default:
+        if (str === 'next') {
+          if (this.sPage < this.sTotalpage) {
+            this.sPage += 1;
+          }
+        } else {
+          if (this.sPage > 1) {
+            this.sPage -= 1;
+          }
+        }
+        break;
+    }
   }
 }

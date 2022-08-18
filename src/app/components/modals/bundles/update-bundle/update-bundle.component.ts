@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import jwtDecode from 'jwt-decode';
+import Swal from 'sweetalert2';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { BundleService } from 'src/app/services/bundle.service';
-import Swal from 'sweetalert2';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-create-bundle',
-  templateUrl: './create-bundle.component.html',
-  styleUrls: ['./create-bundle.component.scss'],
+  selector: 'app-update-bundle',
+  templateUrl: './update-bundle.component.html',
+  styleUrls: ['./update-bundle.component.scss'],
 })
-export class CreateBundleComponent implements OnInit {
+export class UpdateBundleComponent implements OnInit {
+  @Input() public current: any;
+
   public items: any = [];
 
   public data: any = {
@@ -26,21 +28,23 @@ export class CreateBundleComponent implements OnInit {
 
   constructor(
     private invServ: InventoryService,
-    private bunServ: BundleService,
+    private bundleServ: BundleService,
     private mdCtrl: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
-    let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.data.keyPartnerId = token.sub;
     this.getAllItems();
+    this.bundleServ.getBundle(this.current._id).subscribe((res) => {
+      if (res.success) {
+        this.data = res.info;
+      }
+    });
   }
 
   getAllItems() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
     this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
-        console.log(res.info);
         this.items = res.info;
       }
     });
@@ -53,11 +57,9 @@ export class CreateBundleComponent implements OnInit {
         const itemData = {
           itemId: this.item.id,
           item: this.items[ind].desc,
-          desc: this.items[ind].desc,
           quantity: this.item.quantity,
           price: this.items[ind].price,
         };
-        console.log(itemData);
         this.data.items = [itemData, ...this.data.items];
         this.item.id = '';
         this.item.quantity = '';
@@ -131,17 +133,17 @@ export class CreateBundleComponent implements OnInit {
       });
     } else {
       if (this.validateData(this.data)) {
-        this.bunServ.create(this.data).subscribe((res) => {
+        this.bundleServ.update(this.data, this.current._id).subscribe((res) => {
           if (res.success) {
             Swal.fire({
-              title: 'New Bundle has been created.',
+              title: 'Bundle has been updated.',
               icon: 'success',
             });
             this.mdCtrl.close({ success: true, data: res.info });
           } else {
             Swal.fire({
-              title: 'Failed to create a new bundle.',
-              icon: 'error',
+              title: 'Failed to update the bundle.',
+              icon: 'warning',
             });
           }
         });
