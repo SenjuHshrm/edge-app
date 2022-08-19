@@ -1,0 +1,31 @@
+<div class="container p-4">
+  <h4 class="h4 h4-responsive">Select Key Partner</h4>
+  <div class="card shadow px-3">
+    <div class="card-body">
+      <div class="mb-3 position-relative">
+        <label for="date" class="form-label fw-bold m-0 p-0"
+          >Select Key Partners</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="keyPartner"
+          name="keyPartner"
+          (keyup)="handleSearch($event)"
+          [(ngModel)]="data.keyPartner"
+        />
+        <ng-template [ngIf]="keyList.length !== 0">
+          <ul class="custom-autocomplete" id="auto-complete">
+            <li
+              *ngFor="let key of keyList"
+              (click)="keyListClick(key._id, key.email + ' - ' + key.company)"
+            >
+              {{ key.email + " - " + key.company }}
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+      <button class="btn btn-dark" (click)="selectKP()">Assign</button>
+    </div>
+  </div>
+</div>

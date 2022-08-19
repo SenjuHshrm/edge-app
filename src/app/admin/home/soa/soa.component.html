@@ -5,17 +5,29 @@
       <div class="card-body">
         <h3 class="h3">Send SOA</h3>
         <div class="mb-3">
-          <button class="px-3 btn btn-dark text-white fw-bold shadow">
+          <button
+            class="px-3 btn btn-dark text-white fw-bold shadow"
+            (click)="selectKP()"
+          >
             Select Key Partners
           </button>
-          <span class="mx-3 fw-bold">Selected Key Partners Here</span>
+          <span class="mx-3 fw-bold">{{ kp }}</span>
         </div>
 
         <div class="mb-3">
-          <button class="px-5 btn btn-dark text-white fw-bold shadow">
+          <button
+            class="px-5 btn btn-dark text-white fw-bold shadow"
+            (click)="selectFile()"
+          >
             Upload File
           </button>
-          <span class="mx-3 fw-bold">Selected File</span>
+          <input
+            type="file"
+            id="soa"
+            class="d-none"
+            (change)="changeFile($event)"
+          />
+          <span class="mx-3 fw-bold">{{ filename }}</span>
         </div>
 
         <div class="text-end">
@@ -30,7 +42,7 @@
       <div class="card-body">
         <div class="table-responsive" style="height: 23rem">
           <table class="hoverable table table-hover text-center">
-            <thead>
+            <thead class="bg-light sticky-top">
               <tr>
                 <th class="text-truncate px-1">Date Sent</th>
                 <th class="text-truncate px-1">Sent To (Key Partners Name)</th>
@@ -38,7 +50,7 @@
                 <th class="text-truncate px-1">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="border-top-0">
               <tr>
                 <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
                 <td class="text-truncate px-1">Key Partners Name</td>
@@ -57,7 +69,7 @@
         </div>
       </div>
     </div>
-    <nav class="d-flex justify-content-end my-4">
+    <!-- <nav class="d-flex justify-content-end my-4">
       <ul class="pagination">
         <li class="page-item">
           <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -69,6 +81,6 @@
           <a class="page-link custom-pagination-label" href="#">Next</a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </div>

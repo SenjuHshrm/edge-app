@@ -135,18 +135,18 @@
           </div>
 
           <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="height: 23rem">
               <table
                 class="table table-hover table align-middle text-center position-relative"
               >
-                <thead class="bg-light">
+                <thead class="bg-light sticky-top">
                   <tr>
                     <th scope="col" class="text-truncate px-1">Description</th>
                     <th scope="col" class="text-truncate px-1">Code</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="border-top-0">
                   <ng-template [ngIf]="classifications.length === 0">
                     <tr>
                       <td colspan="3">
@@ -155,15 +155,7 @@
                     </tr>
                   </ng-template>
                   <ng-template [ngIf]="classifications.length !== 0">
-                    <tr
-                      *ngFor="
-                        let data of handlePagination(
-                          classifications,
-                          clPage,
-                          clSize
-                        )
-                      "
-                    >
+                    <tr *ngFor="let data of classifications">
                       <td class="text-truncate px-1">
                         {{ data.name }}
                       </td>
@@ -208,7 +200,7 @@
                   </ng-template>
                 </tbody>
               </table>
-              <nav class="d-flex justify-content-end mt-4">
+              <!-- <nav class="d-flex justify-content-end mt-4">
                 <ul class="pagination">
                   <li class="page-item">
                     <button
@@ -240,7 +232,7 @@
                     </button>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
             </div>
           </div>
         </div>
@@ -305,16 +297,16 @@
           </div>
 
           <div class="card-body">
-            <div>
+            <div class="table-responsive" style="height: 23rem">
               <table class="table table-hover table align-middle text-center">
-                <thead class="bg-light">
+                <thead class="bg-light sticky-top">
                   <tr>
                     <th scope="col" class="text-truncate px-1">Color name</th>
                     <th scope="col" class="text-truncate px-1">Code</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="border-top-0">
                   <ng-template [ngIf]="colors.length === 0">
                     <tr>
                       <td colspan="3">
@@ -323,11 +315,7 @@
                     </tr>
                   </ng-template>
                   <ng-template [ngIf]="colors.length !== 0">
-                    <tr
-                      *ngFor="
-                        let data of handlePagination(colors, cPage, cSize)
-                      "
-                    >
+                    <tr *ngFor="let data of colors">
                       <td class="text-truncate px-1">{{ data.name }}</td>
                       <td class="text-truncate px-1">{{ data.code }}</td>
                       <td>
@@ -370,7 +358,7 @@
                   </ng-template>
                 </tbody>
               </table>
-              <nav class="d-flex justify-content-end mt-4">
+              <!-- <nav class="d-flex justify-content-end mt-4">
                 <ul class="pagination">
                   <li class="page-item">
                     <button
@@ -402,7 +390,7 @@
                     </button>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
             </div>
           </div>
         </div>
@@ -470,18 +458,18 @@
           </div>
 
           <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="height: 23rem">
               <table
                 class="table table-hover table align-middle text-center position-relative"
               >
-                <thead class="bg-light">
+                <thead class="bg-light sticky-top">
                   <tr>
                     <th scope="col" class="text-truncate px-1">Size name</th>
                     <th scope="col" class="text-truncate px-1">Code</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="border-top-0">
                   <ng-template [ngIf]="sizes.length === 0">
                     <tr>
                       <td colspan="3">
@@ -490,9 +478,7 @@
                     </tr>
                   </ng-template>
                   <ng-template [ngIf]="sizes.length !== 0">
-                    <tr
-                      *ngFor="let data of handlePagination(sizes, sPage, sSize)"
-                    >
+                    <tr *ngFor="let data of sizes">
                       <td class="text-truncate px-1">{{ data.name }}</td>
                       <td class="text-truncate px-1">{{ data.code }}</td>
                       <td>
@@ -535,7 +521,7 @@
                   </ng-template>
                 </tbody>
               </table>
-              <nav class="d-flex justify-content-end mt-4">
+              <!-- <nav class="d-flex justify-content-end mt-4">
                 <ul class="pagination">
                   <li class="page-item">
                     <button
@@ -567,7 +553,7 @@
                     </button>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
             </div>
           </div>
         </div>
@@ -602,8 +588,16 @@
                 <label for="flash-data" class="fw-bold fs-5"
                   >Flash Available Locations</label
                 ><br />
-                <input type="file" class="form-control-file" id="flash-data" accept=".csv" (change)="processTempFile($event, 'flash')"/>
-                <button class="btn btn-primary" (click)="uploadTemp('flash')">Upload</button>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="flash-data"
+                  accept=".csv"
+                  (change)="processTempFile($event, 'flash')"
+                />
+                <button class="btn btn-primary" (click)="uploadTemp('flash')">
+                  Upload
+                </button>
               </div>
             </div>
           </div>
@@ -639,8 +633,16 @@
                 <label for="flash-data" class="fw-bold fs-5"
                   >JNT Available Locations</label
                 ><br />
-                <input type="file" class="form-control-file" id="flash-data" accept=".csv" (change)="processTempFile($event, 'jnt')"/>
-                <button class="btn btn-primary" (click)="uploadTemp('jnt')">Upload</button>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="flash-data"
+                  accept=".csv"
+                  (change)="processTempFile($event, 'jnt')"
+                />
+                <button class="btn btn-primary" (click)="uploadTemp('jnt')">
+                  Upload
+                </button>
               </div>
             </div>
           </div>

@@ -8,10 +8,11 @@
         >
           <div class="img-container position-relative">
             <img
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+              src="{{ data.img }}"
               class="rounded-3"
               style="width: 300px"
               alt="Avatar"
+              (error)="errorImage($event)"
             />
             <input type="file" id="profile-change" style="display: none" />
             <button class="btn btn-info text-white fs-2 px-3 custom-upload-btn">
@@ -28,11 +29,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-person-circle"></i
               ></span>
-              <input
-                type="text"
-                class="form-control"
-                value="Key Partner's Fullname"
-              />
+              <input type="text" class="form-control" value="{{ data.name }}" />
             </div>
           </div>
 
@@ -44,11 +41,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-house-door-fill"></i
               ></span>
-              <input
-                type="text"
-                class="form-control"
-                value="Key Partner's Address"
-              />
+              <input type="text" class="form-control" value="{{ data.addr }}" />
             </div>
           </div>
 
@@ -63,7 +56,7 @@
               <input
                 type="text"
                 class="form-control"
-                value="Key Partner's Contact"
+                value="{{ data.contact }}"
               />
             </div>
           </div>
@@ -79,7 +72,7 @@
               <input
                 type="text"
                 class="form-control"
-                value="Key Partner's E-mail Address"
+                value="{{ data.email }}"
               />
             </div>
           </div>
@@ -95,7 +88,7 @@
               <input
                 type="text"
                 class="form-control"
-                value="Key Partner's Company/Store"
+                value="{{ data.company }}"
               />
             </div>
           </div>

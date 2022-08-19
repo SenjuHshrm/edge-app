@@ -46,7 +46,7 @@
       </div>
       <div class="table-responsive">
         <table class="table table-hover text-center position-relative">
-          <thead class="bg-light">
+          <thead class="bg-light sticky-top">
             <tr>
               <th scope="col" class="text-truncate px-1">Description</th>
               <th scope="col" class="text-truncate px-1">Quantity</th>
@@ -54,7 +54,7 @@
               <th scope="col" class="text-truncate px-1">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="data.items.length === 0">
               <tr>
                 <td colspan="4">No Selected Item.</td>

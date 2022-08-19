@@ -79,7 +79,7 @@
     <div class="card-body">
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Description</th>
@@ -91,7 +91,7 @@
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="items.length === 0">
               <tr>
                 <td colspan="8">
@@ -100,7 +100,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of handlePagination(items, page, size)">
+              <tr *ngFor="let data of items">
                 <td class="text-truncate px-1">
                   {{ handleDate(data.createdAt) }}
                 </td>
@@ -143,7 +143,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="d-flex justify-content-end mt-3">
+      <!-- <nav class="d-flex justify-content-end mt-3">
         <ul class="pagination">
           <li class="page-item">
             <button
@@ -175,7 +175,7 @@
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 
@@ -204,14 +204,14 @@
     <div class="card-body">
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
               <th class="text-truncate px-1">Bundle Name</th>
               <th class="text-truncate px-1">Total Price</th>
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="bundles.length === 0">
               <tr>
                 <td colspan="3">
@@ -220,7 +220,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="bundles.length !== 0">
-              <tr *ngFor="let data of handlePagination(bundles, bPage, bSize)">
+              <tr *ngFor="let data of bundles">
                 <td class="text-truncate px-1 align-middle">{{ data.name }}</td>
                 <td class="text-truncate px-1 align-middle">
                   ₱ {{ handleAmount(data.items) }}
@@ -272,7 +272,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="d-flex justify-content-end mt-3">
+      <!-- <nav class="d-flex justify-content-end mt-3">
         <ul class="pagination">
           <li class="page-item">
             <button
@@ -304,7 +304,7 @@
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 </div>
