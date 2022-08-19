@@ -1,39 +1,121 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
-.img-container {
-  width: 17em;
-  max-height: 20em;
+// .img-container {
+//   width: 17em;
+//   max-height: 20em;
+// }
+
+// .custom-section-size {
+//   min-height: 100vh;
+//   height: fit-content;
+//   font-family: "Open Sans", sans-serif;
+// }
+
+// .custom-header-container {
+//   background-image: url("/assets/images/landingpage/header/BG.jpg");
+//   background-position: center center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+
+// .custom-about-container {
+//   background-image: radial-gradient(circle, red, white, white);
+// }
+
+// .custom-header-image {
+//   img {
+//     width: 40rem;
+//     height: auto;
+//   }
+// }
+
+// .custom-header-paragraph {
+//   p {
+//     width: 75%;
+//   }
+// }
+
+// .custom-about-container {
+// }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
 }
 
-.custom-section-size {
-  min-height: 100vh;
-  height: fit-content;
-  font-family: "Open Sans", sans-serif;
-}
 
-.custom-header-container {
-  background-image: url("/assets/images/landingpage/header/BG.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  .header_container {
+       background-color: #F9F9FF;
+       height:100vh;
+       width: 100%;
+       background-image: url("../../assets/images/landingpage/header/BGheader.svg");
+       background-repeat: no-repeat;
+       background-size: cover;
+    .custom_container_size{
+      margin:auto;
+      width:90%;
+      
 
-.custom-about-container {
-  background-image: radial-gradient(circle, red, white, white);
-}
+      //////////////////////////////  NAVIGATION  //////////////// 
+     
+ 
+    .custom_navigation {
+ 
+      .custom_logo {
+        width: 5rem;
+        height: 5rem;
+        
 
-.custom-header-image {
-  img {
-    width: 40rem;
-    height: auto;
+        img {
+          width: 80%;
+          min-width:50px;
+          height: fit-content;
+        }
+      }
+      
+      
+      .custom_nav_list{
+
+        ul{
+          list-style-type: none;
+        }
+
+        li a{
+          color:white;
+          font-weight:600;
+        }
+        .custom_contact{
+          background-color: #F4970F;
+          border-radius: 20px;
+          padding-left:10px;
+          padding-right: 10px;
+        }
+      }
+    }
+  ////////////////////////////////////////
+   .custom_label_header{
+    color:white;
+    h1{
+      font-weight:bolder;
+       font-size: 3rem;
+      
+    }
+     p{
+      font-size: 1.5rem;
+     }
+   }
+   .computer_image_header{
+    width:800px;
+    position: relative;
+    img{
+      position: relative;
+      top:100px;
+      left:40px;
+      height:auto;
+    }
+   }
+
   }
-}
-
-.custom-header-paragraph {
-  p {
-    width: 75%;
   }
-}
 
-.custom-about-container {
-}
