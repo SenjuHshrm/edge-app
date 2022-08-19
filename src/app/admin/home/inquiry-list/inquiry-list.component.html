@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <h2 class="h2 h2-responsive my-3 fw-bolder">Inquiry List</h2>
-  <div class="col-md-6 mt-5">
+  <h2 class="h2 h2-responsive mt-4 fw-bolder">Inquiry List</h2>
+  <div class="col-md-6 mt-3">
     <div class="mb-3">
       <div class="col-md-6 d-flex align-items-center">
         <div class="input-group me-2 flex-grow-1">
@@ -18,7 +18,7 @@
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold mb-4">New Inquiries</h4>
-      <div>
+      <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead>
             <tr>
@@ -34,7 +34,9 @@
               <td class="text-truncate px-1">{{ inq.inqId }}</td>
               <td class="text-truncate px-1">{{ inq.keyPartnerId.name }}</td>
               <td class="text-truncate px-1">{{ inq.keyPartnerId.company }}</td>
-              <td class="text-truncate px-1">{{ inq.createdAt | customDate: 'MM/DD/YYYY, hh:mm:ss a' }}</td>
+              <td class="text-truncate px-1">
+                {{ inq.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
+              </td>
               <td>
                 <div class="dropdown">
                   <button
@@ -73,21 +75,21 @@
           </tbody>
         </table>
       </div>
+      <nav class="d-flex justify-content-end mt-3">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link custom-pagination-label" href="#">Previous</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">1</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 
   <div class="col-md-6 mt-3">
     <div class="mb-3">
@@ -107,7 +109,7 @@
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold mb-4">For Requote</h4>
-      <div>
+      <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead>
             <tr>
@@ -161,19 +163,19 @@
           </tbody>
         </table>
       </div>
+      <nav class="d-flex justify-content-end mt-e">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link custom-pagination-label" href="#">Previous</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">1</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>

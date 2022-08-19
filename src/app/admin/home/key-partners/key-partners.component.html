@@ -22,7 +22,7 @@
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
-      <div class="table-responsive">
+      <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light">
             <tr>
@@ -36,78 +36,104 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let i of keyPartners">
-              <td class="text-truncate px-1">{{ i.name }}</td>
-              <td class="text-truncate px-1">{{ i.addr }}</td>
-              <td class="text-truncate px-1">{{ i.contact }}</td>
-              <td class="text-truncate px-1">{{ i.email }}</td>
-              <td class="text-truncate px-1">{{ i.company }}</td>
-              <td>
-                <span class="{{ (i.isActivated) ? 'badge badge-pill bg-success' : 'badge badge-pill bg-danger' }}">{{ (i.isActivated) ? 'Active' : 'Inactive' }}</span>
-                <!-- <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
-                  >Active</span
-                >
-                <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
-                  >Inactive</span
-                > -->
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+            <ng-template [ngIf]="keyPartners.length === 0">
+              <tr>
+                <td colspan="7">
+                  <small class="fw-bold">No Record Found</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="keyPartners.length !== 0">
+              <tr *ngFor="let i of keyPartners">
+                <td class="text-truncate px-1">{{ i.name }}</td>
+                <td class="text-truncate px-1">{{ i.addr }}</td>
+                <td class="text-truncate px-1">{{ i.contact }}</td>
+                <td class="text-truncate px-1">{{ i.email }}</td>
+                <td class="text-truncate px-1">{{ i.company }}</td>
+                <td>
+                  <span
+                    class="{{
+                      i.isActivated
+                        ? 'badge badge-pill bg-success'
+                        : 'badge badge-pill bg-danger'
+                    }}"
+                    >{{ i.isActivated ? "Active" : "Inactive" }}</span
                   >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
+                  <!-- <span class="badge badge-pill bg-success" *ngIf="i % 2 === 0"
+                    >Active</span
                   >
-                    <li>
-                      <button class="dropdown-item text-sm" (click)="setPassword(i._id)">
-                        Change Password
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Update Details
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm" (click)="setActiveStatus(i._id, i.isActivated)">{{ (i.isActivated) ? 'Set Inactive' : 'Set Active' }}</button>
-                    </li>
-                    <li></li>
-                    <li>
-                      <button class="dropdown-item text-sm">Assign Code</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Delete Record
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+                  <span class="badge badge-pill bg-danger" *ngIf="i % 2 !== 0"
+                    >Inactive</span
+                  > -->
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="setPassword(i._id)"
+                        >
+                          Change Password
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">
+                          Update Details
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="setActiveStatus(i._id, i.isActivated)"
+                        >
+                          {{ i.isActivated ? "Set Inactive" : "Set Active" }}
+                        </button>
+                      </li>
+                      <li></li>
+                      <li>
+                        <button class="dropdown-item text-sm">
+                          Assign Code
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">
+                          Delete Record
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
+      <nav class="d-flex justify-content-end my-4">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link custom-pagination-label" href="#">Previous</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">1</a>
+          </li>
+          <li class="page-item custom-pagination-label">
+            <a class="page-link custom-pagination-label" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>
