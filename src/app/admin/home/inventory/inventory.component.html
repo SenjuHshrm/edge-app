@@ -139,7 +139,9 @@
           <tbody>
             <ng-template [ngIf]="items.length === 0">
               <tr>
-                <td colspan="11">No Item Record found.</td>
+                <td colspan="11">
+                  <small class="fw-bold">No Item Record found.</small>
+                </td>
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
@@ -229,7 +231,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="d-flex justify-content-end">
+      <nav class="d-flex justify-content-end mt-3">
         <ul class="pagination">
           <li class="page-item">
             <button
@@ -241,7 +243,7 @@
               Previous
             </button>
           </li>
-          <li class="page-item custom-pagination-label">
+          <!-- <li class="page-item custom-pagination-label">
             <button
               class="page-link custom-pagination-label"
               type="button"
@@ -249,7 +251,7 @@
             >
               {{ page + " of " + totalpage }}
             </button>
-          </li>
+          </li> -->
           <li class="page-item custom-pagination-label">
             <button
               type="button"
