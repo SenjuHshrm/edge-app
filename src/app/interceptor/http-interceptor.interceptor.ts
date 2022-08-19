@@ -23,8 +23,10 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
     return next.handle(authReq)
       .pipe(
         catchError((e: HttpErrorResponse): Observable<any> => {
-          if(e instanceof HttpErrorResponse && e && e.status === 401) {
-            return this.handleUnauthorized(authReq, next)
+          if((req.url !== `${environment.apiV1}/api/v1/post/login`) && (req.url !== `${environment.apiV1}/api/v1/post/register`)) {
+            if(e instanceof HttpErrorResponse && e && e.status === 401) {
+              return this.handleUnauthorized(authReq, next)
+            }
           }
           return throwError(() => e)
         })

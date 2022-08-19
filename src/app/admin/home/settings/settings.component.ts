@@ -261,17 +261,12 @@ export class SettingsComponent implements OnInit {
   }
 
   uploadTemp(type: string) {
-    // let file = (type === 'flash') ? this.flashTemp : this.jntTemp ;
-    // let form = new FormGroup({
-    //   name: new FormControl(type),
-    //   file: new FormControl(file)
-    // })
     let form = new FormData(), file = (type === 'flash') ? this.flashTemp : this.jntTemp;
     form.append('name', type)
     form.append('file', file)
     this.user.uploadTemp(form).subscribe({
-      next: (res: any) => {
-        console.log(res)
+      next: (_) => {
+        Swal.fire('Success', 'File uploaded successfully', 'success')
       }
     })
   }

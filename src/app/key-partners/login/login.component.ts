@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ACCESS', res.info)
         window.location.href = '/key-partners/home'
       },
-      error: (e) => {
-        console.log(e)
+      error: ({ error }: any) => {
+        console.log(error)
       }
     })
 
