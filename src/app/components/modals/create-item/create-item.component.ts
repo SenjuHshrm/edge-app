@@ -1,3 +1,4 @@
+import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { Component, OnInit } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { UserService } from 'src/app/services/user.service';
@@ -32,9 +33,9 @@ export class CreateItemComponent implements OnInit {
 
   constructor(
     private classServ: ClassificationService,
-    private userServ: UserService,
     private invServ: InventoryService,
-    private mdCtrl: NgbActiveModal
+    private mdCtrl: NgbActiveModal,
+    private kp: KeyPartnerService
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +49,9 @@ export class CreateItemComponent implements OnInit {
       }
     });
 
-    this.userServ.getKeyPartners().subscribe((res) => {
-      if (res.success) {
-        this.keyPartners = res.info;
+    this.kp.getActivatedKeyPartners().subscribe({
+      next: (res: any) => {
+        this.keyPartners = res.info
       }
     });
   }

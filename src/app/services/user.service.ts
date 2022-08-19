@@ -29,4 +29,8 @@ export class UserService {
     return this.http.post(`${environment.apiV1}/api/v1/post/register`, data)
   }
 
+  uploadTemp(data: any): Observable<any> {
+    return this.http.put(`${environment.apiV1}/api/v1/put/addr-temp`, data)
+  }
+
 }

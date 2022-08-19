@@ -23,10 +23,10 @@
                   <li
                     *ngFor="let key of keyList"
                     (click)="
-                      keyListClick(key._id, key.email + ' - ' + key.name)
+                      keyListClick(key._id, key.email + ' - ' + key.company)
                     "
                   >
-                    {{ key.email + " - " + key.name }}
+                    {{ key.email + " - " + key.company }}
                   </li>
                 </ul>
               </ng-template>

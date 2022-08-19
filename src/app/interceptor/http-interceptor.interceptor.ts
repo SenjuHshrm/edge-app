@@ -3,14 +3,20 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, Htt
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
 
   private requestAccess: boolean = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  private specUrls: string[];
 
-  constructor(private user: UserService) {}
+  constructor(private user: UserService) {
+    this.specUrls = [
+      `${environment.apiV1}/api/v1/put/addr-temp`
+    ]
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = this.addAuthToken(req)
@@ -46,12 +52,14 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
   }
 
   private addAuthToken(req: HttpRequest<any>): HttpRequest<any> {
-    if(!req.headers.has('Content-Type')) {
-      req = req.clone({
-        setHeaders: {
-          'Content-Type': 'application/json'
-        }
-      })
+    if(this.specUrls.indexOf(req.url) === -1) {
+      if(!req.headers.has('Content-Type')) {
+        req = req.clone({
+          setHeaders: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        })
+      }
     }
     let access: string | null = localStorage.getItem('ACCESS')
     if(!access) {

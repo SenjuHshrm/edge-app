@@ -30,4 +30,8 @@ export class KeyPartnerService {
     return this.http.put(`${environment.apiV1}/api/v1/put/key-partner/set-password/${id}`, { password })
   }
 
+  getActivatedKeyPartners(): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/key-partners/activated`)
+  }
+
 }

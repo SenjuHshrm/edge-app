@@ -602,7 +602,8 @@
                 <label for="flash-data" class="fw-bold fs-5"
                   >Flash Available Locations</label
                 ><br />
-                <input type="file" class="form-control-file" id="flash-data" />
+                <input type="file" class="form-control-file" id="flash-data" accept=".csv" (change)="processTempFile($event, 'flash')"/>
+                <button class="btn btn-primary" (click)="uploadTemp('flash')">Upload</button>
               </div>
             </div>
           </div>
@@ -638,7 +639,8 @@
                 <label for="flash-data" class="fw-bold fs-5"
                   >JNT Available Locations</label
                 ><br />
-                <input type="file" class="form-control-file" id="flash-data" />
+                <input type="file" class="form-control-file" id="flash-data" accept=".csv" (change)="processTempFile($event, 'jnt')"/>
+                <button class="btn btn-primary" (click)="uploadTemp('jnt')">Upload</button>
               </div>
             </div>
           </div>

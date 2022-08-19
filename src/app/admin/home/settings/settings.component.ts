@@ -1,3 +1,5 @@
+import { FormGroup, FormControl } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import Swal from 'sweetalert2';
@@ -13,6 +15,8 @@ export class SettingsComponent implements OnInit {
   addButton: boolean = true;
   updateButton: boolean = false;
   indexNum: any;
+  public flashTemp: any = null;
+  public jntTemp: any = null;
 
   // classifications
   public classifications: any = [];
@@ -40,7 +44,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private classServ: ClassificationService,
-    private mdCtrl: NgbModal
+    private mdCtrl: NgbModal,
+    private user: UserService
   ) {}
 
   ngOnInit(): void {
@@ -248,5 +253,26 @@ export class SettingsComponent implements OnInit {
         }
         break;
     }
+  }
+
+  processTempFile(evt: any, type: string) {
+    if(type === 'flash') return this.flashTemp = evt.target.files[0]
+    if(type === 'jnt') return this.jntTemp = evt.target.files[0]
+  }
+
+  uploadTemp(type: string) {
+    // let file = (type === 'flash') ? this.flashTemp : this.jntTemp ;
+    // let form = new FormGroup({
+    //   name: new FormControl(type),
+    //   file: new FormControl(file)
+    // })
+    let form = new FormData(), file = (type === 'flash') ? this.flashTemp : this.jntTemp;
+    form.append('name', type)
+    form.append('file', file)
+    this.user.uploadTemp(form).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      }
+    })
   }
 }
