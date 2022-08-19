@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
+import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -47,19 +49,27 @@ export class HomeComponent implements OnInit {
     // this.status = (window.innerWidth > 767) ? false : true
   }
 
-  constructor(private user: UserService) {}
+  constructor(private user: UserService, private kp: KeyPartnerService) {}
+  public data: any = {};
 
   ngOnInit(): void {
     this.showToggle = window.innerWidth <= 767 ? true : false;
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
+    this.kp.getOneKeyPartner(token.sub).subscribe({
+      next: (res: any) => {
+        this.data = res.info;
+      },
+      error: (e: any) => console.log(e),
+    });
   }
 
   logout(e: any): void {
     this.user.logout().subscribe({
       next: (res) => {
-        localStorage.removeItem('ACCESS')
-        window.location.href = '/key-partners/login'
-      }
-    })
+        localStorage.removeItem('ACCESS');
+        window.location.href = '/key-partners/login';
+      },
+    });
   }
 
   clickEvent() {
@@ -68,5 +78,9 @@ export class HomeComponent implements OnInit {
 
   handleToggle() {
     this.status = window.innerWidth < 768 ? true : this.status;
+  }
+
+  errorImage(evt: any) {
+    evt.target.src = '/assets/images/landingpage/header/logo.png';
   }
 }

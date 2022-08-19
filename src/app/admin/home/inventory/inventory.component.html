@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h2 class="h2 h2-responsive my-3 fw-bolder">My Inventory</h2>
+  <h2 class="h2 h2-responsive my-3 fw-bolder">Inventory</h2>
 
   <div class="row">
     <div class="col-md-12 text-end">
@@ -112,7 +112,7 @@
       </div>
       <div class="table-responsive" style="height: 33rem">
         <table class="hoverable table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
               <th class="px-1 text-truncate">
                 <div class="py-0 my-0 form-check d-flex justify-content-center">
@@ -136,7 +136,7 @@
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="items.length === 0">
               <tr>
                 <td colspan="11">
@@ -145,12 +145,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr
-                *ngFor="
-                  let data of handlePagination(items, page, size);
-                  let i = index
-                "
-              >
+              <tr *ngFor="let data of items; let i = index">
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"
@@ -231,7 +226,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="d-flex justify-content-end mt-3">
+      <!-- <nav class="d-flex justify-content-end mt-3">
         <ul class="pagination">
           <li class="page-item">
             <button
@@ -243,7 +238,7 @@
               Previous
             </button>
           </li>
-          <!-- <li class="page-item custom-pagination-label">
+          <li class="page-item custom-pagination-label">
             <button
               class="page-link custom-pagination-label"
               type="button"
@@ -251,7 +246,7 @@
             >
               {{ page + " of " + totalpage }}
             </button>
-          </li> -->
+          </li>
           <li class="page-item custom-pagination-label">
             <button
               type="button"
@@ -263,7 +258,7 @@
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 </div>

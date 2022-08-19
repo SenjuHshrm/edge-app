@@ -109,30 +109,30 @@
           <button class="btn btn-dark">Go</button>
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
-              <th col="scope" className="text-truncate px-1">Receiver Name</th>
-              <th col="scope" className="text-truncate px-1">Phone Number</th>
-              <th col="scope" className="text-truncate px-1">Address</th>
-              <th col="scope" className="text-truncate px-1">Zip Code</th>
-              <th col="scope" className="text-truncate px-1">
+              <th col="scope" className="text-truncate px-3">Receiver Name</th>
+              <th col="scope" className="text-truncate px-3">Phone Number</th>
+              <th col="scope" className="text-truncate px-3">Address</th>
+              <th col="scope" className="text-truncate px-3">Zip Code</th>
+              <th col="scope" className="text-truncate px-3">
                 Province / State
               </th>
-              <th col="scope" className="text-truncate px-1">City</th>
-              <th col="scope" className="text-truncate px-1">Barangay</th>
-              <th col="scope" className="text-truncate px-1">Products</th>
-              <th col="scope" className="text-truncate px-1">Quantity</th>
-              <th col="scope" className="text-truncate px-1">COD</th>
-              <th col="scope" className="text-truncate px-1">
+              <th col="scope" className="text-truncate px-3">City</th>
+              <th col="scope" className="text-truncate px-3">Barangay</th>
+              <th col="scope" className="text-truncate px-3">Products</th>
+              <th col="scope" className="text-truncate px-3">Quantity</th>
+              <th col="scope" className="text-truncate px-3">COD</th>
+              <th col="scope" className="text-truncate px-3">
                 Sender / Page Name
               </th>
-              <th col="scope" className="text-truncate px-1">Contact No</th>
-              <th col="scope" className="text-truncate px-1">Remarks</th>
+              <th col="scope" className="text-truncate px-3">Contact No</th>
+              <th col="scope" className="text-truncate px-3">Remarks</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <tr *ngFor="let td of tableData">
               <td class="text-truncate px-3">{{ td.receivename }}</td>
               <td class="text-truncate px-3">{{ td.phoneno }}</td>
@@ -153,7 +153,7 @@
       </div>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
+  <!-- <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -165,5 +165,5 @@
         <a class="page-link custom-pagination-label" href="#">Next</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

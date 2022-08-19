@@ -58,9 +58,9 @@
           <button class="btn btn-dark">Go</button>
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
               <th
                 class="text-truncate px-3 p-0 d-flex align-items-center border-0"
@@ -95,7 +95,7 @@
               <th col="scope" class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <tr *ngFor="let td of tableData">
               <td class="text-truncate px-3">
                 <div
@@ -161,7 +161,7 @@
       </div>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
+  <!-- <nav class="d-flex justify-content-end mt-3">
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -173,5 +173,5 @@
         <a class="page-link custom-pagination-label" href="#">Next</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

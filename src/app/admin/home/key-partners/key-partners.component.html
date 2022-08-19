@@ -24,7 +24,7 @@
     <div class="card-body">
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
-          <thead class="bg-light">
+          <thead class="bg-light sticky-top">
             <tr>
               <th scope="col" class="text-truncate px-1">Name</th>
               <th scope="col" class="text-truncate px-1">Address</th>
@@ -35,7 +35,7 @@
               <th scope="col" class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="keyPartners.length === 0">
               <tr>
                 <td colspan="7">
@@ -90,7 +90,10 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="updateKP(i._id)"
+                        >
                           Update Details
                         </button>
                       </li>
@@ -104,12 +107,18 @@
                       </li>
                       <li></li>
                       <li>
-                        <button class="dropdown-item text-sm">
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="assignCode(i)"
+                        >
                           Assign Code
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="deleteKP(i._id)"
+                        >
                           Delete Record
                         </button>
                       </li>
@@ -121,7 +130,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="d-flex justify-content-end my-4">
+      <!-- <nav class="d-flex justify-content-end my-4">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -133,7 +142,7 @@
             <a class="page-link custom-pagination-label" href="#">Next</a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 </div>

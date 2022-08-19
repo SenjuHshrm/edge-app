@@ -27,14 +27,14 @@
     <div class="card-body">
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
-          <thead>
+          <thead class="bg-light sticky-top">
             <tr>
               <th class="text-truncate px-1">Inquiry Number</th>
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border-top-0">
             <ng-template [ngIf]="inquiryList.length === 0">
               <tr>
                 <td colspan="3">
@@ -64,7 +64,7 @@
       </div>
     </div>
   </div>
-  <nav class="d-flex justify-content-end my-4">
+  <!-- <nav class="d-flex justify-content-end my-4">
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -76,5 +76,5 @@
         <a class="page-link custom-pagination-label" href="#">Next</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

@@ -26,6 +26,8 @@ import { SetKeypartnerPasswordComponent } from './modals/set-keypartner-password
 import { ViewBundleComponent } from './modals/bundles/view-bundle/view-bundle.component';
 import { UpdateBundleComponent } from './modals/bundles/update-bundle/update-bundle.component';
 import { AssignCodeComponent } from './modals/assign-code/assign-code.component';
+import { UpdateKeypartnerComponent } from './modals/update-keypartner/update-keypartner.component';
+import { SelectKeypartnerComponent } from './modals/select-keypartner/select-keypartner.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { AssignCodeComponent } from './modals/assign-code/assign-code.component'
     SetKeypartnerPasswordComponent,
     ViewBundleComponent,
     UpdateBundleComponent,
-    AssignCodeComponent
+    AssignCodeComponent,
+    UpdateKeypartnerComponent,
+    SelectKeypartnerComponent
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [
