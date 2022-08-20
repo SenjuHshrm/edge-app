@@ -42,20 +42,24 @@
 
 * {
   font-family: 'Poppins', sans-serif;
-}
+}  
+.custom_container_size{
 
+  height:100vh;
+  width: 100%;
+  background-image: url("../../assets/images/landingpage/header/BGheader.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center bottom;
 
   .header_container {
-       background-color: #F9F9FF;
-       height:100vh;
-       width: 100%;
-       background-image: url("../../assets/images/landingpage/header/BGheader.svg");
-       background-repeat: no-repeat;
-       background-size: cover;
-    .custom_container_size{
-      margin:auto;
-      width:90%;
-      
+    margin:auto;
+    margin-bottom:200px;
+    width:90%;
+    max-height: fit-content;
+    height:100vh;
+ 
+
 
       //////////////////////////////  NAVIGATION  //////////////// 
      
@@ -94,28 +98,60 @@
       }
     }
   ////////////////////////////////////////
+    
+ .custom_row_content{
+    max-height: fit-content;
+    height: 100vh;
+ 
    .custom_label_header{
     color:white;
+    padding-bottom: 6rem;
+    
     h1{
       font-weight:bolder;
        font-size: 3rem;
       
     }
-     p{
-      font-size: 1.5rem;
-     }
+
    }
    .computer_image_header{
-    width:800px;
-    position: relative;
-    img{
-      position: relative;
-      top:100px;
-      left:40px;
-      height:auto;
+ 
+      img{
+      max-width: 800px;
+      min-width: 500px;
+    
     }
    }
 
   }
+  }
+}
+
+
+  /////////////////////////section 2////////////// 
+  
+  .default_header_text{
+    h1{
+       font-weight:bolder;
+       font-size:2.5rem;
+    }
+    p{
+      font-weight:lighter;
+    }
+  }
+
+  .custom_section2{
+    margin-top:7rem;
+    margin:auto;
+    width:90%;
+    max-height: fit-content;
+    height:100vh;
+
+    .card_container{
+      max-height: fit-content;
+ 
+    
+    }
+    
   }
 
