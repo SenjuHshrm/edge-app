@@ -7,10 +7,10 @@
           <label for="name" class="fs-6 fw-bold mb-1"
             >Key Partners Name:<br />{{ data.name }}</label
           >
-          <input class="form-control" type="text" name="text" />
+          <input class="form-control" type="text" name="text" [(ngModel)]="userId" />
         </div>
       </div>
-      <button class="btn btn-dark">Assign</button>
+      <button class="btn btn-dark" (click)="setUserId()">Assign</button>
     </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+import { PipesModule } from './../../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SoaComponent],
-  imports: [CommonModule, SoaRoutingModule, FormsModule],
+  imports: [CommonModule, SoaRoutingModule, FormsModule, PipesModule],
 })
 export class SoaModule {}

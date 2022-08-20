@@ -14,7 +14,7 @@ export class QuotationService {
   ) { }
 
   public getAllQuotations(): Observable<any> {
-    return this.http.get(`${environment.apiV1}`)
+    return this.http.get(`${environment.apiV1}/api/v1/get/quotations/all`)
   }
 
   public getQuotationByKeyPartnerId(): Observable<any> {

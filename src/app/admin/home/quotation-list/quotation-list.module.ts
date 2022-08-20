@@ -1,3 +1,4 @@
+import { PipesModule } from './../../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +14,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
   imports: [
     CommonModule,
     QuotationListRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ]
 })
 export class QuotationListModule { }

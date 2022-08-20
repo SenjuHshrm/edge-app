@@ -18,10 +18,10 @@
           </div>
           <div class="col-md-4">
             <h5>CUSTOMER</h5>
-            Kath S. Lat <br />
-            O2door<br />
-            Malvar Batangas <br />
-            09190059402
+            {{ data.keyPartnerId.name }} <br />
+            {{ data.keyPartnerId.company }}<br />
+            {{ data.keyPartnerId.addr }} <br />
+            {{ data.keyPartnerId.contact }}
           </div>
           <div class="col-md-4">
             <h5>PREPARED BY:</h5>
@@ -42,17 +42,17 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  O2D-Q-00001
+                  {{ data.quotationId }}
                 </td>
               </tr>
               <tr>
-                <td class="text-end px-2">Customer Id:</td>
+                <!-- <td class="text-end px-2">Customer Id:</td>
                 <td
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
                   00001
-                </td>
+                </td> -->
               </tr>
             </table>
           </div>
@@ -64,7 +64,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  Mar. 03, 2022
+                  {{ data.createdAt | customDate: "MMM. DD, YYYY" }}
                 </td>
               </tr>
               <tr>
@@ -73,7 +73,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  Apr. 02, 2022
+                  {{ data.validUntil | customDate: "MMM. DD, YYYY" }}
                 </td>
               </tr>
             </table>
@@ -92,13 +92,13 @@
             <th style="background-color: #f0b663">Mark Up (15%)</th>
             <th style="background-color: #f0b663">Total Price</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Description of Product 1</td>
-            <td>100.00</td>
-            <td>1</td>
-            <td>15.00</td>
-            <td>115.00</td>
+          <tr *ngFor="let item of data.items; let i=index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.unitPrice }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ (item.unitPrice * 0.15) }}</td>
+            <td>{{ item.totalPrice }}</td>
           </tr>
         </table>
       </div>

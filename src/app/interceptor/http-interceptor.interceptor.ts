@@ -14,7 +14,8 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
 
   constructor(private user: UserService) {
     this.specUrls = [
-      `${environment.apiV1}/api/v1/put/addr-temp`
+      `${environment.apiV1}/api/v1/put/addr-temp`,
+      `${environment.apiV1}/api/v1/post/key-partners/save-contract`
     ]
   }
 

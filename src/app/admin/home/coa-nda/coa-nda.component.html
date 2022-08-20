@@ -23,10 +23,10 @@
                   <li
                     *ngFor="let key of keyList"
                     (click)="
-                      keyListClick(key._id, key.email + ' - ' + key.company)
+                      keyListClick(key._id, key.company + ' - ' + key.email)
                     "
                   >
-                    {{ key.email + " - " + key.company }}
+                    {{ key.company + " - " + key.email }}
                   </li>
                 </ul>
               </ng-template>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="text-end">
-          <button class="btn btn-dark px-5">SEND</button>
+          <button class="btn btn-dark px-5" (click)="saveContract()">SEND</button>
         </div>
       </div>
     </div>
@@ -71,10 +71,10 @@
               </tr>
             </thead>
             <tbody class="border-top-0">
-              <tr>
-                <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
-                <td class="text-truncate px-1">Key Partners Name</td>
-                <td class="text-truncate px-1">Key Partners Company Name</td>
+              <tr *ngFor="let i of sentFileHistory">
+                <td class="text-truncate px-1">{{ i.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
+                <td class="text-truncate px-1">{{ i.keyPartner.name }}</td>
+                <td class="text-truncate px-1">{{ i.keyPartner.company }}</td>
                 <td>
                   <button
                     class="btn btn-dark text-white fw-bolder py-0"

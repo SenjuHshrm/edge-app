@@ -45,8 +45,8 @@ export class KeyPartnersComponent implements OnInit {
     sp.componentInstance.id = id;
   }
 
-  setCode(id: string): any {
-    let i = this.keyPartners.findIndex((x: any) => x._id === id);
+  assignCode(data: any): any {
+    let i = this.keyPartners.findIndex((x: any) => x._id === data._id);
     if (!this.keyPartners[i].isActivated) {
       return Swal.fire(
         'Account is inactive',
@@ -55,7 +55,7 @@ export class KeyPartnersComponent implements OnInit {
       );
     }
     let sp: NgbModalRef = this.md.open(AssignCodeComponent, { size: 'md' });
-    sp.componentInstance.id = id;
+    sp.componentInstance.data = data
   }
 
   setActiveStatus(id: string, isActivated: boolean) {
@@ -72,10 +72,10 @@ export class KeyPartnersComponent implements OnInit {
     });
   }
 
-  assignCode(data: any) {
-    let assignCode = this.md.open(AssignCodeComponent, { size: 'md' });
-    assignCode.componentInstance.data = data;
-  }
+  // assignCode(data: any) {
+  //   let assignCode = this.md.open(AssignCodeComponent, { size: 'md' });
+  //   assignCode.componentInstance.data = data;
+  // }
 
   deleteKP(id: string) {
     Swal.fire({

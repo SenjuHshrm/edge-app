@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-coa-nda',
@@ -10,8 +12,10 @@ export class CoaNdaComponent implements OnInit {
   public keyPartners: any = [];
   public keyList: any = [];
   public filename: string = 'Selected File';
+  public file: any;
+  public sentFileHistory: any = [];
 
-  public data = {
+  public data: any = {
     keyPartner: '',
     keyPartnerId: '',
   };
@@ -24,6 +28,16 @@ export class CoaNdaComponent implements OnInit {
         this.keyPartners = res.info;
       },
     });
+
+    this.kp.getContractSendingHistory('coa-nda').subscribe({
+      next: (res: any) => {
+        console.log(res)
+        this.sentFileHistory = res.info
+      },
+      error: ({ error }: any) => {
+
+      }
+    })
   }
 
   selectFile() {
@@ -32,6 +46,7 @@ export class CoaNdaComponent implements OnInit {
 
   changeFile(evt: any) {
     this.filename = evt.target.files[0].name;
+    this.file = evt.target.files[0]
   }
 
   handleSearch(evt: any) {
@@ -50,5 +65,23 @@ export class CoaNdaComponent implements OnInit {
     this.data.keyPartnerId = id;
     this.data.keyPartner = name;
     this.keyList = [];
+  }
+
+  saveContract() {
+    let filename = `COA-NDA_${moment().format('MMDDYYYYhhmmss')}_${this.data.keyPartnerId}${this.filename.substring(this.filename.lastIndexOf('.'), this.filename.length)}`
+    let contractData = new FormData()
+    contractData.append('id', this.data.keyPartnerId)
+    contractData.append('type', 'coa-nda')
+    contractData.append('filename', filename)
+    contractData.append('file', this.file)
+    this.kp.saveContract(contractData).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        Swal.fire('Success', 'File sent successfully', 'success')
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
   }
 }
