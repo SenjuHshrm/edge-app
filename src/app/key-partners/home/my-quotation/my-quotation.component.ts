@@ -15,7 +15,7 @@ export class MyQuotationComponent implements OnInit {
 
   createQuotation() {
     let createQuot = this.mdCtrl.open(CreatePurchaseOrderComponent, {
-      size: 'lg',
+      size: 'xl',
     });
   }
 }
