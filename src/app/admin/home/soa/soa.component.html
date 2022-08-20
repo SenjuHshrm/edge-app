@@ -4,14 +4,34 @@
     <div class="card shadow mx-2 mx-auto p-md-3">
       <div class="card-body">
         <h3 class="h3">Send SOA</h3>
-        <div class="mb-3">
-          <button
-            class="px-3 btn btn-dark text-white fw-bold shadow"
-            (click)="selectKP()"
-          >
-            Select Key Partners
-          </button>
-          <span class="mx-3 fw-bold">{{ kp }}</span>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <div class="mb-3 position-relative">
+              <label for="date" class="form-label fw-bold m-0 p-0"
+                >Select Key Partner</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="keyPartner"
+                name="keyPartner"
+                (keyup)="handleSearch($event)"
+                [(ngModel)]="data.keyPartner"
+              />
+              <ng-template [ngIf]="keyList.length !== 0">
+                <ul class="custom-autocomplete" id="auto-complete">
+                  <li
+                    *ngFor="let key of keyList"
+                    (click)="
+                      keyListClick(key._id, key.email + ' - ' + key.company)
+                    "
+                  >
+                    {{ key.email + " - " + key.company }}
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+          </div>
         </div>
 
         <div class="mb-3">
