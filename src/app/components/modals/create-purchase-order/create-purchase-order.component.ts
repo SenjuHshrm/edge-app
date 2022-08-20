@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-create-purchase-order',
@@ -6,30 +6,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-purchase-order.component.scss'],
 })
 export class CreatePurchaseOrderComponent implements OnInit {
-  public pos: any = [
-    {
-      item: '',
-      quantity: '',
-      units: '',
-      unitPrice: '',
-    },
-  ];
+
+  @Input() public data: any;
+  public quotations: any = [];
+  public itemPlaceholder: any= []
+  public items: any = []
+  public poData: any = {
+    itemId: '',
+    description: '',
+    unitPrice: '',
+    quantity: '',
+    totalPrice: ''
+  }
 
   constructor() {}
 
-  ngOnInit(): void {}
-
-  handleNewItem() {
-    this.pos.push({
-      item: '',
-      quantity: '',
-      units: '',
-      unitPrice: '',
-    });
+  ngOnInit(): void {
+    this.data.items.forEach((x: any) => {
+      this.items.push(x)
+    })
   }
 
-  handleSavePO(e: any) {
-    e.preventDefault();
-    console.log(this.pos);
+  displayInfo(id: string) {
+    let item = this.items.filter((i: any) => { return i._id === id })
+    this.poData = {
+      itemId: item[0]._id,
+      description: item[0].description,
+      unitPrice: item[0].units
+    }
   }
+
 }

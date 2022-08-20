@@ -50,17 +50,19 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private user: UserService, private kp: KeyPartnerService) {}
-  public data: any = {};
+  // public data: any = {};
+  public img: string = ''
 
   ngOnInit(): void {
     this.showToggle = window.innerWidth <= 767 ? true : false;
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.kp.getOneKeyPartner(token.sub).subscribe({
-      next: (res: any) => {
-        this.data = res.info;
-      },
-      error: (e: any) => console.log(e),
-    });
+    this.img = token.img
+    // this.kp.getOneKeyPartner(token.sub).subscribe({
+    //   next: (res: any) => {
+    //     this.data = res.info;
+    //   },
+    //   error: (e: any) => console.log(e),
+    // });
   }
 
   logout(e: any): void {

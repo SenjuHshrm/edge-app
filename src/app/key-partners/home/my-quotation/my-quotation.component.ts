@@ -1,5 +1,8 @@
+import { ViewQuotationComponent } from 'src/app/components/modals/view-quotation/view-quotation.component';
+import Swal from 'sweetalert2';
+import { QuotationService } from './../../../services/quotation.service';
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-purchase-order/create-purchase-order.component';
 
 @Component({
@@ -8,14 +11,47 @@ import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-p
   styleUrls: ['./my-quotation.component.scss'],
 })
 export class MyQuotationComponent implements OnInit {
-  tableDatas: any = [, , , ,];
-  constructor(private mdCtrl: NgbModal) {}
 
-  ngOnInit(): void {}
+  forApproval: any = []
+  pending: any = []
 
-  createQuotation() {
-    let createQuot = this.mdCtrl.open(CreatePurchaseOrderComponent, {
+  constructor(
+    private mdCtrl: NgbModal,
+    private quote: QuotationService
+  ) {}
+
+  ngOnInit(): void {
+    this.quote.getQuotationByKeyPartnerId().subscribe({
+      next: (res: any) => {
+        this.forApproval = res.info.filter((x: any) => x.status === 'none')
+        this.pending = res.info.filter((x: any) => x.status === 'pending')
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
+  }
+
+  createQuotation(data: any) {
+    let createPO: NgbModalRef = this.mdCtrl.open(CreatePurchaseOrderComponent, {
       size: 'xl',
     });
+    createPO.componentInstance.data = data
+  }
+
+  viewQuotation(data: any) {
+    let viewQuote: NgbModalRef = this.mdCtrl.open(ViewQuotationComponent, { size: 'xl' })
+    viewQuote.componentInstance.data = data
+  }
+
+  markAsPending(id: string) {
+    this.quote.markAsPending(id).subscribe({
+      next: (res: any) => {
+        Swal.fire('Success', 'Quotation marked as pending', 'success')
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
   }
 }

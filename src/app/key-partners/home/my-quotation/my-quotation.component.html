@@ -27,8 +27,8 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let table of tableDatas">
-              <td class="text-truncate px-1">45656</td>
+            <tr *ngFor="let table of forApproval">
+              <td class="text-truncate px-1">{{ table.quotationId }}</td>
               <td>
                 <div class="dropdown">
                   <button
@@ -45,18 +45,18 @@
                     aria-labelledby="dropdownMenuButton2"
                   >
                     <li>
-                      <button class="dropdown-item text-sm">View</button>
+                      <button class="dropdown-item text-sm" (click)="viewQuotation(table)">View</button>
                     </li>
                     <li>
                       <button
                         class="dropdown-item text-sm"
-                        (click)="createQuotation()"
+                        (click)="createQuotation(table)"
                       >
                         Create Purchase Order
                       </button>
                     </li>
                     <li>
-                      <button class="dropdown-item text-sm">
+                      <button class="dropdown-item text-sm" (click)="markAsPending(table._id)">
                         Mark As Pending
                       </button>
                     </li>
@@ -114,7 +114,7 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let table of tableDatas">
+            <tr *ngFor="let table of pending">
               <td class="text-truncate px-1">45656</td>
               <td>
                 <div class="dropdown">
@@ -137,7 +137,7 @@
                     <li>
                       <button
                         class="dropdown-item text-sm"
-                        (click)="createQuotation()"
+                        (click)="createQuotation(table)"
                       >
                         Create Purchase Order
                       </button>
