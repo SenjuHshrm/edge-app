@@ -12,3 +12,25 @@
 .custom-btn {
   padding: 0;
 }
+
+.custom-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid rgb(211, 210, 210);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  list-style-type: none;
+  padding: 0;
+  li {
+    cursor: pointer;
+    list-style-position: inside;
+    padding: 0.7rem;
+    &:hover {
+      background-color: rgb(235, 232, 232);
+    }
+    font-size: 0.8rem;
+  }
+}

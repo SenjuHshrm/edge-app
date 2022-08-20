@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SelectKeypartnerComponent } from 'src/app/components/modals/select-keypartner/select-keypartner.component';
+import { KeyPartnerService } from 'src/app/services/key-partner.service';
 
 @Component({
   selector: 'app-coa-nda',
@@ -8,23 +7,23 @@ import { SelectKeypartnerComponent } from 'src/app/components/modals/select-keyp
   styleUrls: ['./coa-nda.component.scss'],
 })
 export class CoaNdaComponent implements OnInit {
-  public kp: string = 'Selected Key Partners Here';
+  public keyPartners: any = [];
+  public keyList: any = [];
   public filename: string = 'Selected File';
 
-  constructor(private md: NgbModal) {}
+  public data = {
+    keyPartner: '',
+    keyPartnerId: '',
+  };
 
-  ngOnInit(): void {}
+  constructor(private kp: KeyPartnerService) {}
 
-  selectKP() {
-    let selectKP = this.md.open(SelectKeypartnerComponent, { size: 'md' });
-    selectKP.result
-      .then((res) => {
-        if (res.success) {
-          this.kp = res.name;
-          console.log(res.id);
-        }
-      })
-      .catch(() => console.log());
+  ngOnInit(): void {
+    this.kp.getActivatedKeyPartners().subscribe({
+      next: (res: any) => {
+        this.keyPartners = res.info;
+      },
+    });
   }
 
   selectFile() {
@@ -33,5 +32,23 @@ export class CoaNdaComponent implements OnInit {
 
   changeFile(evt: any) {
     this.filename = evt.target.files[0].name;
+  }
+
+  handleSearch(evt: any) {
+    const search = evt.target.value;
+    const data =
+      search !== ''
+        ? this.keyPartners.filter((e: any) =>
+            e.email.toLowerCase().startsWith(search.toLowerCase())
+          )
+        : [];
+    this.keyList = data;
+    console.log(data, this.keyPartners, search);
+  }
+
+  keyListClick(id: string, name: string) {
+    this.data.keyPartnerId = id;
+    this.data.keyPartner = name;
+    this.keyList = [];
   }
 }
