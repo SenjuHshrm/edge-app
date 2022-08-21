@@ -15,4 +15,8 @@ export class PurchaseOrderService {
   createPurchaseOrder(data: any): Observable<any> {
     return this.http.post(`${environment.apiV1}/api/v1/post/create-purchase-order`, data)
   }
+
+  getAllPurchaseOrder(): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/purchase-order/all`)
+  }
 }
