@@ -280,26 +280,36 @@
   margin-top: 0;
   margin:auto;
   width:90%;
+  max-width: fit-content;
   max-height: fit-content;
   height:100vh;
-  height: 100vh;
+
+  
  .custom-row{
   background-image: url("../../assets/images/landingpage/bgorange.png");
   background-position:right;
   background-size:85%;
   background-repeat: no-repeat;
  }
+ 
 
 
 .material-symbols-outlined {
-  color:yellow;
-  font-size:1.5rem;
+
   font-variation-settings:
   'FILL' 1,
-  'wght' 400,
+  'wght' 700,
   'GRAD' 0,
   'opsz' 48
 }
 
+}
+
+.footer_container{
+  background-image: url("../../assets/images/landingpage/footer/bluerectangle.png");
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center right;
+  height:100vh;
 }
 
