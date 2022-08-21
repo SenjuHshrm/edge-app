@@ -5,17 +5,16 @@ import { CommonModule } from '@angular/common';
 
 import { InquiryListRoutingModule } from './inquiry-list-routing.module';
 import { InquiryListComponent } from './inquiry-list.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    InquiryListComponent
-  ],
+  declarations: [InquiryListComponent],
   imports: [
     CommonModule,
     InquiryListRoutingModule,
     ComponentsModule,
-    PipesModule
-  ]
+    PipesModule,
+    FormsModule,
+  ],
 })
-export class InquiryListModule { }
+export class InquiryListModule {}

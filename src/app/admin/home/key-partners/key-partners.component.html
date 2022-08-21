@@ -5,18 +5,26 @@
       <div class="d-flex align-items-center">
         <div class="me-2 flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search"
+              [(ngModel)]="search"
+            />
             <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
         <div class="me-2">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Search by:</option>
-            <option value="1">Email</option>
-            <option value="2">Name</option>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="category"
+          >
+            <option value="email">Email</option>
+            <option value="name">Name</option>
           </select>
         </div>
-        <button class="btn btn-dark">Go</button>
+        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
       </div>
     </div>
   </div>

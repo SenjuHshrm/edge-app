@@ -10,23 +10,22 @@ import { CreateQuotationComponent } from 'src/app/components/modals/create-quota
   styleUrls: ['./quotation-list.component.scss'],
 })
 export class QuotationListComponent implements OnInit {
-
   public quoteList: any = [];
+  public allData: any = [];
+  public search: string = '';
 
-  constructor(
-    private mdCtrl: NgbModal,
-    private quote: QuotationService
-  ) {}
+  constructor(private mdCtrl: NgbModal, private quote: QuotationService) {}
 
   ngOnInit(): void {
     this.quote.getAllQuotations().subscribe({
       next: (res: any) => {
-        this.quoteList = res.info
+        this.quoteList = res.info;
+        this.allData = res.info;
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   viewQuotation(i: any) {
@@ -38,5 +37,17 @@ export class QuotationListComponent implements OnInit {
     let createQuot = this.mdCtrl.open(CreateQuotationComponent, {
       size: 'xl',
     });
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e.quotationId
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.quoteList = data;
   }
 }
