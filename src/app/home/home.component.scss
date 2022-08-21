@@ -38,37 +38,81 @@
 // .custom-about-container {
 // }
 
+
+@media only screen and (max-width: 1366px) {
+.custom_nav_list{
+  position: static !important;
+  left:0 !important;
+ ul{
+   list-style-type: none;
+ }
+ li{
+   margin-right:0;
+ }
+}
+}
+
+
+
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
   font-family: 'Poppins', sans-serif;
+  
 }  
-.custom_container_size{
 
+.custom_fluid{
+  background-color: #F5F5FF;
+  overflow-x: hidden;
+}
+
+.custom_container_size{
+   
   height:100vh;
-  width: 100%;
+
   background-image: url("../../assets/images/landingpage/header/BGheader.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position:center bottom;
+  
 
   .header_container {
     margin:auto;
-    margin-bottom:200px;
-    width:90%;
-    max-height: fit-content;
+    padding-bottom:200px;
+    width:84%;
     height:100vh;
- 
-
+    
+    .btn_default_header{
+      border-radius:10px;
+      font-weight: bolder;
+      font-size: 1.5rem;
+      width:240px;
+    
+     }
+     .btn_default_header:hover{ 
+      background-color: #F4970F;
+     }
+    
+    
+  .computer_image_header{
+    width:100%;
+    img{
+      min-width:20%;
+      width:100%;
+    }
+  }
 
       //////////////////////////////  NAVIGATION  //////////////// 
      
  
     .custom_navigation {
- 
+      
       .custom_logo {
-        width: 5rem;
-        height: 5rem;
+        width: 7rem;
+        height: 7rem;
         
 
         img {
@@ -80,14 +124,21 @@
       
       
       .custom_nav_list{
-
+         position: relative;
+         left:27%;
         ul{
+          
           list-style-type: none;
+        
         }
-
+        li{
+          margin-right:2rem;
+        }
         li a{
           color:white;
           font-weight:600;
+          font-size:1.2rem;
+          
         }
         .custom_contact{
           background-color: #F4970F;
@@ -98,38 +149,39 @@
       }
     }
   ////////////////////////////////////////
-    
- .custom_row_content{
-    max-height: fit-content;
-    height: 100vh;
- 
-   .custom_label_header{
-    color:white;
-    padding-bottom: 6rem;
-    
-    h1{
+ .custom_header_text{
+  padding-top: 3.5rem;
+
+    .h1{
       font-weight:bolder;
-       font-size: 3rem;
-      
+      font-size:3.5rem;
+ 
     }
 
-   }
-   .computer_image_header{
+    .text-size{
+      font-size:1.4rem;
+     
+    }
  
+
+   
+   .computer_image_header{
+   
       img{
-      max-width: 800px;
-      min-width: 500px;
+      max-width:900px;
+      min-width: 10px;
     
     }
    }
 
+
   }
-  }
+}
 }
 
 
   /////////////////////////section 2////////////// 
-  
+    
   .default_header_text{
     h1{
        font-weight:bolder;
@@ -137,21 +189,117 @@
     }
     p{
       font-weight:lighter;
+      font-size: 1.2rem;
     }
   }
 
   .custom_section2{
-    margin-top:7rem;
+    padding-top:7rem;
+    margin-top: 0;
     margin:auto;
     width:90%;
     max-height: fit-content;
     height:100vh;
-
-    .card_container{
-      max-height: fit-content;
- 
     
+   .card {
+      max-width: fit-content;
+      width:25rem;
+    img{
+       width: 40%;
+       margin: auto;
+       margin-bottom: 3rem;
     }
+   }
     
   }
+///////////////////////////
+
+ /////////////////////////section 3////////////// 
+
+  .custom_section3{
+    padding-top:7rem;
+    margin-top: 0;
+    margin:auto;
+    width:90%;
+    max-height: fit-content;
+    height:100vh;
+    
+   .btn_default{
+    border-radius:10px;
+   }
+
+
+   
+    
+  }
+
+   /////////////////////////section 4////////////// 
+  .custom_section4{
+    padding-top:7rem;
+    margin-top: 0;
+    margin:auto;
+    width:90%;
+    max-height: fit-content;
+    height:100vh;
+    
+   .btn_default{
+    border-radius:10px;
+   }
+
+
+
+  
+  }
+
+  .custom_section_vid{
+    height:100vh;
+ }
+
+ .custom_section_leader{
+  padding-top:7rem;
+  margin-top: 0;
+  margin:auto;
+  width:90%;
+  max-height: fit-content;
+  height:100vh;
+  
+ .card {
+    max-width: fit-content;
+    width:25rem; 
+  img{
+     width:100%;
+   
+
+  }
+ }
+  
+}
+
+.custom_testimonials{
+  padding-top:7rem;
+  margin-top: 0;
+  margin:auto;
+  width:90%;
+  max-height: fit-content;
+  height:100vh;
+  height: 100vh;
+ .custom-row{
+  background-image: url("../../assets/images/landingpage/bgorange.png");
+  background-position:right;
+  background-size:85%;
+  background-repeat: no-repeat;
+ }
+
+
+.material-symbols-outlined {
+  color:yellow;
+  font-size:1.5rem;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+}
 
