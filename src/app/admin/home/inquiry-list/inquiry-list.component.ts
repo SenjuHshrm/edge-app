@@ -10,24 +10,23 @@ import { CreateQuotationComponent } from 'src/app/components/modals/create-quota
   styleUrls: ['./inquiry-list.component.scss'],
 })
 export class InquiryListComponent implements OnInit {
+  public inqList: any = [];
 
-  public inqList: any = []
-
-  constructor(
-    private mdCtrl: NgbModal,
-    private inq: InquiryService
-  ) {}
+  constructor(private mdCtrl: NgbModal, private inq: InquiryService) {}
 
   ngOnInit(): void {
     this.inq.getAllInquiries().subscribe({
       next: (res: any) => {
-        this.inqList = res.info
-      }
-    })
+        console.log(res.info);
+        this.inqList = res.info;
+      },
+    });
   }
 
   viewInquiry(inq: any) {
-    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, { size: 'xl' });
+    let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, {
+      size: 'xl',
+    });
     viewInq.componentInstance.data = inq;
   }
 
@@ -35,6 +34,6 @@ export class InquiryListComponent implements OnInit {
     let createQuote: NgbModalRef = this.mdCtrl.open(CreateQuotationComponent, {
       size: 'xl',
     });
-    createQuote.componentInstance.data = inq
+    createQuote.componentInstance.data = inq;
   }
 }

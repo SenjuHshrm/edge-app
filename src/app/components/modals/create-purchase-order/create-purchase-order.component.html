@@ -10,33 +10,37 @@
         >
           <div class="form-group w-75 mx-auto">
             <label for="item" class="fs-6 fw-bold">Select Item</label>
-            <select class="form-select">
-              <!-- <option *ngFor="let i of items" [value]="i._id">
+            <select class="form-select" [(ngModel)]="poData.itemId" (change)="displayInfo(poData.itemId)">
+              <option *ngFor="let i of items" [value]="i._id">
                 {{ i.description }}
-              </option> -->
+              </option>
             </select>
           </div>
           <div class="form-group w-75 mx-auto">
             <label for="item-description" class="fs-6 fw-bold"
               >Item Description</label
             >
-            <input type="text" class="form-control" name="item-description" />
+            <input type="text" class="form-control" name="item-description" [(ngModel)]="poData.description"/>
           </div>
           <div class="form-group w-75 mx-auto">
             <label for="quantity" class="fs-6 fw-bold">Quantity</label>
-            <input type="number" class="form-control" name="quantity" />
+            <input type="number" class="form-control" name="quantity" [(ngModel)]="poData.quantity" (input)="computeTotalPrice()" />
           </div>
           <div class="form-group w-75 mx-auto">
             <label for="units" class="fs-6 fw-bold">Units</label>
-            <input type="text" class="form-control" name="units" />
+            <input type="text" class="form-control" name="units" [(ngModel)]="poData.units" />
+          </div>
+          <div class="form-group w-75 mx-auto">
+            <label for="units" class="fs-6 fw-bold">Unit Price</label>
+            <input type="text" class="form-control" name="unitPrice" [(ngModel)]="poData.unitPrice" (input)="computeTotalPrice()" />
           </div>
           <div>
-            <!-- <p *ngIf="quoteData.totalPrice !== ''">
-              Total price: P {{ quoteData.totalPrice }}
-            </p> -->
+            <p *ngIf="poData.totalPrice !== ''">
+              Total price: P {{ poData.totalPrice }}
+            </p>
           </div>
           <br />
-          <button type="button" class="btn btn-primary w-75 mx-auto">
+          <button type="button" class="btn btn-primary w-75 mx-auto" (click)="addPO(poData)">
             Add
           </button>
         </div>
@@ -49,30 +53,32 @@
                 <th scope="col">Item Description</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Units</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Total Price</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr *ngFor="let quote of quotations; let i = index">
-                <td>{{ quote.description }}</td>
-                <td>{{ quote.quantity }}</td>
-                <td>{{ quote.unitPrice }}</td>
-                <td>{{ quote.totalPrice }}</td>
+              <tr *ngFor="let po of pos; let i = index">
+                <td>{{ po.description }}</td>
+                <td>{{ po.quantity }}</td>
+                <td>{{ po.units }}</td>
+                <td>{{ po.unitPrice }}</td>
+                <td>{{ po.totalPrice }}</td>
                 <th scope="row">
                   <i
                     class="bi bi-x-lg text-danger"
                     (click)="removeFromList(i)"
                   ></i>
                 </th>
-              </tr> -->
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <div class="card-footer text-end">
-      <button type="button" class="btn btn-dark px-5">Save</button>
+      <button type="button" class="btn btn-dark px-5" (click)="handleSavePO()">Save</button>
     </div>
   </div>
 </div>

@@ -39,21 +39,32 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let i of quoteList">
-              <td class="text-truncate px-1">{{ i.quotationId }}</td>
-              <td class="text-truncate px-1">{{ i.keyPartnerId.name }}</td>
-              <td class="text-truncate px-1">{{ i.keyPartnerId.company }}</td>
-              <td class="text-truncate px-1">{{ i.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
-              <td>
-                <button
-                  class="btn btn-dark text-white fw-bolder py-0"
-                  (click)="viewQuotation(i)"
-                  data-tool-tip="View Quotation"
-                >
-                  <i class="bi bi-door-open"></i>
-                </button>
-              </td>
-            </tr>
+            <ng-template [ngIf]="quoteList.length === 0">
+              <tr>
+                <td colspan="5">
+                  <small class="fw-bold">No Record Found.</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="quoteList.length !== 0">
+              <tr *ngFor="let i of quoteList">
+                <td class="text-truncate px-1">{{ i.quotationId }}</td>
+                <td class="text-truncate px-1">{{ i.keyPartnerId.name }}</td>
+                <td class="text-truncate px-1">{{ i.keyPartnerId.company }}</td>
+                <td class="text-truncate px-1">
+                  {{ i.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
+                </td>
+                <td>
+                  <button
+                    class="btn btn-dark text-white fw-bolder py-0"
+                    (click)="viewQuotation(i)"
+                    data-tool-tip="View Quotation"
+                  >
+                    <i class="bi bi-door-open"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
