@@ -4,15 +4,16 @@ import { CommonModule } from '@angular/common';
 
 import { KeyPartnersRoutingModule } from './key-partners-routing.module';
 import { KeyPartnersComponent } from './key-partners.component';
-import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [KeyPartnersComponent],
+  declarations: [
+    KeyPartnersComponent
+  ],
   imports: [
     CommonModule,
     KeyPartnersRoutingModule,
-    ComponentsModule,
-    FormsModule,
-  ],
+    ComponentsModule
+  ]
 })
-export class KeyPartnersModule {}
+export class KeyPartnersModule { }

@@ -10,8 +10,6 @@ import { InquiryService } from 'src/app/services/inquiry.service';
 })
 export class InquiryComponent implements OnInit {
   public inquiryList: any = [];
-  public allData: any = [];
-  public search: string = '';
 
   constructor(private mdCtrl: NgbModal, private inq: InquiryService) {}
 
@@ -21,7 +19,6 @@ export class InquiryComponent implements OnInit {
         res.info.map((i: any) => {
           // i.createdAt = moment(i.createdAt).format('MM/DD/YYYY, hh:mm a')
           this.inquiryList.push(i);
-          this.allData.push(i);
         });
       },
       error: (e) => {
@@ -51,17 +48,5 @@ export class InquiryComponent implements OnInit {
         console.log(result);
       })
       .catch(() => console.log());
-  }
-
-  handleSearch() {
-    const data =
-      this.search !== ''
-        ? this.allData.filter((e: any) =>
-            e.inqId
-              .toLocaleLowerCase()
-              .startsWith(this.search.toLocaleLowerCase())
-          )
-        : this.allData;
-    this.inquiryList = data;
   }
 }
