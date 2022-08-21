@@ -28,14 +28,14 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr>
-              <td class="text-truncate px-1">QUOTE-10258</td>
-              <td class="text-truncate px-1">Juan Dela Cruz</td>
-              <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
+            <tr *ngFor="let po of poLs">
+              <td class="text-truncate px-1">{{ po.poId }}</td>
+              <td class="text-truncate px-1">{{ po.keyPartnerId.name }}</td>
+              <td class="text-truncate px-1">{{ po.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
               <td>
                 <button
                   class="btn btn-dark text-white fw-bolder py-0"
-                  (click)="viewPurchaseOrder()"
+                  (click)="viewPurchaseOrder(po)"
                   data-tool-tip="View Purchase Order"
                 >
                   <i class="bi bi-door-open"></i>

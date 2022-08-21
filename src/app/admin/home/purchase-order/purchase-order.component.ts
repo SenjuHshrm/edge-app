@@ -11,6 +11,8 @@ import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-p
 })
 export class PurchaseOrderComponent implements OnInit {
 
+  public poLs: any = [];
+
   constructor(
     private mdCtrl: NgbModal,
     private po: PurchaseOrderService
@@ -19,7 +21,8 @@ export class PurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.po.getAllPurchaseOrder().subscribe({
       next: (res: any) => {
-        console.log(res)
+        console.log(res.info)
+        this.poLs = res.info
       },
       error: ({ error }: any) => {
         console.log(error)
@@ -33,8 +36,8 @@ export class PurchaseOrderComponent implements OnInit {
     });
   }
 
-  viewPurchaseOrder() {
+  viewPurchaseOrder(data: any) {
     let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent, { size: 'xl' });
-    viewPO.componentInstance.data = {};
+    viewPO.componentInstance.data = data;
   }
 }

@@ -16,27 +16,30 @@
             <thead class="bg-light sticky-top">
               <tr>
                 <th class="text-truncate px-1">Date Received</th>
-                <th class="text-truncate px-1">File Type</th>
                 <th class="text-truncate px-1">Actions</th>
               </tr>
             </thead>
             <tbody class="border-top-0">
-              <tr>
-                <td class="text-truncate px-1">7/24/2022, 8:59:17 PM</td>
-                <td class="text-truncate px-1">COA</td>
+              <tr *ngFor="let file of fileList">
+                <td class="text-truncate px-1">{{ file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
                 <td class="text-truncate">
-                  <button
+                  <a
                     class="btn btn-dark text-white fw-bolder py-0 me-2"
                     data-tool-tip="View COA/NDA"
+                    href="{{file.file}}"
+                    target="_blank"
                   >
                     <i class="bi bi-door-open"></i>
-                  </button>
-                  <button
+                  </a>
+                  <a
                     class="btn btn-dark text-white fw-bolder py-0"
                     data-tool-tip="Download COA/NDA"
+                    [href]="file.file"
+                    target="_blank"
+                    [download]="file.filename"
                   >
                     <i class="bi bi-file-earmark-arrow-down"></i>
-                  </button>
+                  </a>
                 </td>
               </tr>
             </tbody>

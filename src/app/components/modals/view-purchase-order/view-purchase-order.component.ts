@@ -12,6 +12,7 @@ export class ViewPurchaseOrderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
 }

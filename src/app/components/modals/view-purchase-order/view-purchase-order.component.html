@@ -21,10 +21,10 @@
           </div>
           <div class="col-md-4">
             <h5>BUYER</h5>
-            Name <br />
-            Store Name<br />
-            Address <br />
-            Mobile Number
+            {{ data.keyPartnerId.name }} <br />
+            {{ data.keyPartnerId.company }}<br />
+            {{ data.keyPartnerId.addr }} <br />
+            {{ data.keyPartnerId.contact }}
           </div>
           <div class="col-md-4">
             <h5>PREPARED BY:</h5>
@@ -45,7 +45,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #f0b663"
                 >
-                  ABC-00001
+                  {{ data.poId }}
                 </td>
               </tr>
             </table>
@@ -58,7 +58,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #f0b663"
                 >
-                  Mar. 03, 2022
+                  {{ data.createdAt | customDate: "MMM. DD, YYYY" }}
                 </td>
               </tr>
             </table>
@@ -76,12 +76,12 @@
             <th style="background-color: #f0b663">Unit Price</th>
             <th style="background-color: #f0b663">Total Price</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Description of Product 1</td>
-            <td>1</td>
-            <td>100.00</td>
-            <td>115.00</td>
+          <tr *ngFor="let item of data.items; let i=index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unitPrice }}</td>
+            <td>{{ item.totalPrice }}</td>
           </tr>
         </table>
       </div>
