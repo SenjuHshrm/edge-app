@@ -157,13 +157,15 @@ export class CreateBookingComponent implements OnInit {
     this.individualItemTable.forEach((x: any) => {
       items.push({
         itemId: x.id,
-        quantity: x.quantity
+        quantity: x.quantity,
+        itemType: 'individual'
       })
     })
     this.bundledItemTable.forEach((x: any) => {
       items.push({
         itemId: x.id,
-        quantity: x.quantity
+        quantity: x.quantity,
+        itemType: 'bundle'
       })
     })
     let req = {

@@ -28,6 +28,7 @@ export class BookingService {
   }
 
   public addBooking(data: any): Observable<any> {
-    return this.http.post(`${environment.apiV1}/api/v1/post/booking/add`, data)
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.post(`${environment.apiV1}/api/v1/post/booking/add`, { ...data, keyPartnerId: token.sub })
   }
 }
