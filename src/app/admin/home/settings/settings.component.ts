@@ -5,6 +5,7 @@ import { ClassificationService } from 'src/app/services/classification.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassificationUpdateComponent } from 'src/app/components/modals/codes-update/classification-update/classification-update.component';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-settings',
@@ -42,6 +43,11 @@ export class SettingsComponent implements OnInit {
   public sTotalpage: any = 0;
   public sSearch: string = '';
 
+  // password
+  public currentPass: string = '';
+  public newPass: string = '';
+  public confirmPass: string = '';
+
   constructor(
     private classServ: ClassificationService,
     private mdCtrl: NgbModal,
@@ -52,6 +58,62 @@ export class SettingsComponent implements OnInit {
     this.handleGetAllClassifications();
     this.handleGetAllColors();
     this.handleGetAllSizes();
+  }
+
+  changePassword() {
+    if (this.validatePassword()) {
+      const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
+      this.user
+        .changePassword({
+          oldPass: this.currentPass,
+          newPass: this.newPass,
+          id: token.sub,
+        })
+        .subscribe({
+          next: (res) => {
+            if (res.success) {
+              Swal.fire({
+                title: res.msg,
+                icon: 'success',
+              });
+              this.currentPass = '';
+              this.newPass = '';
+              this.confirmPass = '';
+            } else {
+              Swal.fire({
+                title: res.msg,
+                icon: 'error',
+              });
+            }
+          },
+          error: (err) => console.log(err),
+        });
+    }
+  }
+
+  validatePassword(): boolean {
+    let message = '';
+    if (this.currentPass === '') {
+      message = 'Please enter current password.';
+    } else if (this.newPass === '') {
+      message = 'Please enter new password.';
+    } else if (this.currentPass === this.newPass) {
+      message = 'New password must not match the current password.';
+    } else if (this.confirmPass === '') {
+      message = 'Please enter confirm new password.';
+    } else if (this.newPass !== this.confirmPass) {
+      message = 'New password and confirm must match.';
+    }
+
+    if (message === '') {
+      return true;
+    } else {
+      Swal.fire({
+        title: message,
+        icon: 'info',
+      });
+      return false;
+    }
   }
 
   handleGetAllColors() {
@@ -256,18 +318,19 @@ export class SettingsComponent implements OnInit {
   }
 
   processTempFile(evt: any, type: string) {
-    if(type === 'flash') return this.flashTemp = evt.target.files[0]
-    if(type === 'jnt') return this.jntTemp = evt.target.files[0]
+    if (type === 'flash') return (this.flashTemp = evt.target.files[0]);
+    if (type === 'jnt') return (this.jntTemp = evt.target.files[0]);
   }
 
   uploadTemp(type: string) {
-    let form = new FormData(), file = (type === 'flash') ? this.flashTemp : this.jntTemp;
-    form.append('name', type)
-    form.append('file', file)
+    let form = new FormData(),
+      file = type === 'flash' ? this.flashTemp : this.jntTemp;
+    form.append('name', type);
+    form.append('file', file);
     this.user.uploadTemp(form).subscribe({
       next: (_) => {
-        Swal.fire('Success', 'File uploaded successfully', 'success')
-      }
-    })
+        Swal.fire('Success', 'File uploaded successfully', 'success');
+      },
+    });
   }
 }

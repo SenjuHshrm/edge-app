@@ -31,13 +31,10 @@ export class CoaNdaComponent implements OnInit {
 
     this.kp.getContractSendingHistory('coa-nda').subscribe({
       next: (res: any) => {
-        console.log(res)
-        this.sentFileHistory = res.info
+        this.sentFileHistory = res.info;
       },
-      error: ({ error }: any) => {
-
-      }
-    })
+      error: ({ error }: any) => {},
+    });
   }
 
   selectFile() {
@@ -46,7 +43,7 @@ export class CoaNdaComponent implements OnInit {
 
   changeFile(evt: any) {
     this.filename = evt.target.files[0].name;
-    this.file = evt.target.files[0]
+    this.file = evt.target.files[0];
   }
 
   handleSearch(evt: any) {
@@ -58,7 +55,6 @@ export class CoaNdaComponent implements OnInit {
           )
         : [];
     this.keyList = data;
-    console.log(data, this.keyPartners, search);
   }
 
   keyListClick(id: string, name: string) {
@@ -68,20 +64,25 @@ export class CoaNdaComponent implements OnInit {
   }
 
   saveContract() {
-    let filename = `COA-NDA_${moment().format('MMDDYYYYhhmmss')}_${this.data.keyPartnerId}${this.filename.substring(this.filename.lastIndexOf('.'), this.filename.length)}`
-    let contractData = new FormData()
-    contractData.append('id', this.data.keyPartnerId)
-    contractData.append('type', 'coa-nda')
-    contractData.append('filename', filename)
-    contractData.append('file', this.file)
+    let filename = `COA-NDA_${moment().format('MMDDYYYYhhmmss')}_${
+      this.data.keyPartnerId
+    }${this.filename.substring(
+      this.filename.lastIndexOf('.'),
+      this.filename.length
+    )}`;
+    let contractData = new FormData();
+    contractData.append('id', this.data.keyPartnerId);
+    contractData.append('type', 'coa-nda');
+    contractData.append('filename', filename);
+    contractData.append('file', this.file);
     this.kp.saveContract(contractData).subscribe({
       next: (res: any) => {
-        console.log(res)
-        Swal.fire('Success', 'File sent successfully', 'success')
+        console.log(res);
+        Swal.fire('Success', 'File sent successfully', 'success');
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 }

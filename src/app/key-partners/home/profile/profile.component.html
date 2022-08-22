@@ -8,7 +8,7 @@
         >
           <div class="img-container position-relative">
             <img
-              src="{{ data.img }}"
+              src="{{ image }}"
               class="rounded-3"
               style="width: 300px"
               alt="Avatar"
@@ -29,7 +29,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-person-circle"></i
               ></span>
-              <input type="text" class="form-control" value="{{ data.name }}" />
+              <input type="text" class="form-control" [(ngModel)]="fullname" />
             </div>
           </div>
 
@@ -41,7 +41,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-house-door-fill"></i
               ></span>
-              <input type="text" class="form-control" value="{{ data.addr }}" />
+              <input type="text" class="form-control" [(ngModel)]="address" />
             </div>
           </div>
 
@@ -53,11 +53,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-telephone"></i
               ></span>
-              <input
-                type="text"
-                class="form-control"
-                value="{{ data.contact }}"
-              />
+              <input type="text" class="form-control" [(ngModel)]="contact" />
             </div>
           </div>
 
@@ -69,11 +65,7 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-mailbox2"></i
               ></span>
-              <input
-                type="text"
-                class="form-control"
-                value="{{ data.email }}"
-              />
+              <input type="text" class="form-control" [(ngModel)]="email" />
             </div>
           </div>
 
@@ -85,16 +77,15 @@
               <span class="input-group-text" id="basic-addon1"
                 ><i class="bi bi-building"></i
               ></span>
-              <input
-                type="text"
-                class="form-control"
-                value="{{ data.company }}"
-              />
+              <input type="text" class="form-control" [(ngModel)]="company" />
             </div>
           </div>
 
           <div class="col-md-12 text-end">
-            <button class="btn btn-dark fw-bolder px-5 text-white">
+            <button
+              class="btn btn-dark fw-bolder px-5 text-white"
+              (click)="updateProfile()"
+            >
               Update
             </button>
           </div>
@@ -134,24 +125,45 @@
           <div class="row p-3">
             <h5 class="card-title fw-bold pb-4">Change Password</h5>
             <div class="col-md-12">
-              <div class="col-md-10 offset-md-1 mb-3 position-relative">
-                <app-input
-                  [inputType]="'password'"
-                  [name]="'password'"
-                  [label]="'Password'"
-                ></app-input>
-                <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold"
+                  >Current Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="currentPass"
+                  name="currentPass"
+                  [(ngModel)]="currentPass"
+                />
               </div>
-              <div class="col-md-10 offset-md-1 mb-3 position-relative">
-                <app-input
-                  [inputType]="'password'"
-                  [name]="'confirm_password'"
-                  [label]="'Confirm Password'"
-                ></app-input>
-                <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold">New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="newPass"
+                  name="newPass"
+                  [(ngModel)]="newPass"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold"
+                  >Confirm New Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPass"
+                  name="confirmPass"
+                  [(ngModel)]="confirmPass"
+                />
               </div>
               <div class="col-md-10 offset-md-1 text-end">
-                <button class="btn btn-dark fw-bolder px-5 text-white">
+                <button
+                  class="btn btn-dark fw-bolder px-5 text-white"
+                  (click)="changePassword()"
+                >
                   Update
                 </button>
               </div>

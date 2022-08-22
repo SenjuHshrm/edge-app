@@ -21,6 +21,7 @@
                 type="text"
                 class="form-control"
                 id="mobile"
+                maxlength="11"
                 name="customerContact"
                 [(ngModel)]="bookingData.customerContact"
               />
@@ -105,45 +106,38 @@
               </div>
               <div class="form-group me-2 flex-grow-1">
                 <label for="contact" class="fs-6 fw-bold">Courier</label>
-                <select class="form-select" aria-label="Default select example" name="courier" [(ngModel)]="bookingData.courier">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="courier"
+                  [(ngModel)]="bookingData.courier"
+                >
                   <option value="flash">FLASH</option>
                   <option value="jnt">JNT</option>
                 </select>
               </div>
               <div>
-                <button class="btn btn-dark" (click)="checkAddress(addr, bookingData)">Courier Check</button>
+                <button
+                  class="btn btn-dark"
+                  (click)="checkAddress(addr, bookingData)"
+                >
+                  Courier Check
+                </button>
               </div>
             </div>
           </div>
 
           <div class="d-flex mb-3">
-            <div class="form-group me-2 flex-grow-1">
-              <label for="products" class="fs-6 fw-bold">Products</label>
-              <input
-                type="text"
-                class="form-control"
-                id="products"
-                name="products"
-                [(ngModel)]="bookingData.product"
-              />
-            </div>
-            <div class="form-group me-2 flex-grow-1">
-              <label for="quantity" class="fs-6 fw-bold">Quantity</label>
-              <input
-                type="text"
-                class="form-control"
-                id="quantity"
-                name="quantity"
-                [(ngModel)]="bookingData.quantity"
-              />
-            </div>
-            <div class="form-group flex-grow-1">
+            <div class="form-group flex-grow-1 me-2">
               <label for="cod" class="fs-6 fw-bold">COD</label>
-              <input type="text" class="form-control" id="cod" name="cod" [(ngModel)]="bookingData.cod" />
+              <input
+                type="text"
+                class="form-control"
+                id="cod"
+                name="cod"
+                [(ngModel)]="bookingData.cod"
+              />
             </div>
-          </div>
-
-          <div class="d-flex mb-3">
             <div class="form-group me-2 flex-grow-1">
               <label for="sender" class="fs-6 fw-bold"
                 >Sender / Page Name</label
@@ -162,6 +156,7 @@
                 type="text"
                 class="form-control"
                 id="contact"
+                maxlength="11"
                 name="senderContact"
                 [(ngModel)]="bookingData.senderContact"
               />
@@ -216,7 +211,12 @@
                       name="indItem"
                       [(ngModel)]="selectedIndItem"
                     >
-                      <option *ngFor="let item of individualItem" [value]="item._id">{{ item.desc }}</option>
+                      <option
+                        *ngFor="let item of individualItem"
+                        [value]="item._id"
+                      >
+                        {{ item.desc }}
+                      </option>
                     </select>
                   </div>
                   <div class="form-group me-2">
@@ -230,7 +230,12 @@
                     />
                   </div>
                   <div>
-                    <button class="btn btn-dark" (click)="addToIndividualOrderList(selectedIndItem)">Add Item</button>
+                    <button
+                      class="btn btn-dark"
+                      (click)="addToIndividualOrderList(selectedIndItem)"
+                    >
+                      Add Item
+                    </button>
                   </div>
                 </div>
                 <div class="responsive">
@@ -279,21 +284,21 @@
                       name="bundledItem"
                       [(ngModel)]="selectedBundleItem"
                     >
-                      <option *ngFor="let item of bundledItem" [value]="item._id">{{ item.name }}</option>
+                      <option
+                        *ngFor="let item of bundledItem"
+                        [value]="item._id"
+                      >
+                        {{ item.name }}
+                      </option>
                     </select>
                   </div>
-                  <div class="form-group me-2">
-                    <label for="contact" class="fs-6 fw-bold">Quantity</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="bndQuantity"
-                      name="bndQuantity"
-                      [(ngModel)]="bndQuantity"
-                    />
-                  </div>
                   <div>
-                    <button class="btn btn-dark" (click)="addToBundledOrderList(selectedBundleItem)">Add Item</button>
+                    <button
+                      class="btn btn-dark"
+                      (click)="addToBundledOrderList(selectedBundleItem)"
+                    >
+                      Add Item
+                    </button>
                   </div>
                 </div>
                 <div class="responsive">
@@ -329,7 +334,9 @@
                                     )
                                   }}
                                 </td> -->
-                                <td class="text-truncate">{{ item.quantity }}</td>
+                                <td class="text-truncate">
+                                  {{ item.quantity }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -352,7 +359,12 @@
           </ng-template>
 
           <div class="pt-3 text-end">
-            <button class="btn btn-dark px-5 fw-bolder text-white" (click)="addBooking()">SAVE</button>
+            <button
+              class="btn btn-dark px-5 fw-bolder text-white"
+              (click)="addBooking()"
+            >
+              SAVE
+            </button>
           </div>
         </div>
       </div>

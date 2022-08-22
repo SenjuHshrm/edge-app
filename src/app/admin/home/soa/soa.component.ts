@@ -31,13 +31,10 @@ export class SoaComponent implements OnInit {
 
     this.kp.getContractSendingHistory('soa').subscribe({
       next: (res: any) => {
-        console.log(res)
-        this.sentFileHistory = res.info
+        this.sentFileHistory = res.info;
       },
-      error: ({ error }: any) => {
-
-      }
-    })
+      error: ({ error }: any) => {},
+    });
   }
 
   selectFile() {
@@ -46,7 +43,7 @@ export class SoaComponent implements OnInit {
 
   changeFile(evt: any) {
     this.filename = evt.target.files[0].name;
-    this.file = evt.target.files[0]
+    this.file = evt.target.files[0];
   }
 
   handleSearch(evt: any) {
@@ -58,7 +55,6 @@ export class SoaComponent implements OnInit {
           )
         : [];
     this.keyList = data;
-    console.log(data, this.keyPartners, search);
   }
 
   keyListClick(id: string, name: string) {
@@ -68,20 +64,24 @@ export class SoaComponent implements OnInit {
   }
 
   saveContract() {
-    let filename = `SOA_${moment().format('MMDDYYYYhhmmss')}_${this.data.keyPartnerId}${this.filename.substring(this.filename.lastIndexOf('.'), this.filename.length)}`
-    let contractData = new FormData()
-    contractData.append('id', this.data.keyPartnerId)
-    contractData.append('type', 'soa')
-    contractData.append('filename', filename)
-    contractData.append('file', this.file)
+    let filename = `SOA_${moment().format('MMDDYYYYhhmmss')}_${
+      this.data.keyPartnerId
+    }${this.filename.substring(
+      this.filename.lastIndexOf('.'),
+      this.filename.length
+    )}`;
+    let contractData = new FormData();
+    contractData.append('id', this.data.keyPartnerId);
+    contractData.append('type', 'soa');
+    contractData.append('filename', filename);
+    contractData.append('file', this.file);
     this.kp.saveContract(contractData).subscribe({
       next: (res: any) => {
-        console.log(res)
-        Swal.fire('Success', 'File sent successfully', 'success')
+        Swal.fire('Success', 'File sent successfully', 'success');
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 }

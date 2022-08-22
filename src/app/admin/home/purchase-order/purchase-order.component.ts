@@ -10,24 +10,19 @@ import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-p
   styleUrls: ['./purchase-order.component.scss'],
 })
 export class PurchaseOrderComponent implements OnInit {
-
   public poLs: any = [];
 
-  constructor(
-    private mdCtrl: NgbModal,
-    private po: PurchaseOrderService
-  ) {}
+  constructor(private mdCtrl: NgbModal, private po: PurchaseOrderService) {}
 
   ngOnInit(): void {
     this.po.getAllPurchaseOrder().subscribe({
       next: (res: any) => {
-        console.log(res.info)
-        this.poLs = res.info
+        this.poLs = res.info;
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   createPurchaseOrder() {

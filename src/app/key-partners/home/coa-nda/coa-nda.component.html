@@ -20,28 +20,39 @@
               </tr>
             </thead>
             <tbody class="border-top-0">
-              <tr *ngFor="let file of fileList">
-                <td class="text-truncate px-1">{{ file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
-                <td class="text-truncate">
-                  <a
-                    class="btn btn-dark text-white fw-bolder py-0 me-2"
-                    data-tool-tip="View COA/NDA"
-                    href="{{file.file}}"
-                    target="_blank"
-                  >
-                    <i class="bi bi-door-open"></i>
-                  </a>
-                  <a
-                    class="btn btn-dark text-white fw-bolder py-0"
-                    data-tool-tip="Download COA/NDA"
-                    [href]="file.file"
-                    target="_blank"
-                    [download]="file.filename"
-                  >
-                    <i class="bi bi-file-earmark-arrow-down"></i>
-                  </a>
-                </td>
-              </tr>
+              <ng-template [ngIf]="fileList.length === 0">
+                <tr>
+                  <td colspan="2">
+                    <small class="fw-bold">No Files Found.</small>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template [ngIf]="fileList.length !== 0">
+                <tr *ngFor="let file of fileList">
+                  <td class="text-truncate px-1">
+                    {{ file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
+                  </td>
+                  <td class="text-truncate">
+                    <a
+                      class="btn btn-dark text-white fw-bolder py-0 me-2"
+                      data-tool-tip="View COA/NDA"
+                      href="{{ file.file }}"
+                      target="_blank"
+                    >
+                      <i class="bi bi-door-open"></i>
+                    </a>
+                    <a
+                      class="btn btn-dark text-white fw-bolder py-0"
+                      data-tool-tip="Download COA/NDA"
+                      [href]="file.file"
+                      target="_blank"
+                      [download]="file.filename"
+                    >
+                      <i class="bi bi-file-earmark-arrow-down"></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
             </tbody>
           </table>
         </div>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingService } from 'src/app/services/booking.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
 
 @Component({
   selector: 'app-booking-list',
@@ -6,112 +9,95 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booking-list.component.scss'],
 })
 export class BookingListComponent implements OnInit {
-  constructor() {}
+  public bookings: any = [];
+  public allData: any = [];
 
-  ngOnInit(): void {}
+  public search: string = '';
+  public category: string = 'keyPartnerId';
+  public selectedDate: string = '';
+  public status: string = 'all';
 
-  public tableHeader = [
-    { thead: 'ID' },
-    { thead: 'Date' },
-    { thead: 'Receiver Name' },
-    { thead: 'Phone No.' },
-    { thead: 'Address' },
-    { thead: 'Zip Code' },
-    { thead: 'Province/State' },
-    { thead: 'City' },
-    { thead: 'Barangay' },
-    { thead: 'Products' },
-    { thead: 'Quantity' },
-    { thead: 'COD' },
-    { thead: 'Sender/Page Name' },
-    { thead: 'Contact No.' },
-    { thead: 'Remarks' },
-    { thead: 'Actions' },
-  ];
+  constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
 
-  public tableData = [
-    {
-      id: '1',
-      date: 'June 09,2022',
-      receivename: 'Juan Dela Cruz',
-      phoneno: '0915648932',
-      address: 'Brgy. Bagong Bayan, San Pablo City, Laguna',
-      zipcode: '4000',
-      province: 'Laguna, Philippines',
-      city: 'San Pablo City',
-      barangay: 'Bagong Bayan',
-      products: 'Safeguard',
-      quantity: '1',
-      cod: 'Yes',
-      senderpagename: 'Maria',
-      contact: '09516432826',
-      remarks: 'This remarks',
-      fullfillment: 'OKs na oks',
-      trackno: '4546548798312132',
-      area: 'Location area',
-    },
+  ngOnInit(): void {
+    this.bookServ.getAllBooking().subscribe({
+      next: (res) => {
+        this.bookings = [...res.info];
+        this.allData = [...res.info];
+      },
+      error: (error) => console.log(error),
+    });
+  }
 
-    {
-      id: '1',
-      date: 'June 09,2022',
-      receivename: 'Juan Dela Cruz',
-      phoneno: '0915648932',
-      address: 'Brgy. Bagong Bayan, San Pablo City, Laguna',
-      zipcode: '4000',
-      province: 'Laguna, Philippines',
-      city: 'San Pablo City',
-      barangay: 'Bagong Bayan',
-      products: 'Safeguard',
-      quantity: '1',
-      cod: 'Yes',
-      senderpagename: 'Maria',
-      contact: '09516432826',
-      remarks: 'This remarks',
-      fullfillment: 'OKs na oks',
-      trackno: '4546548798312132',
-      area: 'Location area',
-    },
+  handleProduct(data: any): string {
+    if (data.itemId) {
+      return data.itemId.desc;
+    } else {
+      return data.bundleId.name;
+    }
+  }
 
-    {
-      id: '1',
-      date: 'June 09,2022',
-      receivename: 'Juan Dela Cruz',
-      phoneno: '0915648932',
-      address: 'Brgy. Bagong Bayan, San Pablo City, Laguna',
-      zipcode: '4000',
-      province: 'Laguna, Philippines',
-      city: 'San Pablo City',
-      barangay: 'Bagong Bayan',
-      products: 'Safeguard',
-      quantity: '1',
-      cod: 'Yes',
-      senderpagename: 'Maria',
-      contact: '09516432826',
-      remarks: 'This remarks',
-      fullfillment: 'OKs na oks',
-      trackno: '4546548798312132',
-      area: 'Location area',
-    },
+  handleQuantity(data: any): string {
+    if (data.itemId) {
+      return data.quantity;
+    } else {
+      return 'bundle';
+    }
+  }
 
-    {
-      id: '1',
-      date: 'June 09,2022',
-      receivename: 'Juan Dela Cruz',
-      phoneno: '0915648932',
-      address: 'Brgy. Bagong Bayan, San Pablo City, Laguna',
-      zipcode: '4000',
-      province: 'Laguna, Philippines',
-      city: 'San Pablo City',
-      barangay: 'Bagong Bayan',
-      products: 'Safeguard',
-      quantity: '1',
-      cod: 'Yes',
-      senderpagename: 'Maria',
-      contact: '09516432826',
-      remarks: 'This remarks',
-      fullfillment: 'OKs na oks',
-      trackno: '4546548798312132',
-      area: 'Location area',
-    },
-  ];
+  handleDate(date: any): string {
+    return new Date(date).toLocaleString();
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e[this.category]
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.bookings = data;
+  }
+
+  handleStatusFilter() {
+    switch (this.status) {
+      case 'fulfilled':
+        this.bookings = this.allData.filter(
+          (e: any) => e.status === 'fulfilled'
+        );
+        break;
+
+      case 'unfulfilled':
+        this.bookings = this.allData.filter(
+          (e: any) => e.status === 'unfulfilled'
+        );
+        break;
+
+      default:
+        this.bookings = this.allData;
+        break;
+    }
+  }
+
+  handleDateFilter() {
+    this.bookings = this.allData.filter(
+      (e: any) =>
+        new Date(e.createdAt).toLocaleDateString() ===
+        new Date(this.selectedDate).toLocaleDateString()
+    );
+  }
+
+  handleReset() {
+    this.bookings = this.allData;
+    this.selectedDate = '';
+  }
+
+  viewBundle(id: string) {
+    let viewBundle = this.mdCtrl.open(ViewByIdComponent, {
+      size: 'md',
+    });
+    viewBundle.componentInstance.id = id;
+  }
 }

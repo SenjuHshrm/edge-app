@@ -27,46 +27,64 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let table of forApproval">
-              <td class="text-truncate px-1">{{ table.quotationId }}</td>
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm" (click)="viewQuotation(table)">View</button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item text-sm"
-                        (click)="createQuotation(table)"
-                      >
-                        Create Purchase Order
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm" (click)="markAsPending(table._id)">
-                        Mark As Pending
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Decline</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            <ng-template [ngIf]="forApproval.length === 0">
+              <tr>
+                <td colspan="2">
+                  <small class="fw-bold">No Quotations Found.</small>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template [ngIf]="forApproval.length !== 0">
+              <tr *ngFor="let table of forApproval">
+                <td class="text-truncate px-1">{{ table.quotationId }}</td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="viewQuotation(table)"
+                        >
+                          View
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="createQuotation(table)"
+                        >
+                          Create Purchase Order
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="markAsPending(table._id)"
+                        >
+                          Mark As Pending
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">Decline</button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
@@ -114,41 +132,50 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let table of pending">
-              <td class="text-truncate px-1">45656</td>
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">View</button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item text-sm"
-                        (click)="createQuotation(table)"
-                      >
-                        Create Purchase Order
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Decline</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            <ng-template [ngIf]="pending.length === 0">
+              <tr>
+                <td colspan="2">
+                  <small class="fw-bold">No Quotations Found.</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="pending.length !== 0">
+              <tr *ngFor="let table of pending">
+                <td class="text-truncate px-1">45656</td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button class="dropdown-item text-sm">View</button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="createQuotation(table)"
+                        >
+                          Create Purchase Order
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">Decline</button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>
