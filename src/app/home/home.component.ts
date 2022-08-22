@@ -12,4 +12,27 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+toHome(){
+      
+    (<HTMLInputElement>document.getElementById("Home")).scrollIntoView();
+}
+
+toSection(){
+      
+      (<HTMLInputElement>document.getElementById("Section")).scrollIntoView();
+  }
+  
+toServices(){
+      
+    (<HTMLInputElement>document.getElementById("Services")).scrollIntoView();
+}
+toAbout(){
+      
+  (<HTMLInputElement>document.getElementById("About")).scrollIntoView();
+}
+
+toContact(){
+      
+  (<HTMLInputElement>document.getElementById("Contact")).scrollIntoView();
+}
 }
