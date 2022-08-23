@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <h4 class="h4 h4-responsive my-3">View Bundle</h4>
+  <div class="card shadow px-3 mb-3">
+    <div class="card-body">
+      <h5 class="h5 fw-bold">{{ data.name }}</h5>
+      <div>
+        <table class="table table-hover text-center position-relative">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col" class="text-truncate px-1">Item Name</th>
+              <th scope="col" class="text-truncate px-1">Quantity</th>
+              <th scope="col" class="text-truncate px-1">Price / Unit</th>
+            </tr>
+          </thead>
+          <tbody class="border-top-0">
+            <tr *ngFor="let data of data.items; let i = index">
+              <td class="text-truncate px-1 align-middle">{{ data.item }}</td>
+              <td class="text-truncate px-1 align-middle">
+                {{ data.quantity }}
+              </td>
+              <td class="text-truncate px-1 align-middle">
+                ₱ {{ handleMoney(data.price) }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-end fw-bold">Bundle Total Amount:</td>
+              <td class="text-truncate px-1 align-middle">
+                ₱ {{ handleMoney(total) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

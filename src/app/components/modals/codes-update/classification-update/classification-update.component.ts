@@ -19,7 +19,6 @@ export class ClassificationUpdateComponent implements OnInit {
   ngOnInit(): void {}
 
   handleUpdate(e: any) {
-    console.log(this.data);
     e.preventDefault();
     const { classification, classCode } = e.target;
     this.classServ

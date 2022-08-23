@@ -5,19 +5,27 @@
       <div class="d-flex align-items-center">
         <div class="me-2 flex-grow-1">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search"
+              [(ngModel)]="search"
+            />
             <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
         </div>
         <div class="me-2">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Search by:</option>
-            <option value="1">Receiver Name</option>
-            <option value="2">Sender / Page Name</option>
-            <option value="3">ID Number</option>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="category"
+          >
+            <option value="customer">Receiver Name</option>
+            <option value="sender">Sender / Page Name</option>
+            <option value="keyPartnerId">ID Number</option>
           </select>
         </div>
-        <button class="btn btn-dark">Go</button>
+        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
       </div>
     </div>
   </div>
@@ -27,20 +35,33 @@
         <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Filter by date:</span>
           <div class="me-2">
-            <input type="date" class="form-control" />
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="selectedDate"
+            />
           </div>
-          <button class="btn btn-dark">Go</button>
+          <button class="btn btn-dark me-2" (click)="handleDateFilter()">
+            Go
+          </button>
+          <button class="btn btn-dark" (click)="handleReset()">Reset</button>
         </div>
         <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Filter by status:</span>
           <div class="me-2">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>--------</option>
-              <option value="1">Fulfilled</option>
-              <option value="1">Unfulfilled</option>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              [(ngModel)]="status"
+            >
+              <option value="all">All</option>
+              <option value="fulfilled">Fulfilled</option>
+              <option value="unfulfilled">Unfulfilled</option>
             </select>
           </div>
-          <button class="btn btn-dark">Go</button>
+          <button class="btn btn-dark" (click)="handleStatusFilter()">
+            Go
+          </button>
         </div>
         <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Action:</span>
@@ -96,66 +117,90 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let td of tableData">
-              <td class="text-truncate px-3">
-                <div
-                  class="form-check d-flex align-items-center justify-content-center"
-                >
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="checkAll"
-                  />
-                </div>
-              </td>
-              <th scope="row">{{ td.id }}</th>
-              <td class="text-truncate px-3">{{ td.date }}</td>
-              <td class="text-truncate px-3">{{ td.receivename }}</td>
-              <td class="text-truncate px-3">{{ td.phoneno }}</td>
-              <td class="text-truncate px-3">{{ td.address }}</td>
-              <td class="text-truncate px-3">{{ td.zipcode }}</td>
-              <td class="text-truncate px-3">{{ td.province }}</td>
-              <td class="text-truncate px-3">{{ td.city }}</td>
-              <td class="text-truncate px-3">{{ td.barangay }}</td>
-              <td class="text-truncate px-3">{{ td.products }}</td>
-              <td class="text-truncate px-3">{{ td.quantity }}</td>
-              <td class="text-truncate px-3">{{ td.cod }}</td>
-              <td class="text-truncate px-3">{{ td.senderpagename }}</td>
-              <td class="text-truncate px-3">{{ td.contact }}</td>
-              <td class="text-truncate px-3">{{ td.remarks }}</td>
-              <td class="px-3">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-light custom-btn"
-                    type="button"
-                    id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+            <ng-template [ngIf]="bookings.length === 0">
+              <tr>
+                <td colspan="17">
+                  <small class="fw-bold">No Record Found.</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="bookings.length !== 0">
+              <tr *ngFor="let td of bookings">
+                <td class="text-truncate px-3">
+                  <div
+                    class="form-check d-flex align-items-center justify-content-center"
                   >
-                    <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Mark As Fulfilled
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">
-                        Mark As Unfulfilled
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item text-sm">Export</button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="checkAll"
+                    />
+                  </div>
+                </td>
+                <td scope="row">{{ td.keyPartnerId }}</td>
+                <td class="text-truncate px-3">
+                  {{ handleDate(td.createdAt) }}
+                </td>
+                <td class="text-truncate px-3">{{ td.customer }}</td>
+                <td class="text-truncate px-3">{{ td.customerContact }}</td>
+                <td class="text-truncate px-3">{{ td.hsStNum }}</td>
+                <td class="text-truncate px-3">{{ td.zip }}</td>
+                <td class="text-truncate px-3">{{ td.province }}</td>
+                <td class="text-truncate px-3">{{ td.city }}</td>
+                <td class="text-truncate px-3">{{ td.brgy }}</td>
+                <td class="text-truncate px-3">
+                  <ng-template [ngIf]="td.itemType === 'individual'">
+                    {{ handleProduct(td) }}
+                  </ng-template>
+                  <ng-template [ngIf]="td.itemType === 'bundle'">
+                    <div
+                      class="fw-bold text-primary"
+                      style="cursor: pointer"
+                      (click)="viewBundle(td.bundleId._id)"
+                    >
+                      <u>{{ handleProduct(td) }}</u>
+                    </div>
+                  </ng-template>
+                </td>
+                <td class="text-truncate px-3">{{ handleQuantity(td) }}</td>
+                <td class="text-truncate px-3">{{ td.cod }}</td>
+                <td class="text-truncate px-3">{{ td.sender }}</td>
+                <td class="text-truncate px-3">{{ td.senderContact }}</td>
+                <td class="text-truncate px-3">{{ td.remarks }}</td>
+                <td class="px-3">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu dropdown-menu-light"
+                      aria-labelledby="dropdownMenuButton2"
+                    >
+                      <li>
+                        <button class="dropdown-item text-sm">
+                          Mark As Fulfilled
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">
+                          Mark As Unfulfilled
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm">Export</button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
           </tbody>
         </table>
       </div>

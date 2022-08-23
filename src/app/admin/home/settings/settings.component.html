@@ -46,26 +46,47 @@
             <div class="card-body px-5 py-4">
               <h5 class="card-title">Change Password</h5>
               <div class="col-12">
-                <div class="col-md-8 offset-md-2 mb-3 position-relative">
-                  <app-input
-                    [inputType]="'password'"
-                    [name]="'password'"
-                    [label]="'Password'"
-                  ></app-input>
-                  <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
-                </div>
-                <div class="col-md-8 offset-md-2 mb-3 position-relative">
-                  <app-input
-                    [inputType]="'password'"
-                    [name]="'confirm_password'"
-                    [label]="'Confirm Password'"
+                <div class="form-group mb-3">
+                  <label for="contact" class="fs-6 fw-bold"
+                    >Current Password</label
                   >
-                  </app-input>
-                  <i class="bi bi-eye-slash custom-eye-password fs-5"></i>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="currentPass"
+                    name="currentPass"
+                    [(ngModel)]="currentPass"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="contact" class="fs-6 fw-bold">New Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="newPass"
+                    name="newPass"
+                    [(ngModel)]="newPass"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="contact" class="fs-6 fw-bold"
+                    >Confirm New Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPass"
+                    name="confirmPass"
+                    [(ngModel)]="confirmPass"
+                  />
                 </div>
               </div>
-              <div class="col-md-8 offset-md-2 text-end">
-                <button class="btn btn-dark fw-bolder px-5 text-white">
+              <div class="col-md-12 text-end">
+                <button
+                  type="button"
+                  class="btn btn-dark fw-bolder px-5 text-white"
+                  (click)="changePassword()"
+                >
                   Update
                 </button>
               </div>

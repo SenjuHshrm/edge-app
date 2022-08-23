@@ -28,6 +28,7 @@ import { UpdateBundleComponent } from './modals/bundles/update-bundle/update-bun
 import { AssignCodeComponent } from './modals/assign-code/assign-code.component';
 import { UpdateKeypartnerComponent } from './modals/update-keypartner/update-keypartner.component';
 import { SelectKeypartnerComponent } from './modals/select-keypartner/select-keypartner.component';
+import { ViewByIdComponent } from './modals/bundles/view-by-id/view-by-id.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SelectKeypartnerComponent } from './modals/select-keypartner/select-key
     UpdateBundleComponent,
     AssignCodeComponent,
     UpdateKeypartnerComponent,
-    SelectKeypartnerComponent
+    SelectKeypartnerComponent,
+    ViewByIdComponent
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [

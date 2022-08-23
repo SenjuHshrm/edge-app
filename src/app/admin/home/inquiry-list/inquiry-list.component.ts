@@ -17,7 +17,6 @@ export class InquiryListComponent implements OnInit {
   ngOnInit(): void {
     this.inq.getAllInquiries().subscribe({
       next: (res: any) => {
-        console.log(res.info);
         this.inqList = res.info;
       },
     });

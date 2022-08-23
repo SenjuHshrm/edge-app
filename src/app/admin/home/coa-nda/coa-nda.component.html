@@ -51,7 +51,9 @@
         </div>
 
         <div class="text-end">
-          <button class="btn btn-dark px-5" (click)="saveContract()">SEND</button>
+          <button class="btn btn-dark px-5" (click)="saveContract()">
+            SEND
+          </button>
         </div>
       </div>
     </div>
@@ -71,19 +73,30 @@
               </tr>
             </thead>
             <tbody class="border-top-0">
-              <tr *ngFor="let i of sentFileHistory">
-                <td class="text-truncate px-1">{{ i.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}</td>
-                <td class="text-truncate px-1">{{ i.keyPartner.name }}</td>
-                <td class="text-truncate px-1">{{ i.keyPartner.company }}</td>
-                <td>
-                  <button
-                    class="btn btn-dark text-white fw-bolder py-0"
-                    data-tool-tip="View COA/NDA"
-                  >
-                    <i class="bi bi-door-open"></i>
-                  </button>
-                </td>
-              </tr>
+              <ng-template [ngIf]="sentFileHistory.length === 0">
+                <tr>
+                  <td colspan="4">
+                    <small class="fw-bold">No Record Found.</small>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template [ngIf]="sentFileHistory.length !== 0">
+                <tr *ngFor="let i of sentFileHistory">
+                  <td class="text-truncate px-1">
+                    {{ i.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
+                  </td>
+                  <td class="text-truncate px-1">{{ i.keyPartner.name }}</td>
+                  <td class="text-truncate px-1">{{ i.keyPartner.company }}</td>
+                  <td>
+                    <button
+                      class="btn btn-dark text-white fw-bolder py-0"
+                      data-tool-tip="View COA/NDA"
+                    >
+                      <i class="bi bi-door-open"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
             </tbody>
           </table>
         </div>
