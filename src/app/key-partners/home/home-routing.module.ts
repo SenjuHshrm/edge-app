@@ -16,31 +16,31 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        title: 'Edge Commerce | Dashboard',
+        title: 'EdgeCommerce | Dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'booking',
-        title: 'Edge Commerce | My Booking',
+        title: 'EdgeCommerce | My Booking',
         loadChildren: () =>
           import('./booking/booking.module').then((m) => m.BookingModule),
       },
       {
         path: 'my-coa-nda',
-        title: 'Edge Commerce | My COA / NDA',
+        title: 'EdgeCommerce | My COA / NDA',
         loadChildren: () =>
           import('./coa-nda/coa-nda.module').then((m) => m.CoaNdaModule),
       },
       {
         path: 'inquiry',
-        title: 'Edge Commerce | My Inquiry',
+        title: 'EdgeCommerce | My Inquiry',
         loadChildren: () =>
           import('./inquiry/inquiry.module').then((m) => m.InquiryModule),
       },
       {
         path: 'my-quotation',
-        title: 'Edge Commerce | My Quotation',
+        title: 'EdgeCommerce | My Quotation',
         loadChildren: () =>
           import('./my-quotation/my-quotation.module').then(
             (m) => m.MyQuotationModule
@@ -48,7 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'create-purchase-order',
-        title: 'Edge Commerce | Create Purchase Order',
+        title: 'EdgeCommerce | Create Purchase Order',
         loadChildren: () =>
           import('./create-purchase-order/create-purchase-order.module').then(
             (m) => m.CreatePurchaseOrderModule
@@ -56,7 +56,7 @@ const routes: Routes = [
       },
       {
         path: 'my-customer',
-        title: 'Edge Commerce | My Customer',
+        title: 'EdgeCommerce | My Customer',
         loadChildren: () =>
           import('./my-customer/my-customer.module').then(
             (m) => m.MyCustomerModule
@@ -64,7 +64,7 @@ const routes: Routes = [
       },
       {
         path: 'my-inventory',
-        title: 'Edge Commerce | My Inventory',
+        title: 'EdgeCommerce | My Inventory',
         loadChildren: () =>
           import('./my-inventory/my-inventory.module').then(
             (m) => m.MyInventoryModule
@@ -72,13 +72,13 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        title: 'Edge Commerce | Profile',
+        title: 'EdgeCommerce | Profile',
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
       {
         path: 'my-soa',
-        title: 'Edge Commerce | My SOA',
+        title: 'EdgeCommerce | My SOA',
         loadChildren: () =>
           import('./my-soa/my-soa.module').then((m) => m.MySoaModule),
       },

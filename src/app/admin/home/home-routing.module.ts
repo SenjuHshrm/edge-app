@@ -12,13 +12,13 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        title: 'Edge Commerce | Dashboard',
+        title: 'EdgeCommerce | Dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'booking-list',
-        title: 'Edge Commerce | Booking List',
+        title: 'EdgeCommerce | Booking List',
         loadChildren: () =>
           import('./booking-list/booking-list.module').then(
             (m) => m.BookingListModule
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'inquiry-list',
-        title: 'Edge Commerce | Inquiries',
+        title: 'EdgeCommerce | Inquiries',
         loadChildren: () =>
           import('./inquiry-list/inquiry-list.module').then(
             (m) => m.InquiryListModule
@@ -34,7 +34,7 @@ const routes: Routes = [
       },
       {
         path: 'quotation-list',
-        title: 'Edge Commerce | Quotations',
+        title: 'EdgeCommerce | Quotations',
         loadChildren: () =>
           import('./quotation-list/quotation-list.module').then(
             (m) => m.QuotationListModule
@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'purchase-order',
-        title: 'Edge Commerce | Purchase Order',
+        title: 'EdgeCommerce | Purchase Order',
         loadChildren: () =>
           import('./purchase-order/purchase-order.module').then(
             (m) => m.PurchaseOrderModule
@@ -50,7 +50,7 @@ const routes: Routes = [
       },
       {
         path: 'key-partners',
-        title: 'Edge Commerce | Key Partners',
+        title: 'EdgeCommerce | Key Partners',
         loadChildren: () =>
           import('./key-partners/key-partners.module').then(
             (m) => m.KeyPartnersModule
@@ -58,13 +58,13 @@ const routes: Routes = [
       },
       {
         path: 'report',
-        title: 'Edge Commerce | Reports',
+        title: 'EdgeCommerce | Reports',
         loadChildren: () =>
           import('./report/report.module').then((m) => m.ReportModule),
       },
       {
         path: 'acct-request',
-        title: 'Edge Commerce | Account Request',
+        title: 'EdgeCommerce | Account Request',
         loadChildren: () =>
           import('./acct-request/acct-request.module').then(
             (m) => m.AcctRequestModule
@@ -72,30 +72,30 @@ const routes: Routes = [
       },
       {
         path: 'inventory',
-        title: 'Edge Commerce | Inventory',
+        title: 'EdgeCommerce | Inventory',
         loadChildren: () =>
           import('./inventory/inventory.module').then((m) => m.InventoryModule),
       },
       {
         path: 'settings',
-        title: 'Edge Commerce | Settings',
+        title: 'EdgeCommerce | Settings',
         loadChildren: () =>
           import('./settings/settings.module').then((m) => m.SettingsModule),
       },
       {
         path: 'soa',
-        title: 'Edge Commerce | SOA',
+        title: 'EdgeCommerce | SOA',
         loadChildren: () => import('./soa/soa.module').then((m) => m.SoaModule),
       },
       {
         path: 'coa-nda',
-        title: 'Edge Commerce | COA/NDA',
+        title: 'EdgeCommerce | COA/NDA',
         loadChildren: () =>
           import('./coa-nda/coa-nda.module').then((m) => m.CoaNdaModule),
       },
       {
         path: 'rts',
-        title: 'Edge Commerce | Return to Seller',
+        title: 'EdgeCommerce | Return to Seller',
         loadChildren: () => import('./rts/rts.module').then((m) => m.RtsModule),
       },
     ],

@@ -14,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        title: 'Edge Commerce | Login',
+        title: 'EdgeCommerce | Login',
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
       },
       {
@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        title: 'Edge Commerce | Register',
+        title: 'EdgeCommerce | Register',
         loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)
       },
     ]

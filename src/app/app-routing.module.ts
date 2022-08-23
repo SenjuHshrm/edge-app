@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    title: 'Edge Commerce | Home',
+    title: 'EdgeCommerce | Home',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
