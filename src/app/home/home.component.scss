@@ -1,3 +1,8 @@
+
+
+
+//////
+
 // @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
 // .img-container {
@@ -163,6 +168,14 @@
 }
 
 @media only screen and (max-width: 768px) {
+
+
+  
+  .custom_container_size {
+
+    background-position:bottom right;
+    height: 100vh;
+
   .custom_container_size {
     .header_container {
       .custom_align_text {
@@ -187,6 +200,7 @@
       }
     }
   }
+}
 }
 
 
@@ -262,12 +276,12 @@
 
 .custom_container_size {
 
-
   height: 100vh;
   background-image: url("../../assets/images/landingpage/header/BGheader.svg");
   background-repeat: no-repeat;
   background-size:cover;
  
+  
 
   .header_container {
     margin: auto;
@@ -280,52 +294,39 @@
       font-weight: bolder;
       font-size: 1.5rem;
       width: 240px;
-    
+      background-color: #45B5C4;
       margin-top: 50px;
 
     }
 
-    .btn_default_header:hover {
-      border-radius: 10px;
-      font-weight: bolder;
-      font-size: 1.5rem;
-      width: 240px;
-      background-color: #F4970F;
-      margin-top: 50px;
-
-    }
 
 
 
     .computer_image_header {
       width: 100%;
 
-      img {
-        min-width: 20%;
-        max-width: 100%;
-      }
     }
 
     //////////////////////////////  NAVIGATION  //////////////// 
 
 
     .custom_navigation {
-
+      
       .custom_logo {
         width: 7rem;
         height: 7rem;
 
 
         img {
-          width: 80%;
-          min-width: 50px;
-          height: fit-content;
+          width: 100%;
         }
       }
 
+
       .custom_nav_list {
+        width: fit-content;
         position: relative;
-        left: 27%;
+        left: 25%;
 
         ul {
 
@@ -337,15 +338,15 @@
           margin-right: 2rem;
         }
 
-
         li a {
           color: white;
           font-weight: 600;
           font-size: 1.2rem;
+
         }
 
         .custom_contact {
-          background-color: #F4970F;
+           background-color: #F4970F;
           border-radius: 20px;
           padding-left: 10px;
           padding-right: 10px;
@@ -353,17 +354,12 @@
       }
     }
 
-
     ////////////////////////////////////////
 
 
 
     .custom_header_text {
       padding-top: 3.5rem;
-
-      .text-size {
-        font-size: 1.4rem;
-      }
 
 
       .h1 {
@@ -374,6 +370,8 @@
 
       .text-size {
         font-size: 1.4rem;
+
+      
 
       }
 
@@ -423,10 +421,7 @@
       margin: auto;
       margin-bottom: 3rem;
     }
-
   }
-}
-
 
 }
 
@@ -608,7 +603,7 @@
       .custom_vid_size {
         margin-top:30px;
         height: 29rem;
-        margin-right:15px;
+   
       }
     }
 
@@ -679,10 +674,10 @@
   max-height: fit-content;
   height: 100vh;
 
+
   .btn_default {
     border-radius: 10px;
   }
-}
 
 }
 
@@ -712,7 +707,6 @@
   height: 100vh;
   width: 100%;
 
-
   margin-top: 150px;
 
   .custom_section_leader {
@@ -733,14 +727,6 @@
       }
     }
 
-
-    .card {
-      max-width: fit-content;
-      width: 25rem;
-      img {
-        width: 100%;
-      }
-    }
   }
 }
 
@@ -752,6 +738,7 @@
   max-width: fit-content;
   max-height: fit-content;
   height: 100vh;
+
 
   .custom-row {
     background-image: url("../../assets/images/landingpage/bgorange.png");
@@ -769,12 +756,8 @@
       'wght' 700,
       'GRAD' 0,
       'opsz' 48
-
   }
 
-  .material-symbols-outlined {
-    font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
-  }
 }
 
 .footer_container {
@@ -782,6 +765,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center right;
+
 
   .custom_size_footer {
     width: 90%;
@@ -792,7 +776,6 @@
 
     .custom_footer_logo {
       min-width: 1rem;
-
 
       img {
         width: 5.5rem;
@@ -808,16 +791,9 @@
       }
     }
 
-
     .footer_text_header {
       font-weight: bolder;
       color: #74FFFF
-    }
-
-
-    .footer_text_header {
-      font-weight: bolder;
-      color: #74ffff;
     }
 
 
@@ -834,7 +810,10 @@
         }
       }
     }
+
+  
   }
+
   .terms_con {
     width: 100%;
     border: 1px solid black;
@@ -865,26 +844,9 @@
     }
   }
 
-  .custom_float_btn {
-    .float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 40px;
-      right: 40px;
-      background-color: #f4970f;
-      color: #fff;
-      border-radius: 50px;
-      text-align: center;
-      box-shadow: 2px 2px 3px #999;
-    }
 
-    img {
-      margin-top: 15px;
-      width: 2rem;
-      height: 2rem;
-    }
-  }
+
+
 }
 
 .mission_vission_container {
@@ -898,7 +860,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
     margin-bottom: 50px;
 
   }
@@ -929,3 +890,5 @@
 }
 }
 
+
+ 

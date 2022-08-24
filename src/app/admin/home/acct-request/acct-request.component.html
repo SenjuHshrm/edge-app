@@ -35,51 +35,42 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <ng-template [ngIf]="keyPartners.length === 0">
-              <tr>
-                <td colspan="6">
-                  <small class="fw-bold">No Record Found.</small>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template [ngIf]="keyPartners.length !== 0">
-              <tr *ngFor="let i of keyPartners">
-                <td class="px-1 text-truncate">{{ i.name }}</td>
-                <td class="px-1 text-truncate">{{ i.addr }}</td>
-                <td class="px-1 text-truncate">{{ i.contact }}</td>
-                <td class="px-1 text-truncate">{{ i.email }}</td>
-                <td class="px-1 text-truncate">{{ i.company }}</td>
-                <td>
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-light custom-btn"
-                      type="button"
-                      id="dropdownMenuButton2"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul
-                      class="dropdown-menu dropdown-menu-light"
-                      aria-labelledby="dropdownMenuButton2"
-                    >
-                      <li>
-                        <button
-                          class="dropdown-item text-sm"
-                          (click)="approveKeyPartner(i._id)"
-                        >
-                          Approve
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item text-sm">Reject</button>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-            </ng-template>
+            <tr *ngFor="let i of keyPartners">
+              <td class="px-1 text-truncate">{{ i.name }}</td>
+              <td class="px-1 text-truncate">{{ i.addr }}</td>
+              <td class="px-1 text-truncate">{{ i.contact }}</td>
+              <td class="px-1 text-truncate">{{ i.email }}</td>
+              <td class="px-1 text-truncate">{{ i.company }}</td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-light custom-btn"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <button
+                        class="dropdown-item text-sm"
+                        (click)="approveKeyPartner(i._id)"
+                      >
+                        Approve
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item text-sm">Reject</button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

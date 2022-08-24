@@ -76,88 +76,62 @@
   </div>
 </div> -->
 
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0"
-/>
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
-/>
-
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
 <div class="container-fluid custom_fluid p-0 m-0" id="Home">
 
-  <div class="row  custom_container_size h-100" >
-    <div class=" row header_container h-100  d-flex justify-content-center">
+  <div class="row  custom_container_size h-100 w-100  p-0 m-0" >
+    <div class=" row header_container h-100  d-flex justify-content-center ">
       <div>
-      <nav  class="custom_navigation navbar  navbar-expand-lg  navbar-dark">
+      <nav  class="custom_navigation navbar  navbar-expand-lg  navbar-dark ">
         <div class="custom_logo navbar-brand ">
-          <div (click)="toHome()"><a><img src="assets/images/landingpage/header/Logoedge.png"></a></div>
-
+          <div (click)="toHome()"><a><img src="assets/images/landingpage/EDGE.png" style="width:8rem; height:8rem;"></a></div>
         </div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="custom_nav_list collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item" (click)="toSection()" style="cursor: pointer">
-              <a class="nav-link">Home</a>
+        <div class="custom_nav_list collapse navbar-collapse  " id="navbarNav">
+          <ul class="navbar-nav mx-auto py-5">
+            <li class="nav-item" (click)="toSection()" style="cursor:pointer">
+              <a class="nav-link active">Home</a>
             </li>
-            <li class="nav-item" (click)="toServices()" style="cursor: pointer">
+            <li class="nav-item" (click)="toServices()" style="cursor:pointer">
               <a class="nav-link">Services</a>
             </li>
-            <li class="nav-item" (click)="toAbout()" style="cursor: pointer">
+            <li class="nav-item" (click)="toAbout()" style="cursor:pointer">
               <a class="nav-link">About</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/key-partners/register"
-                >Register Here</a
-              >
+            <li class="nav-item " (click)="toContact()" style="cursor:pointer">
+              <a class="nav-link">Contact Us</a>
             </li>
-            <li
-              class="nav-item custom_contact"
-              (click)="toContact()"
-              style="cursor: pointer"
-            >
-              <a class="nav-link">Contact us</a>
+            <li class="nav-item custom_contact shadow"  style="cursor:pointer">
+              <a class="nav-link"  routerLink="/key-partners/register">Register Here</a>
             </li>
           </ul>
         </div>
       </nav>
     </div>
 
-
+        
         <div class="row custom_header_text d-flex justify-content-start ">
           <div class="col-lg-6 col-md-8 text-white custom_align_text align-self-start ">
-            <div class="h1">Why CHOOSE US?</div>
-            <div class="text-size"><span class="fs-3">Edgecommerce</span> is your reliable partner in all aspects of
-              your online business.
-              We provide assistance on everything from product sourcing, inventory management,
+            <div class="col-lg-auto mt-3 h1">Why CHOOSE US?</div>
+            <div class="col-lg-10 text-size"><span class="fs-3">Edgecommerce</span> is your reliable partner in all aspects of
+              your online business.We provide assistance on everything from product sourcing, inventory management,
               order fulfillment activities such as packing and shipping
               to make your ecommerce journey easier.
             </div>
             <div class="btn_default_header btn  text-white shadow  py-3 d-flex justify-content-center align-items-center" (click)="toSection()">
-              <a style="text-decoration: none;color:white;">Read more</a>
+              <a style="text-decoration: none;">Read more</a>
               <span class="material-symbols-outlined ms-3 fs-sm-1">trending_flat</span>
             </div>
-            <span class="material-symbols-outlined ms-3 fs-1"
-              >trending_flat</span
-            >
           </div>
-        </div>
 
 
           <div class="col-lg-6 col-md-4 text-center custom_align_image ">
@@ -169,122 +143,83 @@
 
       </div>
     </div>
-  </div>
 
-  <div class="container-fluid custom_fluid p-0 m-0" id="Section">
-    <div
-      class="row custom_section2 d-flex flex-column justify-content-start align-items-center h-100 text-center"
-    >
-      <div class="row text-center h-25">
-        <div class="default_header_text">
-          <h1>We provide various kind <br />of service for you</h1>
-          <p class="mt-5 mb-5">
-            Order fulfillment services,No RTS fee, No warehouse fee, <br />Low
-            shipping rate, weekly remittance, Daily reporting
-          </p>
-        </div>
-      </div>
 
-      <div class="row row-cols-1 row-cols-md-3 h-50 mt-5">
-        <div class="col d-flex justify-content-center align-items-center">
-          <div
-            class="card shadow pt-5 p-3 mb-5"
-            style="height: 27rem; border-radius: 1rem"
-          >
-            <img
-              src="assets/images/landingpage/peopleicon.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div
-              class="card-body d-flex flex-column justify-content-center align-items-center"
-            >
-              <h5 class="card-title fs-3">Organized System</h5>
-              <p class="card-text">
-                Easy Tracking and monitoring <br />of fulfilled orders
-              </p>
+  
+      <div class="container-fluid custom_fluid p-0 m-0"  id="Section">
+        <div class="row custom_section2 d-flex flex-column justify-content-start  align-items-center  h-100 text-center">
+          <div class="row text-center h-25">
+            <div class="default_header_text">
+              <h1>We provide various kind <br>of service for you</h1>
+              <p class="mt-5 mb-5 ">Order fulfillment services,No RTS fee, No warehouse fee, <br>Low shipping rate,
+                weekly remittance, Daily reporting</p>
             </div>
           </div>
-        </div>
-        <div class="col d-flex justify-content-center align-items-center">
-          <div
-            class="card shadow pt-5 p-3 mb-5"
-            style="height: 27rem; border-radius: 1rem"
-          >
-            <img
-              src="assets/images/landingpage/demand.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div
-              class="card-body d-flex flex-column justify-content-center align-items-center"
-            >
-              <h5 class="card-title fs-3">Gaurantee weekly payout</h5>
-              <p class="card-text">Of your collective cash and delivery</p>
-            </div>
-          </div>
-        </div>
-        <div class="col d-flex justify-content-center">
-          <div
-            class="card shadow pt-5 p-3 mb-5"
-            style="height: 27rem; border-radius: 1rem"
-          >
-            <img
-              src="assets/images/landingpage/carticon.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div
-              class="card-body d-flex flex-column justify-content-center align-items-center"
-            >
-              <h5 class="card-title fs-3">
-                Prepare and pack <br />your orders
-              </h5>
-              <p class="card-text">
-                We only change per order, so no matter how many items are in one
-                order, you only have to pay one fulfillment fee.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="container-fluid custom_fluid p-0 m-0">
-      <div
-        class="row custom_section3 d-flex flex-column justify-content-start align-items-center h-100"
-      >
-        <div class="row text-center h-25" id="Services">
-          <div class="default_header_text">
-            <h1>Services</h1>
-            <p class="mt-5">
-              Edgecommerce is your reliable partner in all aspects of your
-              online business. <br />We provide assistance on everything
-            </p>
-          </div>
-        </div>
-        <div class="row mt-5 overflow-auto">
-          <div class="col col-md-auto m-auto">
-            <div class="card" style="width: 80rem">
-              <div
-                class="card-body d-flex flex-column justify-content-center align-items-center"
-              >
-                <img
-                  src="assets/images/landingpage/diagram.png"
-                  alt="diagram"
-                  class="img-fluid"
-                  style="width: fit-content; height: fit-content"
-                />
+          <div class="row row-cols-1 row-cols-md-3 h-50 mt-5 ">
+            <div class="col d-flex justify-content-center align-items-center">
+              <div class="card shadow pt-5 p-3 mb-5" style="height:27rem; border-radius: 1rem;">
+                <img src="assets/images/landingpage/peopleicon.svg" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center ">
+                  <h5 class="card-title fs-3">Organized System</h5>
+                  <p class="card-text">Easy Tracking and monitoring <br>of fulfilled orders</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+              <div class="card shadow pt-5 p-3 mb-5" style="height:27rem; border-radius: 1rem;">
+                <img src="assets/images/landingpage/demand.svg" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center ">
+                  <h5 class="card-title fs-3 ">Gaurantee weekly payout</h5>
+                  <p class="card-text ">Of your collective cash and delivery</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div class="card  shadow pt-5  p-3 mb-5" style="height:27rem;  border-radius: 1rem;">
+                <img src="assets/images/landingpage/carticon.svg" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                  <h5 class="card-title fs-3">Prepare and pack <br>your orders</h5>
+                  <p class="card-text">We only change per order, so no matter how many items are in one order, you only
+                    have to pay one fulfillment fee.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <div class="btn_default btn text-center bg-light shadow py-3 px-4 m-5 w-auto d-flex align-items-center">
+
+
+
+        <div class="container-fluid custom_fluid p-0 m-0 " >
+          <div class="row custom_section3 d-flex flex-column justify-content-start  align-items-center h-100 " >
+            <div class="row text-center h-25" id="Services">
+              <div class="default_header_text">
+                <h1>Services</h1>
+                <p class="mt-5">Edgecommerce is your reliable partner in all aspects of your online business. <br>We
+                  provide
+                  assistance on everything</p>
+              </div>
+            </div>
+            <div class="row mt-5 overflow-auto">
+              <div class="col col-md-auto m-auto">
+                <div class="card" style="width:80rem;">
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <img src="assets/images/landingpage/diagram.png" alt="diagram" class="img-fluid"
+                      style="width:fit-content; height:auto;">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="btn_default btn text-center bg-light shadow py-3 px-4 m-5 w-auto d-flex align-items-center">
           <div><a hre="#">Read more</a></div>
           <span class="material-symbols-outlined ms-3">trending_flat</span>
         </div> -->
+          </div>
+        </div>
       </div>
-
+   
 
     <div class="container-fluid custom_fluid p-0 m-0 " >
       <div class="row custom_section_vid h-100">
@@ -300,24 +235,10 @@
               online business.
             </p>
 
-  <div class="container-fluid custom_fluid p-0 m-0">
-    <div
-      class="row custom_section2 d-flex flex-column justify-content-start align-items-center h-100"
-    >
-      <div class="row text-center h-25">
-        <div class="default_header_text" id="About">
-          <h1>About Us</h1>
-          <p class="mt-5">
-            Join our team and expand your ecommerce business! We can help you
-            with everything from product financing to inventory management
-            and<br />
-            order fulfillment activities like packing and shipping to make your
-            eCommerce experience easier. <br />EdgeCommerce is your trustworthy
-            partner in all aspects of launching, operating, and expanding your
-            online business.
-          </p>
+          </div>
         </div>
-
+ 
+  
         <div class="row ">
           <div class="col col-lg-3 m-0 p-0 text-center align-self-center ">
             <img src="assets/images/landingpage/style1.svg" alt="style">
@@ -332,82 +253,61 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container-fluid custom_fluid p-0 m-0">
-    <div class="custom_bg_style h-100">
-      <div class="custom_section_leader h-100">
-        <div class="row text-center">
-          <div class="default_header_text">
-            <h1>Who’s behind Edgecommerce</h1>
-            <p class="mt-5">
-              Heres the best president <br />and managers in our company
-            </p>
-          </div>
-        </div>
 
-        <div class="row row-cols-1 row-cols-md-3 h-50 mt-5">
-          <div class="col d-flex justify-content-center align-items-center">
-            <div
-              class="card shadow pt-5 p-3 mb-5"
-              style="height: 27rem; border-radius: 1rem"
-            >
-              <img
-                src="assets/images/landingpage/image1.JPG"
-                class="card-img-top"
-                alt="..."
-              />
-              <div
-                class="card-body d-flex flex-column justify-content-center align-items-center"
-              >
-                <h5 class="card-title fs-3">Kris Bayeta</h5>
-                <p class="card-text">General Manager</p>
-              </div>
+
+    <div class="container-fluid custom_fluid p-0 m-0 ">
+      <div class="custom_bg_style h-100 ">
+        <div class=" custom_section_leader h-100 ">
+
+          <div class="row text-center ">
+            <div class="default_header_text">
+              <h1>Who’s behind Edgecommerce</h1>
+              <p class="mt-5 ">Heres the best president <br>and managers in our company</p>
             </div>
           </div>
-          <div class="col d-flex justify-content-center">
-            <div
-              class="card shadow pt-5 p-3 mb-5"
-              style="height: 27rem; border-radius: 1rem"
-            >
-              <img
-                src="assets/images/landingpage/image2.JPG"
-                class="card-img-top"
-                alt="..."
-              />
-              <div
-                class="card-body d-flex flex-column justify-content-center align-items-center"
-              >
-                <h5 class="card-title fs-3">Adel Bayeta</h5>
-                <p class="card-text">CEO/President</p>
+
+          <div class="row row-cols-1 row-cols-md-3 h-50 mt-5">
+            <div class="col d-flex justify-content-center align-items-center">
+              <div class="card shadow pt-5 p-3 mb-5" style="height:27rem; border-radius: 1rem;">
+                <img src="assets/images/landingpage/image1.JPG" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center ">
+                  <h5 class="card-title fs-3">Kris Bayeta</h5>
+                  <p class="card-text">General Manager</p>
+
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col d-flex justify-content-center">
-            <div
-              class="card shadow pt-5 p-3 mb-5"
-              style="height: 27rem; border-radius: 1rem"
-            >
-              <img
-                src="assets/images/landingpage/image3.JPG"
-                class="card-img-top"
-                alt="..."
-              />
-              <div
-                class="card-body d-flex flex-column justify-content-center align-items-center"
-              >
-                <h5 class="card-title fs-3">Kath Donna Lat</h5>
-                <p class="card-text">Admin Manager</p>
+            <div class="col d-flex justify-content-center">
+              <div class="card shadow pt-5  p-3 mb-5" style="height:27rem; border-radius: 1rem;">
+                <img src="assets/images/landingpage/image2.JPG" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                  <h5 class="card-title fs-3 ">Adel Bayeta</h5>
+                  <p class="card-text ">CEO/President</p>
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div class="card  shadow pt-5  p-3 mb-5" style="height:27rem;  border-radius: 1rem;">
+                <img src="assets/images/landingpage/image3.JPG" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                  <h5 class="card-title fs-3">Kath Donna Lat</h5>
+                  <p class="card-text">Admin Manager</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+
+
+
 
     <div class="container-fluid custom_fluid p-0 m-0 ">
       <div class="d-flex justify-content-center align-items-start">
@@ -415,7 +315,7 @@
           <div class="row h-100  d-flex flex-row justify-content-center">
             <div class="col-lg-5 col-md-5 align-self-center text-center custom_bg_row">
               <div class="title_mission_vission"><span>Mission</span><br><span>&
-                  Vission</span></div>
+                  Vision</span></div>
             </div>
             <div class="col-lg-6 col-md-6 align-self-center h-auto">
               <div class="card shadow h-100" style="border-radius:10px">
@@ -430,7 +330,6 @@
                       rely on our team of professional individuals to guide them through every aspect of starting,
                       running, and growing an online business.</div>
                   </div>
-                </div>
 
                   <div class="row mt-2">
                     <div class="card-title custom_card_title_vision"><span>Vision</span></div>
@@ -442,8 +341,8 @@
             </div>
           </div>
         </div>
+
       </div>
-    </div>
 
     </div>
 
@@ -500,27 +399,26 @@
 
   </div> -->
 
+
       <div class="container-fluid custom_fluid p-0 m-0 " id="Contact">
 
         <div class="footer_container d-flex flex-row justify-content-center">
           <div class="custom_size_footer d-flex flex-column justify-content-start h-100">
 
-            <div class=" row text-white  d-flex flex-row   h-100">
+            <div class=" row text-white  d-flex flex-row   h-100 w-auto">
 
               <div class="col-lg-3 d-flex justify-content-center align-items-center ">
                 <div class="d-flex flex-column align-items-center">
                 <div class="custom_footer_logo d-flex justify-content-start mb-5">
                   <img src="assets/images/landingpage/footer/Logoedge.png" class="img-fluid" alt="footer_logo">
                 </div>
-                <div>
-                  <a
-                    href="https://www.facebook.com/edgecommerceph"
-                    target="_blank"
-                    ><img
-                      src="assets/images/landingpage/footer/messenger.png"
-                      class="ms-3"
-                      alt="..."
-                  /></a>
+                <div class="custom_footer_icon d-flex flex-row align-items-center justify-content-start">
+                  <div><a href="https://www.facebook.com/edgecommerceph" target="_blank"><img
+                        src="assets/images/landingpage/footer/fb.png" alt="..."></a></div>
+                  <div><a href="https://www.facebook.com/edgecommerceph" target="_blank"><img
+                        src="assets/images/landingpage/footer/messenger.png" class="ms-3" alt="..."></a></div>
+                  <div><a href="https://www.youtube.com/" target="_blank"><img
+                        src="assets/images/landingpage/footer/youtube.png" class="ms-3" alt="..."></a></div>
                 </div>
               </div>
             </div>
@@ -530,23 +428,22 @@
                 <div class="w-100 text-center m-auto">
                   <div class="footer_text_header py-5 ">Links</div>
                
-
                     <div class="footer_nav_list  w-100  ">
-                      <ul class="navbar-nav  d-flex flex-row justify-content-center  w-100 ">
-                        <li class="nav-item " (click)="toHome()" style="cursor:pointer;">
+                      <ul class="navbar-nav  d-lg-flex flex-lg-row justify-content-lg-center d-md-flex flex-md-row justify-content-md-center d-sm-flex flex-sm-column  w-100 ">
+                        <li class="nav-item mx-3" (click)="toHome()" style="cursor:pointer;" >
                           <a>Home</a>
                         </li>
-                        <li class="nav-item ms-3" (click)="toServices()" style="cursor:pointer;">
+                        <li class="nav-item mx-3" (click)="toServices()" style="cursor:pointer;">
                           <a>Services</a>
                         </li>
-                        <li class="nav-item ms-3" >
-                          <a href="#">Register Here</a>
+                        <li class="nav-item mx-3" (click)="toAbout()" style="cursor:pointer;">
+                          <a href="#">About</a>
                         </li>
-                        <li class="nav-item ms-3" (click)="toAbout()" style="cursor:pointer;">
-                          <a>About</a>
+                        <li class="nav-item mx-3" (click)="toAbout()" style="cursor:pointer;">
+                          <a href="https://www.facebook.com/edgecommerceph" target="_blank">Contact Us</a>
                         </li>
-                        <li class="nav-item ms-3">
-                          <a href="https://www.facebook.com/edgecommerceph" target="_blank">Contact us</a>
+                        <li class="nav-item mx-3">
+                          <a routerLink="/key-partners/register">Register Here</a>
                         </li>
                       </ul>
                     </div>
@@ -555,53 +452,7 @@
 
                 </div>
               </div>
-            </div>
-
-            <div class="col d-flex justify-content-center align-items-center">
-              <div>
-                <div class="footer_text_header">Links</div>
-                <nav
-                  class="custom_navigation navbar navbar-expand-lg text-center navbar-light"
-                >
-                  <div class="footer_nav_list">
-                    <ul class="navbar-nav mx-auto">
-                      <li
-                        class="nav-item"
-                        (click)="toHome()"
-                        style="cursor: pointer"
-                      >
-                        <a>Home</a>
-                      </li>
-                      <li
-                        class="nav-item ms-3"
-                        (click)="toServices()"
-                        style="cursor: pointer"
-                      >
-                        <a>Services</a>
-                      </li>
-                      <li class="nav-item ms-3">
-                        <a href="#">Register Here</a>
-                      </li>
-                      <li
-                        class="nav-item ms-3"
-                        (click)="toAbout()"
-                        style="cursor: pointer"
-                      >
-                        <a>About</a>
-                      </li>
-                      <li class="nav-item ms-3">
-                        <a
-                          href="https://www.facebook.com/edgecommerceph"
-                          target="_blank"
-                          >Contact us</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
-            </div>
-            <!-- <div class="col">
+              <!-- <div class="col">
                 <div class="footer_text_header">Support</div>
                 <div class="footer_nav">
                   <ul>
@@ -625,18 +476,18 @@
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="custom_float_btn">
-              <div (click)="toHome()" class="float" style="cursor: pointer">
-                <img src="assets/images/landingpage/iconsup.svg" />
+              <div class="custom_float_btn">
+                <div (click)="toHome()" class="float" style="cursor:pointer;" >
+                  <img src="assets/images/landingpage/iconsup.svg">
+                </div>
               </div>
+
             </div>
-          </div>
 
-            <div class="row align-items-center py-5 text-center">
-
-              <div class="col align-self-center mt-5\" style="color:#74FFFF">Copyright &copy; Edgecommerce. All Rights Reserved 2022.</div>
+            <div class="row  py-5 mt-5 my-auto d-flex justify-content-center w-100 "  style="border-top:1px solid #74FFFF;" >
+                 
+              <div class="col-lg-10 d-flex justify-content-center text-center" style=" color:#74FFFF">Copyright &copy; Edgecommerce. All Rights Reserved 2022.</div>
               <!-- <div class="col d-flex justify-content-end align-items-center">
               <div class="d-flex justify-content-center align-items-center">
                <a href="#" style="text-decoration:none; color:#74FFFF">Terms of Use</a>
@@ -644,7 +495,8 @@
               <a href="#" style="text-decoration:none;color:#74FFFF">Privacy Policy</a>
             </div>
             </div> -->
+            </div>
+
           </div>
         </div>
       </div>
-

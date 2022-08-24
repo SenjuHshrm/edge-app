@@ -56,18 +56,4 @@ export class SetKeypartnerPasswordComponent implements OnInit {
       navigator.clipboard.writeText(this.password);
     }
   }
-
-  handleClose() {
-    Swal.fire({
-      title: 'Are you sure you want to close?',
-      icon: 'question',
-      showDenyButton: true,
-      confirmButtonText: 'Yes',
-      denyButtonText: `No`,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        this.md.dismissAll();
-      }
-    });
-  }
 }
