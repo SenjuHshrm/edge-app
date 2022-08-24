@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       name: 'Purchase Order',
       icon: 'bi bi-basket2',
       path: 'purchase-order',
-      data: '3',
+      // data: '3',
     },
     { name: 'Key Partners', icon: 'bi bi-people', path: 'key-partners' },
     { name: 'Reports', icon: 'bi bi-file-medical', path: 'report' },
@@ -33,13 +33,13 @@ export class HomeComponent implements OnInit {
       name: 'Account Request',
       icon: 'bi bi-chat-left',
       path: 'acct-request',
-      data: '10',
+      // data: '10',
     },
     {
       name: 'Inventory',
       icon: 'bi bi-card-list',
       path: 'inventory',
-      data: '10',
+      // data: '10',
     },
     {
       name: 'Return To Sender',
@@ -67,8 +67,8 @@ export class HomeComponent implements OnInit {
   logout(e: any): void {
     this.user.logout().subscribe({
       next: (res) => {
-        localStorage.removeItem('ACCESS')
-        window.location.href = '/admin/login'
+        localStorage.removeItem('ACCESS');
+        window.location.href = '/admin/login';
       },
       error: (err) => {
         console.log(err);
