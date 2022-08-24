@@ -15,7 +15,6 @@
                 class="form-control"
                 id="keyPartner"
                 name="keyPartner"
-                autocomplete="off"
                 (keyup)="handleSearch($event)"
                 [(ngModel)]="data.keyPartner"
               />
@@ -149,16 +148,7 @@
         </div>
 
         <div class="text-end me-2 mt-3">
-          <button type="submit" class="btn btn-dark px-5 py-2 me-2">
-            SAVE
-          </button>
-          <button
-            type="button"
-            class="btn btn-dark px-5 py-2"
-            (click)="handleClose()"
-          >
-            CLOSE
-          </button>
+          <button type="submit" class="btn btn-dark px-5 py-2">SAVE</button>
         </div>
       </div>
     </div>

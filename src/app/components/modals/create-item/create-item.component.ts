@@ -51,8 +51,8 @@ export class CreateItemComponent implements OnInit {
 
     this.kp.getActivatedKeyPartners().subscribe({
       next: (res: any) => {
-        this.keyPartners = res.info;
-      },
+        this.keyPartners = res.info
+      }
     });
   }
 
@@ -138,19 +138,5 @@ export class CreateItemComponent implements OnInit {
       });
       return false;
     }
-  }
-
-  handleClose() {
-    Swal.fire({
-      title: 'Are you sure you want to close?',
-      icon: 'question',
-      showDenyButton: true,
-      confirmButtonText: 'Yes',
-      denyButtonText: `No`,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        this.mdCtrl.close();
-      }
-    });
   }
 }

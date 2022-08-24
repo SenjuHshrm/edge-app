@@ -52,7 +52,6 @@ export class InventoryComponent implements OnInit {
   createNewItem() {
     let createBooking = this.mdCtrl.open(CreateItemComponent, {
       size: 'lg',
-      backdrop: 'static',
     });
     createBooking.result
       .then((res) => {

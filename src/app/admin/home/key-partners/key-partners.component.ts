@@ -41,7 +41,6 @@ export class KeyPartnersComponent implements OnInit {
     }
     let sp: NgbModalRef = this.md.open(SetKeypartnerPasswordComponent, {
       size: 'md',
-      backdrop: 'static',
     });
     sp.componentInstance.id = id;
   }
@@ -55,21 +54,8 @@ export class KeyPartnersComponent implements OnInit {
         'error'
       );
     }
-    let sp: NgbModalRef = this.md.open(AssignCodeComponent, {
-      size: 'md',
-      backdrop: 'static',
-    });
-    sp.componentInstance.data = data;
-    sp.result
-      .then((res) => {
-        if (res.success) {
-          const ind = this.keyPartners.findIndex(
-            (e: any) => e._id === res.data._id
-          );
-          this.keyPartners[ind].userId = res.data.userId;
-        }
-      })
-      .catch(() => console.log());
+    let sp: NgbModalRef = this.md.open(AssignCodeComponent, { size: 'md' });
+    sp.componentInstance.data = data
   }
 
   setActiveStatus(id: string, isActivated: boolean) {
