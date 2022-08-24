@@ -85,21 +85,21 @@
 
 <div class="container-fluid custom_fluid p-0 m-0" id="Home">
 
-  <div class="row  custom_container_size h-100" >
-    <div class=" row header_container h-100  d-flex justify-content-center">
+  <div class="row  custom_container_size h-100 w-100  p-0 m-0" >
+    <div class=" row header_container h-100  d-flex justify-content-center ">
       <div>
-      <nav  class="custom_navigation navbar  navbar-expand-lg  navbar-dark">
+      <nav  class="custom_navigation navbar  navbar-expand-lg  navbar-dark ">
         <div class="custom_logo navbar-brand ">
-          <div (click)="toHome()"><a><img src="assets/images/landingpage/header/Logoedge.png"></a></div>
+          <div (click)="toHome()"><a><img src="assets/images/landingpage/EDGE.png" style="width:8rem; height:8rem;"></a></div>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="custom_nav_list collapse navbar-collapse  " id="navbarNav">
-          <ul class="navbar-nav mx-auto ">
+          <ul class="navbar-nav mx-auto py-5">
             <li class="nav-item" (click)="toSection()" style="cursor:pointer">
-              <a class="nav-link">Home</a>
+              <a class="nav-link active">Home</a>
             </li>
             <li class="nav-item" (click)="toServices()" style="cursor:pointer">
               <a class="nav-link">Services</a>
@@ -107,11 +107,11 @@
             <li class="nav-item" (click)="toAbout()" style="cursor:pointer">
               <a class="nav-link">About</a>
             </li>
-            <li class="nav-item ">
-              <a class="nav-link" routerLink="/key-partners/register">Register Here</a>
+            <li class="nav-item " (click)="toContact()" style="cursor:pointer">
+              <a class="nav-link">Contact Us</a>
             </li>
-            <li class="nav-item custom_contact" (click)="toContact()" style="cursor:pointer">
-              <a class="nav-link">Contact us</a>
+            <li class="nav-item custom_contact shadow"  style="cursor:pointer">
+              <a class="nav-link"  routerLink="/key-partners/register">Register Here</a>
             </li>
           </ul>
         </div>
@@ -121,15 +121,14 @@
         
         <div class="row custom_header_text d-flex justify-content-start ">
           <div class="col-lg-6 col-md-8 text-white custom_align_text align-self-start ">
-            <div class="h1">Why CHOOSE US?</div>
-            <div class="text-size"><span class="fs-3">Edgecommerce</span> is your reliable partner in all aspects of
-              your online business.
-              We provide assistance on everything from product sourcing, inventory management,
+            <div class="col-lg-auto mt-3 h1">Why CHOOSE US?</div>
+            <div class="col-lg-10 text-size"><span class="fs-3">Edgecommerce</span> is your reliable partner in all aspects of
+              your online business.We provide assistance on everything from product sourcing, inventory management,
               order fulfillment activities such as packing and shipping
               to make your ecommerce journey easier.
             </div>
             <div class="btn_default_header btn  text-white shadow  py-3 d-flex justify-content-center align-items-center" (click)="toSection()">
-              <a style="text-decoration: none;color:white;">Read more</a>
+              <a style="text-decoration: none;">Read more</a>
               <span class="material-symbols-outlined ms-3 fs-sm-1">trending_flat</span>
             </div>
           </div>
@@ -208,7 +207,7 @@
                 <div class="card" style="width:80rem;">
                   <div class="card-body d-flex flex-column justify-content-center align-items-center">
                     <img src="assets/images/landingpage/diagram.png" alt="diagram" class="img-fluid"
-                      style="width:fit-content; height: fit-content;">
+                      style="width:fit-content; height:auto;">
                   </div>
                 </div>
               </div>
@@ -316,7 +315,7 @@
           <div class="row h-100  d-flex flex-row justify-content-center">
             <div class="col-lg-5 col-md-5 align-self-center text-center custom_bg_row">
               <div class="title_mission_vission"><span>Mission</span><br><span>&
-                  Vission</span></div>
+                  Vision</span></div>
             </div>
             <div class="col-lg-6 col-md-6 align-self-center h-auto">
               <div class="card shadow h-100" style="border-radius:10px">
@@ -406,7 +405,7 @@
         <div class="footer_container d-flex flex-row justify-content-center">
           <div class="custom_size_footer d-flex flex-column justify-content-start h-100">
 
-            <div class=" row text-white  d-flex flex-row   h-100">
+            <div class=" row text-white  d-flex flex-row   h-100 w-auto">
 
               <div class="col-lg-3 d-flex justify-content-center align-items-center ">
                 <div class="d-flex flex-column align-items-center">
@@ -429,23 +428,22 @@
                 <div class="w-100 text-center m-auto">
                   <div class="footer_text_header py-5 ">Links</div>
                
-
                     <div class="footer_nav_list  w-100  ">
-                      <ul class="navbar-nav  d-flex flex-row justify-content-center  w-100 ">
-                        <li class="nav-item " (click)="toHome()" style="cursor:pointer;">
+                      <ul class="navbar-nav  d-lg-flex flex-lg-row justify-content-lg-center d-md-flex flex-md-row justify-content-md-center d-sm-flex flex-sm-column  w-100 ">
+                        <li class="nav-item mx-3" (click)="toHome()" style="cursor:pointer;" >
                           <a>Home</a>
                         </li>
-                        <li class="nav-item ms-3" (click)="toServices()" style="cursor:pointer;">
+                        <li class="nav-item mx-3" (click)="toServices()" style="cursor:pointer;">
                           <a>Services</a>
                         </li>
-                        <li class="nav-item ms-3" >
-                          <a href="#">Register Here</a>
+                        <li class="nav-item mx-3" (click)="toAbout()" style="cursor:pointer;">
+                          <a href="#">About</a>
                         </li>
-                        <li class="nav-item ms-3" (click)="toAbout()" style="cursor:pointer;">
-                          <a>About</a>
+                        <li class="nav-item mx-3" (click)="toAbout()" style="cursor:pointer;">
+                          <a href="https://www.facebook.com/edgecommerceph" target="_blank">Contact Us</a>
                         </li>
-                        <li class="nav-item ms-3">
-                          <a href="https://www.facebook.com/edgecommerceph" target="_blank">Contact us</a>
+                        <li class="nav-item mx-3">
+                          <a routerLink="/key-partners/register">Register Here</a>
                         </li>
                       </ul>
                     </div>
@@ -487,9 +485,9 @@
 
             </div>
 
-            <div class="row align-items-center py-5 text-center">
-
-              <div class="col align-self-center mt-5\" style="color:#74FFFF">Copyright &copy; Edgecommerce. All Rights Reserved 2022.</div>
+            <div class="row  py-5 mt-5 my-auto d-flex justify-content-center w-100 "  style="border-top:1px solid #74FFFF;" >
+                 
+              <div class="col-lg-10 d-flex justify-content-center text-center" style=" color:#74FFFF">Copyright &copy; Edgecommerce. All Rights Reserved 2022.</div>
               <!-- <div class="col d-flex justify-content-end align-items-center">
               <div class="d-flex justify-content-center align-items-center">
                <a href="#" style="text-decoration:none; color:#74FFFF">Terms of Use</a>

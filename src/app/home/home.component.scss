@@ -163,6 +163,14 @@
 }
 
 @media only screen and (max-width: 768px) {
+
+
+  
+  .custom_container_size {
+
+    background-position:bottom right;
+    height: 100vh;
+
   .custom_container_size {
     .header_container {
       .custom_align_text {
@@ -187,6 +195,7 @@
       }
     }
   }
+}
 }
 
 
@@ -280,53 +289,39 @@
       font-weight: bolder;
       font-size: 1.5rem;
       width: 240px;
-    
+      background-color: #45B5C4;
       margin-top: 50px;
 
     }
 
-    .btn_default_header:hover {
-      border-radius: 10px;
-      font-weight: bolder;
-      font-size: 1.5rem;
-      width: 240px;
-      background-color: #F4970F;
-      margin-top: 50px;
-
-    }
 
 
 
     .computer_image_header {
       width: 100%;
 
-      img {
-        min-width: 20%;
-        max-width: 100%;
-      }
     }
 
     //////////////////////////////  NAVIGATION  //////////////// 
 
 
     .custom_navigation {
-
+      
       .custom_logo {
         width: 7rem;
         height: 7rem;
 
 
         img {
-          width: 80%;
-          min-width: 50px;
-          height: fit-content;
+          width: 100%;
         }
       }
 
 
       .custom_nav_list {
+        width: fit-content;
         position: relative;
-        left: 27%;
+        left: 25%;
 
         ul {
 
@@ -346,7 +341,7 @@
         }
 
         .custom_contact {
-          background-color: #F4970F;
+           background-color: #F4970F;
           border-radius: 20px;
           padding-left: 10px;
           padding-right: 10px;
@@ -370,6 +365,8 @@
 
       .text-size {
         font-size: 1.4rem;
+
+      
 
       }
 
@@ -601,7 +598,7 @@
       .custom_vid_size {
         margin-top:30px;
         height: 29rem;
-        margin-right:15px;
+   
       }
     }
 
@@ -808,6 +805,8 @@
         }
       }
     }
+
+  
   }
 
   .terms_con {
@@ -839,6 +838,8 @@
       height: 2rem;
     }
   }
+
+
 
 
 }
