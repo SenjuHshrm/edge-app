@@ -262,12 +262,12 @@
 
 .custom_container_size {
 
+
   height: 100vh;
   background-image: url("../../assets/images/landingpage/header/BGheader.svg");
   background-repeat: no-repeat;
   background-size:cover;
  
-  
 
   .header_container {
     margin: auto;
@@ -323,7 +323,6 @@
         }
       }
 
-
       .custom_nav_list {
         position: relative;
         left: 27%;
@@ -338,11 +337,11 @@
           margin-right: 2rem;
         }
 
+
         li a {
           color: white;
           font-weight: 600;
           font-size: 1.2rem;
-
         }
 
         .custom_contact {
@@ -354,12 +353,17 @@
       }
     }
 
+
     ////////////////////////////////////////
 
 
 
     .custom_header_text {
       padding-top: 3.5rem;
+
+      .text-size {
+        font-size: 1.4rem;
+      }
 
 
       .h1 {
@@ -419,7 +423,10 @@
       margin: auto;
       margin-bottom: 3rem;
     }
+
   }
+}
+
 
 }
 
@@ -672,10 +679,10 @@
   max-height: fit-content;
   height: 100vh;
 
-
   .btn_default {
     border-radius: 10px;
   }
+}
 
 }
 
@@ -705,6 +712,7 @@
   height: 100vh;
   width: 100%;
 
+
   margin-top: 150px;
 
   .custom_section_leader {
@@ -725,6 +733,14 @@
       }
     }
 
+
+    .card {
+      max-width: fit-content;
+      width: 25rem;
+      img {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -736,7 +752,6 @@
   max-width: fit-content;
   max-height: fit-content;
   height: 100vh;
-
 
   .custom-row {
     background-image: url("../../assets/images/landingpage/bgorange.png");
@@ -754,8 +769,12 @@
       'wght' 700,
       'GRAD' 0,
       'opsz' 48
+
   }
 
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  }
 }
 
 .footer_container {
@@ -763,7 +782,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center right;
-
 
   .custom_size_footer {
     width: 90%;
@@ -774,6 +792,7 @@
 
     .custom_footer_logo {
       min-width: 1rem;
+
 
       img {
         width: 5.5rem;
@@ -789,9 +808,16 @@
       }
     }
 
+
     .footer_text_header {
       font-weight: bolder;
       color: #74FFFF
+    }
+
+
+    .footer_text_header {
+      font-weight: bolder;
+      color: #74ffff;
     }
 
 
@@ -809,7 +835,6 @@
       }
     }
   }
-
   .terms_con {
     width: 100%;
     border: 1px solid black;
@@ -840,7 +865,26 @@
     }
   }
 
+  .custom_float_btn {
+    .float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #f4970f;
+      color: #fff;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 2px 2px 3px #999;
+    }
 
+    img {
+      margin-top: 15px;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 }
 
 .mission_vission_container {
@@ -854,6 +898,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
     margin-bottom: 50px;
 
   }
@@ -883,3 +928,4 @@
     }
 }
 }
+

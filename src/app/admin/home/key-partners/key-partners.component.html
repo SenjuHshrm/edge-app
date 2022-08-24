@@ -27,6 +27,7 @@
           <thead class="bg-light sticky-top">
             <tr>
               <th scope="col" class="text-truncate px-1">Name</th>
+              <th scope="col" class="text-truncate px-1">User Code</th>
               <th scope="col" class="text-truncate px-1">Address</th>
               <th scope="col" class="text-truncate px-1">Contact Number</th>
               <th scope="col" class="text-truncate px-1">Email</th>
@@ -46,6 +47,9 @@
             <ng-template [ngIf]="keyPartners.length !== 0">
               <tr *ngFor="let i of keyPartners">
                 <td class="text-truncate px-1">{{ i.name }}</td>
+                <td class="text-truncate px-1">
+                  {{ i.userId ? i.userId : "Unassigned" }}
+                </td>
                 <td class="text-truncate px-1">{{ i.addr }}</td>
                 <td class="text-truncate px-1">{{ i.contact }}</td>
                 <td class="text-truncate px-1">{{ i.email }}</td>
@@ -81,14 +85,6 @@
                       class="dropdown-menu dropdown-menu-light"
                       aria-labelledby="dropdownMenuButton2"
                     >
-                      <li>
-                        <button
-                          class="dropdown-item text-sm"
-                          (click)="setPassword(i._id)"
-                        >
-                          Change Password
-                        </button>
-                      </li>
                       <!-- <li>
                         <button
                           class="dropdown-item text-sm"
@@ -105,13 +101,12 @@
                           {{ i.isActivated ? "Set Inactive" : "Set Active" }}
                         </button>
                       </li>
-                      <li></li>
                       <li>
                         <button
                           class="dropdown-item text-sm"
                           (click)="assignCode(i)"
                         >
-                          Assign Code
+                          Assign Code And Password
                         </button>
                       </li>
                       <li>
@@ -120,6 +115,14 @@
                           (click)="deleteKP(i._id)"
                         >
                           Delete Record
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="setPassword(i._id)"
+                        >
+                          Generate New Password
                         </button>
                       </li>
                     </ul>
