@@ -1,6 +1,11 @@
 <div class="card shadow">
-  <div class="card-body p-5">
+  <div class="card-body p-5" style="text-align: center">
     <h3 class="card-title h3 fw-bold">Statistics Sample</h3>
-    <apx-chart [series]="series" [chart]="chart"></apx-chart>
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [title]="chartOptions.title"
+    ></apx-chart>
   </div>
 </div>
