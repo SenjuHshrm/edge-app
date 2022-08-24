@@ -89,14 +89,16 @@
   rel="stylesheet"
 />
 
-<div class="container-fluid custom_fluid p-0 m-0">
-  <div class="custom_container_size" id="Home">
-    <div class="header_container">
-      <nav class="custom_navigation navbar navbar-expand-lg navbar-dark">
-        <div class="custom_logo navbar-brand">
-          <div (click)="toHome()">
-            <a><img src="assets/images/landingpage/header/Logoedge.png" /></a>
-          </div>
+
+<div class="container-fluid custom_fluid p-0 m-0" id="Home">
+
+  <div class="row  custom_container_size h-100" >
+    <div class=" row header_container h-100  d-flex justify-content-center">
+      <div>
+      <nav  class="custom_navigation navbar  navbar-expand-lg  navbar-dark">
+        <div class="custom_logo navbar-brand ">
+          <div (click)="toHome()"><a><img src="assets/images/landingpage/header/Logoedge.png"></a></div>
+
         </div>
         <button
           class="navbar-toggler"
@@ -135,23 +137,21 @@
           </ul>
         </div>
       </nav>
+    </div>
 
-      <div class="row custom_header_text d-flex justify-content-start h-75">
-        <div class="col-lg-6 text-white custom_align_text align-self-start">
-          <div class="h1">Why CHOOSE US?</div>
-          <div class="text-size text-justify">
-            <span class="fs-3">Edgecommerce</span> is your reliable partner in
-            all aspects <br />of your online business. We provide assistance on
-            <br />everything from product sourcing, inventory <br />management,
-            order fulfillment activities such as packing <br />and shipping to
-            make your ecommerce journey easier.
-          </div>
-          <div
-            class="btn_default_header btn text-center text-white shadow py-3 px-4 mt-3 d-flex align-items-center"
-            (click)="toSection()"
-          >
-            <div>
-              <a style="text-decoration: none; color: white">Read more</a>
+
+        <div class="row custom_header_text d-flex justify-content-start ">
+          <div class="col-lg-6 col-md-8 text-white custom_align_text align-self-start ">
+            <div class="h1">Why CHOOSE US?</div>
+            <div class="text-size"><span class="fs-3">Edgecommerce</span> is your reliable partner in all aspects of
+              your online business.
+              We provide assistance on everything from product sourcing, inventory management,
+              order fulfillment activities such as packing and shipping
+              to make your ecommerce journey easier.
+            </div>
+            <div class="btn_default_header btn  text-white shadow  py-3 d-flex justify-content-center align-items-center" (click)="toSection()">
+              <a style="text-decoration: none;color:white;">Read more</a>
+              <span class="material-symbols-outlined ms-3 fs-sm-1">trending_flat</span>
             </div>
             <span class="material-symbols-outlined ms-3 fs-1"
               >trending_flat</span
@@ -159,16 +159,14 @@
           </div>
         </div>
 
-        <div
-          class="col-lg-6 text-center custom_align_image align-self-end gy-sm-5"
-        >
-          <div class="computer_image_header">
-            <img
-              src="assets/images/landingpage/header/computeredge.svg"
-              alt="computeredge"
-            />
+
+          <div class="col-lg-6 col-md-4 text-center custom_align_image ">
+            <div class="computer_image_header">
+              <img src="assets/images/landingpage/header/computeredge.svg" alt="computeredge">
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -286,8 +284,21 @@
           <span class="material-symbols-outlined ms-3">trending_flat</span>
         </div> -->
       </div>
-    </div>
-  </div>
+
+
+    <div class="container-fluid custom_fluid p-0 m-0 " >
+      <div class="row custom_section_vid h-100">
+  
+        <div class="row text-center h-100">
+          <div class="default_header_text "  id="About">
+            <h1>About Us</h1>
+            <p class="mt-5">Join our team and expand your ecommerce business! We can help you with everything from
+              product financing to
+              inventory management and<br> order fulfillment activities like packing and shipping to make your eCommerce
+              experience easier.
+              <br>EdgeCommerce is your trustworthy partner in all aspects of launching, operating, and expanding your
+              online business.
+            </p>
 
   <div class="container-fluid custom_fluid p-0 m-0">
     <div
@@ -306,27 +317,17 @@
             online business.
           </p>
         </div>
-      </div>
-    </div>
-    <div class="custom_section_vid">
-      <div class="row align-items-center h-100">
-        <div class="col col-lg-3 m-0 p-0">
-          <img src="assets/images/landingpage/style1.svg" alt="style" />
-        </div>
-        <div class="col col-lg-3 m-0 p-0">
-          <div
-            class="card shadow round custom-vid-card"
-            style="width: 80rem; min-height: fit-content"
-          >
-            <div class="card-body">
-              <div
-                class="embed-responsive embed-responsive-16by9 custom_vid_size"
-              >
-                <div class="embed-container">
-                  <iframe
-                    class="embed-responsive-item"
-                    src="assets/images/landingpage/edgeVideo.mp4"
-                  ></iframe>
+
+        <div class="row ">
+          <div class="col col-lg-3 m-0 p-0 text-center align-self-center ">
+            <img src="assets/images/landingpage/style1.svg" alt="style">
+          </div>
+          <div class="col col-lg-6 m-0 p-0 align-self-center ">
+            <div class="card shadow round custom-vid-card">
+              <div class="card-body custom_vid_size ">
+                <div class="embed-responsive  embed-responsive-16by9">
+                  <div class="embed-container"><iframe class="embed-responsive-item muted"
+                      src="assets/images/landingpage/edgeVideo.mp4"></iframe></div>
                 </div>
               </div>
             </div>
@@ -408,56 +409,33 @@
     </div>
   </div>
 
-  <div class="container-fluid custom_fluid p-0 m-0">
-    <div class="d-flex justify-content-center align-items-start">
-      <div
-        class="mission_vission_container d-flex justify-content-center align-items-start"
-      >
-        <div class="row">
-          <div class="col align-self-center text-center custom_bg_row">
-            <div
-              class="div"
-              style="font-weight: bolder; font-size: 5rem; color: white"
-            >
-              <span>Mission</span><br /><span>& Vission</span>
+    <div class="container-fluid custom_fluid p-0 m-0 ">
+      <div class="d-flex justify-content-center align-items-start">
+        <div class="mission_vission_container  d-flex justify-content-center align-items-center  h-100">
+          <div class="row h-100  d-flex flex-row justify-content-center">
+            <div class="col-lg-5 col-md-5 align-self-center text-center custom_bg_row">
+              <div class="title_mission_vission"><span>Mission</span><br><span>&
+                  Vission</span></div>
             </div>
-          </div>
-          <div class="col align-self-center">
-            <div class="card shadow" style="border-radius: 10px">
-              <div
-                class="card-body d-flex flex-column justify-content-evenly p-5"
-              >
-                <div class="row mb-2">
-                  <div
-                    class="card-title"
-                    style="font-weight: bolder; font-size: 3rem; color: #f79007"
-                  >
-                    Mission
-                  </div>
-                  <div class="card-text" style="color: gray">
-                    We believe that Ecommerce provides everyone with the
-                    opportunity to establish a business that works for them by
-                    creating wealth and a future for their long-term life goals,
-                    regardless of whether they work from home, work full-time,
-                    or want to quit their jobs. We like to create an environment
-                    in which our key partners can join an ecommerce business and
-                    can rely on our team of professional individuals to guide
-                    them through every aspect of starting, running, and growing
-                    an online business.
+            <div class="col-lg-6 col-md-6 align-self-center h-auto">
+              <div class="card shadow h-100" style="border-radius:10px">
+                <div class="card-body  d-flex flex-column justify-content-evenly p-5 ">
+                  <div class="row mb-2">
+                    <div class="card-title custom_card_title_mission"><span>Mission</span></div>
+                    <div class="card-text" style="color:gray">We believe that Ecommerce provides everyone with the
+                      opportunity to establish a business that works for them by creating wealth and a future for their
+                      long-term life goals, regardless of whether they work from home, work full-time, or want to quit
+                      their jobs.
+                      We like to create an environment in which our key partners can join an ecommerce business and can
+                      rely on our team of professional individuals to guide them through every aspect of starting,
+                      running, and growing an online business.</div>
                   </div>
                 </div>
 
-                <div class="row mt-2">
-                  <div
-                    class="card-title"
-                    style="font-weight: bolder; font-size: 3rem; color: #45b5c4"
-                  >
-                    Vission
-                  </div>
-                  <div class="card-text" style="color: gray">
-                    To offer a one of a kind opportunity to assist you as an
-                    ecommerce business owner and to improve the lives of many
-                    people.
+                  <div class="row mt-2">
+                    <div class="card-title custom_card_title_vision"><span>Vision</span></div>
+                    <div class="card-text" style="color:gray">To offer a one of a kind opportunity to assist you as an
+                      ecommerce business owner and to improve the lives of many people.</div>
                   </div>
                 </div>
               </div>
@@ -467,7 +445,10 @@
       </div>
     </div>
 
-    <!-- 
+    </div>
+
+
+      <!-- 
 <div class="container-fluid custom_fluid p-0 m-0 ">
 
   <div class="custom_testimonials"> 
@@ -519,33 +500,17 @@
 
   </div> -->
 
-    <div class="container-fluid custom_fluid p-0 m-0 w-100" id="Contact">
-      <div
-        class="footer_container d-flex flex-row justify-content-center h-100"
-      >
-        <div
-          class="custom_size_footer d-flex flex-column justify-content-evenly"
-        >
-          <div class="row text-white">
-            <div class="col">
-              <div class="custom_footer_logo d-flex justify-content-start mb-5">
-                <img
-                  src="assets/images/landingpage/footer/Logoedge.png"
-                  class="img-fluid"
-                  alt="footer_logo"
-                />
-              </div>
-              <div
-                class="custom_footer_icon d-flex flex-row align-items-center justify-content-start"
-              >
-                <div>
-                  <a
-                    href="https://www.facebook.com/edgecommerceph"
-                    target="_blank"
-                    ><img
-                      src="assets/images/landingpage/footer/fb.png"
-                      alt="..."
-                  /></a>
+      <div class="container-fluid custom_fluid p-0 m-0 " id="Contact">
+
+        <div class="footer_container d-flex flex-row justify-content-center">
+          <div class="custom_size_footer d-flex flex-column justify-content-start h-100">
+
+            <div class=" row text-white  d-flex flex-row   h-100">
+
+              <div class="col-lg-3 d-flex justify-content-center align-items-center ">
+                <div class="d-flex flex-column align-items-center">
+                <div class="custom_footer_logo d-flex justify-content-start mb-5">
+                  <img src="assets/images/landingpage/footer/Logoedge.png" class="img-fluid" alt="footer_logo">
                 </div>
                 <div>
                   <a
@@ -557,13 +522,37 @@
                       alt="..."
                   /></a>
                 </div>
-                <div>
-                  <a href="https://www.youtube.com/" target="_blank"
-                    ><img
-                      src="assets/images/landingpage/footer/youtube.png"
-                      class="ms-3"
-                      alt="..."
-                  /></a>
+              </div>
+            </div>
+
+
+              <div class="col-lg-5 d-flex h-auto">
+                <div class="w-100 text-center m-auto">
+                  <div class="footer_text_header py-5 ">Links</div>
+               
+
+                    <div class="footer_nav_list  w-100  ">
+                      <ul class="navbar-nav  d-flex flex-row justify-content-center  w-100 ">
+                        <li class="nav-item " (click)="toHome()" style="cursor:pointer;">
+                          <a>Home</a>
+                        </li>
+                        <li class="nav-item ms-3" (click)="toServices()" style="cursor:pointer;">
+                          <a>Services</a>
+                        </li>
+                        <li class="nav-item ms-3" >
+                          <a href="#">Register Here</a>
+                        </li>
+                        <li class="nav-item ms-3" (click)="toAbout()" style="cursor:pointer;">
+                          <a>About</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                          <a href="https://www.facebook.com/edgecommerceph" target="_blank">Contact us</a>
+                        </li>
+                      </ul>
+                    </div>
+           
+
+
                 </div>
               </div>
             </div>
@@ -624,16 +613,15 @@
                   </ul>
                 </div>
               </div> -->
-            <div class="col d-flex justify-content-end align-items-center">
-              <div>
-                <div class="footer_text_header" style="color: #74ffff">
-                  Contact Us
-                </div>
-                <div class="footer_nav">
-                  <div>EdgeCommerce Fulfillment and Ecom Service</div>
-                  <div>edgecommerce@gmail.com</div>
-                  <div>
-                    Pedro Buan Road, Alanganin Batangas City 4200, Philippines
+              <div class="col-lg-4 d-flex  d-flex flex-row justify-content-center align-items-center mt-5">
+                <div class="text-center">
+                  <div class="footer_text_header" style="color:#74FFFF">Contact Us</div>
+                  <div class="footer_nav ">
+
+                    <div>EdgeCommerce Fulfillment and Ecom Service</div>
+                    <div>edgecommerce@gmail.com</div>
+                    <div> Pedro Buan Road, Alanganin Batangas City 4200, Philippines</div>
+
                   </div>
                 </div>
               </div>
@@ -646,11 +634,10 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col" style="color: #74ffff">
-              Copyright &copy; Edgecommerce. All Rights Reserved 2022.
-            </div>
-            <!-- <div class="col d-flex justify-content-end align-items-center">
+            <div class="row align-items-center py-5 text-center">
+
+              <div class="col align-self-center mt-5\" style="color:#74FFFF">Copyright &copy; Edgecommerce. All Rights Reserved 2022.</div>
+              <!-- <div class="col d-flex justify-content-end align-items-center">
               <div class="d-flex justify-content-center align-items-center">
                <a href="#" style="text-decoration:none; color:#74FFFF">Terms of Use</a>
               <div class="ms-2 me-2" style="color:#74FFFF" >|</div>
@@ -660,6 +647,4 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
