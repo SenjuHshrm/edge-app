@@ -48,4 +48,12 @@ export class BookingService {
   public getAllBooking(): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-all/booking`);
   }
+
+  public getCurrentMonthBookingCount(param: any): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}`)
+  }
+
+  public getCurrentMonthBookingCountByKeyPartner(param: any): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}/${param.id}`)
+  }
 }
