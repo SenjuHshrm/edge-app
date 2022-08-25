@@ -79,6 +79,9 @@
 
           .text-size {
             font-size: 1.2rem !important;
+            text-align: left;
+          
+
           }
 
           .btn_default_header {
@@ -109,6 +112,15 @@
   }
 
 }
+
+.text-size {
+  font-size: 1.4rem;
+  text-align:left;
+  text-justify:none;
+
+}
+
+
 }
 
 
@@ -173,6 +185,7 @@
 
         .text-size {
           font-size: 1.5rem !important;
+          text-align: left !important;
         }
 
         .btn_default_header {
@@ -190,7 +203,7 @@
 }
 
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1400px) {
 
   .custom_container_size {
     .header_container {
@@ -202,6 +215,7 @@
 
         .text-size {
           font-size: 1.5rem !important;
+          text-align: left !important;
         }
 
         .btn_default_header {
@@ -362,10 +376,6 @@
     .custom_header_text {
       padding-top: 3.5rem;
 
-      .text-size {
-        font-size: 1.4rem;
-      }
-
 
       .h1 {
         font-weight: bolder;
@@ -375,6 +385,8 @@
 
       .text-size {
         font-size: 1.4rem;
+        text-align: justify;
+        text-justify:inter-character;
 
       }
 
@@ -841,30 +853,7 @@
     border: 1px solid black;
   }
 
-  .custom_float_btn {
-
-
-
-    .float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 40px;
-      right: 40px;
-      background-color: #45B5C4;
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      box-shadow: 2px 2px 3px #999;
-
-    }
-
-    img {
-      margin-top: 15px;
-      width: 2rem;
-      height: 2rem;
-    }
-  }
+ 
 
   .custom_float_btn {
     .float {
