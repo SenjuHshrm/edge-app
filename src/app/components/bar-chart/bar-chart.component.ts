@@ -10,13 +10,6 @@ import {
 import * as moment from 'moment';
 import jwtDecode from 'jwt-decode';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  title: ApexTitleSubtitle;
-};
-
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
@@ -24,54 +17,73 @@ export type ChartOptions = {
 })
 export class BarChartComponent implements OnInit {
 
-  // series: ApexAxisChartSeries = [
-  //   {
-  //     name: 'My-series',
-  //     data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-  //   },
-  // ];
-  // chart: ApexChart = {
-  //   height: 500,
-  //   width: '100%',
-  //   type: 'bar',
-  // };
+  public title: any = {
+    text: 'Booking'
+  }
 
-  public chartOptions: ChartOptions = {
-    series: [{  name: '', data: []}],
-    chart: { height: 0, width: '', type: 'bar' },
-    title: { text: '' },
-    xaxis: { categories: [] }
-  };
+  public series: any = [{
+    name: '',
+    data: []
+  }]
+
+  public chart: any = {
+    type: 'bar',
+    width: '100%',
+    height: 500
+  }
+
+  public xaxis: any = {
+    categories: []
+  }
 
   constructor(
     private booking: BookingService
   ) {
-    let days = []
-    for(let i = 0; i < moment().daysInMonth(); i++) {
-      days.push((i+1).toString())
-    }
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Booking',
-          data: []
-        }
-      ],
-      chart: {
-        height: 500,
-        width: '100%',
-        type: 'bar',
-      },
-      title: {
-        text: 'Booking'
-      },
-      xaxis: {
-        categories: days
-      }
-    }
+    
   }
 
   ngOnInit(): void {
-    
+    let params: any = {
+      start: moment().startOf('month').toISOString(),
+      end: moment().endOf('month').toISOString()
+    }
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    console.log(params)
+    if(token.access === 1) {
+      this.booking.getCurrentMonthBookingCount(params).subscribe({
+        next: (res: any) => this.initializeChart(res.info),
+        error: ({ error }: any) => console.log(error)
+      })
+    } else {
+      this.booking.getCurrentMonthBookingCountByKeyPartner({ ...params, id: token.sub }).subscribe({
+        next: (res: any) => this.initializeChart(res.info),
+        error: ({ error }: any) => console.log(error)
+      })
+    }
+  }
+
+  private initializeChart(data: number[]) {
+    let days = []
+    for(let i = 0; i < moment().daysInMonth(); i++) {
+      days.push(i+1)
+    }
+    this.title = {
+      text: 'Booking'
+    }
+  
+    this.series = [{
+      name: '',
+      data: data
+    }]
+  
+    this.chart = {
+      type: 'bar',
+      width: '100%',
+      height: 500
+    }
+  
+    this.xaxis = {
+      categories: days
+    }
   }
 }
