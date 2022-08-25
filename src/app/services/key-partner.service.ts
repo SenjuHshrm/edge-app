@@ -65,4 +65,11 @@ export class KeyPartnerService {
   saveContract(data: any): Observable<any> {
     return this.http.post(`${environment.apiV1}/api/v1/post/key-partners/save-contract`, data)
   }
+  
+  assignCodeAndPassword(id: any, data: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/assign-codePassword/${id}`,
+      data
+    );
+  }
 }

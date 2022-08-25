@@ -2,15 +2,45 @@
   <h4 class="h4 h4-responsive">Assign Code</h4>
   <div class="card shadow px-3">
     <div class="card-body">
+      <label class="fs-6 fw-bold mb-1">{{ data.name }}</label>
       <div class="d-flex align-items-end mb-3">
         <div class="form-group me-2 flex-grow-1">
-          <label for="name" class="fs-6 fw-bold mb-1"
-            >Key Partners Name:<br />{{ data.name }}</label
-          >
-          <input class="form-control" type="text" name="text" [(ngModel)]="userId" />
+          <label for="name" class="fs-6 fw-bold mb-1"> Assign Code </label>
+          <input
+            class="form-control"
+            type="text"
+            name="text"
+            autocomplete="off"
+            [(ngModel)]="userId"
+            style="text-transform: uppercase"
+          />
         </div>
       </div>
-      <button class="btn btn-dark" (click)="setUserId()">Assign</button>
+      <div class="d-flex align-items-end mb-3">
+        <div class="form-group me-2 flex-grow-1">
+          <label for="name" class="fs-6 fw-bold">Assign Password</label>
+          <input
+            class="form-control"
+            type="text"
+            name="password"
+            [(ngModel)]="password"
+            readonly
+          />
+        </div>
+        <button
+          class="btn btn-dark me-2"
+          data-tool-tip="Generate Random Password"
+          (click)="randomPassword(10)"
+        >
+          <i class="bi bi-shuffle"></i>
+        </button>
+      </div>
+      <div class="text-end">
+        <button class="btn btn-dark me-2" (click)="setPassword()">
+          Assign
+        </button>
+        <button class="btn btn-dark" (click)="handleClose()">Cancel</button>
+      </div>
     </div>
   </div>
 </div>
