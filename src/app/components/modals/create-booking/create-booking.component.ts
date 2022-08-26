@@ -138,20 +138,59 @@ export class CreateBookingComponent implements OnInit {
   }
 
   addToIndividualOrderList(id: string) {
-    if (this.individualItemTable.length === 0) {
-      let i = this.individualItem.findIndex((x: any) => {
-        return x._id === id;
-      });
-      this.individualItemTable.push({
-        id: this.individualItem[i]._id,
-        name: this.individualItem[i].desc,
-        quantity: this.indQuantity,
-      });
+    if (id !== '') {
+      if (this.individualItemTable.length === 0) {
+        let i = this.individualItem.findIndex((x: any) => {
+          return x._id === id;
+        });
+        if (
+          this.validateIndividual({
+            current: this.individualItem[i].currentQty,
+            quantity: this.indQuantity,
+          })
+        ) {
+          this.individualItemTable.push({
+            id: this.individualItem[i]._id,
+            name: this.individualItem[i].desc,
+            quantity: this.indQuantity,
+          });
+
+          this.selectedIndItem = '';
+          this.indQuantity = '';
+        }
+      } else {
+        Swal.fire({
+          title: 'Maximum of 1 Item per Booking.',
+          icon: 'info',
+        });
+      }
     } else {
       Swal.fire({
-        title: 'Maximum of 1 Item per Booking.',
+        title: 'Please select an item.',
         icon: 'info',
       });
+    }
+  }
+
+  validateIndividual(data: any): boolean {
+    const { current, quantity } = data;
+    let message = '';
+    if (quantity === '') {
+      console.log('quantity is newtral');
+      message = 'Please enter the quantity.';
+    } else if (current < quantity) {
+      message =
+        'Quantity must not exceed the current quantity of the selected item.';
+    }
+
+    if (message === '') {
+      return true;
+    } else {
+      Swal.fire({
+        title: message,
+        icon: 'info',
+      });
+      return false;
     }
   }
 
@@ -163,19 +202,26 @@ export class CreateBookingComponent implements OnInit {
   }
 
   addToBundledOrderList(id: string) {
-    if (this.bundledItemTable.length === 0) {
-      let i = this.bundledItem.findIndex((x: any) => {
-        return x._id === id;
-      });
-      this.bundledItemTable.push({
-        id: this.bundledItem[i]._id,
-        name: this.bundledItem[i].name,
-        quantity: this.bndQuantity,
-        items: this.bundledItem[i].items,
-      });
+    if (id) {
+      if (this.bundledItemTable.length === 0) {
+        let i = this.bundledItem.findIndex((x: any) => {
+          return x._id === id;
+        });
+        this.bundledItemTable.push({
+          id: this.bundledItem[i]._id,
+          name: this.bundledItem[i].name,
+          quantity: this.bndQuantity,
+          items: this.bundledItem[i].items,
+        });
+      } else {
+        Swal.fire({
+          title: 'Maximum of 1 Bundle per Booking.',
+          icon: 'info',
+        });
+      }
     } else {
       Swal.fire({
-        title: 'Maximum of 1 Bundle per Booking.',
+        title: 'Please select a bundled item.',
         icon: 'info',
       });
     }
@@ -215,6 +261,8 @@ export class CreateBookingComponent implements OnInit {
       message = 'Please select address';
     } else if (booking.zip == '') {
       message = 'Please enter zip code.';
+    } else if (/^[0-9]+$/.test(booking.zip) === false) {
+      message = 'Invalid zip code.';
     } else if (booking.courier === '') {
       message = 'Please enter courier.';
     } else if (this.didCheck === false) {
@@ -230,8 +278,6 @@ export class CreateBookingComponent implements OnInit {
       booking.senderContact.length !== 11
     ) {
       message = 'Invalid sender phone number.';
-    } else if (booking.remarks === '') {
-      message = 'Please enter remarks.';
     } else if (individual.length === 0 && bundle.length === 0) {
       message = 'Please select an item.';
     }
@@ -245,6 +291,10 @@ export class CreateBookingComponent implements OnInit {
       });
       return false;
     }
+  }
+
+  resetCheck() {
+    this.didCheck = false;
   }
 
   addBooking() {
@@ -301,4 +351,18 @@ export class CreateBookingComponent implements OnInit {
       });
     }
   }
+
+  handleClose = () => {
+    Swal.fire({
+      title: 'Are you sure you want to continue?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.md.close();
+      }
+    });
+  };
 }

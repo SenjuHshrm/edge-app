@@ -149,6 +149,7 @@ export class MyInventoryComponent implements OnInit {
   createBundleItem() {
     let createBundle = this.mdCtrl.open(CreateBundleComponent, {
       size: 'lg',
+      backdrop: 'static',
     });
     createBundle.result
       .then((res) => {
@@ -174,6 +175,7 @@ export class MyInventoryComponent implements OnInit {
   updateBundleItem(data: any) {
     let updateBundle = this.mdCtrl.open(UpdateBundleComponent, {
       size: 'lg',
+      backdrop: 'static',
     });
     updateBundle.componentInstance.current = data;
     updateBundle.result

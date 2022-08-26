@@ -76,6 +76,7 @@ export class MyCustomerComponent implements OnInit {
   createNewCustomer() {
     let createCustomer = this.mdCtrl.open(CreateCustomerComponent, {
       size: 'lg',
+      backdrop: 'static',
     });
     createCustomer.result.then((res) => {
       if (res.success) {
