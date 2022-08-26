@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreateBookingComponent } from 'src/app/components/modals/create-booking/create-booking.component';
 import { BookingService } from 'src/app/services/booking.service';
 import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-booking',
@@ -43,6 +44,7 @@ export class BookingComponent implements OnInit {
   createNewBooking() {
     let createBooking = this.mdCtrl.open(CreateBookingComponent, {
       size: 'xl',
+      backdrop: 'static',
     });
     createBooking.result
       .then((res) => {

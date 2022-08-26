@@ -2,51 +2,96 @@
   <h4 class="h4 h4-responsive">Create New Inquiry</h4>
   <div class="card shadow px-3">
     <div class="card-body">
-      <div class="w-100 d-flex flex-row justify-content-center align-items-center">
-        <div class="w-50 h-50 d-flex flex-column justify-content-start align-items-start">
+      <div
+        class="w-100 d-flex flex-row justify-content-center align-items-center"
+      >
+        <div
+          class="w-50 h-50 d-flex flex-column justify-content-start align-items-start"
+        >
           <div class="form-group w-75">
-            <label for="item-description" class="fs-6 fw-bold">Item Description</label>
-            <input type="text" class="form-control" name="item-description" [(ngModel)]="inquiryForm.description" />
+            <label for="item-description" class="fs-6 fw-bold"
+              >Item Description</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="item-description"
+              [(ngModel)]="inquiryForm.description"
+            />
           </div>
           <div class="form-group w-75">
             <label for="quantity" class="fs-6 fw-bold">Quantity</label>
-            <input type="number" class="form-control" name="quantity" [(ngModel)]="inquiryForm.quantity" />
+            <input
+              type="number"
+              class="form-control"
+              name="quantity"
+              [(ngModel)]="inquiryForm.quantity"
+            />
           </div>
           <div class="form-group w-75">
-            <label for="units" class="fs-6 fw-bold">Units</label>
-            <input type="text" class="form-control" name="units" [(ngModel)]="inquiryForm.units" />
+            <label for="units" class="fs-6 fw-bold">Price / Unit</label>
+            <input
+              type="number"
+              class="form-control"
+              name="units"
+              [(ngModel)]="inquiryForm.units"
+            />
           </div>
           <div class="form-group w-75">
             <label for="remarks" class="fs-6 fw-bold">Remarks</label>
-            <textarea name="remarks" class="form-control" [(ngModel)]="inquiryForm.remarks"></textarea>
+            <textarea
+              name="remarks"
+              class="form-control"
+              [(ngModel)]="inquiryForm.remarks"
+            ></textarea>
           </div>
-          <br/>
-          <button type="button" class="btn btn-primary w-75" (click)="handleNewItem(inquiryForm)">Add</button>
+          <br />
+          <button
+            type="button"
+            class="btn btn-primary w-75"
+            (click)="handleNewItem(inquiryForm)"
+          >
+            Add
+          </button>
         </div>
-        <div class="w-50 h-50 d-flex flex-row justify-content-center align-items-start">
+        <div
+          class="w-50 h-50 d-flex flex-row justify-content-center align-items-start"
+        >
           <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">Item Description</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Units</th>
+                <th scope="col">Price/Unit</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let inq of inquiry; let i=index">
+              <tr *ngFor="let inq of inquiry; let i = index">
                 <td>{{ inq.description }}</td>
                 <td>{{ inq.quantity }}</td>
                 <td>{{ inq.units }}</td>
-                <th scope="row"><i class="bi bi-x-lg text-danger" (click)="removeFromList(i)"></i></th>
+                <th scope="row">
+                  <i
+                    class="bi bi-x-lg text-danger"
+                    (click)="removeFromList(i)"
+                  ></i>
+                </th>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-dark" (click)="handleSaveInquiry($event)">Save</button>
+    <div class="card-footer text-end">
+      <button class="btn btn-dark me-2" (click)="handleClose()">Cancel</button>
+      <button
+        type="button"
+        class="btn btn-dark"
+        (click)="handleSaveInquiry($event)"
+      >
+        Save
+      </button>
     </div>
   </div>
 </div>

@@ -32,6 +32,7 @@ export class InquiryListComponent implements OnInit {
   createQuotation(inq: any) {
     let createQuote: NgbModalRef = this.mdCtrl.open(CreateQuotationComponent, {
       size: 'xl',
+      backdrop: 'static',
     });
     createQuote.componentInstance.data = inq;
   }

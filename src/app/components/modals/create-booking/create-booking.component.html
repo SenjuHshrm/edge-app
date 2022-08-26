@@ -110,6 +110,7 @@
                   class="form-select"
                   aria-label="Default select example"
                   name="courier"
+                  (change)="resetCheck()"
                   [(ngModel)]="bookingData.courier"
                 >
                   <option value="flash">FLASH</option>
@@ -118,10 +119,13 @@
               </div>
               <div>
                 <button
-                  class="btn btn-dark"
+                  class="btn {{ didCheck ? 'btn-success px-5' : 'btn-dark' }}"
                   (click)="checkAddress(addr, bookingData)"
                 >
-                  Courier Check
+                  <ng-template [ngIf]="didCheck"
+                    ><i class="bi bi-check-circle"></i
+                  ></ng-template>
+                  <ng-template [ngIf]="!didCheck">Check Courier</ng-template>
                 </button>
               </div>
             </div>
@@ -359,12 +363,10 @@
           </ng-template>
 
           <div class="pt-3 text-end">
-            <button
-              class="btn btn-dark px-5 fw-bolder text-white"
-              (click)="addBooking()"
-            >
-              SAVE
+            <button class="btn btn-dark me-2" (click)="handleClose()">
+              Cancel
             </button>
+            <button class="btn btn-dark" (click)="addBooking()">Save</button>
           </div>
         </div>
       </div>

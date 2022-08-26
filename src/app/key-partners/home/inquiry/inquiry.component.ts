@@ -30,7 +30,10 @@ export class InquiryComponent implements OnInit {
   }
 
   createNewInquiry() {
-    let createInq = this.mdCtrl.open(CreateInquiryComponent, { size: 'xl' });
+    let createInq = this.mdCtrl.open(CreateInquiryComponent, {
+      size: 'xl',
+      backdrop: 'static',
+    });
     createInq.result.then((res) => {
       if (res) {
         this.inquiryList = [res, ...this.inquiryList];
