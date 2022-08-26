@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
       name: 'My COA / NDA',
       icon: 'bi bi-envelope-paper',
       path: 'my-coa-nda',
-      data: '3',
+      data: '',
     },
     { name: 'My SOA', icon: 'bi bi-wallet', path: 'my-soa', data: '10' },
     { name: 'My Inquiry', icon: 'bi bi-card-checklist', path: 'inquiry' },
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       name: 'My Quotation',
       icon: 'bi bi-blockquote-right',
       path: 'my-quotation',
-      data: '4',
+      data: '',
     },
     {
       name: 'My Customer',
