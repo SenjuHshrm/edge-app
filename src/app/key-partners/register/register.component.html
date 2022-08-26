@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="back">
+    <b routerLink="/home"><i class="bi bi-arrow-bar-left"></i>&nbsp;Back to Home</b>
+  </div>
   <h1 class="h1 h1-responsive my-3 py-3">Create an Account</h1>
   <div class="col-md-8 offset-md-2">
     <form [formGroup]="registerForm" (submit)="register($event, registerForm)">

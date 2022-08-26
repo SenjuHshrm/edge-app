@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
       path: 'my-coa-nda',
       data: '',
     },
-    { name: 'My SOA', icon: 'bi bi-wallet', path: 'my-soa', data: '10' },
+    { name: 'My SOA', icon: 'bi bi-wallet', path: 'my-soa', data: '' },
     { name: 'My Inquiry', icon: 'bi bi-card-checklist', path: 'inquiry' },
     {
       name: 'My Quotation',
