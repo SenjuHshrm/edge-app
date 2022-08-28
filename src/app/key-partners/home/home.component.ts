@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -51,12 +52,14 @@ export class HomeComponent implements OnInit {
 
   constructor(private user: UserService, private kp: KeyPartnerService) {}
   // public data: any = {};
-  public img: string = ''
+  public img: string = '';
 
   ngOnInit(): void {
     this.showToggle = window.innerWidth <= 767 ? true : false;
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.img = token.img
+    this.img = token.img.includes('https')
+      ? token.img
+      : `${environment.apiV1}${token.img}`;
     // this.kp.getOneKeyPartner(token.sub).subscribe({
     //   next: (res: any) => {
     //     this.data = res.info;

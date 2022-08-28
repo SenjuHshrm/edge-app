@@ -48,4 +48,15 @@ export class UserService {
       data
     );
   }
+
+  updateProfileImage(data: any): Observable<any> {
+    return this.http.post(
+      `${environment.apiV1}/api/v1/post/profile/upload`,
+      data,
+      {
+        reportProgress: true,
+        observe: 'events',
+      }
+    );
+  }
 }
