@@ -42,7 +42,7 @@ export class UserService {
   }
 
   updateProfile(data: any): Observable<any> {
-    let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
     return this.http.put(
       `${environment.apiV1}/api/v1/put/update-profile/${token.sub}`,
       data
@@ -58,5 +58,15 @@ export class UserService {
         observe: 'events',
       }
     );
+  }
+
+  getNotificationCounts(): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.get(`${environment.apiV1}/api/v1/get/notif-count/${token.sub}`)
+  }
+
+  updateNotifStatus(data: any): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.put(`${environment.apiV1}/api/v1/put/toggle-notification/${token.sub}`, data)
   }
 }
