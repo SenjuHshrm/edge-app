@@ -191,7 +191,14 @@
         </div>
 
         <div class="text-end me-2 mt-3">
-          <button type="submit" class="btn btn-dark px-5 py-2">SAVE</button>
+          <button
+            type="button"
+            class="btn btn-dark me-2"
+            (click)="handleClose()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-dark">Save</button>
         </div>
       </div>
     </div>

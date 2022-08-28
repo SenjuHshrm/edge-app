@@ -52,7 +52,7 @@ export class InventoryComponent implements OnInit {
   createNewItem() {
     let createBooking = this.mdCtrl.open(CreateItemComponent, {
       size: 'lg',
-      backdrop: 'static'
+      backdrop: 'static',
     });
     createBooking.result
       .then((res) => {
@@ -71,6 +71,7 @@ export class InventoryComponent implements OnInit {
   updateItem(data: any) {
     let updateItem = this.mdCtrl.open(UpdateItemComponent, {
       size: 'lg',
+      backdrop: 'static',
     });
     updateItem.componentInstance.data = data;
     updateItem.result

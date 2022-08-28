@@ -209,6 +209,7 @@ export class SettingsComponent implements OnInit {
     let updateClassification = this.mdCtrl.open(ClassificationUpdateComponent, {
       size: 'md',
       centered: true,
+      backdrop: 'static',
     });
     updateClassification.componentInstance.data = data;
     updateClassification.result.then((res) => {

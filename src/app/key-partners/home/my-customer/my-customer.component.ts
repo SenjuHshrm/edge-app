@@ -116,6 +116,7 @@ export class MyCustomerComponent implements OnInit {
   updateCustomer(data: any) {
     let updateCustomer = this.mdCtrl.open(UpdateCustomerComponent, {
       size: 'lg',
+      backdrop: 'static',
     });
     updateCustomer.componentInstance.data = data;
   }
