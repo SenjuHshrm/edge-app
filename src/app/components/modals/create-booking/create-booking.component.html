@@ -4,8 +4,8 @@
     <div class="card-body">
       <div class="col-md-12 mt-2">
         <div>
-          <div class="d-flex flex-wrap mb-3">
-            <div class="form-group me-0 me-md-2 flex-grow-1">
+          <div class="d-flex mb-3">
+            <div class="form-group me-2 flex-grow-1">
               <label for="receiver" class="fs-6 fw-bold">Receiver Name</label>
               <input
                 type="text"
@@ -29,8 +29,8 @@
           </div>
 
           <div class="mb-3">
-            <div class="d-flex flex-wrap">
-              <div class="me-0 me-md-2 flex-grow-1">
+            <div class="d-flex">
+              <div class="me-2 flex-grow-1">
                 <label class="fw-bold m-0 p-0 text-capitalize" for="province"
                   >Province</label
                 >
@@ -49,7 +49,7 @@
                   </option>
                 </select>
               </div>
-              <div class="me-0 me-md-2 flex-grow-1">
+              <div class="me-2 flex-grow-1">
                 <label class="fw-bold m-0 p-0 text-capitalize" for="city"
                   >City</label
                 >
@@ -83,8 +83,8 @@
                 </select>
               </div>
             </div>
-            <div class="d-flex align-items-end flex-wrap mt-3">
-              <div class="form-group me-0 me-md-2 flex-grow-1">
+            <div class="d-flex align-items-end mt-3">
+              <div class="form-group me-2 flex-grow-1">
                 <label for="address" class="fs-6 fw-bold">Address</label>
                 <input
                   type="text"
@@ -94,7 +94,7 @@
                   [(ngModel)]="addr.hsStNum"
                 />
               </div>
-              <div class="form-group me-0 me-md-2 flex-grow-1">
+              <div class="form-group me-2 flex-grow-1">
                 <label for="zipCode" class="fs-6 fw-bold">Zip Code</label>
                 <input
                   type="text"
@@ -131,8 +131,8 @@
             </div>
           </div>
 
-          <div class="d-flex flex-wrap mb-3">
-            <div class="form-group flex-grow-1 me-0 me-md-2">
+          <div class="d-flex mb-3">
+            <div class="form-group flex-grow-1 me-2">
               <label for="cod" class="fs-6 fw-bold">COD</label>
               <input
                 type="text"
@@ -142,7 +142,7 @@
                 [(ngModel)]="bookingData.cod"
               />
             </div>
-            <div class="form-group me-0 me-md-2 flex-grow-1">
+            <div class="form-group me-2 flex-grow-1">
               <label for="sender" class="fs-6 fw-bold"
                 >Sender / Page Name</label
               >
@@ -202,10 +202,10 @@
             </li>
           </ul>
           <ng-template [ngIf]="active === 'individual'">
-            <div class="card px-0 px-md-3">
+            <div class="card px-3">
               <div class="card-body">
-                <div class="d-flex align-items-end flex-wrap">
-                  <div class="flex-grow-1 me-0 me-md-2">
+                <div class="d-flex align-items-end">
+                  <div class="flex-grow-1 me-2">
                     <label for="contact" class="fs-6 fw-bold"
                       >Individual Item</label
                     >
@@ -223,7 +223,7 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group flex-grow-1 me-0 me-md-2">
+                  <div class="form-group me-2">
                     <label for="contact" class="fs-6 fw-bold">Quantity</label>
                     <input
                       type="text"
@@ -233,7 +233,7 @@
                       [(ngModel)]="indQuantity"
                     />
                   </div>
-                  <div class="mt-2 mt-md-0">
+                  <div>
                     <button
                       class="btn btn-dark"
                       (click)="addToIndividualOrderList(selectedIndItem)"
@@ -275,9 +275,9 @@
           </ng-template>
 
           <ng-template [ngIf]="active === 'bundle'">
-            <div class="card px-0 px-md-3">
+            <div class="card px-3">
               <div class="card-body">
-                <div class="d-flex align-items-end flex-wrap">
+                <div class="d-flex align-items-end">
                   <div class="flex-grow-1 me-2">
                     <label for="contact" class="fs-6 fw-bold"
                       >Bundle Item</label

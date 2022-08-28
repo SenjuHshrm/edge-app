@@ -192,42 +192,35 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfileImage() {
-    if (this.filename) {
-      this.loading = true;
-      let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
+    this.loading = true;
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
 
-      let filename = `${token.sub}${this.filename.substring(
-        this.filename.lastIndexOf('.'),
-        this.filename.length
-      )}`;
+    let filename = `${token.sub}${this.filename.substring(
+      this.filename.lastIndexOf('.'),
+      this.filename.length
+    )}`;
 
-      let dpData = new FormData();
-      dpData.append('filename', filename);
-      dpData.append('image', this.file);
-      dpData.append('keyPartnerId', token.sub);
+    let dpData = new FormData();
+    dpData.append('filename', filename);
+    dpData.append('image', this.file);
+    dpData.append('keyPartnerId', token.sub);
 
-      this.user.updateProfileImage(dpData).subscribe((evt: HttpEvent<any>) => {
-        switch (evt.type) {
-          case HttpEventType.UploadProgress:
-            this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
-            break;
+    this.user.updateProfileImage(dpData).subscribe((evt: HttpEvent<any>) => {
+      switch (evt.type) {
+        case HttpEventType.UploadProgress:
+          this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
+          break;
 
-          case HttpEventType.Response:
-            this.progress = 0;
-            Swal.fire({
-              title:
-                'Profile Picture has been updated!. \n Please reload page to see changes.',
-              icon: 'success',
-            }).then(() => {
-              this.loading = false;
-            });
-        }
-      });
-    } else {
-      Swal.fire({
-        title: 'Please select an image.',
-        icon: 'info',
-      });
-    }
+        case HttpEventType.Response:
+          this.progress = 0;
+          Swal.fire({
+            title:
+              'Profile Picture has been updated!. \n Please reload page to see changes.',
+            icon: 'success',
+          }).then(() => {
+            this.loading = false;
+          });
+      }
+    });
   }
 }
