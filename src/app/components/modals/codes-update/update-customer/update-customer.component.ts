@@ -109,4 +109,18 @@ export class UpdateCustomerComponent implements OnInit {
       this.brgys.push(brgy);
     });
   }
+
+  handleClose() {
+    Swal.fire({
+      title: 'Are you sure you want to continue?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.mdCtrl.close();
+      }
+    });
+  }
 }
