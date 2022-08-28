@@ -79,13 +79,17 @@
           <div
             class="d-flex align-items-center justify-content-end py-1 px-2 custom-pointer"
           >
-            <img
+            <div
+              class="custom-profile-picture"
+              style="background-image: url('{{ img }}');"
+            ></div>
+            <!-- <img
               src="{{ img }}"
               class="rounded-circle"
               style="width: 2.5rem"
               alt="Avatar"
               (error)="errorImage($event)"
-            />
+            /> -->
           </div>
         </a>
       </div>

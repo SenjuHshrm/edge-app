@@ -6,20 +6,50 @@
         <div
           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0"
         >
-          <div class="img-container position-relative">
-            <img
-              src="{{ image }}"
-              class="rounded-3"
-              style="width: 300px"
-              alt="Avatar"
-              (error)="errorImage($event)"
-            />
-            <input type="file" id="profile-change" style="display: none" />
-            <button class="btn btn-info text-white fs-2 px-3 custom-upload-btn">
-              <i class="bi bi-upload"></i>
-            </button>
+          <div>
+            <div class="img-container position-relative">
+              <div
+                class="custom-image-dp"
+                style="background-image: url('{{ dp || image }}')"
+              ></div>
+              <input
+                (change)="handleImage($event)"
+                type="file"
+                id="profile-change"
+                style="display: none"
+              />
+              <button
+                class="btn btn-info text-white fs-2 px-3 custom-upload-btn"
+                (click)="selectImage()"
+                [disabled]="loading"
+              >
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+            <div class="col-md-12 text-center mt-2">
+              <ng-template [ngIf]="progress > 0">
+                <div class="progress mb-2">
+                  <div
+                    class="progress-bar bg-info"
+                    role="progressbar"
+                    [style.width.%]="progress"
+                    attr.aria-valuenow="{{ progress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </ng-template>
+              <button
+                class="btn btn-dark"
+                (click)="saveProfileImage()"
+                [disabled]="loading"
+              >
+                Update Profile Picture
+              </button>
+            </div>
           </div>
         </div>
+
         <div class="col-md-8">
           <div class="mb-3">
             <label for="basic-url" class="form-label fw-bold p-0 m-0"
@@ -82,10 +112,7 @@
           </div>
 
           <div class="col-md-12 text-end">
-            <button
-              class="btn btn-dark fw-bolder px-5 text-white"
-              (click)="updateProfile()"
-            >
+            <button class="btn btn-dark text-white" (click)="updateProfile()">
               Update
             </button>
           </div>
@@ -109,9 +136,7 @@
               </div>
 
               <div class="col-md-10 offset-md-1 text-end">
-                <button class="btn btn-dark fw-bolder px-5 text-white">
-                  Update
-                </button>
+                <button class="btn btn-dark">Update</button>
               </div>
             </div>
           </div>
@@ -159,11 +184,8 @@
                   [(ngModel)]="confirmPass"
                 />
               </div>
-              <div class="col-md-10 offset-md-1 text-end">
-                <button
-                  class="btn btn-dark fw-bolder px-5 text-white"
-                  (click)="changePassword()"
-                >
+              <div class="col-md-12 text-end">
+                <button class="btn btn-dark" (click)="changePassword()">
                   Update
                 </button>
               </div>
