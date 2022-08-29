@@ -20,6 +20,8 @@ export class SoaComponent implements OnInit {
     keyPartnerId: '',
   };
 
+  public loading: boolean = false;
+
   constructor(private kp: KeyPartnerService) {}
 
   ngOnInit(): void {
@@ -64,24 +66,46 @@ export class SoaComponent implements OnInit {
   }
 
   saveContract() {
-    let filename = `SOA_${moment().format('MMDDYYYYhhmmss')}_${
-      this.data.keyPartnerId
-    }${this.filename.substring(
-      this.filename.lastIndexOf('.'),
-      this.filename.length
-    )}`;
-    let contractData = new FormData();
-    contractData.append('id', this.data.keyPartnerId);
-    contractData.append('type', 'soa');
-    contractData.append('filename', filename);
-    contractData.append('file', this.file);
-    this.kp.saveContract(contractData).subscribe({
-      next: (res: any) => {
-        Swal.fire('Success', 'File sent successfully', 'success');
-      },
-      error: ({ error }: any) => {
-        console.log(error);
-      },
-    });
+    if (this.validateContract()) {
+      this.loading = true;
+      let filename = `SOA_${moment().format('MMDDYYYYhhmmss')}_${
+        this.data.keyPartnerId
+      }${this.filename.substring(
+        this.filename.lastIndexOf('.'),
+        this.filename.length
+      )}`;
+      let contractData = new FormData();
+      contractData.append('id', this.data.keyPartnerId);
+      contractData.append('type', 'soa');
+      contractData.append('filename', filename);
+      contractData.append('file', this.file);
+      this.kp.saveContract(contractData).subscribe({
+        next: (res: any) => {
+          Swal.fire('Success', 'File sent successfully', 'success');
+          this.loading = false;
+        },
+        error: ({ error }: any) => {
+          console.log(error);
+          this.loading = false;
+        },
+      });
+    }
+  }
+
+  validateContract(): boolean {
+    let message = '';
+
+    if (this.filename === 'Selected File') {
+      message = 'Please select a document.';
+    } else if (this.data.keyPartner === '') {
+      message = 'Please select a key partner.';
+    }
+
+    if (message === '') {
+      return true;
+    } else {
+      Swal.fire(message, '', 'info');
+      return false;
+    }
   }
 }

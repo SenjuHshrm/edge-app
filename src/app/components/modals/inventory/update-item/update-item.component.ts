@@ -36,6 +36,8 @@ export class UpdateItemComponent implements OnInit {
     codeId: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private classServ: ClassificationService,
     private userServ: UserService,
@@ -82,19 +84,31 @@ export class UpdateItemComponent implements OnInit {
   saveData(evt: any) {
     evt.preventDefault();
     if (this.validateData(this.itemData)) {
-      this.invServ.update(this.itemData, this.data._id).subscribe((res) => {
-        if (res.success) {
-          Swal.fire({
-            title: 'Item has been updated.',
-            icon: 'success',
-          });
-          this.mdCtrl.close({ success: true, data: res.info });
-        } else {
+      this.loading = true;
+      this.invServ.update(this.itemData, this.data._id).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              title: 'Item has been updated.',
+              icon: 'success',
+            });
+            this.mdCtrl.close({ success: true, data: res.info });
+            this.loading = false;
+          } else {
+            Swal.fire({
+              title: 'Failed to update the item.',
+              icon: 'warning',
+            });
+            this.loading = false;
+          }
+        },
+        error: ({ error }) => {
           Swal.fire({
             title: 'Failed to update the item.',
             icon: 'warning',
           });
-        }
+          this.loading = false;
+        },
       });
     }
   }

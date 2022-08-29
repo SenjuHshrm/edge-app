@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -69,11 +70,21 @@ export class HomeComponent implements OnInit {
   }
 
   logout(e: any): void {
-    this.user.logout().subscribe({
-      next: (res) => {
-        localStorage.removeItem('ACCESS');
-        window.location.href = '/key-partners/login';
-      },
+    Swal.fire({
+      title: 'Are you sure you want to log out?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.user.logout().subscribe({
+          next: (res) => {
+            localStorage.removeItem('ACCESS');
+            window.location.href = '/key-partners/login';
+          },
+        });
+      }
     });
   }
 

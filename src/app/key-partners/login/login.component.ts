@@ -21,26 +21,29 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  constructor(
-    private user: UserService,
-    private toast: ToastrService
-  ) {}
+  public loading: boolean = false;
+
+  constructor(private user: UserService, private toast: ToastrService) {}
 
   ngOnInit(): void {}
 
   login(e: any, data: any): void {
     e.preventDefault();
     if (data.valid) {
+      this.loading = true;
       this.user.login({ ...data.value, access: 3 }).subscribe({
         next: (res) => {
+          this.loading = false;
           localStorage.setItem('ACCESS', res.info);
           window.location.href = '/key-partners/home';
         },
         error: ({ error }: any) => {
+          this.loading = false;
           this.toast.error('Failed to login.', error.msg);
         },
       });
     } else {
+      this.loading = false;
       this.validateError(
         data.controls.username.errors,
         data.controls.password.errors

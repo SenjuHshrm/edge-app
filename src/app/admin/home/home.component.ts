@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit, HostListener } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +20,25 @@ export class HomeComponent implements OnInit {
     { name: 'COA / NDA', icon: 'bi bi-envelope-paper', path: 'coa-nda' },
     { name: 'SOA', icon: 'bi bi-wallet', path: 'soa' },
     { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list' },
-    { name: 'Quotations', icon: 'bi bi-file-earmark-text', path: 'quotation-list', },
-    { name: 'Purchase Order', icon: 'bi bi-basket2', path: 'purchase-order', data: '' },
+    {
+      name: 'Quotations',
+      icon: 'bi bi-file-earmark-text',
+      path: 'quotation-list',
+    },
+    {
+      name: 'Purchase Order',
+      icon: 'bi bi-basket2',
+      path: 'purchase-order',
+      data: '',
+    },
     { name: 'Key Partners', icon: 'bi bi-people', path: 'key-partners' },
     { name: 'Reports', icon: 'bi bi-file-medical', path: 'report' },
-    { name: 'Account Request', icon: 'bi bi-chat-left', path: 'acct-request', data: '' },
+    {
+      name: 'Account Request',
+      icon: 'bi bi-chat-left',
+      path: 'acct-request',
+      data: '',
+    },
     { name: 'Inventory', icon: 'bi bi-card-list', path: 'inventory', data: '' },
     { name: 'Return To Sender', icon: 'bi bi-layer-backward', path: 'rts' },
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
@@ -39,19 +54,23 @@ export class HomeComponent implements OnInit {
   ) {
     router.events.subscribe({
       next: (res: any) => {
-        if(res instanceof NavigationEnd) {
-          if(router.url === '/admin/home/purchase-order') {
+        if (res instanceof NavigationEnd) {
+          if (router.url === '/admin/home/purchase-order') {
             user.updateNotifStatus({ field: 'purchaseOrder' }).subscribe({
-              next: (res: any) => {this.links[6].data = ''}
-            })
-          } else if(router.url === '/admin/home/acct-request') {
+              next: (res: any) => {
+                this.links[6].data = '';
+              },
+            });
+          } else if (router.url === '/admin/home/acct-request') {
             user.updateNotifStatus({ field: 'acctReq' }).subscribe({
-              next: (res: any) => {this.links[9].data = ''}
-            })
+              next: (res: any) => {
+                this.links[9].data = '';
+              },
+            });
           }
         }
-      }
-    })
+      },
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -66,60 +85,80 @@ export class HomeComponent implements OnInit {
 
     this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
-        console.log(res)
-        this.links[6].data = (res.info.purchaseOrder.count === 0 && res.info.purchaseOrder.isOpened) ? '' : res.info.purchaseOrder.count;
-        this.links[9].data = (res.info.acctReq.count === 0 && res.info.acctReq.isOpened) ? '' : res.info.acctReq.count;
+        console.log(res);
+        this.links[6].data =
+          res.info.purchaseOrder.count === 0 && res.info.purchaseOrder.isOpened
+            ? ''
+            : res.info.purchaseOrder.count;
+        this.links[9].data =
+          res.info.acctReq.count === 0 && res.info.acctReq.isOpened
+            ? ''
+            : res.info.acctReq.count;
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
 
-    if(!this.socket.isConnected()) {
-      
-      let data: any = jwtDecode(localStorage.getItem('ACCESS') as string)
-      this.socket.emit('join', { id: data.sub })
+    if (!this.socket.isConnected()) {
+      let data: any = jwtDecode(localStorage.getItem('ACCESS') as string);
+      this.socket.emit('join', { id: data.sub });
 
       // listeners
 
       // purchase order counter
       this.socket.listen('new purchase order').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/admin/home/purchase-order') {
-            this.toast.info('A new purchase order arrived')
-            this.links[6].data = (this.links[6].data === '') ? res.info : +this.links[6].data + res.info
+          if (this.router.url !== '/admin/home/purchase-order') {
+            this.toast.info('A new purchase order arrived');
+            this.links[6].data =
+              this.links[6].data === ''
+                ? res.info
+                : +this.links[6].data + res.info;
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
 
       // account request counter
       this.socket.listen('new account request').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/admin/home/acct-request') {
-            this.toast.info('A new account requesting for approval')
-            this.links[9].data = (this.links[9].data === '') ? res.info : +this.links[9].data + res.info
+          if (this.router.url !== '/admin/home/acct-request') {
+            this.toast.info('A new account requesting for approval');
+            this.links[9].data =
+              this.links[9].data === ''
+                ? res.info
+                : +this.links[9].data + res.info;
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
-
+          console.log(error);
+        },
+      });
     }
   }
 
   logout(e: any): void {
-    this.user.logout().subscribe({
-      next: (res) => {
-        localStorage.removeItem('ACCESS')
-        window.location.href = '/admin/login'
-      },
-      error: (err) => {
-        console.log(err);
-      },
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.user.logout().subscribe({
+          next: (res) => {
+            localStorage.removeItem('ACCESS');
+            window.location.href = '/admin/login';
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
     });
   }
 

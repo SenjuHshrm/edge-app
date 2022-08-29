@@ -21,6 +21,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
     quantity: '',
     totalPrice: '',
   };
+  public loading: boolean = false;
 
   constructor(private po: PurchaseOrderService, private md: NgbActiveModal) {}
 
@@ -50,6 +51,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
   handleSavePO() {
     if (this.pos.length !== 0) {
+      this.loading = true;
       let req = {
         keyPartnerId: this.data.keyPartnerId._id,
         poFrom: this.data.quotationId,
@@ -58,9 +60,11 @@ export class CreatePurchaseOrderComponent implements OnInit {
       this.po.createPurchaseOrder(req).subscribe({
         next: (res: any) => {
           this.md.close(res.info);
+          this.loading = false;
         },
         error: ({ error }: any) => {
           console.log(error);
+          this.loading = false;
         },
       });
     } else {

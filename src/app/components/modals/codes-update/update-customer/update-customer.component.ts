@@ -30,6 +30,8 @@ export class UpdateCustomerComponent implements OnInit {
     keyPartnerId: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private custServ: CustomerService,
     private mdCtrl: NgbActiveModal
@@ -46,19 +48,31 @@ export class UpdateCustomerComponent implements OnInit {
   saveCustomer(evt: any) {
     evt.preventDefault();
     if (this.validateCustomer(evt.target)) {
-      this.custServ.update(this.data, this.data._id).subscribe((res) => {
-        if (res.success) {
-          Swal.fire({
-            title: 'Customer has been updated.',
-            icon: 'success',
-          });
-          this.mdCtrl.close({ success: true });
-        } else {
+      this.loading = true;
+      this.custServ.update(this.data, this.data._id).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              title: 'Customer has been updated.',
+              icon: 'success',
+            });
+            this.mdCtrl.close({ success: true });
+            this.loading = false;
+          } else {
+            Swal.fire({
+              title: 'Failed to update the Customer',
+              icon: 'warning',
+            });
+            this.loading = false;
+          }
+        },
+        error: ({ error }) => {
           Swal.fire({
             title: 'Failed to update the Customer',
             icon: 'warning',
           });
-        }
+          this.loading = false;
+        },
       });
     }
   }

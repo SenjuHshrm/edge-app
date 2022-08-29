@@ -8,43 +8,47 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-
   public registerForm: FormGroup<Register>;
 
-  constructor(
-    private user: UserService
-  ) {
+  public loading: boolean = false;
+
+  constructor(private user: UserService) {
     this.registerForm = new FormGroup<Register>({
       name: new FormControl('', [Validators.required]),
       addr: new FormControl('', [Validators.required]),
       contact: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
-      company: new FormControl('', [Validators.required])
-    })
+      company: new FormControl('', [Validators.required]),
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   register(evt: any, data: FormGroup<Register>) {
-    evt.preventDefault()
-    if(data.valid) {
-      let req = { ...data.value, accessLvl: 3, img: '' }
+    evt.preventDefault();
+    if (data.valid) {
+      this.loading = true;
+      let req = { ...data.value, accessLvl: 3, img: '' };
       this.user.registerKeyPartner(req).subscribe({
         next: (res: Response) => {
-          console.log(res)
-          Swal.fire('Success', 'Your account is registered successfully. Please wait for the email confirmation', 'success')
-            .then((result: any) => {
-              this.initializeForm()
-            })
+          console.log(res);
+          Swal.fire(
+            'Success',
+            'Your account is registered successfully. Please wait for the email confirmation',
+            'success'
+          ).then((result: any) => {
+            this.initializeForm();
+          });
+          this.loading = false;
         },
         error: (e: any) => {
-          console.log(e)
-        }
-      })
+          console.log(e);
+          this.loading = false;
+        },
+      });
     }
   }
 
@@ -54,8 +58,7 @@ export class RegisterComponent implements OnInit {
       addr: new FormControl('', [Validators.required]),
       contact: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
-      company: new FormControl('', [Validators.required])
-    })
+      company: new FormControl('', [Validators.required]),
+    });
   }
-
 }

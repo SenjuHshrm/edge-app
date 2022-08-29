@@ -195,10 +195,21 @@
             type="button"
             class="btn btn-dark me-2"
             (click)="handleClose()"
+            [disabled]="loading"
           >
             Cancel
           </button>
-          <button type="submit" class="btn btn-dark">Save</button>
+          <button type="submit" class="btn btn-dark" [disabled]="loading">
+            <ng-template [ngIf]="loading">
+              <div
+                class="spinner-border spinner-border-sm text-warning"
+                role="status"
+              >
+                <span class="sr-only"></span>
+              </div>
+            </ng-template>
+            <ng-template [ngIf]="!loading">Save</ng-template>
+          </button>
         </div>
       </div>
     </div>

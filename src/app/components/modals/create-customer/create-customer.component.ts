@@ -28,6 +28,8 @@ export class CreateCustomerComponent implements OnInit {
     keyPartnerId: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private custServ: CustomerService,
     private mdCtrl: NgbActiveModal
@@ -42,21 +44,33 @@ export class CreateCustomerComponent implements OnInit {
   saveCustomer(evt: any) {
     evt.preventDefault();
     if (this.validateCustomer(evt.target)) {
+      this.loading = true;
       let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       this.customer.keyPartnerId = token.sub;
-      this.custServ.create(this.customer).subscribe((res) => {
-        if (res.success) {
-          Swal.fire({
-            title: 'New Customer has been added.',
-            icon: 'success',
-          });
-          this.mdCtrl.close({ success: true });
-        } else {
+      this.custServ.create(this.customer).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              title: 'New Customer has been added.',
+              icon: 'success',
+            });
+            this.loading = false;
+            this.mdCtrl.close({ success: true });
+          } else {
+            Swal.fire({
+              title: 'Failed to create a new Customer',
+              icon: 'warning',
+            });
+            this.loading = false;
+          }
+        },
+        error: ({ error }) => {
           Swal.fire({
             title: 'Failed to create a new Customer',
             icon: 'warning',
           });
-        }
+          this.loading = false;
+        },
       });
     }
   }

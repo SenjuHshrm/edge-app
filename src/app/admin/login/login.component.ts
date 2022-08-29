@@ -35,20 +35,19 @@ export class LoginComponent implements OnInit {
   login(e: any, data: any): void {
     e.preventDefault();
     if (data.valid) {
-      this.isLoading = !this.isLoading;
+      this.isLoading = true;
       this.user.login({ ...data.value, access: 1 }).subscribe({
         next: (res: any) => {
-          this.isLoading = !this.isLoading;
+          this.isLoading = false;
           localStorage.setItem('ACCESS', res.info);
           window.location.href = '/admin/home';
         },
         error: ({ error }: any) => {
-          this.isLoading = !this.isLoading;
+          this.isLoading = false;
           this.toast.error('Failed to login.', error.msg);
         },
       });
     } else {
-      console.log(data.controls);
       this.validateError(
         data.controls.username.errors,
         data.controls.password.errors

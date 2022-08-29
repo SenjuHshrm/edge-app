@@ -14,6 +14,8 @@ export class SetKeypartnerPasswordComponent implements OnInit {
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
   public password: string = '';
 
+  public loading: boolean = false;
+
   constructor(private md: NgbModal, private kp: KeyPartnerService) {}
 
   ngOnInit(): void {
@@ -30,16 +32,23 @@ export class SetKeypartnerPasswordComponent implements OnInit {
   }
 
   setPassword() {
-    this.kp.setKeyPartnerPassword(this.id, this.password).subscribe({
-      next: (res: any) => {
-        Swal.fire('Success', res.msg, 'success').then((_) => {
-          this.md.dismissAll();
-        });
-      },
-      error: (e: any) => {
-        console.log(e);
-      },
-    });
+    if (this.password !== '') {
+      this.loading = true;
+      this.kp.setKeyPartnerPassword(this.id, this.password).subscribe({
+        next: (res: any) => {
+          Swal.fire('Success', res.msg, 'success').then((_) => {
+            this.md.dismissAll();
+          });
+          this.loading = false;
+        },
+        error: (e: any) => {
+          console.log(e);
+          this.loading = false;
+        },
+      });
+    } else {
+      Swal.fire('Please generate a password', '', 'info');
+    }
   }
 
   copyPassword() {
@@ -56,4 +65,18 @@ export class SetKeypartnerPasswordComponent implements OnInit {
       navigator.clipboard.writeText(this.password);
     }
   }
+
+  handleClose = () => {
+    Swal.fire({
+      title: 'Are you sure you want to continue?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.md.dismissAll();
+      }
+    });
+  };
 }
