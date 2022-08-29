@@ -51,6 +51,21 @@
           <span class="mx-3 fw-bold">{{ filename }}</span>
         </div>
 
+        <ng-template [ngIf]="progress > 0">
+          <div class="progress mb-3">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [style.width.%]="progress"
+              attr.aria-valuenow="{{ progress }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ progress }}%
+            </div>
+          </div>
+        </ng-template>
+
         <div class="text-end">
           <button
             class="btn btn-dark"

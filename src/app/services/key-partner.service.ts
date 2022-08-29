@@ -49,7 +49,10 @@ export class KeyPartnerService {
   }
 
   setUserId(id: string, data: any): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/key-partner/set-user-id/${id}`, data)
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/key-partner/set-user-id/${id}`,
+      data
+    );
   }
 
   getOneKeyPartner(id: string): Observable<any> {
@@ -59,13 +62,22 @@ export class KeyPartnerService {
   }
 
   getContractSendingHistory(type: string): Observable<any> {
-    return this.http.get(`${environment.apiV1}/api/v1/get/key-partners/contract/${type}`)
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/key-partners/contract/${type}`
+    );
   }
 
   saveContract(data: any): Observable<any> {
-    return this.http.post(`${environment.apiV1}/api/v1/post/key-partners/save-contract`, data)
+    return this.http.post(
+      `${environment.apiV1}/api/v1/post/key-partners/save-contract`,
+      data,
+      {
+        reportProgress: true,
+        observe: 'events',
+      }
+    );
   }
-  
+
   assignCodeAndPassword(id: any, data: any): Observable<any> {
     return this.http.put(
       `${environment.apiV1}/api/v1/put/assign-codePassword/${id}`,

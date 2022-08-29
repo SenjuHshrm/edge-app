@@ -1,3 +1,4 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
@@ -21,6 +22,7 @@ export class CoaNdaComponent implements OnInit {
   };
 
   public loading: boolean = false;
+  public progress: number = 0;
 
   constructor(private kp: KeyPartnerService) {}
 
@@ -44,8 +46,14 @@ export class CoaNdaComponent implements OnInit {
   }
 
   changeFile(evt: any) {
-    this.filename = evt.target.files[0].name;
-    this.file = evt.target.files[0];
+    const name = evt.target.files[0].name;
+    if (name.substring(name.lastIndexOf('.') + 1) === 'pdf') {
+      this.filename = evt.target.files[0].name;
+      this.file = evt.target.files[0];
+    } else {
+      Swal.fire('Please select a valid pdf file.', '', 'info');
+      (<HTMLInputElement>document.getElementById('coa')).value = '';
+    }
   }
 
   handleSearch(evt: any) {
@@ -79,18 +87,41 @@ export class CoaNdaComponent implements OnInit {
       contractData.append('type', 'coa-nda');
       contractData.append('filename', filename);
       contractData.append('file', this.file);
-      this.kp.saveContract(contractData).subscribe({
-        next: (res: any) => {
-          Swal.fire('Success', 'File sent successfully', 'success');
-          this.loading = false;
-          (<HTMLInputElement>document.getElementById('coa')).value = '';
-          (<HTMLInputElement>document.getElementById('keyPartner')).value = '';
-          this.filename = 'Selected File';
-        },
-        error: ({ error }: any) => {
-          console.log(error);
-          this.loading = false;
-        },
+      // this.kp.saveContract(contractData).subscribe({
+      //   next: (res: any) => {
+      //     Swal.fire('Success', 'File sent successfully', 'success');
+      //     this.loading = false;
+      //     (<HTMLInputElement>document.getElementById('coa')).value = '';
+      //     (<HTMLInputElement>document.getElementById('keyPartner')).value = '';
+      //     this.filename = 'Selected File';
+      //   },
+      //   error: ({ error }: any) => {
+      //     console.log(error);
+      //     this.loading = false;
+      //   },
+
+      // });
+      this.kp.saveContract(contractData).subscribe((evt: HttpEvent<any>) => {
+        switch (evt.type) {
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
+            break;
+
+          case HttpEventType.Response:
+            if (evt.body.success) {
+              Swal.fire('Success', 'File sent successfully', 'success');
+              this.loading = false;
+              (<HTMLInputElement>document.getElementById('coa')).value = '';
+              (<HTMLInputElement>document.getElementById('keyPartner')).value =
+                '';
+              this.filename = 'Selected File';
+              this.progress = 0;
+            } else {
+              Swal.fire('Success', 'File sent successfully', 'success');
+              this.progress = 0;
+              this.loading = false;
+            }
+        }
       });
     }
   }
