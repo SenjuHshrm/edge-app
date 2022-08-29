@@ -68,7 +68,7 @@
           <div class="me-2">
             <select class="form-select" aria-label="Default select example" [(ngModel)]="action">
               <option selected>--------</option>
-              <option value="1">Mark All Selected As Fulfilled</option>
+              <option value="1">Mark Selected As Fulfilled</option>
               <option value="2">Export Selected</option>
             </select>
           </div>
@@ -181,17 +181,17 @@
                       aria-labelledby="dropdownMenuButton2"
                     >
                       <li>
-                        <button class="dropdown-item text-sm">
+                        <button class="dropdown-item text-sm" (click)="markOneAsFulfilled(td._id)">
                           Mark As Fulfilled
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">
+                        <button class="dropdown-item text-sm" (click)="markOneAsUnfulfilled(td._id)">
                           Mark As Unfulfilled
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">Export</button>
+                        <button class="dropdown-item text-sm" (click)="exportOne(td._id)">Export</button>
                       </li>
                     </ul>
                   </div>

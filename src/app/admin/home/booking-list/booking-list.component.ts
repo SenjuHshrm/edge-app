@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { ExportComponent } from './../../../components/modals/export/export.component';
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
@@ -115,12 +116,43 @@ export class BookingListComponent implements OnInit {
   handleAction() {
     switch(this.action) {
       case "1":
+        this.handleMarkAsFulfilled()
         break;
       case "2":
         this.handleExportSelected()
         break;
       default:
         console.log('Select action')
+    }
+  }
+
+  handleMarkAsFulfilled() {
+    let selected: any = []
+    const checks: any = document.getElementsByClassName('select-field')
+    if(checks.length !== 0) {
+      for(let i = 0; i < checks.length; i++) {
+        if(checks[i].checked) {
+          selected.push(this.bookings[i]._id)
+        }
+      }
+      if(selected.length > 0) {
+        this.bookServ.markAsFulfilled({ ids: [...selected] }).subscribe({
+          next: (res: any) => {
+            Swal.fire('', 'Marked as fullfilled', 'success')
+              .then((_) => {
+                this.bookings.forEach((x: any) => {
+                  let ind = selected.indexOf(x._id)
+                  if(ind !== -1) {
+                    x.status = 'fulfilled'
+                  }
+                })
+              })
+          },
+          error: ({ error }: any) => {
+            console.log(error)
+          }
+        })
+      }
     }
   }
 
@@ -152,22 +184,38 @@ export class BookingListComponent implements OnInit {
     }
   }
 
-  async saveFile(filename: string, file: any) {
-    if(file !== null) {
-      let a = document.createElement('a')
-      document.body.appendChild(a)
-      let byteCharacters = atob(file)
-      const byteNumbers = new Array(byteCharacters.length)
-      for(let i = 0; byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i)
+  markOneAsFulfilled(id: string) {
+    this.bookServ.markOneAsFulfilled(id).subscribe({
+      next: (res: any) => {
+        Swal.fire('', 'Item marked as fulfilled', 'success')
+      },
+      error: ({ error }: any) => {
+        console.log(error)
       }
-      const byteArray = new Uint8Array(byteNumbers)
-      let blob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-      let url = window.URL.createObjectURL(blob)
-      a.href = url
-      a.download = filename
-      a.click()
-      window.URL.revokeObjectURL(url)
-    }
+    })
   }
+
+  markOneAsUnfulfilled(id: string) {
+    this.bookServ.markOneAsUnfulfilled(id).subscribe({
+      next: (res: any) => {
+        Swal.fire('', 'Item marked as unfulfilled', 'success')
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
+  }
+
+  exportOne(id: string) {
+    this.bookServ.exportOne(id).subscribe({
+      next: (res: any) => {
+        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' })
+        md.componentInstance.data = [res.info]
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
+  }
+
 }
