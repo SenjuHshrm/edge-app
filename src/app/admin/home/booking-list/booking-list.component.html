@@ -22,7 +22,7 @@
           >
             <option value="customer">Receiver Name</option>
             <option value="sender">Sender / Page Name</option>
-            <option value="keyPartnerId">ID Number</option>
+            <option value="bookingId">ID Number</option>
           </select>
         </div>
         <button class="btn btn-dark" (click)="handleSearch()">Go</button>
@@ -66,17 +66,13 @@
         <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Action:</span>
           <div class="me-2">
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="action">
               <option selected>--------</option>
               <option value="1">Mark All Selected As Fulfilled</option>
-              <option value="1">Export All Selected Using JNT Template</option>
-              <option value="1">
-                Export All Selected Using Flash Template
-              </option>
-              <option value="1">Export All</option>
+              <option value="2">Export Selected</option>
             </select>
           </div>
-          <button class="btn btn-dark">Go</button>
+          <button class="btn btn-dark" (click)="handleAction()">Go</button>
         </div>
       </div>
       <div class="table-responsive" style="height: 23rem">
@@ -92,6 +88,7 @@
                     type="checkbox"
                     value=""
                     id="checkAll"
+                    (change)="handleSelectAll($event)"
                   />
                   <label class="form-check-label" for="checkAll">
                     Select All
@@ -131,7 +128,7 @@
                     class="form-check d-flex align-items-center justify-content-center"
                   >
                     <input
-                      class="form-check-input"
+                      class="form-check-input select-field"
                       type="checkbox"
                       value=""
                       id="checkAll"

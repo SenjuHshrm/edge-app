@@ -1,6 +1,7 @@
+import { ExportComponent } from './../../../components/modals/export/export.component';
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
 
 @Component({
@@ -16,6 +17,7 @@ export class BookingListComponent implements OnInit {
   public category: string = 'keyPartnerId';
   public selectedDate: string = '';
   public status: string = 'all';
+  public action: string = '';
 
   constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
 
@@ -99,5 +101,73 @@ export class BookingListComponent implements OnInit {
       size: 'md',
     });
     viewBundle.componentInstance.id = id;
+  }
+
+  handleSelectAll(evt: any) {
+    const checks: any = document.getElementsByClassName('select-field')
+    if(checks.length !== 0) {
+      for(let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false
+      }
+    }
+  }
+
+  handleAction() {
+    switch(this.action) {
+      case "1":
+        break;
+      case "2":
+        this.handleExportSelected()
+        break;
+      default:
+        console.log('Select action')
+    }
+  }
+
+  handleExportSelected() {
+    let selected = []
+    const checks: any = document.getElementsByClassName('select-field')
+    if(checks.length !== 0) {
+      for(let i = 0; i < checks.length; i++) {
+        if(checks[i].checked) {
+          selected.push(this.bookings[i]._id)
+        }
+      }
+      if(selected.length > 0) {
+        this.bookServ.exportSelected({ ids: [...selected] }).subscribe({
+          next: (res: any) => {
+            // res.info.forEach((x: any) => {
+            //   setTimeout(async () => {
+            //     await this.saveFile(x.filename, x.file)
+            //   }, 1000)
+            // })
+            let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' })
+            md.componentInstance.data = res.info
+          },
+          error: ({ error }: any) => {
+            console.log(error)
+          }
+        })
+      }
+    }
+  }
+
+  async saveFile(filename: string, file: any) {
+    if(file !== null) {
+      let a = document.createElement('a')
+      document.body.appendChild(a)
+      let byteCharacters = atob(file)
+      const byteNumbers = new Array(byteCharacters.length)
+      for(let i = 0; byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i)
+      }
+      const byteArray = new Uint8Array(byteNumbers)
+      let blob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+      let url = window.URL.createObjectURL(blob)
+      a.href = url
+      a.download = filename
+      a.click()
+      window.URL.revokeObjectURL(url)
+    }
   }
 }

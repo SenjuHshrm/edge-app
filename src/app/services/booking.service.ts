@@ -56,4 +56,8 @@ export class BookingService {
   public getCurrentMonthBookingCountByKeyPartner(param: any): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}/${param.id}`)
   }
+
+  public exportSelected(booking: any): Observable<any> {
+    return this.http.put(`${environment.apiV1}/api/v1/put/export/all`, booking)
+  }
 }

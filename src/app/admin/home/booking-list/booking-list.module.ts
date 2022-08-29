@@ -1,3 +1,4 @@
+import { ComponentsModule } from 'src/app/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [BookingListComponent],
-  imports: [CommonModule, BookingListRoutingModule, FormsModule],
+  imports: [CommonModule, BookingListRoutingModule, FormsModule, ComponentsModule],
 })
 export class BookingListModule {}
