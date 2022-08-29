@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
           } else if (router.url === '/admin/home/inventory') {
             user.updateNotifStatus({ field: 'adminInv' }).subscribe({
               next: (res: any) => {
-                this.links[4].data = '';
+                this.links[10].data = '';
               },
             });
           }
