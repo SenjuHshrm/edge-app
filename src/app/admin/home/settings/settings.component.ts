@@ -216,6 +216,18 @@ export class SettingsComponent implements OnInit {
       message = 'Please enter description.';
     } else if (data.code === '') {
       message = 'Please enter code.';
+    } else if (
+      data.code.length !== 3 &&
+      (data.type === 'color' || data.type === 'size')
+    ) {
+      message = 'Code must be 3 characters.';
+    } else if (data.code.length !== 2 && data.type === 'classification') {
+      message = 'Code must be 2 characters only.';
+    } else if (
+      !/^[0-9]+$/.test(data.code) &&
+      (data.type === 'color' || data.type === 'size')
+    ) {
+      message = 'Code must be composed of numbers only.';
     }
 
     if (message === '') {

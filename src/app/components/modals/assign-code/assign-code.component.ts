@@ -15,6 +15,7 @@ export class AssignCodeComponent implements OnInit {
   public characters: string =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
   public password: string = '';
+  public password2: string = '';
 
   public loading: boolean = false;
 
@@ -35,13 +36,17 @@ export class AssignCodeComponent implements OnInit {
     });
   }
 
-  randomPassword(ln: number) {
+  randomPassword(ln: number, pass: string) {
     const chLn = this.characters.length;
     let res = '';
     for (let i = 0; i < ln; i++) {
       res += this.characters.charAt(Math.floor(Math.random() * chLn));
     }
-    this.password = res;
+    if (pass === 'pass1') {
+      this.password = res;
+    } else {
+      this.password2 = res;
+    }
   }
 
   setPassword() {
@@ -75,6 +80,8 @@ export class AssignCodeComponent implements OnInit {
     } else if (this.userId.length < 6) {
       message = 'Code must be atleast 6 letters.';
     } else if (this.password === '') {
+      message = 'Please generate a password for key partner';
+    } else if (this.password2 === '') {
       message = 'Please generate a password';
     }
 

@@ -66,7 +66,11 @@
         <div class="col-md-4 d-flex align-items-center">
           <span class="me-2">Action:</span>
           <div class="me-2">
-            <select class="form-select" aria-label="Default select example" [(ngModel)]="action">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              [(ngModel)]="action"
+            >
               <option selected>--------</option>
               <option value="1">Mark Selected As Fulfilled</option>
               <option value="2">Export Selected</option>
@@ -122,7 +126,14 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="bookings.length !== 0">
-              <tr *ngFor="let td of bookings">
+              <tr
+                *ngFor="let td of bookings"
+                [style.backgroundColor]="
+                  td.status === 'fulfilled'
+                    ? 'rgba(168, 241, 168, 0.4)'
+                    : 'rgba(247, 175, 175, 0.4)'
+                "
+              >
                 <td class="text-truncate px-3">
                   <div
                     class="form-check d-flex align-items-center justify-content-center"
@@ -135,7 +146,9 @@
                     />
                   </div>
                 </td>
-                <td scope="row">{{ td.bookingId }}</td>
+                <td scope="row" class="text-truncate px-3">
+                  {{ td.bookingId }}
+                </td>
                 <td class="text-truncate px-3">
                   {{ handleDate(td.createdAt) }}
                 </td>
@@ -181,17 +194,28 @@
                       aria-labelledby="dropdownMenuButton2"
                     >
                       <li>
-                        <button class="dropdown-item text-sm" (click)="markOneAsFulfilled(td._id)">
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="markOneAsFulfilled(td._id)"
+                        >
                           Mark As Fulfilled
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm" (click)="markOneAsUnfulfilled(td._id)">
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="markOneAsUnfulfilled(td._id)"
+                        >
                           Mark As Unfulfilled
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm" (click)="exportOne(td._id)">Export</button>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="exportOne(td._id)"
+                        >
+                          Export
+                        </button>
                       </li>
                     </ul>
                   </div>

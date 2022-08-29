@@ -20,6 +20,8 @@ export class BookingListComponent implements OnInit {
   public status: string = 'all';
   public action: string = '';
 
+  public loading: boolean = false;
+
   constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {
@@ -105,67 +107,66 @@ export class BookingListComponent implements OnInit {
   }
 
   handleSelectAll(evt: any) {
-    const checks: any = document.getElementsByClassName('select-field')
-    if(checks.length !== 0) {
-      for(let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false
+    const checks: any = document.getElementsByClassName('select-field');
+    if (checks.length !== 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
       }
     }
   }
 
   handleAction() {
-    switch(this.action) {
-      case "1":
-        this.handleMarkAsFulfilled()
+    switch (this.action) {
+      case '1':
+        this.handleMarkAsFulfilled();
         break;
-      case "2":
-        this.handleExportSelected()
+      case '2':
+        this.handleExportSelected();
         break;
       default:
-        console.log('Select action')
+        console.log('Select action');
     }
   }
 
   handleMarkAsFulfilled() {
-    let selected: any = []
-    const checks: any = document.getElementsByClassName('select-field')
-    if(checks.length !== 0) {
-      for(let i = 0; i < checks.length; i++) {
-        if(checks[i].checked) {
-          selected.push(this.bookings[i]._id)
+    let selected: any = [];
+    const checks: any = document.getElementsByClassName('select-field');
+    if (checks.length !== 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          selected.push(this.bookings[i]._id);
         }
       }
-      if(selected.length > 0) {
+      if (selected.length > 0) {
         this.bookServ.markAsFulfilled({ ids: [...selected] }).subscribe({
           next: (res: any) => {
-            Swal.fire('', 'Marked as fullfilled', 'success')
-              .then((_) => {
-                this.bookings.forEach((x: any) => {
-                  let ind = selected.indexOf(x._id)
-                  if(ind !== -1) {
-                    x.status = 'fulfilled'
-                  }
-                })
-              })
+            Swal.fire('', 'Marked as fullfilled', 'success').then((_) => {
+              this.bookings.forEach((x: any) => {
+                let ind = selected.indexOf(x._id);
+                if (ind !== -1) {
+                  x.status = 'fulfilled';
+                }
+              });
+            });
           },
           error: ({ error }: any) => {
-            console.log(error)
-          }
-        })
+            console.log(error);
+          },
+        });
       }
     }
   }
 
   handleExportSelected() {
-    let selected = []
-    const checks: any = document.getElementsByClassName('select-field')
-    if(checks.length !== 0) {
-      for(let i = 0; i < checks.length; i++) {
-        if(checks[i].checked) {
-          selected.push(this.bookings[i]._id)
+    let selected = [];
+    const checks: any = document.getElementsByClassName('select-field');
+    if (checks.length !== 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          selected.push(this.bookings[i]._id);
         }
       }
-      if(selected.length > 0) {
+      if (selected.length > 0) {
         this.bookServ.exportSelected({ ids: [...selected] }).subscribe({
           next: (res: any) => {
             // res.info.forEach((x: any) => {
@@ -173,13 +174,17 @@ export class BookingListComponent implements OnInit {
             //     await this.saveFile(x.filename, x.file)
             //   }, 1000)
             // })
-            let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' })
-            md.componentInstance.data = res.info
+            let md: NgbModalRef = this.mdCtrl.open(ExportComponent, {
+              size: 'md',
+            });
+            md.componentInstance.data = res.info;
           },
           error: ({ error }: any) => {
-            console.log(error)
-          }
-        })
+            console.log(error);
+          },
+        });
+      } else {
+        Swal.fire('Please select records to export.', '', 'info');
       }
     }
   }
@@ -187,35 +192,34 @@ export class BookingListComponent implements OnInit {
   markOneAsFulfilled(id: string) {
     this.bookServ.markOneAsFulfilled(id).subscribe({
       next: (res: any) => {
-        Swal.fire('', 'Item marked as fulfilled', 'success')
+        Swal.fire('', 'Item marked as fulfilled', 'success');
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   markOneAsUnfulfilled(id: string) {
     this.bookServ.markOneAsUnfulfilled(id).subscribe({
       next: (res: any) => {
-        Swal.fire('', 'Item marked as unfulfilled', 'success')
+        Swal.fire('', 'Item marked as unfulfilled', 'success');
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   exportOne(id: string) {
     this.bookServ.exportOne(id).subscribe({
       next: (res: any) => {
-        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' })
-        md.componentInstance.data = [res.info]
+        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' });
+        md.componentInstance.data = [res.info];
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
-
 }
