@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
     { name: 'COA / NDA', icon: 'bi bi-envelope-paper', path: 'coa-nda' },
     { name: 'SOA', icon: 'bi bi-wallet', path: 'soa' },
-    { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list' },
+    { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list', data: '' },
     {
       name: 'Quotations',
       icon: 'bi bi-file-earmark-text',
@@ -67,6 +67,18 @@ export class HomeComponent implements OnInit {
                 this.links[9].data = '';
               },
             });
+          } else if (router.url === '/admin/home/inquiry-list') {
+            user.updateNotifStatus({ field: 'inquiry' }).subscribe({
+              next: (res: any) => {
+                this.links[4].data = '';
+              },
+            });
+          } else if (router.url === '/admin/home/inventory') {
+            user.updateNotifStatus({ field: 'adminInv' }).subscribe({
+              next: (res: any) => {
+                this.links[4].data = '';
+              },
+            });
           }
         }
       },
@@ -86,14 +98,10 @@ export class HomeComponent implements OnInit {
     this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
         console.log(res);
-        this.links[6].data =
-          res.info.purchaseOrder.count === 0 && res.info.purchaseOrder.isOpened
-            ? ''
-            : res.info.purchaseOrder.count;
-        this.links[9].data =
-          res.info.acctReq.count === 0 && res.info.acctReq.isOpened
-            ? ''
-            : res.info.acctReq.count;
+        this.links[4].data = res.info.inquiry === 0 ? '' : res.info.inquiry
+        this.links[6].data = res.info.purchaseOrder === 0 ? '' : res.info.purchaseOrder;
+        this.links[9].data = res.info.acctReq === 0 ? '' : res.info.acctReq;
+        this.links[10].data = res.info.adminInv === 0 ? '' : '!'
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -107,14 +115,28 @@ export class HomeComponent implements OnInit {
       // listeners
 
       // purchase order counter
+      this.socket.listen('new inquiry').subscribe({
+        next: (res: any) => {
+          if (this.router.url !== '/admin/home/inquiry-list') {
+            if(data.sub === res.id) {
+              this.toast.info('A new inquiry arrived');
+              this.links[4].data = this.links[4].data === '' ? res.info : +this.links[4].data + res.info;
+            }
+          }
+        },
+        error: ({ error }: any) => {
+          console.log(error);
+        },
+      });
+
+      // purchase order counter
       this.socket.listen('new purchase order').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/purchase-order') {
-            this.toast.info('A new purchase order arrived');
-            this.links[6].data =
-              this.links[6].data === ''
-                ? res.info
-                : +this.links[6].data + res.info;
+            if(data.sub === res.id) {
+              this.toast.info('A new purchase order arrived');
+              this.links[6].data = this.links[6].data === '' ? res.info : +this.links[6].data + res.info;
+            }
           }
         },
         error: ({ error }: any) => {
@@ -126,17 +148,30 @@ export class HomeComponent implements OnInit {
       this.socket.listen('new account request').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/acct-request') {
-            this.toast.info('A new account requesting for approval');
-            this.links[9].data =
-              this.links[9].data === ''
-                ? res.info
-                : +this.links[9].data + res.info;
+            if(data.sub === res.id) {
+              this.toast.info('A new account requesting for approval');
+              this.links[9].data = this.links[9].data === '' ? res.info : +this.links[9].data + res.info;
+            }
           }
         },
         error: ({ error }: any) => {
           console.log(error);
         },
       });
+
+      // inventory
+      this.socket.listen('admin inventory warning').subscribe({
+        next: (res: any) => {
+          if(this.router.url !== '/admin/home/inventory') {
+            if(data.sub === res.id) {
+              this.links[10].data = '!'
+            }
+          }
+        },
+        error: ({ error }: any) => {
+          console.log(error)
+        }
+      })
     }
   }
 
