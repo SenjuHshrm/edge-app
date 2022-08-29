@@ -22,6 +22,8 @@ export class CreateQuotationComponent implements OnInit {
     totalPrice: '',
   };
 
+  public loading: boolean = false;
+
   constructor(private quote: QuotationService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class CreateQuotationComponent implements OnInit {
   handleSaveQuotation(e: any) {
     e.preventDefault();
     if (this.quotations.length !== 0) {
+      this.loading = true;
       let req = {
         keyPartnerId: this.data.keyPartnerId._id,
         quoteFrom: this.data.inqId,
@@ -60,11 +63,12 @@ export class CreateQuotationComponent implements OnInit {
       };
       this.quote.createQuotation(req).subscribe({
         next: (res: any) => {
-          console.log(res);
           this.md.close(res.info);
+          this.loading = false;
         },
         error: (e: any) => {
           console.log(e);
+          this.loading = false;
         },
       });
     } else {

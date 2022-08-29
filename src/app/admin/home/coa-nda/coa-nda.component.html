@@ -12,6 +12,7 @@
               >
               <input
                 type="text"
+                autocomplete="off"
                 class="form-control"
                 id="keyPartner"
                 name="keyPartner"
@@ -51,8 +52,20 @@
         </div>
 
         <div class="text-end">
-          <button class="btn btn-dark px-5" (click)="saveContract()">
-            SEND
+          <button
+            class="btn btn-dark"
+            (click)="saveContract()"
+            [disabled]="loading"
+          >
+            <ng-template [ngIf]="loading">
+              <div
+                class="spinner-border spinner-border-sm text-warning"
+                role="status"
+              >
+                <span class="sr-only"></span>
+              </div>
+            </ng-template>
+            <ng-template [ngIf]="!loading"> Send </ng-template>
           </button>
         </div>
       </div>

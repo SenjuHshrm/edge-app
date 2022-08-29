@@ -121,11 +121,22 @@
                 <button
                   class="btn {{ didCheck ? 'btn-success px-5' : 'btn-dark' }}"
                   (click)="checkAddress(addr, bookingData)"
+                  [disabled]="courierLoads"
                 >
-                  <ng-template [ngIf]="didCheck"
-                    ><i class="bi bi-check-circle"></i
-                  ></ng-template>
-                  <ng-template [ngIf]="!didCheck">Check Courier</ng-template>
+                  <ng-template [ngIf]="!courierLoads">
+                    <ng-template [ngIf]="didCheck">
+                      <i class="bi bi-check-circle"></i> Available
+                    </ng-template>
+                    <ng-template [ngIf]="!didCheck">Check Courier</ng-template>
+                  </ng-template>
+                  <ng-template [ngIf]="courierLoads">
+                    <div
+                      class="spinner-border spinner-border-sm text-warning"
+                      role="status"
+                    >
+                      <span class="sr-only"></span>
+                    </div>
+                  </ng-template>
                 </button>
               </div>
             </div>
@@ -363,10 +374,28 @@
           </ng-template>
 
           <div class="pt-3 text-end">
-            <button class="btn btn-dark me-2" (click)="handleClose()">
+            <button
+              class="btn btn-dark me-2"
+              (click)="handleClose()"
+              [disabled]="loading"
+            >
               Cancel
             </button>
-            <button class="btn btn-dark" (click)="addBooking()">Save</button>
+            <button
+              class="btn btn-dark"
+              (click)="addBooking()"
+              [disabled]="loading"
+            >
+              <ng-template [ngIf]="loading">
+                <div
+                  class="spinner-border spinner-border-sm text-warning"
+                  role="status"
+                >
+                  <span class="sr-only"></span>
+                </div>
+              </ng-template>
+              <ng-template [ngIf]="!loading"> Save </ng-template>
+            </button>
           </div>
         </div>
       </div>

@@ -80,6 +80,7 @@ export class ProfileComponent implements OnInit {
 
   changePassword() {
     if (this.validatePassword()) {
+      this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       this.user
         .changePassword({
@@ -97,14 +98,19 @@ export class ProfileComponent implements OnInit {
               this.currentPass = '';
               this.newPass = '';
               this.confirmPass = '';
+              this.loading = false;
             } else {
               Swal.fire({
                 title: res.msg,
                 icon: 'error',
               });
+              this.loading = false;
             }
           },
-          error: (err) => console.log(err),
+          error: (err) => {
+            console.log(err);
+            this.loading = false;
+          },
         });
     }
   }

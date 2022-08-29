@@ -108,11 +108,29 @@
       </div>
     </div>
     <div class="card-footer text-end">
-      <button type="button" class="btn btn-dark me-2" (click)="handleClose()">
+      <button
+        type="button"
+        class="btn btn-dark me-2"
+        (click)="handleClose()"
+        [disabled]="loading"
+      >
         Cancel
       </button>
-      <button type="button" class="btn btn-dark" (click)="handleSavePO()">
-        Save
+      <button
+        type="button"
+        class="btn btn-dark"
+        (click)="handleSavePO()"
+        [disabled]="loading"
+      >
+        <ng-template [ngIf]="loading">
+          <div
+            class="spinner-border spinner-border-sm text-warning"
+            role="status"
+          >
+            <span class="sr-only"></span>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="!loading">Save</ng-template>
       </button>
     </div>
   </div>

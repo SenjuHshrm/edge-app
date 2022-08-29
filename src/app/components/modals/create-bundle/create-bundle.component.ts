@@ -24,6 +24,8 @@ export class CreateBundleComponent implements OnInit {
     quantity: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private invServ: InventoryService,
     private bunServ: BundleService,
@@ -57,7 +59,6 @@ export class CreateBundleComponent implements OnInit {
           quantity: this.item.quantity,
           price: this.items[ind].price,
         };
-        console.log(itemData);
         this.data.items = [itemData, ...this.data.items];
         this.item.id = '';
         this.item.quantity = '';
@@ -131,6 +132,7 @@ export class CreateBundleComponent implements OnInit {
       });
     } else {
       if (this.validateData(this.data)) {
+        this.loading = true;
         this.bunServ.create(this.data).subscribe((res) => {
           if (res.success) {
             Swal.fire({
@@ -138,11 +140,13 @@ export class CreateBundleComponent implements OnInit {
               icon: 'success',
             });
             this.mdCtrl.close({ success: true, data: res.info });
+            this.loading = false;
           } else {
             Swal.fire({
               title: 'Failed to create a new bundle.',
               icon: 'error',
             });
+            this.loading = false;
           }
         });
       }

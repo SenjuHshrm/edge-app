@@ -46,6 +46,9 @@ export class CreateBookingComponent implements OnInit {
     hsStNum: '',
   };
 
+  public loading: boolean = false;
+  public courierLoads: boolean = false;
+
   constructor(private booking: BookingService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
@@ -88,6 +91,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   changeCities(str: string): void {
+    this.didCheck = false;
     this.cities = [];
     this.brgys = [];
     Object.keys(address[str as keyof typeof address].municipality_list).forEach(
@@ -98,6 +102,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   changeBrgys(str: string): void {
+    this.didCheck = false;
     this.brgys = [];
     let prov = this.addr.province;
     let provs: any = address[prov as keyof typeof address].municipality_list;
@@ -107,6 +112,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   checkAddress(a: any, b: any) {
+    this.courierLoads = true;
     let params = {
       province: a.province,
       city: a.city,
@@ -122,6 +128,7 @@ export class CreateBookingComponent implements OnInit {
             'success'
           );
           this.didCheck = true;
+          this.courierLoads = false;
         } else {
           Swal.fire(
             'Error',
@@ -129,10 +136,17 @@ export class CreateBookingComponent implements OnInit {
             'error'
           );
           this.didCheck = false;
+          this.courierLoads = false;
         }
       },
       error: ({ error }: any) => {
-        console.log(error);
+        Swal.fire(
+          'Error',
+          'The address is not available for Door to Door Delivery',
+          'error'
+        );
+        this.didCheck = false;
+        this.courierLoads = false;
       },
     });
   }
@@ -306,6 +320,7 @@ export class CreateBookingComponent implements OnInit {
         this.bundledItemTable
       )
     ) {
+      this.loading = true;
       let items: any = [];
       this.individualItemTable.forEach((x: any) => {
         items.push({
@@ -343,10 +358,12 @@ export class CreateBookingComponent implements OnInit {
         next: (res: any) => {
           if (res.success) {
             this.md.close({ success: true, data: res.info });
+            this.loading = false;
           }
         },
         error: ({ error }: any) => {
           console.log(error);
+          this.loading = false;
         },
       });
     }

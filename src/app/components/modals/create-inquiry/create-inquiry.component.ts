@@ -17,6 +17,7 @@ export class CreateInquiryComponent implements OnInit {
     remarks: '',
   };
   public inquiry: any = [];
+  public loading: boolean = false;
 
   constructor(private inq: InquiryService, private md: NgbActiveModal) {}
 
@@ -74,6 +75,7 @@ export class CreateInquiryComponent implements OnInit {
   handleSaveInquiry(e: any) {
     e.preventDefault();
     if (this.inquiry.length !== 0) {
+      this.loading = true;
       let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       let data = {
         keyPartnerId: token.sub,
@@ -82,9 +84,11 @@ export class CreateInquiryComponent implements OnInit {
       this.inq.createInquiry(data).subscribe({
         next: (res: any) => {
           this.md.close(res.info);
+          this.loading = false;
         },
         error: (e: any) => {
           console.log(e);
+          this.loading = false;
         },
       });
     } else {
@@ -92,6 +96,7 @@ export class CreateInquiryComponent implements OnInit {
         title: 'Please create an item.',
         icon: 'info',
       });
+      this.loading = false;
     }
   }
 

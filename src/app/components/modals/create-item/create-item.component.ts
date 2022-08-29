@@ -31,6 +31,8 @@ export class CreateItemComponent implements OnInit {
     price: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private classServ: ClassificationService,
     private invServ: InventoryService,
@@ -77,14 +79,31 @@ export class CreateItemComponent implements OnInit {
   saveData(evt: any) {
     evt.preventDefault();
     if (this.validateData(this.data)) {
-      this.invServ.create(this.data).subscribe((res) => {
-        if (res.success) {
+      this.loading = true;
+      this.invServ.create(this.data).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              title: 'Item has been added successfully.',
+              icon: 'success',
+            });
+            this.mdCtrl.close({ success: true, data: res.info });
+            this.loading = false;
+          } else {
+            Swal.fire({
+              title: 'Failed to add a new item.',
+              icon: 'success',
+            });
+            this.loading = false;
+          }
+        },
+        error: ({ error }) => {
           Swal.fire({
-            title: 'Item has been added successfully.',
+            title: 'Failed to add a new item.',
             icon: 'success',
           });
-          this.mdCtrl.close({ success: true, data: res.info });
-        }
+          this.loading = false;
+        },
       });
     }
   }

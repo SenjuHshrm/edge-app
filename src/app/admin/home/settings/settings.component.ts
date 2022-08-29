@@ -48,6 +48,8 @@ export class SettingsComponent implements OnInit {
   public newPass: string = '';
   public confirmPass: string = '';
 
+  public loading: boolean = false;
+
   constructor(
     private classServ: ClassificationService,
     private mdCtrl: NgbModal,
@@ -62,6 +64,7 @@ export class SettingsComponent implements OnInit {
 
   changePassword() {
     if (this.validatePassword()) {
+      this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       this.user
         .changePassword({
@@ -79,14 +82,19 @@ export class SettingsComponent implements OnInit {
               this.currentPass = '';
               this.newPass = '';
               this.confirmPass = '';
+              this.loading = false;
             } else {
               Swal.fire({
                 title: res.msg,
                 icon: 'error',
               });
+              this.loading = false;
             }
           },
-          error: (err) => console.log(err),
+          error: (err) => {
+            console.log(err);
+            this.loading = false;
+          },
         });
     }
   }
@@ -165,22 +173,57 @@ export class SettingsComponent implements OnInit {
     e.preventDefault();
     const { classification, classCode } = e.target;
 
-    this.classServ
-      .create({ name: classification.value, code: classCode.value, type })
-      .subscribe((res) => {
-        if (res.success) {
+    const classData = {
+      name: classification.value,
+      code: classCode.value,
+      type,
+    };
+
+    if (this.validateClassification(classData)) {
+      this.loading = true;
+      this.classServ.create(classData).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire({
+              title: `New ${type} has been added.`,
+              icon: 'success',
+            });
+            this.handleReset(type);
+            this.loading = false;
+          } else {
+            Swal.fire({
+              title: res.msg,
+              icon: 'error',
+            });
+            this.loading = false;
+          }
+        },
+        error: ({ error }) => {
           Swal.fire({
-            title: `New ${type} has been added.`,
-            icon: 'success',
-          });
-          this.handleReset(type);
-        } else {
-          Swal.fire({
-            title: res.msg,
+            title: `Failed to save the new ${type}`,
             icon: 'error',
           });
-        }
+          this.loading = false;
+        },
       });
+    }
+  }
+
+  validateClassification(data: any): boolean {
+    let message = '';
+
+    if (data.name === '') {
+      message = 'Please enter description.';
+    } else if (data.code === '') {
+      message = 'Please enter code.';
+    }
+
+    if (message === '') {
+      return true;
+    } else {
+      Swal.fire(message, '', 'info');
+      return false;
+    }
   }
 
   handleReset(type: string) {

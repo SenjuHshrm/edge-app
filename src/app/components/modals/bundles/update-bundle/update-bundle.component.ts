@@ -26,6 +26,8 @@ export class UpdateBundleComponent implements OnInit {
     quantity: '',
   };
 
+  public loading: boolean = false;
+
   constructor(
     private invServ: InventoryService,
     private bundleServ: BundleService,
@@ -133,19 +135,31 @@ export class UpdateBundleComponent implements OnInit {
       });
     } else {
       if (this.validateData(this.data)) {
-        this.bundleServ.update(this.data, this.current._id).subscribe((res) => {
-          if (res.success) {
-            Swal.fire({
-              title: 'Bundle has been updated.',
-              icon: 'success',
-            });
-            this.mdCtrl.close({ success: true, data: res.info });
-          } else {
+        this.loading = true;
+        this.bundleServ.update(this.data, this.current._id).subscribe({
+          next: (res: any) => {
+            if (res.success) {
+              Swal.fire({
+                title: 'Bundle has been updated.',
+                icon: 'success',
+              });
+              this.mdCtrl.close({ success: true, data: res.info });
+              this.loading = false;
+            } else {
+              Swal.fire({
+                title: 'Failed to update the bundle.',
+                icon: 'warning',
+              });
+              this.loading = false;
+            }
+          },
+          error: ({ error }) => {
             Swal.fire({
               title: 'Failed to update the bundle.',
               icon: 'warning',
             });
-          }
+            this.loading = false;
+          },
         });
       }
     }

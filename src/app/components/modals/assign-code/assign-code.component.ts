@@ -12,28 +12,27 @@ export class AssignCodeComponent implements OnInit {
   @Input() public data: any;
   public userId: string = '';
 
-  public characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
+  public characters: string =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
   public password: string = '';
 
-  constructor(
-    private kp: KeyPartnerService,
-    private md: NgbActiveModal
-  ) {}
+  public loading: boolean = false;
+
+  constructor(private kp: KeyPartnerService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {}
 
   setUserId() {
     this.kp.setUserId(this.data._id, { userId: this.userId }).subscribe({
       next: (res: any) => {
-        Swal.fire('Success', 'User id assigned', 'success')
-          .then(() => {
-            this.md.close()
-          })
+        Swal.fire('Success', 'User id assigned', 'success').then(() => {
+          this.md.close();
+        });
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   randomPassword(ln: number) {
@@ -47,6 +46,7 @@ export class AssignCodeComponent implements OnInit {
 
   setPassword() {
     if (this.validateCP()) {
+      this.loading = true;
       this.kp
         .assignCodeAndPassword(this.data._id, {
           userId: this.userId.toUpperCase(),
@@ -57,9 +57,11 @@ export class AssignCodeComponent implements OnInit {
             Swal.fire('Success', res.msg, 'success').then((_) => {
               this.md.close({ success: true, data: res.info });
             });
+            this.loading = false;
           },
           error: (e: any) => {
             console.log(e);
+            this.loading = false;
           },
         });
     }
