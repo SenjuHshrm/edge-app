@@ -1,75 +1,92 @@
-<div class="container-fluid">
-  <h2 class="h2 h2-responsive my-3 fw-bolder">My SOA</h2>
-  <div class="row">
-    <div class="col-md-6 offset-md-6">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by Date" />
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12 mb-5">
-    <div class="card shadow p-3">
+<ng-template [ngIf]="!isAuth">
+  <div class="d-flex justify-content-center align-items-center w-100 mh-100" style="height: 500px">
+    <div class="card w-50">
       <div class="card-body">
-        <div class="table-responsive" style="height: 23rem">
-          <table class="hoverable table table-hover text-center">
-            <thead class="bg-light sticky-top">
-              <tr>
-                <th class="text-truncate px-1">Date Received</th>
-                <th class="text-truncate px-1">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="border-top-0">
-              <ng-template [ngIf]="fileList.length === 0">
-                <tr>
-                  <td colspan="2">
-                    <small class="fw-bold">No Files Found.</small>
-                  </td>
-                </tr>
-              </ng-template>
-              <ng-template [ngIf]="fileList.length !== 0">
-                <tr *ngFor="let file of fileList">
-                  <td class="text-truncate px-1">
-                    {{ file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
-                  </td>
-                  <td>
-                    <a
-                      class="btn btn-dark text-white fw-bolder py-0 me-2"
-                      data-tool-tip="View SOA"
-                      [href]="file.file"
-                      target="_blank"
-                    >
-                      <i class="bi bi-door-open"></i>
-                    </a>
-                    <a
-                      class="btn btn-dark text-white fw-bolder py-0"
-                      data-tool-tip="Download SOA"
-                      [href]="file.file"
-                      target="_blank"
-                      [download]="file.filename"
-                    >
-                      <i class="bi bi-file-earmark-arrow-down"></i>
-                    </a>
-                  </td>
-                </tr>
-              </ng-template>
-            </tbody>
-          </table>
+        <h4 class="card-title">User Authentication</h4>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" name="password"/>
         </div>
-        <!-- <nav class="d-flex justify-content-end mt-3">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link custom-pagination-label" href="#">Previous</a>
-            </li>
-            <li class="page-item custom-pagination-label">
-              <a class="page-link custom-pagination-label" href="#">1</a>
-            </li>
-            <li class="page-item custom-pagination-label">
-              <a class="page-link custom-pagination-label" href="#">Next</a>
-            </li>
-          </ul>
-        </nav> -->
+        <button class="btn btn-primary" (click)="authenticate()">Authenticate</button>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+<ng-template [ngIf]="isAuth">
+  <div class="container-fluid">
+    <h2 class="h2 h2-responsive my-3 fw-bolder">My SOA</h2>
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search by Date" />
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mb-5">
+      <div class="card shadow p-3">
+        <div class="card-body">
+          <div class="table-responsive" style="height: 23rem">
+            <table class="hoverable table table-hover text-center">
+              <thead class="bg-light sticky-top">
+                <tr>
+                  <th class="text-truncate px-1">Date Received</th>
+                  <th class="text-truncate px-1">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="border-top-0">
+                <ng-template [ngIf]="fileList.length === 0">
+                  <tr>
+                    <td colspan="2">
+                      <small class="fw-bold">No Files Found.</small>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template [ngIf]="fileList.length !== 0">
+                  <tr *ngFor="let file of fileList">
+                    <td class="text-truncate px-1">
+                      {{ file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a" }}
+                    </td>
+                    <td>
+                      <a
+                        class="btn btn-dark text-white fw-bolder py-0 me-2"
+                        data-tool-tip="View SOA"
+                        [href]="file.file"
+                        target="_blank"
+                      >
+                        <i class="bi bi-door-open"></i>
+                      </a>
+                      <a
+                        class="btn btn-dark text-white fw-bolder py-0"
+                        data-tool-tip="Download SOA"
+                        [href]="file.file"
+                        target="_blank"
+                        [download]="file.filename"
+                      >
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
+          <!-- <nav class="d-flex justify-content-end mt-3">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link custom-pagination-label" href="#">Previous</a>
+              </li>
+              <li class="page-item custom-pagination-label">
+                <a class="page-link custom-pagination-label" href="#">1</a>
+              </li>
+              <li class="page-item custom-pagination-label">
+                <a class="page-link custom-pagination-label" href="#">Next</a>
+              </li>
+            </ul>
+          </nav> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ng-template>

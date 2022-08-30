@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   public file: any;
   public progress: number = 0;
   public loading: boolean = false;
+  public username: string = '';
 
   ngOnInit(): void {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
@@ -234,6 +235,24 @@ export class ProfileComponent implements OnInit {
         title: 'Please select an image.',
         icon: 'info',
       });
+    }
+  }
+
+  updateUsername() {
+    if(this.username !== '') {
+      this.user.updateUsername({ username: this.username }).subscribe({
+        next: (res: any) => {
+          Swal.fire({ title: 'Username updated', icon: 'success' })
+        },
+        error: ({ error }: any) => {
+          Swal.fire({ title: error.msg, icon: 'error' })
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Please input your new username',
+        icon: 'warning'
+      })
     }
   }
 }

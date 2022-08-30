@@ -60,6 +60,11 @@ export class UserService {
     );
   }
 
+  updateUsername(data: any): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.put(`${environment.apiV1}/api/v1/put/update-username/${token.sub}`, data)
+  }
+
   getNotificationCounts(): Observable<any> {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
     return this.http.get(`${environment.apiV1}/api/v1/get/notif-count/${token.sub}`)

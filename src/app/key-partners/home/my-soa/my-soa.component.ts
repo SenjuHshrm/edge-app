@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class MySoaComponent implements OnInit {
 
   public fileList: any = []
+  public isAuth: boolean = false;
 
   constructor(
     private contract: ContractService
@@ -32,6 +33,10 @@ export class MySoaComponent implements OnInit {
         console.log(error)
       }
     })
+  }
+
+  authenticate() {
+    this.isAuth = !this.isAuth
   }
 
 }

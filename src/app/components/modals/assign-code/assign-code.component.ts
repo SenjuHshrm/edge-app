@@ -56,6 +56,7 @@ export class AssignCodeComponent implements OnInit {
         .assignCodeAndPassword(this.data._id, {
           userId: this.userId.toUpperCase(),
           password: this.password,
+          secondPassword: this.password2
         })
         .subscribe({
           next: (res: any) => {

@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class CoaNdaComponent implements OnInit {
 
   public fileList: any = []
+  public isAuth: boolean = false;
 
   constructor(
     private contract: ContractService
@@ -33,6 +34,10 @@ export class CoaNdaComponent implements OnInit {
         console.log(error)
       }
     })
+  }
+
+  authenticate() {
+    this.isAuth = !this.isAuth
   }
 
 }

@@ -138,15 +138,17 @@
             <h5 class="card-title fw-bold pb-4">Change Username</h5>
             <div class="col-md-12">
               <div class="col-md-10 offset-md-1 mb-3 position-relative">
-                <app-input
-                  [inputType]="'text'"
-                  [name]="'password'"
-                  [label]="'Username'"
-                ></app-input>
+                <input
+                  type="text"
+                  class="form-control" 
+                  id="username"
+                  name="username"
+                  [(ngModel)]="username"
+                />
               </div>
 
               <div class="col-md-10 offset-md-1 text-end">
-                <button class="btn btn-dark">Update</button>
+                <button class="btn btn-dark" (click)="updateUsername()">Update</button>
               </div>
             </div>
           </div>
