@@ -19,7 +19,12 @@ export class HomeComponent implements OnInit {
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
     { name: 'COA / NDA', icon: 'bi bi-envelope-paper', path: 'coa-nda' },
     { name: 'SOA', icon: 'bi bi-wallet', path: 'soa' },
-    { name: 'Inquiries', icon: 'bi bi-card-checklist', path: 'inquiry-list', data: '' },
+    {
+      name: 'Inquiries',
+      icon: 'bi bi-card-checklist',
+      path: 'inquiry-list',
+      data: '',
+    },
     {
       name: 'Quotations',
       icon: 'bi bi-file-earmark-text',
@@ -97,11 +102,11 @@ export class HomeComponent implements OnInit {
 
     this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
-        console.log(res);
-        this.links[4].data = res.info.inquiry === 0 ? '' : res.info.inquiry
-        this.links[6].data = res.info.purchaseOrder === 0 ? '' : res.info.purchaseOrder;
+        this.links[4].data = res.info.inquiry === 0 ? '' : res.info.inquiry;
+        this.links[6].data =
+          res.info.purchaseOrder === 0 ? '' : res.info.purchaseOrder;
         this.links[9].data = res.info.acctReq === 0 ? '' : res.info.acctReq;
-        this.links[10].data = res.info.adminInv === 0 ? '' : '!'
+        this.links[10].data = res.info.adminInv === 0 ? '' : '!';
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -118,9 +123,12 @@ export class HomeComponent implements OnInit {
       this.socket.listen('new inquiry').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/inquiry-list') {
-            if(data.sub === res.id) {
+            if (data.sub === res.id) {
               this.toast.info('A new inquiry arrived');
-              this.links[4].data = this.links[4].data === '' ? res.info : +this.links[4].data + res.info;
+              this.links[4].data =
+                this.links[4].data === ''
+                  ? res.info
+                  : +this.links[4].data + res.info;
             }
           }
         },
@@ -133,9 +141,12 @@ export class HomeComponent implements OnInit {
       this.socket.listen('new purchase order').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/purchase-order') {
-            if(data.sub === res.id) {
+            if (data.sub === res.id) {
               this.toast.info('A new purchase order arrived');
-              this.links[6].data = this.links[6].data === '' ? res.info : +this.links[6].data + res.info;
+              this.links[6].data =
+                this.links[6].data === ''
+                  ? res.info
+                  : +this.links[6].data + res.info;
             }
           }
         },
@@ -148,9 +159,12 @@ export class HomeComponent implements OnInit {
       this.socket.listen('new account request').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/acct-request') {
-            if(data.sub === res.id) {
+            if (data.sub === res.id) {
               this.toast.info('A new account requesting for approval');
-              this.links[9].data = this.links[9].data === '' ? res.info : +this.links[9].data + res.info;
+              this.links[9].data =
+                this.links[9].data === ''
+                  ? res.info
+                  : +this.links[9].data + res.info;
             }
           }
         },
@@ -162,16 +176,16 @@ export class HomeComponent implements OnInit {
       // inventory
       this.socket.listen('admin inventory warning').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/admin/home/inventory') {
-            if(data.sub === res.id) {
-              this.links[10].data = '!'
+          if (this.router.url !== '/admin/home/inventory') {
+            if (data.sub === res.id) {
+              this.links[10].data = '!';
             }
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
     }
   }
 

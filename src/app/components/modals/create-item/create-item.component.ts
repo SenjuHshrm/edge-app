@@ -67,7 +67,6 @@ export class CreateItemComponent implements OnInit {
           )
         : [];
     this.keyList = data;
-    console.log(data, this.keyPartners, search);
   }
 
   keyListClick(id: string, name: string) {

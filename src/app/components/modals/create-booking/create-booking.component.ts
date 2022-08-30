@@ -190,7 +190,6 @@ export class CreateBookingComponent implements OnInit {
     const { current, quantity } = data;
     let message = '';
     if (quantity === '') {
-      console.log('quantity is newtral');
       message = 'Please enter the quantity.';
     } else if (current < quantity) {
       message =

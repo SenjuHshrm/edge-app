@@ -18,9 +18,7 @@ export class SetKeypartnerPasswordComponent implements OnInit {
 
   constructor(private md: NgbModal, private kp: KeyPartnerService) {}
 
-  ngOnInit(): void {
-    console.log(this.id);
-  }
+  ngOnInit(): void {}
 
   randomPassword(ln: number) {
     const chLn = this.characters.length;

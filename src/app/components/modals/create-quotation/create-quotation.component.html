@@ -1,14 +1,10 @@
-<div class="container p-4">
+<div class="container py-4">
   <h4 class="h4 h4-responsive">Create New Quotation</h4>
-  <div class="card shadow px-3">
+  <div class="card shadow px-1">
     <div class="card-body">
-      <div
-        class="w-100 d-flex flex-row justify-content-center align-items-center"
-      >
-        <div
-          class="w-50 h-50 d-flex flex-column justify-content-start align-items-start"
-        >
-          <div class="form-group w-75">
+      <div class="d-flex flex-wrap">
+        <div class="flex-grow-1 px-3">
+          <div class="form-group">
             <label for="item" class="fs-6 fw-bold">Select Item</label>
             <select
               class="form-select"
@@ -20,7 +16,7 @@
               </option>
             </select>
           </div>
-          <div class="form-group w-75">
+          <div class="form-group">
             <label for="item-description" class="fs-6 fw-bold"
               >Item Description</label
             >
@@ -31,7 +27,7 @@
               [(ngModel)]="quoteData.description"
             />
           </div>
-          <div class="form-group w-75">
+          <div class="form-group">
             <label for="quantity" class="fs-6 fw-bold">Quantity</label>
             <input
               type="number"
@@ -41,7 +37,7 @@
               (input)="computeTotalPrice()"
             />
           </div>
-          <div class="form-group w-75">
+          <div class="form-group">
             <label for="units" class="fs-6 fw-bold">Price / Unit</label>
             <input
               type="text"
@@ -59,40 +55,40 @@
           <br />
           <button
             type="button"
-            class="btn btn-primary w-75"
+            class="btn btn-dark"
             (click)="addQuotation(quoteData)"
           >
-            Add
+            Add Item
           </button>
         </div>
-        <div
-          class="w-50 h-50 d-flex flex-row justify-content-center align-items-start"
-        >
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Item Description</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price / Unit</th>
-                <th scope="col">Total Price</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let quote of quotations; let i = index">
-                <td>{{ quote.description }}</td>
-                <td>{{ quote.quantity }}</td>
-                <td>{{ quote.unitPrice }}</td>
-                <td>{{ quote.totalPrice }}</td>
-                <th scope="row">
-                  <i
-                    class="bi bi-x-lg text-danger"
-                    (click)="removeFromList(i)"
-                  ></i>
-                </th>
-              </tr>
-            </tbody>
-          </table>
+        <div class="flex-grow-1 px-3">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Item Description</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price / Unit</th>
+                  <th scope="col">Total Price</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let quote of quotations; let i = index">
+                  <td>{{ quote.description }}</td>
+                  <td>{{ quote.quantity }}</td>
+                  <td>{{ quote.unitPrice }}</td>
+                  <td>{{ quote.totalPrice }}</td>
+                  <th scope="row">
+                    <i
+                      class="bi bi-x-lg text-danger"
+                      (click)="removeFromList(i)"
+                    ></i>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

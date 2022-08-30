@@ -84,4 +84,10 @@ export class KeyPartnerService {
       data
     );
   }
+
+  deleteKeypartner(id: string): Observable<any> {
+    return this.http.delete(
+      `${environment.apiV1}/api/v1/delete/delete-kp/${id}`
+    );
+  }
 }

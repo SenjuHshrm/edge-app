@@ -1,38 +1,37 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Booking List</h2>
-  <div class="row">
-    <div class="col-md-6 my-3">
-      <div class="d-flex align-items-center">
-        <div class="me-2 flex-grow-1">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search"
-              [(ngModel)]="search"
-            />
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-          </div>
-        </div>
-        <div class="me-2">
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            [(ngModel)]="category"
-          >
-            <option value="customer">Receiver Name</option>
-            <option value="sender">Sender / Page Name</option>
-            <option value="bookingId">ID Number</option>
-          </select>
-        </div>
-        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
+  <div class="d-flex mb-3">
+    <div class="me-2">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search"
+          [(ngModel)]="search"
+        />
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
       </div>
     </div>
+    <div class="me-2">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="category"
+      >
+        <option value="customer">Receiver Name</option>
+        <option value="sender">Sender / Page Name</option>
+        <option value="bookingId">ID Number</option>
+      </select>
+    </div>
+    <button class="btn btn-dark" (click)="handleSearch()">Go</button>
   </div>
+
   <div class="card shadow p-3">
     <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-md-4 d-flex align-items-center">
+      <div class="mb-3 d-flex flex-wrap">
+        <div
+          class="d-flex align-items-center justify-content-end mb-2 flex-grow-1 pe-0 pe-md-0 pe-lg-3"
+        >
           <span class="me-2">Filter by date:</span>
           <div class="me-2">
             <input
@@ -46,9 +45,12 @@
           </button>
           <button class="btn btn-dark" (click)="handleReset()">Reset</button>
         </div>
-        <div class="col-md-4 d-flex align-items-center">
+
+        <div
+          class="d-flex align-items-center justify-content-end mb-2 flex-grow-1"
+        >
           <span class="me-2">Filter by status:</span>
-          <div class="me-2">
+          <div class="me-2 flex-grow-1">
             <select
               class="form-select"
               aria-label="Default select example"
@@ -63,7 +65,10 @@
             Go
           </button>
         </div>
-        <div class="col-md-4 d-flex align-items-center">
+
+        <div
+          class="d-flex align-items-center justify-content-end mb-2 flex-grow-1"
+        >
           <span class="me-2">Action:</span>
           <div class="me-2">
             <select

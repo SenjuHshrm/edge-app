@@ -41,7 +41,7 @@ export class KeyPartnersComponent implements OnInit {
     }
     let sp: NgbModalRef = this.md.open(SetKeypartnerPasswordComponent, {
       size: 'md',
-      backdrop: 'static'
+      backdrop: 'static',
     });
     sp.componentInstance.id = id;
   }
@@ -100,7 +100,22 @@ export class KeyPartnersComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        console.log(id);
+        this.kp.deleteKeypartner(id).subscribe({
+          next: (res: any) => {
+            if (res.success) {
+              const datas = this.keyPartners.filter(
+                (e: any) => e._id !== res.info
+              );
+              this.keyPartners = datas;
+              Swal.fire('Deleted Successfully.', '', 'success');
+            } else {
+              Swal.fire('Failed to delete the record.', '', 'error');
+            }
+          },
+          error: ({ error }) => {
+            Swal.fire('Failed to delete the record.', '', 'error');
+          },
+        });
       } else {
         Swal.fire({
           title: 'Delete cancelled.',

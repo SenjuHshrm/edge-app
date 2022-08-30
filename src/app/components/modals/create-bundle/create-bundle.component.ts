@@ -42,7 +42,6 @@ export class CreateBundleComponent implements OnInit {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
     this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
-        console.log(res.info);
         this.items = res.info;
       }
     });

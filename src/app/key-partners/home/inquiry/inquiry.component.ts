@@ -46,10 +46,6 @@ export class InquiryComponent implements OnInit {
       size: 'xl',
     });
     viewInq.componentInstance.data = data;
-    viewInq.result
-      .then((result) => {
-        console.log(result);
-      })
-      .catch(() => console.log());
+    viewInq.result.then((result) => {}).catch(() => console.log());
   }
 }
