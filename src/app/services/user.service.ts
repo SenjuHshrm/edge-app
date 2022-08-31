@@ -14,6 +14,11 @@ export class UserService {
     return this.http.post(`${environment.apiV1}/api/v1/post/login`, data);
   }
 
+  authInternalPage(data: any): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
+    return this.http.post(`${environment.apiV1}/api/v1/post/authenticate/internal-page`, { ...data, id: token.sub })
+  }
+
   logout(): Observable<any> {
     return this.http.delete(`${environment.apiV1}/api/v1/delete/logout`);
   }
@@ -37,6 +42,13 @@ export class UserService {
   changePassword(data: any): Observable<any> {
     return this.http.put(
       `${environment.apiV1}/api/v1/put/change-password`,
+      data
+    );
+  }
+
+  changeIPAPassword(data: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/change-password/internal-page`,
       data
     );
   }

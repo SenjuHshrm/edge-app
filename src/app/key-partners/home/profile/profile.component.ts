@@ -20,6 +20,11 @@ export class ProfileComponent implements OnInit {
   public newPass: string = '';
   public confirmPass: string = '';
 
+  //
+  public currentIPAPass: string = '';
+  public newIPAPass: string = '';
+  public confirmIPAPass: string = '';
+
   //profile
   public fullname: string = '';
   public address: string = '';
@@ -54,17 +59,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  validatePassword(): boolean {
+  validatePassword(currPass: string, newPass: string, authPass: string): boolean {
     let message = '';
-    if (this.currentPass === '') {
+    if (currPass === '') {
       message = 'Please enter current password.';
-    } else if (this.newPass === '') {
+    } else if (newPass === '') {
       message = 'Please enter new password.';
-    } else if (this.currentPass === this.newPass) {
+    } else if (currPass === newPass) {
       message = 'New password must not match the current password.';
-    } else if (this.confirmPass === '') {
+    } else if (authPass === '') {
       message = 'Please enter confirm new password.';
-    } else if (this.newPass !== this.confirmPass) {
+    } else if (newPass !== authPass) {
       message = 'New password and confirm must match.';
     }
 
@@ -80,7 +85,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword() {
-    if (this.validatePassword()) {
+    if (this.validatePassword(this.currentPass, this.newPass, this.confirmPass)) {
       this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       this.user
@@ -99,6 +104,43 @@ export class ProfileComponent implements OnInit {
               this.currentPass = '';
               this.newPass = '';
               this.confirmPass = '';
+              this.loading = false;
+            } else {
+              Swal.fire({
+                title: res.msg,
+                icon: 'error',
+              });
+              this.loading = false;
+            }
+          },
+          error: (err) => {
+            console.log(err);
+            this.loading = false;
+          },
+        });
+    }
+  }
+
+  changeIPAPassword() {
+    if (this.validatePassword(this.currentIPAPass, this.newIPAPass, this.confirmIPAPass)) {
+      this.loading = true;
+      const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
+      this.user
+        .changeIPAPassword({
+          oldPass: this.currentIPAPass,
+          newPass: this.newIPAPass,
+          id: token.sub,
+        })
+        .subscribe({
+          next: (res) => {
+            if (res.success) {
+              Swal.fire({
+                title: res.msg,
+                icon: 'success',
+              });
+              this.currentIPAPass = '';
+              this.newIPAPass = '';
+              this.confirmIPAPass = '';
               this.loading = false;
             } else {
               Swal.fire({

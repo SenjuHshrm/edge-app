@@ -1,6 +1,8 @@
+import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { ContractService } from './../../../services/contract.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-coa-nda',
@@ -10,8 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class CoaNdaComponent implements OnInit {
   public fileList: any = [];
   public isAuth: boolean = false;
+  public password: string = '';
 
-  constructor(private contract: ContractService) {}
+  constructor(private contract: ContractService, private user: UserService) {}
 
   ngOnInit(): void {
     this.contract.getContract('coa-nda').subscribe({
@@ -33,6 +36,18 @@ export class CoaNdaComponent implements OnInit {
   }
 
   authenticate() {
-    this.isAuth = !this.isAuth;
+    if(this.password !== '') {
+      this.user.authInternalPage({ secPass: this.password }).subscribe({
+        next: (_) => {
+          this.isAuth = !this.isAuth
+        },
+        error: ({ error }: any) => {
+          Swal.fire({ title: error.msg, icon: 'warning' })
+        }
+      })
+    } else {
+      Swal.fire({ title: 'Please input your password', icon: 'warning' })
+    }
+    // this.isAuth = !this.isAuth;
   }
 }

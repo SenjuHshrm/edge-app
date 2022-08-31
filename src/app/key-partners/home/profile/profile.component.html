@@ -218,5 +218,68 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="row p-3">
+            <h5 class="card-title fw-bold pb-4">Change Password (For Secure Internal Page Authentication)</h5>
+            <div class="col-md-12">
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold"
+                  >Current Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="currentIPAPass"
+                  name="currentPass"
+                  [(ngModel)]="currentIPAPass"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold">New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="newIPAPass"
+                  name="newPass"
+                  [(ngModel)]="newIPAPass"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="contact" class="fs-6 fw-bold"
+                  >Confirm New Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmIPAPass"
+                  name="confirmPass"
+                  [(ngModel)]="confirmIPAPass"
+                />
+              </div>
+              <div class="col-md-12 text-end">
+                <button
+                  class="btn btn-dark"
+                  (click)="changeIPAPassword()"
+                  [disabled]="loading"
+                >
+                  <ng-template [ngIf]="loading">
+                    <div
+                      class="spinner-border spinner-border-sm text-warning"
+                      role="status"
+                    >
+                      <span class="sr-only"></span>
+                    </div>
+                  </ng-template>
+                  <ng-template [ngIf]="!loading">Update</ng-template>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

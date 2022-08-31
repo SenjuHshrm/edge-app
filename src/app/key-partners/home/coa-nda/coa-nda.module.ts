@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { PipesModule } from './../../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +14,8 @@ import { CoaNdaComponent } from './coa-nda.component';
   imports: [
     CommonModule,
     CoaNdaRoutingModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ]
 })
 export class CoaNdaModule { }
