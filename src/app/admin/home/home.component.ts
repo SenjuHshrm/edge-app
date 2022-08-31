@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     { name: 'Return To Sender', icon: 'bi bi-layer-backward', path: 'rts' },
     { name: 'Settings', icon: 'bi bi-gear', path: 'settings' },
   ];
-  status: boolean = window.innerWidth < 768 ? true : false;
+  status: boolean = window.innerWidth < 821 ? true : false;
   showToggle: boolean = false;
 
   constructor(
@@ -92,12 +92,12 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
-    this.showToggle = window.innerWidth <= 767 ? true : false;
+    this.showToggle = window.innerWidth <= 821 ? true : false;
     // this.status = (window.innerWidth > 767) ? false : true
   }
 
   ngOnInit(): void {
-    this.showToggle = window.innerWidth <= 767 ? true : false;
+    this.showToggle = window.innerWidth <= 821 ? true : false;
     // this.status = (window.innerWidth <= 767) ? false : true
 
     this.user.getNotificationCounts().subscribe({
@@ -216,6 +216,6 @@ export class HomeComponent implements OnInit {
   }
 
   handleToggle() {
-    this.status = window.innerWidth < 768 ? true : this.status;
+    this.status = window.innerWidth < 821 ? true : this.status;
   }
 }

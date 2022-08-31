@@ -32,7 +32,10 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   viewPurchaseOrder(data: any) {
-    let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent, { size: 'xl' });
+    let viewPO = this.mdCtrl.open(ViewPurchaseOrderComponent, {
+      size: 'xl',
+      fullscreen: 'lg',
+    });
     viewPO.componentInstance.data = data;
   }
 }

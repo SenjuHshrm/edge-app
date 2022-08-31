@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -8,7 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ViewPurchaseOrderComponent implements OnInit {
   @Input() public data: any | undefined;
 
-  constructor() {}
+  constructor(private md: NgbActiveModal) {}
 
   ngOnInit(): void {}
+
+  handleClose() {
+    this.md.close();
+  }
 }

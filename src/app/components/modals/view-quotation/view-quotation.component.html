@@ -13,22 +13,28 @@
       </div>
       <div class="col-md-12 custom-bg-orange p-3">
         <div class="row quotation-header">
-          <div class="col-md-4 text-center">
-            <img src="/assets/logo.png" class="img-fluid w-25 mx-auto" />
+          <div class="col-md-4 text-center d-flex align-items-center">
+            <img src="/assets/logo.png" class="img-fluid w-50 mx-auto" />
           </div>
-          <div class="col-md-4">
-            <h5>CUSTOMER</h5>
-            {{ data.keyPartnerId.name }} <br />
-            {{ data.keyPartnerId.company }}<br />
-            {{ data.keyPartnerId.addr }} <br />
-            {{ data.keyPartnerId.contact }}
+
+          <div class="col-md-4 d-flex align-items-center">
+            <div>
+              <h5>CUSTOMER</h5>
+              {{ data.keyPartnerId.name }} <br />
+              {{ data.keyPartnerId.company }}<br />
+              {{ data.keyPartnerId.addr }} <br />
+              {{ data.keyPartnerId.contact }}
+            </div>
           </div>
-          <div class="col-md-4">
-            <h5>PREPARED BY:</h5>
-            Adel Bayeta <br />
-            EdgeCommerce Fulfillment <br />
-            Pedro Buan Road, Alangilan Batangas City <br />
-            09366274842
+
+          <div class="col-md-4 d-flex align-items-center">
+            <div>
+              <h5>PREPARED BY:</h5>
+              Adel Bayeta <br />
+              EdgeCommerce Fulfillment <br />
+              Pedro Buan Road, Alangilan Batangas City <br />
+              09366274842
+            </div>
           </div>
         </div>
       </div>
@@ -92,15 +98,18 @@
             <th style="background-color: #f0b663">Mark Up (15%)</th>
             <th style="background-color: #f0b663">Total Price</th>
           </tr>
-          <tr *ngFor="let item of data.items; let i=index">
-            <td>{{ i+1 }}</td>
+          <tr *ngFor="let item of data.items; let i = index">
+            <td>{{ i + 1 }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.unitPrice }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ (item.unitPrice * 0.15) }}</td>
+            <td>{{ item.unitPrice * 0.15 }}</td>
             <td>{{ item.totalPrice }}</td>
           </tr>
         </table>
+      </div>
+      <div class="text-end mt-3">
+        <button class="btn btn-dark px-5" (click)="handleClose()">Close</button>
       </div>
     </div>
   </div>

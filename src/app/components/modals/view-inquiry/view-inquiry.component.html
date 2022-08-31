@@ -22,15 +22,21 @@
           <div class="info pt-4">
             <div class="row">
               <div class="col text-end">NAME:</div>
-              <div class="col fw-normal text-start">{{ data.keyPartnerId.name }}</div>
+              <div class="col fw-normal text-start">
+                {{ data.keyPartnerId.name }}
+              </div>
               <div class="col text-end">INQUIRY NO.:</div>
               <div class="col fw-normal text-start">{{ data.inqId }}</div>
             </div>
             <div class="row">
               <div class="col text-end">STORE/S NAME:</div>
-              <div class="col fw-normal text-start">{{ data.keyPartnerId.company }}</div>
+              <div class="col fw-normal text-start">
+                {{ data.keyPartnerId.company }}
+              </div>
               <div class="col text-end">DATE:</div>
-              <div class="col fw-normal text-start">{{ data.createdAt | customDate: 'MMMM DD, YYYY' }}</div>
+              <div class="col fw-normal text-start">
+                {{ data.createdAt | customDate: "MMMM DD, YYYY" }}
+              </div>
             </div>
           </div>
         </div>
@@ -56,6 +62,9 @@
             <td style="background-color: #f0b663">{{ item.remarks }}</td>
           </tr>
         </table>
+      </div>
+      <div class="text-end mt-3">
+        <button class="btn btn-dark px-5" (click)="handleClose()">Close</button>
       </div>
     </div>
   </div>

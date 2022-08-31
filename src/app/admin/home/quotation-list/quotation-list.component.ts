@@ -26,7 +26,10 @@ export class QuotationListComponent implements OnInit {
   }
 
   viewQuotation(i: any) {
-    let viewQuot = this.mdCtrl.open(ViewQuotationComponent, { size: 'xl' });
+    let viewQuot = this.mdCtrl.open(ViewQuotationComponent, {
+      size: 'xl',
+      fullscreen: 'lg',
+    });
     viewQuot.componentInstance.data = i;
   }
 
