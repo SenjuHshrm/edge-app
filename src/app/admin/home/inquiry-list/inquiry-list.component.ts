@@ -25,6 +25,7 @@ export class InquiryListComponent implements OnInit {
   viewInquiry(inq: any) {
     let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, {
       size: 'xl',
+      fullscreen: 'lg',
     });
     viewInq.componentInstance.data = inq;
   }

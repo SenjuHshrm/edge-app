@@ -39,6 +39,7 @@ export class MyQuotationComponent implements OnInit {
   viewQuotation(data: any) {
     let viewQuote: NgbModalRef = this.mdCtrl.open(ViewQuotationComponent, {
       size: 'xl',
+      fullscreen: 'lg',
     });
     viewQuote.componentInstance.data = data;
   }

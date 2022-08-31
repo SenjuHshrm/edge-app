@@ -44,6 +44,7 @@ export class InquiryComponent implements OnInit {
   viewInquiry(data: any) {
     let viewInq: NgbModalRef = this.mdCtrl.open(ViewInquiryComponent, {
       size: 'xl',
+      fullscreen: 'lg',
     });
     viewInq.componentInstance.data = data;
     viewInq.result.then((result) => {}).catch(() => console.log());

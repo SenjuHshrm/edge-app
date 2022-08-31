@@ -42,15 +42,15 @@ export class HomeComponent implements OnInit {
       name: 'My Inventory',
       icon: 'bi bi-card-list',
       path: 'my-inventory',
-      data: ''
+      data: '',
     },
   ];
-  status: boolean = window.innerWidth < 768 ? true : false;
+  status: boolean = window.innerWidth < 821 ? true : false;
   showToggle: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
-    this.showToggle = window.innerWidth <= 767 ? true : false;
+    this.showToggle = window.innerWidth <= 821 ? true : false;
     // this.status = (window.innerWidth > 767) ? false : true
   }
 
@@ -90,97 +90,105 @@ export class HomeComponent implements OnInit {
             });
           }
         }
-      }
-    })
+      },
+    });
   }
   // public data: any = {};
   public img: string = '';
 
   ngOnInit(): void {
-    this.showToggle = window.innerWidth <= 767 ? true : false;
+    this.showToggle = window.innerWidth <= 820 ? true : false;
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
     this.img = token.img.includes('https')
       ? token.img
       : `${environment.apiV1}${token.img}`;
-    
+
     this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
-        this.links[2].data = res.info.coanda === 0 ? '' : res.info.coanda
-        this.links[3].data = res.info.soa === 0 ? '' : res.info.soa
-        this.links[5].data = res.info.quotation === 0 ? '' : res.info.quotation
-        this.links[7].data = res.info.kpInv === 0 ? '' : '!'
+        this.links[2].data = res.info.coanda === 0 ? '' : res.info.coanda;
+        this.links[3].data = res.info.soa === 0 ? '' : res.info.soa;
+        this.links[5].data = res.info.quotation === 0 ? '' : res.info.quotation;
+        this.links[7].data = res.info.kpInv === 0 ? '' : '!';
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
 
-    if(!this.socket.isConnected()) {
-      let data: any = jwtDecode(localStorage.getItem('ACCESS') as string)
-      this.socket.emit('join', { id: data.sub })
+    if (!this.socket.isConnected()) {
+      let data: any = jwtDecode(localStorage.getItem('ACCESS') as string);
+      this.socket.emit('join', { id: data.sub });
 
       // listeners
 
       // coa-nda
       this.socket.listen('new coa-nda').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/key-partners/home/my-coa-nda') {
-            if(data.sub === res.id) {
-              this.toast.info('Edge admin sent you a file (COA/NDA)')
-              this.links[2].data = this.links[2].data === '' ? res.info : +this.links[2].data + res.info
+          if (this.router.url !== '/key-partners/home/my-coa-nda') {
+            if (data.sub === res.id) {
+              this.toast.info('Edge admin sent you a file (COA/NDA)');
+              this.links[2].data =
+                this.links[2].data === ''
+                  ? res.info
+                  : +this.links[2].data + res.info;
             }
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
 
       // soa
       this.socket.listen('new soa').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/key-partners/home/my-soa') {
-            if(data.sub === res.id) {
-              this.toast.info('Edge Admin sent you a file (SOA)')
-              this.links[3].data = this.links[3].data === '' ? res.info : +this.links[3].data + res.info
+          if (this.router.url !== '/key-partners/home/my-soa') {
+            if (data.sub === res.id) {
+              this.toast.info('Edge Admin sent you a file (SOA)');
+              this.links[3].data =
+                this.links[3].data === ''
+                  ? res.info
+                  : +this.links[3].data + res.info;
             }
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
 
       // quotation
       this.socket.listen('new quotation').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/key-partners/home/my-quotation') {
-            if(data.sub === res.id) {
-              this.toast.info('Edge Admin sent a quotation to your inquiry')
-              this.links[5].data = this.links[5].data === '' ? res.info : +this.links[5].data + res.info
+          if (this.router.url !== '/key-partners/home/my-quotation') {
+            if (data.sub === res.id) {
+              this.toast.info('Edge Admin sent a quotation to your inquiry');
+              this.links[5].data =
+                this.links[5].data === ''
+                  ? res.info
+                  : +this.links[5].data + res.info;
             }
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
 
       // inventory
       this.socket.listen('keypartner inventory warning').subscribe({
         next: (res: any) => {
-          if(this.router.url !== '/key-partners/home/my-inventory') {
-            if(data.sub === res.id) {
-              this.links[7].data = '!'
+          if (this.router.url !== '/key-partners/home/my-inventory') {
+            if (data.sub === res.id) {
+              this.links[7].data = '!';
             }
           }
         },
         error: ({ error }: any) => {
-          console.log(error)
-        }
-      })
+          console.log(error);
+        },
+      });
     }
-
   }
 
   logout(e: any): void {
@@ -207,7 +215,7 @@ export class HomeComponent implements OnInit {
   }
 
   handleToggle() {
-    this.status = window.innerWidth < 768 ? true : this.status;
+    this.status = window.innerWidth < 821 ? true : this.status;
   }
 
   errorImage(evt: any) {

@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="container-fluid custom-section-height d-flex align-items-center">
+  <div class="col-12 offset-0 col-md-6 offset-md-3">
+    <div class="card px-3 py-4 shadow w-75 mx-auto">
+      <div class="card-body">
+        <div class="h4 h4-responsive mb-3">Super Admin Authentication</div>
+        <div class="form-group mb-3">
+          <label for="username" class="fw-bold m-0 p-0">
+            <small>Username</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+          />
+        </div>
+        <div class="form-group mb-3 position-relative">
+          <label for="password" class="fw-bold m-0 p-0">
+            <small>Password</small>
+          </label>
+          <input
+            [type]="show ? 'text' : 'password'"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+          />
+          <i
+            class="bi {{
+              show ? 'bi-eye-fill' : 'bi-eye-slash-fill'
+            }} custom-password-eye"
+            (click)="toggleShow()"
+          ></i>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-dark" (click)="login()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <div
     class="custom-sidebar"
-    [style.width]="!status ? '20rem' : screen < 768 ? '0rem' : '5.5rem'"
+    [style.width]="!status ? '20rem' : screen < 821 ? '0rem' : '5.5rem'"
   >
     <div class="text-center py-4">
       <img
@@ -57,7 +57,7 @@
   <div
     class="custom-dark-close custom-transition"
     (click)="clickEvent()"
-    *ngIf="screen < 768 && !status"
+    *ngIf="screen < 821 && !status"
   ></div>
   <!-- /#sidebar-wrapper -->
 
@@ -65,7 +65,7 @@
   <div
     id="page-content-wrapper"
     class="custom-transition"
-    [style.paddingLeft]="screen > 768 ? (status ? '5.5rem' : '20rem') : '0rem'"
+    [style.paddingLeft]="screen > 821 ? (status ? '5.5rem' : '20rem') : '0rem'"
   >
     <div class="container-fluid p-0 m-0">
       <div class="top-nav p-2 d-flex justify-content-between">

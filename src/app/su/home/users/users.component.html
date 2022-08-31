@@ -1,1 +1,138 @@
-<p>users works!</p>
+<div class="container-fluid">
+  <div class="col-md-8 offset-md-2">
+    <div class="card px-3 shadow mt-5">
+      <div class="card-body">
+        <h4 class="h4">Create User</h4>
+
+        <div class="form-group mb-3">
+          <label for="email" class="fw-bold m-0 p-0">
+            <small>Email Address</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="data.email"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="username" class="fw-bold m-0 p-0">
+            <small>Username</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            [(ngModel)]="data.username"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="password" class="fw-bold m-0 p-0">
+            <small>Password</small>
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="data.password"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="confirm" class="fw-bold m-0 p-0">
+            <small>Confirm Password</small>
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirm"
+            name="confirm"
+            [(ngModel)]="data.confirm"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="" class="fw-bold m-0 p-0">
+            <small>Full Name</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="data.name"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="contact" class="fw-bold m-0 p-0">
+            <small>Contact</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="contact"
+            name="contact"
+            [(ngModel)]="data.contact"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="company" class="fw-bold m-0 p-0">
+            <small>Company</small>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="company"
+            name="company"
+            [(ngModel)]="data.company"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="" class="fw-bold m-0 p-0">
+            <small>Access Level</small>
+          </label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="data.accessLvl"
+          >
+            <option value="">Select here</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="" class="fw-bold m-0 p-0">
+            <small>Approval Status</small>
+          </label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            [(ngModel)]="data.approval"
+          >
+            <option value="">Select here</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="denied">Denied</option>
+          </select>
+        </div>
+
+        <div class="text-end">
+          <button class="px-5 btn btn-dark py-2" (click)="saveUser()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
