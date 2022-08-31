@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Inventory</h2>
 
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-md-12 text-end">
       <button
         (click)="createNewItem()"
@@ -12,59 +12,55 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 d-flex align-items-center">
-      <div class="dropdown col-3">
-        <button
-          class="btn btn-dark dropdown-toggle custom-btn px-5 py-1 text-white fw-bold"
-          type="button"
-          id="dropdownMenuButton2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Actions
-        </button>
-        <ul
-          class="dropdown-menu dropdown-menu-light"
-          aria-labelledby="dropdownMenuButton2"
-        >
-          <li>
-            <button class="dropdown-item text-sm" (click)="handleSort('all')">
-              View All Items
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm" (click)="handleSort('in')">
-              View In Items
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item text-sm" (click)="handleSort('out')">
-              View Out Items
-            </button>
-          </li>
-          <li>
-            <button
-              class="dropdown-item text-sm"
-              (click)="handleSort('balance')"
-            >
-              View Balances
-            </button>
-          </li>
-          <li>
-            <button
-              class="dropdown-item text-sm"
-              (click)="handleSort('bestseller')"
-            >
-              View Best Seller Items
-            </button>
-          </li>
-          <li><button class="dropdown-item text-sm">Print</button></li>
-          <li><button class="dropdown-item text-sm">Export</button></li>
-        </ul>
-      </div>
+  <div class="d-flex flex-wrap align-items-center mb-2">
+    <div class="dropdown me-2 mb-2 mb-lg-0">
+      <button
+        class="btn btn-dark dropdown-toggle custom-btn px-3 py-1 text-white fw-bold"
+        type="button"
+        id="dropdownMenuButton2"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Actions
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-light"
+        aria-labelledby="dropdownMenuButton2"
+      >
+        <li>
+          <button class="dropdown-item text-sm" (click)="handleSort('all')">
+            View All Items
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item text-sm" (click)="handleSort('in')">
+            View In Items
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item text-sm" (click)="handleSort('out')">
+            View Out Items
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item text-sm" (click)="handleSort('balance')">
+            View Balances
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item text-sm"
+            (click)="handleSort('bestseller')"
+          >
+            View Best Seller Items
+          </button>
+        </li>
+        <li><button class="dropdown-item text-sm">Print</button></li>
+        <li><button class="dropdown-item text-sm">Export</button></li>
+      </ul>
     </div>
-    <div class="col-md-6 my-3">
+
+    <div class="ms-auto">
       <div class="d-flex align-items-center">
         <div class="me-2 flex-grow-1">
           <div class="input-group">
@@ -93,6 +89,7 @@
       </div>
     </div>
   </div>
+
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold">Inventory Items</h4>

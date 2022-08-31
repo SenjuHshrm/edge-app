@@ -30,7 +30,6 @@ export class BookingComponent implements OnInit {
   getAllBooking() {
     this.booking.getAllBookingByKP().subscribe({
       next: (res: any) => {
-        console.log(res.info);
         let sorted = res.info.sort((a: any, b: any) =>
           b.createdAt.localeCompare(a.createdAt)
         );

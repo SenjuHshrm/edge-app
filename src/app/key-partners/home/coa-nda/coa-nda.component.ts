@@ -5,39 +5,34 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-coa-nda',
   templateUrl: './coa-nda.component.html',
-  styleUrls: ['./coa-nda.component.scss']
+  styleUrls: ['./coa-nda.component.scss'],
 })
 export class CoaNdaComponent implements OnInit {
-
-  public fileList: any = []
+  public fileList: any = [];
   public isAuth: boolean = false;
 
-  constructor(
-    private contract: ContractService
-  ) { }
+  constructor(private contract: ContractService) {}
 
   ngOnInit(): void {
     this.contract.getContract('coa-nda').subscribe({
       next: (res: any) => {
         res.info.forEach((x: any) => {
-          let i = x.file.lastIndexOf('/')
+          let i = x.file.lastIndexOf('/');
           this.fileList.push({
             id: x._id,
             file: `${environment.apiV1}${x.file}`,
             createdAt: x.createdAt,
-            filename: x.file.substring(i + 1, x.file.length)
-          })
-        })
-        console.log(res)
+            filename: x.file.substring(i + 1, x.file.length),
+          });
+        });
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   authenticate() {
-    this.isAuth = !this.isAuth
+    this.isAuth = !this.isAuth;
   }
-
 }

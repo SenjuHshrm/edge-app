@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
       let req = { ...data.value, accessLvl: 3, img: '' };
       this.user.registerKeyPartner(req).subscribe({
         next: (res: Response) => {
-          console.log(res);
           Swal.fire(
             'Success',
             'Your account is registered successfully. Please wait for the email confirmation',
