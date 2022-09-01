@@ -1,3 +1,4 @@
+import { EncoderAuthGuard } from './../../guard/encoder-auth.guard';
 import { AdminAuthGuard } from './../../guard/admin-auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -65,6 +66,7 @@ const routes: Routes = [
       {
         path: 'acct-request',
         title: 'EdgeCommerce | Account Request',
+        canActivate: [EncoderAuthGuard],
         loadChildren: () =>
           import('./acct-request/acct-request.module').then(
             (m) => m.AcctRequestModule
@@ -85,11 +87,13 @@ const routes: Routes = [
       {
         path: 'soa',
         title: 'EdgeCommerce | SOA',
+        canActivate: [EncoderAuthGuard],
         loadChildren: () => import('./soa/soa.module').then((m) => m.SoaModule),
       },
       {
         path: 'coa-nda',
         title: 'EdgeCommerce | COA/NDA',
+        canActivate: [EncoderAuthGuard],
         loadChildren: () =>
           import('./coa-nda/coa-nda.module').then((m) => m.CoaNdaModule),
       },

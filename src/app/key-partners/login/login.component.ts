@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     e.preventDefault();
     if (data.valid) {
       this.loading = true;
-      this.user.login({ ...data.value, access: 3 }).subscribe({
+      this.user.login({ ...data.value, access: [3] }).subscribe({
         next: (res) => {
           this.loading = false;
           localStorage.setItem('ACCESS', res.info);

@@ -1,3 +1,4 @@
+import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
@@ -14,12 +15,13 @@ export class UsersComponent implements OnInit {
     confirm: '',
     name: '',
     contact: '',
-    company: '',
+    company: 'EdgeCommerce',
     accessLvl: '',
-    approval: '',
   };
 
-  constructor() {}
+  constructor(
+    private user: UserService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -58,7 +60,14 @@ export class UsersComponent implements OnInit {
 
   saveUser() {
     if (this.validateData()) {
-      console.log(this.data);
+      this.user.registerKeyPartner(this.data).subscribe({
+        next: (res: any) => {
+          Swal.fire('EdgeCommerce admin registered', '', 'success')
+        },
+        error: ({ error }: any) => {
+          console.log(error)
+        }
+      })
     }
   }
 }

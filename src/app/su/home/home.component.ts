@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
@@ -15,6 +16,10 @@ export class HomeComponent implements OnInit {
   ];
   status: boolean = window.innerWidth < 768 ? true : false;
   showToggle: boolean = false;
+
+  constructor(
+    private user: UserService
+  ) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
@@ -36,5 +41,15 @@ export class HomeComponent implements OnInit {
     evt.target.src = '/assets/images/landingpage/header/logo.png';
   }
 
-  logout(e: any): void {}
+  logout(e: any): void {
+    this.user.logout().subscribe({
+      next: (res) => {
+        localStorage.removeItem('ACCESS')
+        window.location.href = '/su/login'
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
+  }
 }

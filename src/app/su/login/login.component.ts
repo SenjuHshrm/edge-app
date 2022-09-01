@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
@@ -12,7 +14,10 @@ export class LoginComponent implements OnInit {
   public username: string = '';
   public password: string = '';
 
-  constructor() {}
+  constructor(
+    private user: UserService,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -22,7 +27,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.validateLogin()) {
-      console.log(this.username, this.password);
+      this.user.login({ username: this.username, password: this.password, access: 0 }).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('ACCESS', res.info)
+          window.location.href = '/su/home'
+        },
+        error: ({ error }: any) =>{
+          this.toast.error('Failed to login', error.msg)
+        }
+      })
     }
   }
 
