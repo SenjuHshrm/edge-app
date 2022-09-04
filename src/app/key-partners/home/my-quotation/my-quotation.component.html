@@ -18,10 +18,28 @@
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold">Quotations for Approval</h4>
+      <div class="d-flex align-items-center justify-content-end mb-4">
+        <span class="me-2">Action:</span>
+        <div class="me-2">
+          <select class="form-select" aria-label="Default select example">
+            <option value="download">Download All Selected</option>
+          </select>
+        </div>
+        <button class="btn btn-dark">Go</button>
+      </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light sticky-top">
             <tr>
+              <th class="px-1 text-truncate">
+                <div class="py-0 my-0 form-check d-flex justify-content-center">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="check-all"
+                  />
+                </div>
+              </th>
               <th scope="col" class="text-truncate px-1">Qoute Number</th>
               <th scope="col" class="text-truncate px-1">Actions</th>
             </tr>
@@ -29,7 +47,7 @@
           <tbody class="border-top-0">
             <ng-template [ngIf]="forApproval.length === 0">
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <small class="fw-bold">No Quotations Found.</small>
                 </td>
               </tr>
@@ -37,6 +55,17 @@
 
             <ng-template [ngIf]="forApproval.length !== 0">
               <tr *ngFor="let table of forApproval">
+                <td class="text-center">
+                  <div
+                    class="py-0 my-0 form-check d-flex justify-content-center"
+                  >
+                    <input
+                      type="checkbox"
+                      class="form-check-input custom-check-me"
+                      id="check-only"
+                    />
+                  </div>
+                </td>
                 <td class="text-truncate px-1">{{ table.quotationId }}</td>
                 <td>
                   <div class="dropdown">
@@ -108,10 +137,28 @@
   <div class="card shadow p-3">
     <div class="card-body">
       <h4 class="h4 fw-bold">Pending Quotations</h4>
+      <div class="d-flex align-items-center justify-content-end mb-4">
+        <span class="me-2">Action:</span>
+        <div class="me-2">
+          <select class="form-select" aria-label="Default select example">
+            <option value="download">Download All Selected</option>
+          </select>
+        </div>
+        <button class="btn btn-dark">Go</button>
+      </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light sticky-top">
             <tr>
+              <th class="px-1 text-truncate">
+                <div class="py-0 my-0 form-check d-flex justify-content-center">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="check-all"
+                  />
+                </div>
+              </th>
               <th scope="col" class="text-truncate px-1">Qoute Number</th>
               <th scope="col" class="text-truncate px-1">Actions</th>
             </tr>
@@ -119,13 +166,24 @@
           <tbody class="border-top-0">
             <ng-template [ngIf]="pending.length === 0">
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <small class="fw-bold">No Quotations Found.</small>
                 </td>
               </tr>
             </ng-template>
             <ng-template [ngIf]="pending.length !== 0">
               <tr *ngFor="let table of pending">
+                <td class="text-center">
+                  <div
+                    class="py-0 my-0 form-check d-flex justify-content-center"
+                  >
+                    <input
+                      type="checkbox"
+                      class="form-check-input custom-check-me"
+                      id="check-only"
+                    />
+                  </div>
+                </td>
                 <td class="text-truncate px-1">45656</td>
                 <td>
                   <div class="dropdown">

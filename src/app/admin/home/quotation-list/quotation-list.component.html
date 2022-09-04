@@ -17,10 +17,28 @@
 
   <div class="card shadow p-3">
     <div class="card-body">
+      <div class="d-flex align-items-center justify-content-end mb-4">
+        <span class="me-2">Action:</span>
+        <div class="me-2">
+          <select class="form-select" aria-label="Default select example">
+            <option value="download">Download All Selected</option>
+          </select>
+        </div>
+        <button class="btn btn-dark">Go</button>
+      </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
             <tr>
+              <th class="px-1 text-truncate">
+                <div class="py-0 my-0 form-check d-flex justify-content-center">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="check-all"
+                  />
+                </div>
+              </th>
               <th class="text-truncate px-1">Quotation Number</th>
               <th class="text-truncate px-1">Name</th>
               <th class="text-truncate px-1">Company Name</th>
@@ -31,13 +49,24 @@
           <tbody class="border-top-0">
             <ng-template [ngIf]="quoteList.length === 0">
               <tr>
-                <td colspan="5">
+                <td colspan="6">
                   <small class="fw-bold">No Record Found.</small>
                 </td>
               </tr>
             </ng-template>
             <ng-template [ngIf]="quoteList.length !== 0">
               <tr *ngFor="let i of quoteList">
+                <td class="text-center">
+                  <div
+                    class="py-0 my-0 form-check d-flex justify-content-center"
+                  >
+                    <input
+                      type="checkbox"
+                      class="form-check-input custom-check-me"
+                      id="check-only"
+                    />
+                  </div>
+                </td>
                 <td class="text-truncate px-1">{{ i.quotationId }}</td>
                 <td class="text-truncate px-1">{{ i.keyPartnerId.name }}</td>
                 <td class="text-truncate px-1">{{ i.keyPartnerId.company }}</td>

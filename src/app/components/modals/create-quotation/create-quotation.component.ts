@@ -18,6 +18,7 @@ export class CreateQuotationComponent implements OnInit {
     itemId: '',
     description: '',
     unitPrice: '',
+    price: '',
     quantity: '',
     totalPrice: '',
   };
@@ -48,7 +49,7 @@ export class CreateQuotationComponent implements OnInit {
   computeTotalPrice() {
     this.quoteData.totalPrice =
       this.quoteData.quantity *
-      (+this.quoteData.unitPrice + +this.quoteData.unitPrice * 0.15);
+      (+this.quoteData.price + +this.quoteData.price * 0.15);
   }
 
   handleSaveQuotation(e: any) {
@@ -65,6 +66,10 @@ export class CreateQuotationComponent implements OnInit {
         next: (res: any) => {
           this.md.close(res.info);
           this.loading = false;
+          Swal.fire({
+            title: 'Quotation successfully created.',
+            icon: 'info',
+          });
         },
         error: (e: any) => {
           console.log(e);
@@ -103,7 +108,7 @@ export class CreateQuotationComponent implements OnInit {
   }
 
   validateItem(data: any): boolean {
-    const { description, quantity, unitPrice } = data;
+    const { description, quantity, unitPrice, price } = data;
     let message = '';
 
     if (description === '') {
@@ -113,9 +118,11 @@ export class CreateQuotationComponent implements OnInit {
     } else if (!/^[0-9]*\.?[0-9]*$/.test(quantity)) {
       message = 'Invalid quantity value.';
     } else if (unitPrice === '') {
-      message = 'Please enter the price / unit.';
-    } else if (!/^[0-9]*\.?[0-9]*$/.test(unitPrice)) {
-      message = 'Invalid price/unit value.';
+      message = 'Please enter the unit.';
+    } else if (price === '') {
+      message = 'Please enter the price.';
+    } else if (!/^[0-9]*\.?[0-9]*$/.test(price)) {
+      message = 'Invalid price value.';
     }
 
     if (message === '') {

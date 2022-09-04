@@ -101,15 +101,18 @@
           <tr *ngFor="let item of data.items; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.description }}</td>
-            <td>{{ item.unitPrice }}</td>
+            <td>{{ item.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.unitPrice * 0.15 }}</td>
+            <td>{{ item.price * 0.15 }}</td>
             <td>{{ item.totalPrice }}</td>
           </tr>
         </table>
       </div>
       <div class="text-end mt-3">
-        <button class="btn btn-dark px-5" (click)="handleClose()">Close</button>
+        <button class="btn btn-dark px-3 me-2" (click)="generateFile()">
+          Generate File
+        </button>
+        <button class="btn btn-dark px-3" (click)="handleClose()">Close</button>
       </div>
     </div>
   </div>

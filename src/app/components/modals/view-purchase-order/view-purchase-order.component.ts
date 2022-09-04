@@ -16,4 +16,8 @@ export class ViewPurchaseOrderComponent implements OnInit {
   handleClose() {
     this.md.close();
   }
+
+  generateFile() {
+    this.md.close();
+  }
 }

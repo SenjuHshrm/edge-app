@@ -38,17 +38,26 @@
             />
           </div>
           <div class="form-group">
-            <label for="units" class="fs-6 fw-bold">Price / Unit</label>
+            <label for="units" class="fs-6 fw-bold">Unit</label>
             <input
               type="text"
               class="form-control"
               name="units"
               [(ngModel)]="quoteData.unitPrice"
+            />
+          </div>
+          <div class="form-group">
+            <label for="units" class="fs-6 fw-bold">Price</label>
+            <input
+              type="text"
+              class="form-control"
+              name="units"
+              [(ngModel)]="quoteData.price"
               (input)="computeTotalPrice()"
             />
           </div>
           <div>
-            <p *ngIf="quoteData.totalPrice !== ''">
+            <p *ngIf="quoteData.price !== ''" class="fw-bold">
               Total price: P {{ quoteData.totalPrice }}
             </p>
           </div>
@@ -68,7 +77,7 @@
                 <tr>
                   <th scope="col">Item Description</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Price / Unit</th>
+                  <th scope="col">Price</th>
                   <th scope="col">Total Price</th>
                   <th scope="col"></th>
                 </tr>
