@@ -16,7 +16,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
   public poData: any = {
     itemId: '',
     description: '',
-    units: '',
+    price: '',
     unitPrice: '',
     quantity: '',
     totalPrice: '',
@@ -38,15 +38,16 @@ export class CreatePurchaseOrderComponent implements OnInit {
     this.poData = {
       itemId: item[0]._id,
       description: item[0].description,
-      units: '',
+      price: item[0].price,
       unitPrice: item[0].unitPrice,
       quantity: item[0].quantity,
       totalPrice: +item[0].quantity * +item[0].unitPrice,
     };
+    this.computeTotalPrice();
   }
 
   computeTotalPrice() {
-    this.poData.totalPrice = this.poData.quantity * +this.poData.unitPrice;
+    this.poData.totalPrice = this.poData.quantity * +this.poData.price;
   }
 
   handleSavePO() {
@@ -61,6 +62,10 @@ export class CreatePurchaseOrderComponent implements OnInit {
         next: (res: any) => {
           this.md.close(res.info);
           this.loading = false;
+          Swal.fire({
+            title: 'Purchase Order successfully created.',
+            icon: 'success',
+          });
         },
         error: ({ error }: any) => {
           console.log(error);
@@ -85,7 +90,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
         this.poData = {
           itemId: '',
           description: '',
-          units: '',
+          price: '',
           unitPrice: '',
           quantity: '',
           totalPrice: '',
@@ -100,21 +105,21 @@ export class CreatePurchaseOrderComponent implements OnInit {
   }
 
   validateItem(data: any): boolean {
-    const { description, quantity, units, unitPrice } = data;
+    const { description, quantity, price, unitPrice } = data;
     let message = '';
 
     if (description === '') {
       message = 'Please enter item description.';
     } else if (quantity === '') {
       message = 'Please enter the quantity.';
-    } else if (units === '') {
+    } else if (price === '') {
       message = 'Please enter units.';
+    } else if (!/^[0-9]*\.?[0-9]*$/.test(price)) {
+      message = 'Invalid price/unit value.';
     } else if (!/^[0-9]*\.?[0-9]*$/.test(quantity)) {
       message = 'Invalid quantity value.';
     } else if (unitPrice === '') {
       message = 'Please enter the price / unit.';
-    } else if (!/^[0-9]*\.?[0-9]*$/.test(unitPrice)) {
-      message = 'Invalid price/unit value.';
     }
 
     if (message === '') {

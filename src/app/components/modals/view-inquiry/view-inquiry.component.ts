@@ -16,4 +16,8 @@ export class ViewInquiryComponent implements OnInit {
   handleClose() {
     this.md.close();
   }
+
+  generateFile() {
+    this.md.close();
+  }
 }

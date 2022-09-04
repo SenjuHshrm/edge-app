@@ -53,8 +53,6 @@ export class CreateInquiryComponent implements OnInit {
       message = 'Invalid quantity value.';
     } else if (units === '') {
       message = 'Please enter the price / unit.';
-    } else if (!/^[0-9]*\.?[0-9]*$/.test(units)) {
-      message = 'Invalid price/unit value.';
     }
 
     if (message === '') {
