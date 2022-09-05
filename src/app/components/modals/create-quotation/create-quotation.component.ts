@@ -42,14 +42,12 @@ export class CreateQuotationComponent implements OnInit {
       description: item[0].description,
       unitPrice: item[0].units,
       quantity: item[0].quantity,
-      totalPrice: item[0].quantity * (+item[0].units + +item[0].units * 0.15),
+      totalPrice: 0,
     };
   }
 
   computeTotalPrice() {
-    this.quoteData.totalPrice =
-      this.quoteData.quantity *
-      (+this.quoteData.price + +this.quoteData.price * 0.15);
+    this.quoteData.totalPrice = (this.quoteData.quantity * (+this.quoteData.price + +this.quoteData.price * 0.15)).toFixed(2);
   }
 
   handleSaveQuotation(e: any) {

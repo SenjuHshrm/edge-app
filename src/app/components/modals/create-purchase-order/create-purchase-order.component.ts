@@ -29,6 +29,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
     this.data.items.forEach((x: any) => {
       this.items.push(x);
     });
+    console.log(this.data)
   }
 
   displayInfo(id: string) {

@@ -19,4 +19,8 @@ export class PurchaseOrderService {
   getAllPurchaseOrder(): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/purchase-order/all`)
   }
+
+  generatePOFile(poId: string): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/purchase-order/form/${poId}`)
+  }
 }

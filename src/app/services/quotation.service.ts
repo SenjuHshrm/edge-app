@@ -30,4 +30,8 @@ export class QuotationService {
     return this.http.post(`${environment.apiV1}/api/v1/post/create-quotation`, data)
   }
 
+  public generateQuoteFile(id: string): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/quotation/form/${id}`)
+  }
+
 }
