@@ -356,6 +356,7 @@ export class CreateBookingComponent implements OnInit {
       this.booking.addBooking(req).subscribe({
         next: (res: any) => {
           if (res.success) {
+            Swal.fire('Booked successfully.', '', 'success');
             this.md.close({ success: true, data: res.info });
             this.loading = false;
           }

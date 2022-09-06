@@ -27,8 +27,16 @@ export class BookingListComponent implements OnInit {
   ngOnInit(): void {
     this.bookServ.getAllBooking().subscribe({
       next: (res) => {
-        this.bookings = [...res.info];
-        this.allData = [...res.info];
+        this.bookings = [
+          ...res.info.sort((a: any, b: any) =>
+            b.createdAt.localeCompare(a.createdAt)
+          ),
+        ];
+        this.allData = [
+          ...res.info.sort((a: any, b: any) =>
+            b.createdAt.localeCompare(a.createdAt)
+          ),
+        ];
       },
       error: (error) => console.log(error),
     });
