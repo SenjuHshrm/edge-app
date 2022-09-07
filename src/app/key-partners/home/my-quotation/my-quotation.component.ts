@@ -4,6 +4,7 @@ import { QuotationService } from './../../../services/quotation.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-purchase-order/create-purchase-order.component';
+import { ExportComponent } from 'src/app/components/modals/export/export.component';
 
 @Component({
   selector: 'app-my-quotation',
@@ -53,5 +54,38 @@ export class MyQuotationComponent implements OnInit {
         console.log(error);
       },
     });
+  }
+
+  handleSelectAll(evt: any){
+    const checks: any = document.getElementsByClassName('custom-check-me')
+    if(checks.length > 0) {
+      for(let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false
+      }
+    }
+  }
+
+  downloadSelectedforApproval() {
+    let selected: string[] = []
+    const checks: any = document.getElementsByClassName('custom-check-me')
+    if(checks.length > 0) {
+      for(let i = 0; i < checks.length; i++) {
+        if(checks[i].checked) {
+          selected.push(this.forApproval[i].quotationId)
+        }
+      }
+      if(selected.length > 0) {
+        this.quote.generateMultipleQuote(selected).subscribe({
+          next: (res) => {
+            console.log(res)
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' })
+            md.componentInstance.data = [res.info]
+          },
+          error: ({ error }) => {
+            console.log(error)
+          }
+        })
+      }
+    }
   }
 }

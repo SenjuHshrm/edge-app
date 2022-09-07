@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreateInquiryComponent } from 'src/app/components/modals/create-inquiry/create-inquiry.component';
 import { ViewInquiryComponent } from 'src/app/components/modals/view-inquiry/view-inquiry.component';
 import { InquiryService } from 'src/app/services/inquiry.service';
+import { ExportComponent } from 'src/app/components/modals/export/export.component';
 @Component({
   selector: 'app-inquiry',
   templateUrl: './inquiry.component.html',
@@ -48,5 +49,38 @@ export class InquiryComponent implements OnInit {
     });
     viewInq.componentInstance.data = data;
     viewInq.result.then((result) => {}).catch(() => console.log());
+  }
+
+  handleSelectAll(evt: any){
+    const checks: any = document.getElementsByClassName('custom-check-me')
+    if(checks.length > 0) {
+      for(let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false
+      }
+    }
+  }
+
+  downloadSelected() {
+    let selected: string[] = []
+    const checks: any = document.getElementsByClassName('custom-check-me')
+    if(checks.length > 0) {
+      for(let i = 0; i < checks.length; i++) {
+        if(checks[i].checked) {
+          selected.push(this.inquiryList[i].inqId)
+        }
+      }
+      if(selected.length > 0) {
+        this.inq.generateInquiryFromSelected(selected).subscribe({
+          next: (res) => {
+            console.log(res)
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' })
+            md.componentInstance.data = [res.info]
+          },
+          error: ({ error }) => {
+            console.log(error)
+          }
+        })
+      }
+    }
   }
 }

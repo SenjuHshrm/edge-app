@@ -28,4 +28,9 @@ export class InquiryService {
     return this.http.get(`${environment.apiV1}/api/v1/get/inquiry/form/${inqId}`)
   }
 
+  public generateInquiryFromSelected(ids: string[]): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem("ACCESS") as any)
+    return this.http.put(`${environment.apiV1}/api/v1/put/inquiry/form/selected`, { ids: ids, id: token.sub })
+  }
+
 }

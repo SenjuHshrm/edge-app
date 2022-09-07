@@ -34,4 +34,9 @@ export class QuotationService {
     return this.http.get(`${environment.apiV1}/api/v1/get/quotation/form/${id}`)
   }
 
+  public generateMultipleQuote(ids: any): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.put(`${environment.apiV1}/api/v1/put/quotation/form/selected`, { ids: ids, id: token.sub })
+  }
+
 }

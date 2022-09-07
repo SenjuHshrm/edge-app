@@ -25,7 +25,7 @@
             <option value="download">Download All Selected</option>
           </select>
         </div>
-        <button class="btn btn-dark">Go</button>
+        <button class="btn btn-dark" (click)="downloadSelectedforApproval()">Go</button>
       </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
@@ -37,6 +37,7 @@
                     type="checkbox"
                     class="form-check-input"
                     id="check-all"
+                    (change)="handleSelectAll($event)"
                   />
                 </div>
               </th>
