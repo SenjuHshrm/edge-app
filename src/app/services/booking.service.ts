@@ -49,31 +49,60 @@ export class BookingService {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-all/booking`);
   }
 
+  public getOneBooking(bookingId: string): Observable<any> {
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/booking/${bookingId}`
+    );
+  }
+
   public getCurrentMonthBookingCount(param: any): Observable<any> {
-    return this.http.get(`${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}`)
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}`
+    );
   }
 
   public getCurrentMonthBookingCountByKeyPartner(param: any): Observable<any> {
-    return this.http.get(`${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}/${param.id}`)
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/monthly-booking/${param.start}/${param.end}/${param.id}`
+    );
   }
 
   public markAsFulfilled(booking: any): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/mark-as-fulfilled`, booking)
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/mark-as-fulfilled`,
+      booking
+    );
   }
 
   public exportSelected(booking: any): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/export/all`, booking)
+    return this.http.put(`${environment.apiV1}/api/v1/put/export/all`, booking);
   }
 
   public markOneAsFulfilled(id: string): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/mark-one/fulfilled/${id}`, {})
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/mark-one/fulfilled/${id}`,
+      {}
+    );
   }
 
   public markOneAsUnfulfilled(id: string): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/mark-one/unfulfilled/${id}`, {})
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/mark-one/unfulfilled/${id}`,
+      {}
+    );
   }
 
   public exportOne(id: string): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/export-one/${id}`, {})
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/export-one/${id}`,
+      {}
+    );
+  }
+
+  public returnBooking(id: string, data: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiV1}/api/v1/put/return/booking/${id}`,
+      data
+    );
   }
 }

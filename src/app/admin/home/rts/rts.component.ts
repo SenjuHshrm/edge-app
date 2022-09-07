@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import address from 'src/assets/address';
+import { BookingService } from 'src/app/services/booking.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rts',
@@ -18,7 +20,15 @@ export class RtsComponent implements OnInit {
     hsStNum: '',
   };
 
-  constructor() {}
+  public bookingId: string = '';
+  public data: any = null;
+  public didSearch: boolean = false;
+  public isDefective: boolean = false;
+  public itemContainer: any = [];
+  public sLoading: boolean = false;
+  public cLoading: boolean = false;
+
+  constructor(private bookServ: BookingService) {}
 
   ngOnInit(): void {
     Object.keys(address).forEach((e) => {
@@ -43,5 +53,95 @@ export class RtsComponent implements OnInit {
     provs[str].barangay_list.map((brgy: any) => {
       this.brgys.push(brgy);
     });
+  }
+
+  findRts(): void {
+    if (this.bookingId !== '') {
+      this.sLoading = true;
+      this.bookServ.getOneBooking(this.bookingId).subscribe({
+        next: (res: any) => {
+          this.data = res.info;
+          this.didSearch = true;
+          this.itemContainer = [];
+          if (res.info.itemType === 'individual') {
+            this.itemContainer.push({
+              itemId: res.info.itemId._id,
+              name: res.info.itemId.desc,
+              quantity: res.info.quantity,
+              defective: '0',
+              good: '0',
+            });
+          } else {
+            res.info.bundleId.items.map((item: any) => {
+              this.itemContainer.push({
+                itemId: item.itemId,
+                name: item.item,
+                quantity: item.quantity,
+                defective: '0',
+                good: '0',
+              });
+            });
+          }
+          this.sLoading = false;
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.sLoading = false;
+        },
+      });
+    } else {
+      Swal.fire('Please enter Customer Booking ID.', '', 'info');
+    }
+  }
+
+  saveRts() {
+    if (this.handleValidation(this.itemContainer)) {
+      this.cLoading = true;
+      this.bookServ.returnBooking(this.data._id, this.itemContainer).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            Swal.fire('Booking returned successfully.', '', 'info');
+            this.data = {};
+            this.didSearch = false;
+            this.bookingId = '';
+          } else {
+            Swal.fire('Failed to return booking.', '', 'info');
+          }
+          this.cLoading = false;
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.cLoading = false;
+        },
+      });
+    }
+  }
+
+  handleValidation(data: any): boolean {
+    let message = '';
+    data.map((item: any) => {
+      if (item.defective === '0' && item.good === '0') {
+        message = `Please enter the quantity of good and defective of ${item.name} item.`;
+        return;
+      }
+
+      let total = parseFloat(item.defective) + parseFloat(item.good);
+      if (parseFloat(item.quantity) < total) {
+        message = `The total of defective and good items exceeded the booked quantity of ${item.name}.`;
+        return;
+      }
+
+      if (parseFloat(item.quantity) !== total) {
+        message = `The total of defective and good items must be the same as the booked quantity of ${item.name}.`;
+        return;
+      }
+    });
+
+    if (message === '') {
+      return true;
+    } else {
+      Swal.fire(message, '', 'info');
+      return false;
+    }
   }
 }

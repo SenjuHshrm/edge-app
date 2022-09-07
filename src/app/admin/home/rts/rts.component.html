@@ -1,192 +1,316 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Return To Sender</h2>
-  <div class="card shadow p-3">
-    <div class="card-body">
-      <h4 class="h4 mb-4 fw-bold">Return Form</h4>
-      <div class="col-md-12">
-        <form>
-          <div class="d-flex mb-3 flex-wrap">
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="receiver" class="fs-6 fw-bold">Receiver Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="receiver"
-                name="receiver"
-              />
-            </div>
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="mobile" class="fs-6 fw-bold">Phone Number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="mobile"
-                name="mobile"
-              />
-            </div>
-            <div class="form-group flex-grow-1">
-              <label for="address" class="fs-6 fw-bold">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                id="address"
-                name="address"
-              />
-            </div>
+  <div class="container-fluid px-0">
+    <div class="mb-3">
+      <div class="col-md-6 d-flex">
+        <div class="me-2 flex-grow-1">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Customer Booking ID"
+              [(ngModel)]="bookingId"
+            />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
           </div>
+        </div>
 
-          <div class="d-flex mb-3 flex-wrap">
-            <div class="me-1 flex-grow-1 mb-3 mb-md-0">
-              <label class="fw-bold m-0 p-0 text-capitalize" for="province"
-                >Province</label
-              >
-              <select
-                class="form-select"
-                [(ngModel)]="addr.province"
-                name="province"
-                (change)="changeCities(addr.province)"
-              >
-                <option value="">SELECT PROVINCE</option>
-                <option
-                  *ngFor="let province of provinces; let i = index"
-                  [value]="province"
-                >
-                  {{ province }}
-                </option>
-              </select>
+        <button class="btn btn-dark" (click)="findRts()" [disabled]="sLoading">
+          <ng-template [ngIf]="sLoading">
+            <div
+              class="spinner-border spinner-border-sm text-warning"
+              role="status"
+            >
+              <span class="sr-only"></span>
             </div>
-            <div class="me-1 flex-grow-1 mb-3 mb-md-0">
-              <label class="fw-bold m-0 p-0 text-capitalize" for="city"
-                >City</label
-              >
-              <select
-                class="form-select"
-                [(ngModel)]="addr.city"
-                name="city"
-                (change)="changeBrgys(addr.city)"
-              >
-                <option value="">SELECT CITY</option>
-                <option
-                  *ngFor="let city of cities; let i = index"
-                  [value]="city"
-                >
-                  {{ city }}
-                </option>
-              </select>
-            </div>
-
-            <div class="me-1 flex-grow-1 mb-3 mb-md-0">
-              <label class="fw-bold m-0 p-0 text-capitalize" for="brgy"
-                >Barangay</label
-              >
-              <select class="form-select" [(ngModel)]="addr.brgy" name="brgy">
-                <option value="">SELECT CITY</option>
-                <option
-                  *ngFor="let brgy of brgys; let i = index"
-                  [value]="brgy"
-                >
-                  {{ brgy }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group flex-grow-1">
-              <label for="zipCode" class="fs-6 fw-bold">Zip Code</label>
-              <input
-                type="text"
-                class="form-control"
-                id="zipCode"
-                name="zipCode"
-              />
-            </div>
-          </div>
-
-          <div class="d-flex mb-3 flex-wrap">
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="products" class="fs-6 fw-bold">Products</label>
-              <input
-                type="text"
-                class="form-control"
-                id="products"
-                name="products"
-              />
-            </div>
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="quantity" class="fs-6 fw-bold">Quantity</label>
-              <input
-                type="text"
-                class="form-control"
-                id="quantity"
-                name="quantity"
-              />
-            </div>
-            <div class="form-group flex-grow-1">
-              <label for="cod" class="fs-6 fw-bold">COD</label>
-              <input type="text" class="form-control" id="cod" name="cod" />
-            </div>
-          </div>
-
-          <div class="d-flex mb-3 flex-wrap">
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="sender" class="fs-6 fw-bold"
-                >Sender / Page Name</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="sender"
-                name="sender"
-              />
-            </div>
-            <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
-              <label for="contact" class="fs-6 fw-bold">Contact Number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="contact"
-                name="contact"
-              />
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="remarks" class="fs-6 fw-bold">Courier</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option value="FLASH">FLASH</option>
-                  <option value="JNT">JNT</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3 mb-md-0">
-              <div class="form-group">
-                <label for="remarks" class="fs-6 fw-bold">Remarks</label>
-                <textarea
+          </ng-template>
+          <ng-template [ngIf]="!sLoading">Go</ng-template>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template [ngIf]="!didSearch">
+    <small class="fw-bold">*Search booking record to return.</small>
+  </ng-template>
+  <ng-template [ngIf]="didSearch">
+    <ng-template [ngIf]="data === null">
+      <small class="fw-bold">No Booking Record Found.</small>
+    </ng-template>
+    <ng-template [ngIf]="data !== null">
+      <div class="card shadow p-3">
+        <div class="card-body">
+          <h4 class="h4 mb-4 fw-bold">Return Form</h4>
+          <div class="col-md-12">
+            <div class="d-flex mb-3 flex-wrap">
+              <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
+                <label for="receiver" class="fs-6 fw-bold">Receiver Name</label>
+                <input
+                  type="text"
                   class="form-control"
-                  id="remarks"
-                  rows="3"
-                  style="resize: none"
-                ></textarea>
+                  id="receiver"
+                  name="receiver"
+                  [value]="data.customer"
+                  readonly
+                />
+              </div>
+              <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
+                <label for="mobile" class="fs-6 fw-bold">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="mobile"
+                  name="mobile"
+                  [value]="data.customerContact"
+                  readonly
+                />
+              </div>
+              <div class="form-group flex-grow-1">
+                <label for="address" class="fs-6 fw-bold">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  name="address"
+                  [value]="data.hsStNum"
+                  readonly
+                />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
+
+            <div class="d-flex mb-3 flex-wrap">
+              <div class="form-group flex-grow-1 me-2">
+                <label for="zipCode" class="fs-6 fw-bold">Province</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="province"
+                  name="province"
+                  [value]="data.province"
+                  readonly
+                />
+              </div>
+              <div class="form-group flex-grow-1 me-2">
+                <label for="zipCode" class="fs-6 fw-bold">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  [value]="data.city"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group flex-grow-1 me-2">
+                <label for="zipCode" class="fs-6 fw-bold">Barangay</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="brgy"
+                  name="brgy"
+                  [value]="data.brgy"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group flex-grow-1">
+                <label for="zipCode" class="fs-6 fw-bold">Zip Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="zipCode"
+                  name="zipCode"
+                  [value]="data.zip"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="d-flex mb-3 flex-wrap">
+              <div class="form-group flex-grow-1 me-2">
+                <label for="cod" class="fs-6 fw-bold">COD</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cod"
+                  name="cod"
+                  [value]="data.cod"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
+                <label for="sender" class="fs-6 fw-bold"
+                  >Sender / Page Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="sender"
+                  name="sender"
+                  [value]="data.sender"
+                  readonly
+                />
+              </div>
+              <div class="form-group me-2 flex-grow-1 mb-3 mb-md-0">
+                <label for="contact" class="fs-6 fw-bold">Contact Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contact"
+                  name="contact"
+                  [value]="data.senderContact"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="remarks" class="fs-6 fw-bold">Defective?</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                  <label for="remarks" class="fs-6 fw-bold">Courier</label>
+                  <select
+                    class="form-control"
+                    id="exampleFormControlSelect1"
+                    [value]="data.courier"
+                    readonly
+                  >
+                    <option value="flash">FLASH</option>
+                    <option value="jnt">JNT</option>
                   </select>
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-12 mb-3 mb-md-0">
+                <div class="form-group">
+                  <label for="remarks" class="fs-6 fw-bold">Remarks</label>
+                  <textarea
+                    class="form-control"
+                    id="remarks"
+                    rows="3"
+                    style="resize: none"
+                    [value]="data.remarks"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <ng-template [ngIf]="data.itemType === 'individual'">
+              <div class="card px-3 mt-3">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="hoverable table table-hover text-center">
+                      <thead class="bg-light sticky-top">
+                        <tr>
+                          <th class="text-truncate px-1">Item Ordered</th>
+                          <th class="text-truncate px-1">Quantity</th>
+                          <th class="px-1">No. of Defective Item</th>
+                          <th class="px-1">No. of Good Item</th>
+                        </tr>
+                      </thead>
+                      <tbody class="border-top-0">
+                        <tr>
+                          <td class="align-middle">{{ data.itemId.desc }}</td>
+                          <td class="align-middle">{{ data.quantity }}</td>
+                          <td>
+                            <div style="width: 5rem" class="mx-auto">
+                              <input
+                                type="text"
+                                class="form-control text-center"
+                                id="defective"
+                                name="defective"
+                                [(ngModel)]="itemContainer[0].defective"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div style="width: 5rem" class="mx-auto">
+                              <input
+                                type="text"
+                                class="form-control text-center"
+                                id="good"
+                                name="good"
+                                [(ngModel)]="itemContainer[0].good"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template [ngIf]="data.itemType !== 'individual'">
+              <div class="card px-3 mt-3">
+                <div class="card-body">
+                  <h4>{{ data.bundleId.name }}</h4>
+                  <div class="table-responsive">
+                    <table class="hoverable table table-hover text-center">
+                      <thead class="bg-light sticky-top">
+                        <tr>
+                          <th class="text-truncate px-1">Item Ordered</th>
+                          <th class="text-truncate px-1">Quantity</th>
+                          <th class="px-1">No. of Defective Item</th>
+                          <th class="px-1">No. of Good Item</th>
+                        </tr>
+                      </thead>
+                      <tbody class="border-top-0">
+                        <tr
+                          *ngFor="
+                            let item of data.bundleId.items;
+                            let i = index
+                          "
+                        >
+                          <td class="align-middle">{{ item.item }}</td>
+                          <td class="align-middle">{{ item.quantity }}</td>
+                          <td>
+                            <div style="width: 5rem" class="mx-auto">
+                              <input
+                                type="text"
+                                class="form-control text-center"
+                                id="defective-{{ i }}"
+                                name="defective-{{ i }}"
+                                [(ngModel)]="itemContainer[i].defective"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div style="width: 5rem" class="mx-auto">
+                              <input
+                                type="text"
+                                class="form-control text-center"
+                                id="good-{{ i }}"
+                                name="good-{{ i }}"
+                                [(ngModel)]="itemContainer[i].good"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="pt-3 text-end">
+              <button
+                class="btn btn-dark"
+                (click)="saveRts()"
+                [disabled]="cLoading"
+              >
+                <ng-template [ngIf]="cLoading">
+                  <div
+                    class="spinner-border spinner-border-sm text-warning"
+                    role="status"
+                  >
+                    <span class="sr-only"></span>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="!cLoading">Save</ng-template>
+              </button>
+            </div>
           </div>
-          <div class="pt-3 text-end">
-            <button class="btn btn-dark px-5 fw-bolder text-white">SAVE</button>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
+    </ng-template>
+  </ng-template>
 </div>
