@@ -1,26 +1,50 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">My Inquiry</h2>
-  <div class="text-end">
-    <button
-      class="btn btn-dark text-white fw-bold"
-      (click)="createNewInquiry()"
-    >
-      <i class="bi bi-plus"></i> Create new Inquiry
-    </button>
-  </div>
 
-  <div class="d-flex align-items-center my-2">
-    <div class="col-md-6 me-2">
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search by Inquiry Number"
-        />
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
+  <div
+    class="row d-flex flex-row justify-content-start align-items-start mb-3 w-100"
+  >
+    <div
+      class="col-md-6 d-flex flex-column align-items-start justify-content-between mb-3"
+    >
+      <div class="w-100 d-flex align-items-center">
+        <div class="col-md-6 me-2">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by Inquiry Number"
+              [(ngModel)]="search"
+            />
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
+        </div>
+        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
+      </div>
+      <div class="text-start mt-2">
+        <button
+          class="btn btn-dark text-white fw-bold"
+          (click)="createNewInquiry()"
+        >
+          <i class="bi bi-plus"></i> Create new Inquiry
+        </button>
       </div>
     </div>
-    <button class="btn btn-dark">Go</button>
+    <div class="col-md-6">
+      <h5>Legend</h5>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-info"></div>
+        <p>Quotation of inquiry pending</p>
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-warning"></div>
+        <p>Quotation of inquiry declined (For requote)</p>
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-success"></div>
+        <p>Quotation of inquiry approved</p>
+      </div>
+    </div>
   </div>
 
   <div class="card shadow p-3">

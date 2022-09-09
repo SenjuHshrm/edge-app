@@ -5,17 +5,16 @@ import { CommonModule } from '@angular/common';
 
 import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
 import { PurchaseOrderComponent } from './purchase-order.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    PurchaseOrderComponent
-  ],
+  declarations: [PurchaseOrderComponent],
   imports: [
     CommonModule,
     PurchaseOrderRoutingModule,
     ComponentsModule,
-    PipesModule
-  ]
+    PipesModule,
+    FormsModule,
+  ],
 })
-export class PurchaseOrderModule { }
+export class PurchaseOrderModule {}

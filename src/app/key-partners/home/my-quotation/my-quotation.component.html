@@ -1,18 +1,42 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">My Quotations</h2>
 
-  <div class="d-flex mb-3">
-    <div class="col-md-6 me-2">
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search by Quotation Number"
-        />
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
+  <div
+    class="d-flex flex-row justify-content-start align-items-start mb-3 w-100"
+  >
+    <div class="w-50 d-flex">
+      <div class="col-md-6 me-2">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by Quotation Number"
+            [(ngModel)]="aSearch"
+          />
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+      </div>
+      <button class="btn btn-dark" (click)="handleApprovalSearch()">Go</button>
+    </div>
+    <div class="w-50">
+      <h5>Legend</h5>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-info"></div>
+        <p>For checking</p>
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-warning"></div>
+        <p>Pending</p>
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-danger"></div>
+        <p>Declined</p>
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <div class="legend-success"></div>
+        <p>Approved</p>
       </div>
     </div>
-    <button class="btn btn-dark">Go</button>
   </div>
 
   <div class="card shadow p-3">
@@ -25,7 +49,9 @@
             <option value="download">Download All Selected</option>
           </select>
         </div>
-        <button class="btn btn-dark" (click)="downloadSelectedforApproval()">Go</button>
+        <button class="btn btn-dark" (click)="downloadSelectedforApproval()">
+          Go
+        </button>
       </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="table table-hover text-center position-relative">
@@ -108,7 +134,12 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm" (click)="setStatus(table._id, 'declined')">Decline</button>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="setStatus(table._id, 'declined')"
+                        >
+                          Decline
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -129,11 +160,12 @@
           type="text"
           class="form-control"
           placeholder="Search by Quotation Number"
+          [(ngModel)]="pSearch"
         />
         <span class="input-group-text"><i class="bi bi-search"></i></span>
       </div>
     </div>
-    <button class="btn btn-dark">Go</button>
+    <button class="btn btn-dark" (click)="handlePendingSearch()">Go</button>
   </div>
   <div class="card shadow p-3">
     <div class="card-body">
@@ -202,7 +234,12 @@
                       aria-labelledby="dropdownMenuButton2"
                     >
                       <li>
-                        <button class="dropdown-item text-sm" (click)="viewQuotation(table)">View</button>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="viewQuotation(table)"
+                        >
+                          View
+                        </button>
                       </li>
                       <li>
                         <button
@@ -213,7 +250,12 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm" (click)="setStatus(table._id, 'declined')">Decline</button>
+                        <button
+                          class="dropdown-item text-sm"
+                          (click)="setStatus(table._id, 'declined')"
+                        >
+                          Decline
+                        </button>
                       </li>
                     </ul>
                   </div>

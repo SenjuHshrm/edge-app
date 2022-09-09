@@ -9,6 +9,9 @@ import { KeyPartnerService } from 'src/app/services/key-partner.service';
 })
 export class AcctRequestComponent implements OnInit {
   public keyPartners: any = [];
+  public allData: any = [];
+  public search: string = '';
+  public category: string = 'email';
 
   constructor(private kp: KeyPartnerService) {}
 
@@ -17,6 +20,7 @@ export class AcctRequestComponent implements OnInit {
       next: (res: any) => {
         res.info.forEach((x: any) => {
           this.keyPartners.push(x);
+          this.allData.push(x);
         });
       },
       error: (e: any) => {
@@ -37,5 +41,17 @@ export class AcctRequestComponent implements OnInit {
         console.log(e);
       },
     });
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e[this.category]
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.keyPartners = data;
   }
 }

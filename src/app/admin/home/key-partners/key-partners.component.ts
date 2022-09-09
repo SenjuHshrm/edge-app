@@ -13,6 +13,9 @@ import { UpdateKeypartnerComponent } from 'src/app/components/modals/update-keyp
 })
 export class KeyPartnersComponent implements OnInit {
   keyPartners: any = [];
+  public allData: any = [];
+  public search: string = '';
+  public category: string = 'email';
 
   constructor(private kp: KeyPartnerService, private md: NgbModal) {}
 
@@ -21,6 +24,7 @@ export class KeyPartnersComponent implements OnInit {
       next: (res: any) => {
         res.info.forEach((x: any) => {
           this.keyPartners.push(x);
+          this.allData.push(x);
         });
       },
       error: (e: any) => {
@@ -128,5 +132,17 @@ export class KeyPartnersComponent implements OnInit {
   updateKP(id: string) {
     let updateKP = this.md.open(UpdateKeypartnerComponent, { size: 'md' });
     updateKP.componentInstance.id = id;
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e[this.category]
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.keyPartners = data;
   }
 }
