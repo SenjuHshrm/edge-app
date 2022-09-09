@@ -72,4 +72,22 @@ export class QuotationListComponent implements OnInit {
       }
     }
   }
+
+  setTableColor(status: string): string {
+    let res: string = ''
+    switch(status) {
+      case "none":
+        res = 'table-info'
+        break;
+      case "pending":
+        res = 'table-warning';
+        break;
+      case "requote":
+        res = "table-danger";
+        break;
+      default:
+        res = 'table-success'
+    }
+    return res
+  }
 }

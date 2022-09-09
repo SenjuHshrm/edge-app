@@ -45,10 +45,10 @@ export class MyQuotationComponent implements OnInit {
     viewQuote.componentInstance.data = data;
   }
 
-  markAsPending(id: string) {
-    this.quote.markAsPending(id).subscribe({
+  setStatus(id: string, status: string) {
+    this.quote.setStatus(id, status).subscribe({
       next: (res: any) => {
-        Swal.fire('Success', 'Quotation marked as pending', 'success');
+        Swal.fire({ text: (status === 'pending') ? 'Quotation marked as pending' : 'Quotation declined' , icon: 'success' });
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -57,7 +57,7 @@ export class MyQuotationComponent implements OnInit {
   }
 
   handleSelectAll(evt: any){
-    const checks: any = document.getElementsByClassName('custom-check-me')
+    const checks: any = document.getElementsByClassName('custom-check-me-approval')
     if(checks.length > 0) {
       for(let i = 0; i < checks.length; i++) {
         checks[i].checked = evt.target.checked ? true : false
@@ -67,7 +67,7 @@ export class MyQuotationComponent implements OnInit {
 
   downloadSelectedforApproval() {
     let selected: string[] = []
-    const checks: any = document.getElementsByClassName('custom-check-me')
+    const checks: any = document.getElementsByClassName('custom-check-me-approval')
     if(checks.length > 0) {
       for(let i = 0; i < checks.length; i++) {
         if(checks[i].checked) {

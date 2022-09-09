@@ -62,7 +62,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="inquiryList.length !== 0">
-              <tr *ngFor="let inq of inquiryList">
+              <tr *ngFor="let inq of inquiryList" [class]="setTableColor(inq.isApproved)">
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"

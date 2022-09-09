@@ -83,4 +83,19 @@ export class InquiryComponent implements OnInit {
       }
     }
   }
+
+  setTableColor(status: string): string {
+    let res: string = ''
+    switch(status) {
+      case "pending":
+        res = 'table-info'
+        break;
+      case "requote":
+        res = 'table-warning';
+        break;
+      default:
+        res = 'table-success'
+    }
+    return res
+  }
 }
