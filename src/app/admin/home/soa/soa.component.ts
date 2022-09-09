@@ -2,6 +2,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -35,7 +36,13 @@ export class SoaComponent implements OnInit {
 
     this.kp.getContractSendingHistory('soa').subscribe({
       next: (res: any) => {
-        this.sentFileHistory = res.info;
+        res.info.forEach((x: any) => {
+          let i = x.file.lastIndexOf('/')
+          this.sentFileHistory.push({ 
+            ...x,
+            file: `${environment.apiV1}${x.file}`
+          })
+        })
       },
       error: ({ error }: any) => {},
     });
@@ -112,11 +119,13 @@ export class SoaComponent implements OnInit {
                 '';
               this.filename = 'Selected File';
               this.progress = 0;
-            } else {
-              Swal.fire('Success', 'File sent successfully', 'success');
-              this.progress = 0;
-              this.loading = false;
+              this.sentFileHistory.unshift({ ...evt.body.info, file: `${environment.apiV1}${evt.body.info.file}` })
             }
+            // } else {
+            //   Swal.fire('Success', 'File sent successfully', 'success');
+            //   this.progress = 0;
+            //   this.loading = false;
+            // }
         }
       });
     }

@@ -62,7 +62,7 @@
                   >
                     <input
                       type="checkbox"
-                      class="form-check-input custom-check-me"
+                      class="form-check-input custom-check-me-approval"
                       id="check-only"
                     />
                   </div>
@@ -102,13 +102,13 @@
                       <li>
                         <button
                           class="dropdown-item text-sm"
-                          (click)="markAsPending(table._id)"
+                          (click)="setStatus(table._id, 'pending')"
                         >
                           Mark As Pending
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">Decline</button>
+                        <button class="dropdown-item text-sm" (click)="setStatus(table._id, 'declined')">Decline</button>
                       </li>
                     </ul>
                   </div>
@@ -180,12 +180,12 @@
                   >
                     <input
                       type="checkbox"
-                      class="form-check-input custom-check-me"
+                      class="form-check-input custom-check-me-pending"
                       id="check-only"
                     />
                   </div>
                 </td>
-                <td class="text-truncate px-1">45656</td>
+                <td class="text-truncate px-1">{{ table.quotationId }}</td>
                 <td>
                   <div class="dropdown">
                     <button
@@ -202,7 +202,7 @@
                       aria-labelledby="dropdownMenuButton2"
                     >
                       <li>
-                        <button class="dropdown-item text-sm">View</button>
+                        <button class="dropdown-item text-sm" (click)="viewQuotation(table)">View</button>
                       </li>
                       <li>
                         <button
@@ -213,7 +213,7 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item text-sm">Decline</button>
+                        <button class="dropdown-item text-sm" (click)="setStatus(table._id, 'declined')">Decline</button>
                       </li>
                     </ul>
                   </div>

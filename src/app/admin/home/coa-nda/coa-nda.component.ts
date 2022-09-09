@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
@@ -35,7 +36,13 @@ export class CoaNdaComponent implements OnInit {
 
     this.kp.getContractSendingHistory('coa-nda').subscribe({
       next: (res: any) => {
-        this.sentFileHistory = res.info;
+        res.info.forEach((x: any) => {
+          let i = x.file.lastIndexOf('/')
+          this.sentFileHistory.push({ 
+            ...x,
+            file: `${environment.apiV1}${x.file}`
+          })
+        })
       },
       error: ({ error }: any) => {},
     });
@@ -101,26 +108,30 @@ export class CoaNdaComponent implements OnInit {
       //   },
 
       // });
-      this.kp.saveContract(contractData).subscribe((evt: HttpEvent<any>) => {
-        switch (evt.type) {
-          case HttpEventType.UploadProgress:
-            this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
-            break;
-
-          case HttpEventType.Response:
-            if (evt.body.success) {
-              Swal.fire('Success', 'File sent successfully', 'success');
-              this.loading = false;
-              (<HTMLInputElement>document.getElementById('coa')).value = '';
-              (<HTMLInputElement>document.getElementById('keyPartner')).value =
-                '';
-              this.filename = 'Selected File';
-              this.progress = 0;
-            } else {
-              Swal.fire('Success', 'File sent successfully', 'success');
-              this.progress = 0;
-              this.loading = false;
-            }
+      this.kp.saveContract(contractData).subscribe({
+        next: (evt: HttpEvent<any>) => {
+          switch (evt.type) {
+            case HttpEventType.UploadProgress:
+              this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
+              break;
+  
+            case HttpEventType.Response:
+              if (evt.body.success) {
+                Swal.fire('Success', 'File sent successfully', 'success');
+                this.loading = false;
+                (<HTMLInputElement>document.getElementById('coa')).value = '';
+                (<HTMLInputElement>document.getElementById('keyPartner')).value =
+                  '';
+                this.filename = 'Selected File';
+                this.progress = 0;
+                this.sentFileHistory.unshift({ ...evt.body.info, file: `${environment.apiV1}${evt.body.info.file}` })
+              }
+              // } else {
+              //   Swal.fire('Success', 'File sent successfully', 'success');
+              //   this.progress = 0;
+              //   this.loading = false;
+              // }
+          }
         }
       });
     }

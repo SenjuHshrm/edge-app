@@ -22,8 +22,12 @@ export class QuotationService {
     return this.http.get(`${environment.apiV1}/api/v1/get/quotations/${token.sub}`)
   }
 
-  public markAsPending(id: string): Observable<any> {
-    return this.http.put(`${environment.apiV1}/api/v1/put/set-pending/${id}`, { status: "pending" })
+  public setStatus(id: string, status: string): Observable<any> {
+    return this.http.put(`${environment.apiV1}/api/v1/put/set-status/${id}`, { status: status })
+  }
+
+  public getForRequote(): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/quotations/declined`)
   }
 
   public createQuotation(data: any): Observable<any> {

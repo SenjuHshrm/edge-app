@@ -116,12 +116,14 @@
                   <td class="text-truncate px-1">{{ i.keyPartner.name }}</td>
                   <td class="text-truncate px-1">{{ i.keyPartner.company }}</td>
                   <td>
-                    <button
+                    <a
                       class="btn btn-dark text-white fw-bolder py-0"
                       title="View SOA"
-                    >
+                      data-tool-tip="View SOA"
+                      [href]="i.file"
+                      target="_blank">
                       <i class="bi bi-door-open"></i>
-                    </button>
+                    </a>
                   </td>
                 </tr>
               </ng-template>

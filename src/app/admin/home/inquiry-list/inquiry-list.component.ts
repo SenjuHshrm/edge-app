@@ -1,3 +1,4 @@
+import { QuotationService } from './../../../services/quotation.service';
 import { ExportComponent } from './../../../components/modals/export/export.component';
 import { InquiryService } from './../../../services/inquiry.service';
 import { ViewInquiryComponent } from './../../../components/modals/view-inquiry/view-inquiry.component';
@@ -12,8 +13,9 @@ import { CreateQuotationComponent } from 'src/app/components/modals/create-quota
 })
 export class InquiryListComponent implements OnInit {
   public inqList: any = [];
+  public forRequote: any = [];
 
-  constructor(private mdCtrl: NgbModal, private inq: InquiryService) {}
+  constructor(private mdCtrl: NgbModal, private inq: InquiryService, private quote: QuotationService) {}
 
   ngOnInit(): void {
     this.inq.getAllInquiries().subscribe({
@@ -21,6 +23,11 @@ export class InquiryListComponent implements OnInit {
         this.inqList = res.info;
       },
     });
+    this.quote.getForRequote().subscribe({
+      next: (res: any) => {
+        this.forRequote = res.info
+      }
+    })
   }
 
   viewInquiry(inq: any) {
@@ -70,5 +77,20 @@ export class InquiryListComponent implements OnInit {
         })
       }
     }
+  }
+
+  setTableColor(status: string): string {
+    let res: string = ''
+    switch(status) {
+      case "pending":
+        res = 'table-info'
+        break;
+      case "requote":
+        res = 'table-warning';
+        break;
+      default:
+        res = 'table-success'
+    }
+    return res
   }
 }

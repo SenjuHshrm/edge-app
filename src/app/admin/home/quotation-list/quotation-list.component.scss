@@ -20,3 +20,32 @@
 .custom-btn {
   padding: 0;
 }
+
+.legend-info {
+  width: 25px;
+  height: 25px;
+  background-color: #cff4fc;
+  border: 1px solid black;
+}
+
+.legend-warning {
+  width: 25px;
+  height: 25px;
+  background-color: #fff3cd;
+  border: 1px solid black;
+}
+
+.legend-danger {
+  width: 25px;
+  height: 25px;
+  background-color: #f8d7da;
+  border: 1px solid black;
+}
+
+
+.legend-success {
+  width: 25px;
+  height: 25px;
+  background-color: #d1e7dd;
+  border: 1px solid black;
+}
