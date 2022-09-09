@@ -62,7 +62,10 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="inquiryList.length !== 0">
-              <tr *ngFor="let inq of inquiryList" [class]="setTableColor(inq.isApproved)">
+              <tr
+                *ngFor="let inq of inquiryList"
+                [class]="setTableColor(inq.isApproved)"
+              >
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"
@@ -82,7 +85,7 @@
                   <button
                     class="btn btn-dark text-white fw-bolder py-0"
                     (click)="viewInquiry(inq)"
-                    data-tool-tip="View Inquiry"
+                    title="View Inquiry"
                   >
                     <i class="bi bi-door-open"></i>
                   </button>

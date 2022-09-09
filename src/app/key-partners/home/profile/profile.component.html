@@ -130,25 +130,29 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <div class="card shadow">
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-3">
+      <div class="card shadow h-100">
         <div class="card-body">
           <div class="row p-3">
-            <h5 class="card-title fw-bold pb-4">Change Username</h5>
+            <h5 class="card-title fw-bold pb-4">Change Username <br /></h5>
             <div class="col-md-12">
-              <div class="col-md-10 offset-md-1 mb-3 position-relative">
+              <div class="col-md-12 mb-3 position-relative">
+                <label for="contact" class="fs-6 fw-bold">New Username</label>
                 <input
                   type="text"
-                  class="form-control" 
+                  class="form-control"
                   id="username"
                   name="username"
                   [(ngModel)]="username"
                 />
               </div>
 
-              <div class="col-md-10 offset-md-1 text-end">
-                <button class="btn btn-dark" (click)="updateUsername()">Update</button>
+              <div class="col-md-12 text-end">
+                <button class="btn btn-dark" (click)="updateUsername()">
+                  Update
+                </button>
               </div>
             </div>
           </div>
@@ -156,8 +160,8 @@
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div class="card shadow">
+    <div class="col-md-4 mb-3">
+      <div class="card shadow h-100">
         <div class="card-body">
           <div class="row p-3">
             <h5 class="card-title fw-bold pb-4">Change Password</h5>
@@ -219,11 +223,13 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4 mb-3">
       <div class="card shadow">
         <div class="card-body">
           <div class="row p-3">
-            <h5 class="card-title fw-bold pb-4">Change Password (For Secure Internal Page Authentication)</h5>
+            <h5 class="card-title fw-bold pb-4">
+              Change Password (For Secure Internal Page Authentication)
+            </h5>
             <div class="col-md-12">
               <div class="form-group mb-3">
                 <label for="contact" class="fs-6 fw-bold"
