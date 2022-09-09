@@ -13,6 +13,7 @@ export class SetKeypartnerPasswordComponent implements OnInit {
   public characters: string =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
   public password: string = '';
+  public password2: string = '';
 
   public loading: boolean = false;
 
@@ -20,32 +21,54 @@ export class SetKeypartnerPasswordComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  randomPassword(ln: number) {
+  randomPassword(ln: number, pass: string) {
     const chLn = this.characters.length;
     let res = '';
     for (let i = 0; i < ln; i++) {
       res += this.characters.charAt(Math.floor(Math.random() * chLn));
     }
-    this.password = res;
+    if (pass === 'pass1') this.password = res;
+    if (pass === 'pass2') this.password2 = res;
   }
 
   setPassword() {
-    if (this.password !== '') {
+    if (this.validatePassword()) {
       this.loading = true;
-      this.kp.setKeyPartnerPassword(this.id, this.password).subscribe({
-        next: (res: any) => {
-          Swal.fire('Success', res.msg, 'success').then((_) => {
-            this.md.dismissAll();
-          });
-          this.loading = false;
-        },
-        error: (e: any) => {
-          console.log(e);
-          this.loading = false;
-        },
-      });
+      this.kp
+        .setKeyPartnerPassword(this.id, {
+          password: this.password,
+          secondPassword: this.password2,
+        })
+        .subscribe({
+          next: (res: any) => {
+            Swal.fire('Success', res.msg, 'success').then((_) => {
+              this.md.dismissAll();
+            });
+            this.loading = false;
+          },
+          error: (e: any) => {
+            this.loading = false;
+          },
+        });
+    }
+  }
+
+  validatePassword(): boolean {
+    let message = '';
+
+    if (this.password === '') {
+      message = 'Please generate password for password.';
+    } else if (this.password2 === '') {
+      message = 'Please generate password for second password.';
+    } else if (this.password === this.password2) {
+      message = 'Both password must not be the same.';
+    }
+
+    if (message === '') {
+      return true;
     } else {
-      Swal.fire('Please generate a password', '', 'info');
+      Swal.fire(message, '', 'info');
+      return false;
     }
   }
 

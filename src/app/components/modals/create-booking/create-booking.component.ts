@@ -191,7 +191,7 @@ export class CreateBookingComponent implements OnInit {
     let message = '';
     if (quantity === '') {
       message = 'Please enter the quantity.';
-    } else if (current < quantity) {
+    } else if (+current < +quantity) {
       message =
         'Quantity must not exceed the current quantity of the selected item.';
     }

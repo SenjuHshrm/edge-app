@@ -35,10 +35,10 @@ export class KeyPartnerService {
     );
   }
 
-  setKeyPartnerPassword(id: string, password: string): Observable<any> {
+  setKeyPartnerPassword(id: string, data: any): Observable<any> {
     return this.http.put(
       `${environment.apiV1}/api/v1/put/key-partner/set-password/${id}`,
-      { password }
+      data
     );
   }
 

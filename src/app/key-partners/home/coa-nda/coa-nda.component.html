@@ -17,7 +17,12 @@
             </div>
             <div class="form-group mb-3">
               <label for="password" class="fw-bold m-0 p-0">Password:</label>
-              <input type="password" class="form-control" name="password" [(ngModel)]="password" />
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                [(ngModel)]="password"
+              />
             </div>
             <div class="text-end">
               <button class="btn btn-dark" (click)="authenticate()">
@@ -74,7 +79,7 @@
                     <td class="text-truncate">
                       <a
                         class="btn btn-dark text-white fw-bolder py-0 me-2"
-                        data-tool-tip="View COA/NDA"
+                        title="View COA/NDA"
                         href="{{ file.file }}"
                         target="_blank"
                       >
@@ -82,7 +87,7 @@
                       </a>
                       <!-- <a
                         class="btn btn-dark text-white fw-bolder py-0"
-                        data-tool-tip="Download COA/NDA"
+                        title="Download COA/NDA"
                         [href]="file.file"
                         target="_blank"
                         [download]="file.filename"

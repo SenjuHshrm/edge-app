@@ -28,6 +28,8 @@ export class RtsComponent implements OnInit {
   public sLoading: boolean = false;
   public cLoading: boolean = false;
 
+  public newRemarks: string = '';
+
   constructor(private bookServ: BookingService) {}
 
   ngOnInit(): void {
@@ -60,29 +62,36 @@ export class RtsComponent implements OnInit {
       this.sLoading = true;
       this.bookServ.getOneBooking(this.bookingId).subscribe({
         next: (res: any) => {
-          this.data = res.info;
-          this.didSearch = true;
-          this.itemContainer = [];
-          if (res.info.itemType === 'individual') {
-            this.itemContainer.push({
-              itemId: res.info.itemId._id,
-              name: res.info.itemId.desc,
-              quantity: res.info.quantity,
-              defective: '0',
-              good: '0',
-            });
-          } else {
-            res.info.bundleId.items.map((item: any) => {
+          if (res.info) {
+            this.data = res.info;
+            this.newRemarks = res.info.remarks;
+            this.didSearch = true;
+            this.itemContainer = [];
+            if (res.info.itemType === 'individual') {
               this.itemContainer.push({
-                itemId: item.itemId,
-                name: item.item,
-                quantity: item.quantity,
+                itemId: res.info.itemId._id,
+                name: res.info.itemId.desc,
+                quantity: res.info.quantity,
                 defective: '0',
                 good: '0',
               });
-            });
+            } else {
+              res.info.bundleId.items.map((item: any) => {
+                this.itemContainer.push({
+                  itemId: item.itemId,
+                  name: item.item,
+                  quantity: item.quantity,
+                  defective: '0',
+                  good: '0',
+                });
+              });
+            }
+            this.sLoading = false;
+          } else {
+            this.didSearch = true;
+            this.data = null;
+            this.sLoading = false;
           }
-          this.sLoading = false;
         },
         error: (err: any) => {
           console.log(err);
@@ -97,23 +106,28 @@ export class RtsComponent implements OnInit {
   saveRts() {
     if (this.handleValidation(this.itemContainer)) {
       this.cLoading = true;
-      this.bookServ.returnBooking(this.data._id, this.itemContainer).subscribe({
-        next: (res: any) => {
-          if (res.success) {
-            Swal.fire('Booking returned successfully.', '', 'info');
-            this.data = {};
-            this.didSearch = false;
-            this.bookingId = '';
-          } else {
-            Swal.fire('Failed to return booking.', '', 'info');
-          }
-          this.cLoading = false;
-        },
-        error: (err: any) => {
-          console.log(err);
-          this.cLoading = false;
-        },
-      });
+      this.bookServ
+        .returnBooking(this.data._id, {
+          remarks: this.newRemarks,
+          items: this.itemContainer,
+        })
+        .subscribe({
+          next: (res: any) => {
+            if (res.success) {
+              Swal.fire('Booking returned successfully.', '', 'info');
+              this.data = {};
+              this.didSearch = false;
+              this.bookingId = '';
+            } else {
+              Swal.fire('Failed to return booking.', '', 'info');
+            }
+            this.cLoading = false;
+          },
+          error: (err: any) => {
+            console.log(err);
+            this.cLoading = false;
+          },
+        });
     }
   }
 
