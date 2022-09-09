@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive mt-4 fw-bolder">Inquiry List</h2>
 
-  <div class="d-flex flex-row justify-content-start align-items-center mb-3 w-100">
-    <div class="w-50">
+  <div class="d-flex flex-row justify-content-start align-items-end mb-3 w-100">
+    <div class="w-50 d-flex">
       <div class="col-md-6 me-2">
         <div class="input-group">
           <input
@@ -74,7 +74,10 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="inqList.length !== 0">
-              <tr *ngFor="let inq of inqList" [class]="setTableColor(inq.isApproved)">
+              <tr
+                *ngFor="let inq of inqList"
+                [class]="setTableColor(inq.isApproved)"
+              >
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"
@@ -234,7 +237,7 @@
           </tbody>
         </table>
       </div> -->
-      <!-- <nav class="d-flex justify-content-end mt-e">
+  <!-- <nav class="d-flex justify-content-end mt-e">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link custom-pagination-label" href="#">Previous</a>
@@ -247,6 +250,6 @@
           </li>
         </ul>
       </nav> -->
-    <!-- </div>
+  <!-- </div>
   </div> -->
 </div>
