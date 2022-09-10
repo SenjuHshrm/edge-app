@@ -164,18 +164,13 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 
 import { MyQuotationRoutingModule } from &#x27;./my-quotation-routing.module&#x27;;
 import { MyQuotationComponent } from &#x27;./my-quotation.component&#x27;;
-
+import { FormsModule } from &#x27;@angular/forms&#x27;;
 
 @NgModule({
-  declarations: [
-    MyQuotationComponent
-  ],
-  imports: [
-    CommonModule,
-    MyQuotationRoutingModule
-  ]
+  declarations: [MyQuotationComponent],
+  imports: [CommonModule, MyQuotationRoutingModule, FormsModule],
 })
-export class MyQuotationModule { }
+export class MyQuotationModule {}
 </code></pre>
     </div>
 </div>

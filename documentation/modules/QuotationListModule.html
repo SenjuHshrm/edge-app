@@ -166,20 +166,19 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 import { QuotationListRoutingModule } from &#x27;./quotation-list-routing.module&#x27;;
 import { QuotationListComponent } from &#x27;./quotation-list.component&#x27;;
 import { ComponentsModule } from &#x27;src/app/components/components.module&#x27;;
-
+import { FormsModule } from &#x27;@angular/forms&#x27;;
 
 @NgModule({
-  declarations: [
-    QuotationListComponent
-  ],
+  declarations: [QuotationListComponent],
   imports: [
     CommonModule,
     QuotationListRoutingModule,
     ComponentsModule,
-    PipesModule
-  ]
+    PipesModule,
+    FormsModule,
+  ],
 })
-export class QuotationListModule { }
+export class QuotationListModule {}
 </code></pre>
     </div>
 </div>

@@ -164,18 +164,13 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 
 import { AcctRequestRoutingModule } from &#x27;./acct-request-routing.module&#x27;;
 import { AcctRequestComponent } from &#x27;./acct-request.component&#x27;;
-
+import { FormsModule } from &#x27;@angular/forms&#x27;;
 
 @NgModule({
-  declarations: [
-    AcctRequestComponent
-  ],
-  imports: [
-    CommonModule,
-    AcctRequestRoutingModule
-  ]
+  declarations: [AcctRequestComponent],
+  imports: [CommonModule, AcctRequestRoutingModule, FormsModule],
 })
-export class AcctRequestModule { }
+export class AcctRequestModule {}
 </code></pre>
     </div>
 </div>
