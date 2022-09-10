@@ -339,7 +339,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DashboardModule-6d40ab783c7d1819f459d8728ef2b528d5dbdb0e247f24e18eb7267cb2198cbcf0bfd4232ad4b90f250d5d6769cb1d4d5d1da770ceb9a42d3b31dd0a51354c33-1"' :
                                             'id="xs-components-links-module-DashboardModule-6d40ab783c7d1819f459d8728ef2b528d5dbdb0e247f24e18eb7267cb2198cbcf0bfd4232ad4b90f250d5d6769cb1d4d5d1da770ceb9a42d3b31dd0a51354c33-1"' }>
                                             <li class="link">
-                                                <a href="components/DashboardComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >DashboardComponent</a>
+                                                <a href="components/DashboardComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >DashboardComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -1019,9 +1019,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? 'id="components-links"' : 'id="xs-components-links"' }>
                             <li class="link">
                                 <a href="components/CreatePurchaseOrderComponent-1.html" data-type="entity-link" >CreatePurchaseOrderComponent</a>
-                            </li>
-                            <li class="link">
-                                <a href="components/DashboardComponent-1.html" data-type="entity-link" >DashboardComponent</a>
                             </li>
                         </ul>
                     </li>
