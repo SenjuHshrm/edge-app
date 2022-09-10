@@ -8,11 +8,12 @@
           type="text"
           class="form-control"
           placeholder="Search by Purchase Order Number"
+          [(ngModel)]="search"
         />
         <span class="input-group-text"><i class="bi bi-search"></i></span>
       </div>
     </div>
-    <button class="btn btn-dark">Go</button>
+    <button class="btn btn-dark" (click)="handleSearch()">Go</button>
   </div>
 
   <div class="card shadow p-3">

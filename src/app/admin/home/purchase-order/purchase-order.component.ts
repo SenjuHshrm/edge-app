@@ -12,6 +12,8 @@ import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-p
 })
 export class PurchaseOrderComponent implements OnInit {
   public poLs: any = [];
+  public allData: any = [];
+  public search: string = '';
 
   constructor(private mdCtrl: NgbModal, private po: PurchaseOrderService) {}
 
@@ -19,6 +21,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.po.getAllPurchaseOrder().subscribe({
       next: (res: any) => {
         this.poLs = res.info;
+        this.allData = res.info;
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -41,32 +44,44 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   handleSelectAll(evt: any) {
-    let checks: any = document.getElementsByClassName('custom-check-me')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        checks[i].checked = (evt.target.checked) ? true : false
+    let checks: any = document.getElementsByClassName('custom-check-me');
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
       }
     }
   }
 
   downloadSelected() {
-    let selected: string[] = []
-    const checks: any = document.getElementsByClassName('custom-check-me')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        if(checks[i].checked) selected.push(this.poLs[i].poId)
+    let selected: string[] = [];
+    const checks: any = document.getElementsByClassName('custom-check-me');
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) selected.push(this.poLs[i].poId);
       }
-      if(selected.length > 0) {
+      if (selected.length > 0) {
         this.po.generateMultiplePO(selected).subscribe({
           next: (res) => {
-            let md = this.mdCtrl.open(ExportComponent, { size: 'md' })
-            md.componentInstance.data = [res.info]
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
+            md.componentInstance.data = [res.info];
           },
           error: ({ error }) => {
-            console.log(error)
-          }
-        })
+            console.log(error);
+          },
+        });
       }
     }
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e.poId
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.poLs = data;
   }
 }

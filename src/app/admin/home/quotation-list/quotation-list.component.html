@@ -1,21 +1,24 @@
 <div class="container-fluid">
   <h2 class="h2 h2-responsive my-3 fw-bolder">Quotations List</h2>
 
-  <div class="d-flex flex-row justify-content-start align-items-end mb-3 w-100">
-    <div class="w-50 d-flex">
+  <div
+    class="row d-flex flex-row justify-content-start align-items-start mb-3 w-100"
+  >
+    <div class="col-md-6 d-flex mb-2">
       <div class="col-md-6 me-2">
         <div class="input-group">
           <input
             type="text"
             class="form-control"
             placeholder="Search by Quotation Number"
+            [(ngModel)]="search"
           />
           <span class="input-group-text"><i class="bi bi-search"></i></span>
         </div>
       </div>
-      <button class="btn btn-dark">Go</button>
+      <button class="btn btn-dark" (click)="handleSearch()">Go</button>
     </div>
-    <div class="w-50">
+    <div class="col-md-6">
       <h5>Legend</h5>
       <div class="d-flex flex-row gap-1">
         <div class="legend-info"></div>

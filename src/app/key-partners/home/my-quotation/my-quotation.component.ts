@@ -14,6 +14,10 @@ import { ExportComponent } from 'src/app/components/modals/export/export.compone
 export class MyQuotationComponent implements OnInit {
   forApproval: any = [];
   pending: any = [];
+  public allApproval: any = [];
+  public allPending: any = [];
+  public aSearch: string = '';
+  public pSearch: string = '';
 
   constructor(private mdCtrl: NgbModal, private quote: QuotationService) {}
 
@@ -21,7 +25,9 @@ export class MyQuotationComponent implements OnInit {
     this.quote.getQuotationByKeyPartnerId().subscribe({
       next: (res: any) => {
         this.forApproval = res.info.filter((x: any) => x.status === 'none');
+        this.allApproval = res.info.filter((x: any) => x.status === 'none');
         this.pending = res.info.filter((x: any) => x.status === 'pending');
+        this.allPending = res.info.filter((x: any) => x.status === 'pending');
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -48,7 +54,13 @@ export class MyQuotationComponent implements OnInit {
   setStatus(id: string, status: string) {
     this.quote.setStatus(id, status).subscribe({
       next: (res: any) => {
-        Swal.fire({ text: (status === 'pending') ? 'Quotation marked as pending' : 'Quotation declined' , icon: 'success' });
+        Swal.fire({
+          text:
+            status === 'pending'
+              ? 'Quotation marked as pending'
+              : 'Quotation declined',
+          icon: 'success',
+        });
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -56,36 +68,64 @@ export class MyQuotationComponent implements OnInit {
     });
   }
 
-  handleSelectAll(evt: any){
-    const checks: any = document.getElementsByClassName('custom-check-me-approval')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false
+  handleSelectAll(evt: any) {
+    const checks: any = document.getElementsByClassName(
+      'custom-check-me-approval'
+    );
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
       }
     }
   }
 
   downloadSelectedforApproval() {
-    let selected: string[] = []
-    const checks: any = document.getElementsByClassName('custom-check-me-approval')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        if(checks[i].checked) {
-          selected.push(this.forApproval[i].quotationId)
+    let selected: string[] = [];
+    const checks: any = document.getElementsByClassName(
+      'custom-check-me-approval'
+    );
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          selected.push(this.forApproval[i].quotationId);
         }
       }
-      if(selected.length > 0) {
+      if (selected.length > 0) {
         this.quote.generateMultipleQuote(selected).subscribe({
           next: (res) => {
-            console.log(res)
-            let md = this.mdCtrl.open(ExportComponent, { size: 'md' })
-            md.componentInstance.data = [res.info]
+            console.log(res);
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
+            md.componentInstance.data = [res.info];
           },
           error: ({ error }) => {
-            console.log(error)
-          }
-        })
+            console.log(error);
+          },
+        });
       }
     }
+  }
+
+  handleApprovalSearch() {
+    const data =
+      this.aSearch !== ''
+        ? this.allApproval.filter((e: any) =>
+            e.quotationId
+              .toLocaleLowerCase()
+              .startsWith(this.aSearch.toLocaleLowerCase())
+          )
+        : this.allApproval;
+    this.forApproval = data;
+  }
+
+  handlePendingSearch() {
+    const data =
+      this.pSearch !== ''
+        ? this.allPending.filter((e: any) =>
+            e.quotationId
+              .toLocaleLowerCase()
+              .startsWith(this.pSearch.toLocaleLowerCase())
+          )
+        : this.allPending;
+    this.pending = data;
   }
 }

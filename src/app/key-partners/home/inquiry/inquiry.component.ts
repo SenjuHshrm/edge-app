@@ -11,6 +11,8 @@ import { ExportComponent } from 'src/app/components/modals/export/export.compone
 })
 export class InquiryComponent implements OnInit {
   public inquiryList: any = [];
+  public allData: any = [];
+  public search: string = '';
 
   constructor(private mdCtrl: NgbModal, private inq: InquiryService) {}
 
@@ -20,6 +22,7 @@ export class InquiryComponent implements OnInit {
         res.info.map((i: any) => {
           // i.createdAt = moment(i.createdAt).format('MM/DD/YYYY, hh:mm a')
           this.inquiryList.push(i);
+          this.allData.push(i);
         });
       },
       error: (e) => {
@@ -51,51 +54,63 @@ export class InquiryComponent implements OnInit {
     viewInq.result.then((result) => {}).catch(() => console.log());
   }
 
-  handleSelectAll(evt: any){
-    const checks: any = document.getElementsByClassName('custom-check-me')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false
+  handleSelectAll(evt: any) {
+    const checks: any = document.getElementsByClassName('custom-check-me');
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
       }
     }
   }
 
   downloadSelected() {
-    let selected: string[] = []
-    const checks: any = document.getElementsByClassName('custom-check-me')
-    if(checks.length > 0) {
-      for(let i = 0; i < checks.length; i++) {
-        if(checks[i].checked) {
-          selected.push(this.inquiryList[i].inqId)
+    let selected: string[] = [];
+    const checks: any = document.getElementsByClassName('custom-check-me');
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          selected.push(this.inquiryList[i].inqId);
         }
       }
-      if(selected.length > 0) {
+      if (selected.length > 0) {
         this.inq.generateInquiryFromSelected(selected).subscribe({
           next: (res) => {
-            console.log(res)
-            let md = this.mdCtrl.open(ExportComponent, { size: 'md' })
-            md.componentInstance.data = [res.info]
+            console.log(res);
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
+            md.componentInstance.data = [res.info];
           },
           error: ({ error }) => {
-            console.log(error)
-          }
-        })
+            console.log(error);
+          },
+        });
       }
     }
   }
 
   setTableColor(status: string): string {
-    let res: string = ''
-    switch(status) {
-      case "pending":
-        res = 'table-info'
+    let res: string = '';
+    switch (status) {
+      case 'pending':
+        res = 'table-info';
         break;
-      case "requote":
+      case 'requote':
         res = 'table-warning';
         break;
       default:
-        res = 'table-success'
+        res = 'table-success';
     }
-    return res
+    return res;
+  }
+
+  handleSearch() {
+    const data =
+      this.search !== ''
+        ? this.allData.filter((e: any) =>
+            e.inqId
+              .toLocaleLowerCase()
+              .startsWith(this.search.toLocaleLowerCase())
+          )
+        : this.allData;
+    this.inquiryList = data;
   }
 }
