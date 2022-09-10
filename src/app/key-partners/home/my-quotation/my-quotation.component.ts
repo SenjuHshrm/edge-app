@@ -51,14 +51,40 @@ export class MyQuotationComponent implements OnInit {
     viewQuote.componentInstance.data = data;
   }
 
-  setStatus(id: string, status: string) {
+  setStatusForApproval(id: string, status: string) {
     this.quote.setStatus(id, status).subscribe({
       next: (res: any) => {
+        let msg: string = ''
+        let ind = this.forApproval.findIndex((i: any) => i._id === id)
+        switch(status) {
+          case "pending":
+            msg = 'Quotation marked as pending'
+            this.pending.push(this.forApproval[ind])
+            this.forApproval.splice(ind, 1)
+            break;
+          case "declined":
+            msg = 'Quotation declined'
+            this.forApproval.splice(ind, 1)
+            break;
+        }
         Swal.fire({
-          text:
-            status === 'pending'
-              ? 'Quotation marked as pending'
-              : 'Quotation declined',
+          text: msg,
+          icon: 'success',
+        });
+      },
+      error: ({ error }: any) => {
+        console.log(error);
+      },
+    });
+  }
+
+  setStatusForPending(id: string, status: string) {
+    this.quote.setStatus(id, status).subscribe({
+      next: (res: any) => {
+        let ind = this.pending.findIndex((i: any) => i._id === id)
+        this.pending.splice(ind, 1)
+        Swal.fire({
+          text: 'Quotation declined',
           icon: 'success',
         });
       },
@@ -79,6 +105,17 @@ export class MyQuotationComponent implements OnInit {
     }
   }
 
+  handleSelectAllPending(evt: any) {
+    const checks: any = document.getElementsByClassName(
+      'custom-check-me-pending'
+    );
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        checks[i].checked = evt.target.checked ? true : false;
+      }
+    }
+  }
+
   downloadSelectedforApproval() {
     let selected: string[] = [];
     const checks: any = document.getElementsByClassName(
@@ -88,6 +125,32 @@ export class MyQuotationComponent implements OnInit {
       for (let i = 0; i < checks.length; i++) {
         if (checks[i].checked) {
           selected.push(this.forApproval[i].quotationId);
+        }
+      }
+      if (selected.length > 0) {
+        this.quote.generateMultipleQuote(selected).subscribe({
+          next: (res) => {
+            console.log(res);
+            let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
+            md.componentInstance.data = [res.info];
+          },
+          error: ({ error }) => {
+            console.log(error);
+          },
+        });
+      }
+    }
+  }
+
+  downloadSelectedPending() {
+    let selected: string[] = [];
+    const checks: any = document.getElementsByClassName(
+      'custom-check-me-pending'
+    );
+    if (checks.length > 0) {
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          selected.push(this.pending[i].quotationId);
         }
       }
       if (selected.length > 0) {
