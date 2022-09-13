@@ -184,7 +184,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CoaNdaModule-40af49bc18d143ba615084f59e7d1163238c68061ca3f3b65520df35000179f2557220baed6549fd4bd2ea6991690eca293f880154da2766b7fdce6e7555bdc4-1"' :
                                             'id="xs-components-links-module-CoaNdaModule-40af49bc18d143ba615084f59e7d1163238c68061ca3f3b65520df35000179f2557220baed6549fd4bd2ea6991690eca293f880154da2766b7fdce6e7555bdc4-1"' }>
                                             <li class="link">
-                                                <a href="components/CoaNdaComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CoaNdaComponent</a>
+                                                <a href="components/CoaNdaComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CoaNdaComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -599,7 +599,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-KeyPartnersModule-48de0c1b42520674b882cc1b01b240b3c467820ad4d5a341a114dc1f16ea461dcb4aa1e09a951f3adc7042f7b303cbed89a7308365e225718764d4972383c5cb-1"' :
                                             'id="xs-components-links-module-KeyPartnersModule-48de0c1b42520674b882cc1b01b240b3c467820ad4d5a341a114dc1f16ea461dcb4aa1e09a951f3adc7042f7b303cbed89a7308365e225718764d4972383c5cb-1"' }>
                                             <li class="link">
-                                                <a href="components/KeyPartnersComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >KeyPartnersComponent</a>
+                                                <a href="components/KeyPartnersComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >KeyPartnersComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -639,7 +639,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-LoginModule-ab88e0384fc63d43448ec8ad4f2f632a2f6c8357db3670d66b2874d0a8b73dbf372a1fcfdf9b38e0cc9c2805fe9f5a73fe9e4e98a83f27acc744a1d254dd9b56-1"' :
                                             'id="xs-components-links-module-LoginModule-ab88e0384fc63d43448ec8ad4f2f632a2f6c8357db3670d66b2874d0a8b73dbf372a1fcfdf9b38e0cc9c2805fe9f5a73fe9e4e98a83f27acc744a1d254dd9b56-1"' }>
                                             <li class="link">
-                                                <a href="components/LoginComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >LoginComponent</a>
+                                                <a href="components/LoginComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >LoginComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -1018,10 +1018,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="components-links"' : 'id="xs-components-links"' }>
                             <li class="link">
-                                <a href="components/KeyPartnersComponent-1.html" data-type="entity-link" >KeyPartnersComponent</a>
-                            </li>
-                            <li class="link">
-                                <a href="components/LoginComponent-1.html" data-type="entity-link" >LoginComponent</a>
+                                <a href="components/CoaNdaComponent-1.html" data-type="entity-link" >CoaNdaComponent</a>
                             </li>
                         </ul>
                     </li>
