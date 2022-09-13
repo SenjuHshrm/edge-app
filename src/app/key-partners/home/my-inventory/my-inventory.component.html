@@ -49,8 +49,8 @@
             View Best Seller Items
           </button>
         </li>
-        <li><button class="dropdown-item text-sm">Print</button></li>
-        <li><button class="dropdown-item text-sm">Export</button></li>
+        <!-- <li><button class="dropdown-item text-sm">Print</button></li> -->
+        <li><button class="dropdown-item text-sm" (click)="exportInv()">Export</button></li>
       </ul>
     </div>
   </div>
@@ -94,7 +94,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of items">
+              <tr *ngFor="let data of items" [class]="(data.currentQty <= 20) ? 'table-danger' : ''">
                 <td class="text-truncate px-1">
                   {{ handleDate(data.createdAt) }}
                 </td>

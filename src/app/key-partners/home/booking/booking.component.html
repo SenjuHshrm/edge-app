@@ -30,17 +30,17 @@
         aria-labelledby="dropdownMenuButton2"
       >
         <li>
-          <button class="dropdown-item text-sm">Flash Template</button>
+          <button class="dropdown-item text-sm" (click)="export('flash')">Flash Template</button>
         </li>
         <li>
-          <button class="dropdown-item text-sm">JNT Template</button>
+          <button class="dropdown-item text-sm" (click)="export('jnt')">JNT Template</button>
         </li>
         <li>
-          <button class="dropdown-item text-sm">All</button>
+          <button class="dropdown-item text-sm" (click)="export('all')">All</button>
         </li>
       </ul>
     </div>
-    <div class="dropdown">
+    <!-- <div class="dropdown">
       <button
         class="btn dropdown-toggle btn-dark custom-btn w-100 text-white fw-bold py-1 px-3"
         type="button"
@@ -64,7 +64,7 @@
           <button class="dropdown-item text-sm">All</button>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 
   <div class="my-3">
@@ -164,7 +164,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="bookings.length !== 0">
-              <tr *ngFor="let td of bookings">
+              <tr *ngFor="let td of bookings" [class]="(td.status === 'fulfilled') ? 'table-success' : 'table-danger'">
                 <td class="text-truncate px-3">{{ td.customer }}</td>
                 <td class="text-truncate px-3">{{ td.customerContact }}</td>
                 <td class="text-truncate px-3">{{ td.hsStNum }}</td>

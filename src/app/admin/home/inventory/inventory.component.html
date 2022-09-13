@@ -56,7 +56,7 @@
           </button>
         </li>
         <!-- <li><button class="dropdown-item text-sm">Print</button></li> -->
-        <li><button class="dropdown-item text-sm">Export</button></li>
+        <li><button class="dropdown-item text-sm" (click)="exportInv()">Export</button></li>
       </ul>
     </div>
 
@@ -142,7 +142,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of items; let i = index">
+              <tr *ngFor="let data of items; let i = index"  [class]="(data.currentQty <= 20) ? 'table-danger' : ''">
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"

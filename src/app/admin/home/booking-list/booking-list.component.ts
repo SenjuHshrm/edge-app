@@ -222,7 +222,7 @@ export class BookingListComponent implements OnInit {
   exportOne(id: string) {
     this.bookServ.exportOne(id).subscribe({
       next: (res: any) => {
-        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'md' });
+        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'lg' });
         md.componentInstance.data = [res.info];
       },
       error: ({ error }: any) => {

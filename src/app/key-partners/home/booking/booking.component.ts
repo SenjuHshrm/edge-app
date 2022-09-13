@@ -1,4 +1,5 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ExportComponent } from './../../../components/modals/export/export.component';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 import { CreateBookingComponent } from 'src/app/components/modals/create-booking/create-booking.component';
 import { BookingService } from 'src/app/services/booking.service';
@@ -125,5 +126,32 @@ export class BookingComponent implements OnInit {
       size: 'md',
     });
     viewBundle.componentInstance.id = id;
+  }
+
+  export(cat: string) {
+    let selected: any;
+    switch(cat) {
+      case 'jnt':
+        selected = this.bookings.filter((x: any) => { return x.courier === 'jnt' })
+        selected = selected.map((x: any) => x._id)
+        break;
+      case 'flash':
+        selected = this.bookings.filter((x: any) => { return x.courier === 'flash' })
+        selected = selected.map((x: any) => x._id)
+        break;
+      default:
+        selected = this.bookings.map((x: any) => x._id)
+    }
+    this.booking.exportSelected({ ids: [...selected] }).subscribe({
+      next: (res: any) => {
+        let md: NgbModalRef = this.mdCtrl.open(ExportComponent, {
+          size: 'md'
+        })
+        md.componentInstance.data = res.info
+      },
+      error: ({ error }: any) => {
+        console.log(error)
+      }
+    })
   }
 }
