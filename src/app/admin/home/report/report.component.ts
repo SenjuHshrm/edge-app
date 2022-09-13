@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-report',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
+  public currMonth: string = ''
+
   constructor() { }
 
   ngOnInit(): void {
+    this.currMonth = moment().format('MMMM')
   }
 
 }

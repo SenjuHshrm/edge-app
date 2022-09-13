@@ -19,6 +19,7 @@ export class BarChartComponent implements OnInit {
   public title: any = {
     text: 'Booking',
   };
+  public currMonth: string = ''
 
   public series: any = [
     {
@@ -40,6 +41,7 @@ export class BarChartComponent implements OnInit {
   constructor(private booking: BookingService) {}
 
   ngOnInit(): void {
+    this.currMonth = moment().format('MMMM')
     let params: any = {
       start: moment().startOf('month').toISOString(),
       end: moment().endOf('month').toISOString(),
