@@ -190,6 +190,12 @@
                                 <a href="#deleteItem" >deleteItem</a>
                             </li>
                             <li>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                <a href="#exportInv" >exportInv</a>
+                            </li>
+                            <li>
                                 <a href="#getAllItems" >getAllItems</a>
                             </li>
                             <li>
@@ -511,6 +517,124 @@
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadFile(file: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, filename: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="312"
+                            class="link-to-prism">src/app/admin/home/inventory/inventory.component.ts:312</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>filename</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportInv"></a>
+                    <span class="name">
+                        <span ><b>exportInv</b></span>
+                        <a href="#exportInv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportInv()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="301"
+                            class="link-to-prism">src/app/admin/home/inventory/inventory.component.ts:301</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
                     </div>
                 </td>
             </tr>
@@ -1770,6 +1894,36 @@ export class InventoryComponent implements OnInit {
       });
     }
   }
+
+  exportInv() {
+    this.invServ.exportAll().subscribe({
+      next: (res: any) &#x3D;&gt; {
+        this.downloadFile(res.info.file, res.info.filename)
+      },
+      error: ({error}: any) &#x3D;&gt; {
+        console.log(error)
+      }
+    })
+  }
+
+  downloadFile(file: string, filename: string) {
+    let a &#x3D; document.createElement(&#x27;a&#x27;)
+    document.body.appendChild(a)
+
+    let byteChars &#x3D; atob(file)
+    const byteNums &#x3D; new Array(byteChars.length)
+    for(let i &#x3D; 0; i &lt; byteChars.length; i++) {
+      byteNums[i] &#x3D; byteChars.charCodeAt(i)
+    }
+    const byteArr &#x3D; new Uint8Array(byteNums)
+    let blob &#x3D; new Blob([byteArr], { type: &#x27;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27; })
+    let url &#x3D; window.URL.createObjectURL(blob)
+    a.setAttribute(&#x27;href&#x27;, url)
+    a.setAttribute(&#x27;target&#x27;, &#x27;_blank&#x27;)
+    a.setAttribute(&#x27;download&#x27;, filename)
+    a.click()
+    window.URL.revokeObjectURL(url)
+  }
 }
 </code></pre>
     </div>
@@ -1832,8 +1986,8 @@ export class InventoryComponent implements OnInit {
             View Best Seller Items
           &lt;/button&gt;
         &lt;/li&gt;
-        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Print&lt;/button&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Export&lt;/button&gt;&lt;/li&gt;
+        &lt;!-- &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Print&lt;/button&gt;&lt;/li&gt; --&gt;
+        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot; (click)&#x3D;&quot;exportInv()&quot;&gt;Export&lt;/button&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/div&gt;
 
@@ -1919,7 +2073,7 @@ export class InventoryComponent implements OnInit {
               &lt;/tr&gt;
             &lt;/ng-template&gt;
             &lt;ng-template [ngIf]&#x3D;&quot;items.length !&#x3D;&#x3D; 0&quot;&gt;
-              &lt;tr *ngFor&#x3D;&quot;let data of items; let i &#x3D; index&quot;&gt;
+              &lt;tr *ngFor&#x3D;&quot;let data of items; let i &#x3D; index&quot;  [class]&#x3D;&quot;(data.currentQty &lt;&#x3D; 20) ? &#x27;table-danger&#x27; : &#x27;&#x27;&quot;&gt;
                 &lt;td class&#x3D;&quot;text-center&quot;&gt;
                   &lt;div
                     class&#x3D;&quot;py-0 my-0 form-check d-flex justify-content-center&quot;
@@ -2118,7 +2272,7 @@ caption {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <h2 class="h2 h2-responsive my-3 fw-bolder">Inventory</h2>  <div class="row mb-3">    <div class="col-md-12 text-end">      <button        (click)="createNewItem()"        class="btn btn-dark custom-btn text-white fw-bold px-5 py-1"        type="button"      >        Add New Item      </button>    </div>  </div>  <div class="d-flex flex-wrap align-items-center mb-2">    <div class="dropdown me-2 mb-2 mb-lg-0">      <button        class="btn btn-dark dropdown-toggle custom-btn px-3 py-1 text-white fw-bold"        type="button"        id="dropdownMenuButton2"        data-bs-toggle="dropdown"        aria-expanded="false"      >        Actions      </button>      <ul        class="dropdown-menu dropdown-menu-light"        aria-labelledby="dropdownMenuButton2"      >        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'all\')">            View All Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'in\')">            View In Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'out\')">            View Out Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'balance\')">            View Balances          </button>        </li>        <li>          <button            class="dropdown-item text-sm"            (click)="handleSort(\'bestseller\')"          >            View Best Seller Items          </button>        </li>        <li><button class="dropdown-item text-sm">Print</button></li>        <li><button class="dropdown-item text-sm">Export</button></li>      </ul>    </div>    <div class="ms-auto">      <div class="d-flex align-items-center">        <div class="me-2 flex-grow-1">          <div class="input-group">            <input              type="text"              class="form-control"              placeholder="Search"              [(ngModel)]="search"            />            <span class="input-group-text"><i class="bi bi-search"></i></span>          </div>        </div>        <div class="me-2">          <select            class="form-select"            aria-label="Default select example"            name="category"            [(ngModel)]="category"          >            <option value="description">Description</option>            <option value="email">Key Partners Email</option>            <option value="sku">SKU Number</option>          </select>        </div>        <button class="btn btn-dark" (click)="handleSearch()">Go</button>      </div>    </div>  </div>  <div class="card shadow p-3">    <div class="card-body">      <h4 class="h4 fw-bold">Inventory Items</h4>      <div class="d-flex align-items-center justify-content-end mb-4">        <span class="me-2">Action:</span>        <div class="me-2">          <select            class="form-select"            aria-label="Default select example"            [(ngModel)]="selectCategory"          >            <option value="" selected>--------</option>            <option value="nonmoving">Mark All Selected As Non Moving</option>          </select>        </div>        <button class="btn btn-dark" (click)="changeNonMoving()">Go</button>      </div>      <div class="table-responsive" style="height: 33rem">        <table class="hoverable table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="px-1 text-truncate">                <div class="py-0 my-0 form-check d-flex justify-content-center">                  <input                    type="checkbox"                    class="form-check-input"                    id="check-all"                    (change)="handleSelectAll($event)"                  />                </div>              </th>              <th class="text-truncate px-1">Date</th>              <th class="text-truncate px-1">Description</th>              <th class="text-truncate px-1">Classification</th>              <th class="text-truncate px-1">SKU Number</th>              <th class="text-truncate px-1">Quantity</th>              <th class="text-truncate px-1">Price/Unit</th>              <th class="text-truncate px-1">Color</th>              <th class="text-truncate px-1">Size</th>              <th class="text-truncate px-1">Key Partners</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="items.length === 0">              <tr>                <td colspan="11">                  <small class="fw-bold">No Item Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="items.length !== 0">              <tr *ngFor="let data of items; let i = index">                <td class="text-center">                  <div                    class="py-0 my-0 form-check d-flex justify-content-center"                  >                    <input                      type="checkbox"                      class="form-check-input custom-check-me"                      id="check-{{ i }}"                      [value]="data._id"                      (change)="handleSelect($event)"                    />                  </div>                </td>                <td class="text-truncate px-1">                  {{ handleDate(data.createdAt) }}                </td>                <td class="text-truncate px-1">{{ data.desc }}</td>                <td class="text-truncate px-1">                  {{ data.classification.name }}                </td>                <td class="text-truncate px-1">{{ data.sku }}</td>                <td class="text-truncate px-1">                  {{ data.currentQty }}                </td>                <td class="text-truncate px-1">₱ {{ data.price }}</td>                <td class="text-truncate px-1">{{ data.color?.name }}</td>                <td class="text-truncate px-1">{{ data.size?.name }}</td>                <td class="text-truncate px-1">                  {{                    data.keyPartnerId?.name + " - " + data.keyPartnerId?.email                  }}                </td>                <td>                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewItem(data)"                        >                          View Item                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="updateItem(data)"                        >                          Update Item                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="deleteItem(data._id)"                        >                          Delete Item                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>      <!-- <nav class="d-flex justify-content-end mt-3">        <ul class="pagination">          <li class="page-item">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="page <= 1"              (click)="handlePage(\'previous\')"            >              Previous            </button>          </li>          <li class="page-item custom-pagination-label">            <button              class="page-link custom-pagination-label"              type="button"              disabled            >              {{ page + " of " + totalpage }}            </button>          </li>          <li class="page-item custom-pagination-label">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="page >= totalpage"              (click)="handlePage(\'next\')"            >              Next            </button>          </li>        </ul>      </nav> -->    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <h2 class="h2 h2-responsive my-3 fw-bolder">Inventory</h2>  <div class="row mb-3">    <div class="col-md-12 text-end">      <button        (click)="createNewItem()"        class="btn btn-dark custom-btn text-white fw-bold px-5 py-1"        type="button"      >        Add New Item      </button>    </div>  </div>  <div class="d-flex flex-wrap align-items-center mb-2">    <div class="dropdown me-2 mb-2 mb-lg-0">      <button        class="btn btn-dark dropdown-toggle custom-btn px-3 py-1 text-white fw-bold"        type="button"        id="dropdownMenuButton2"        data-bs-toggle="dropdown"        aria-expanded="false"      >        Actions      </button>      <ul        class="dropdown-menu dropdown-menu-light"        aria-labelledby="dropdownMenuButton2"      >        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'all\')">            View All Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'in\')">            View In Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'out\')">            View Out Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'balance\')">            View Balances          </button>        </li>        <li>          <button            class="dropdown-item text-sm"            (click)="handleSort(\'bestseller\')"          >            View Best Seller Items          </button>        </li>        <!-- <li><button class="dropdown-item text-sm">Print</button></li> -->        <li><button class="dropdown-item text-sm" (click)="exportInv()">Export</button></li>      </ul>    </div>    <div class="ms-auto">      <div class="d-flex align-items-center">        <div class="me-2 flex-grow-1">          <div class="input-group">            <input              type="text"              class="form-control"              placeholder="Search"              [(ngModel)]="search"            />            <span class="input-group-text"><i class="bi bi-search"></i></span>          </div>        </div>        <div class="me-2">          <select            class="form-select"            aria-label="Default select example"            name="category"            [(ngModel)]="category"          >            <option value="description">Description</option>            <option value="email">Key Partners Email</option>            <option value="sku">SKU Number</option>          </select>        </div>        <button class="btn btn-dark" (click)="handleSearch()">Go</button>      </div>    </div>  </div>  <div class="card shadow p-3">    <div class="card-body">      <h4 class="h4 fw-bold">Inventory Items</h4>      <div class="d-flex align-items-center justify-content-end mb-4">        <span class="me-2">Action:</span>        <div class="me-2">          <select            class="form-select"            aria-label="Default select example"            [(ngModel)]="selectCategory"          >            <option value="" selected>--------</option>            <option value="nonmoving">Mark All Selected As Non Moving</option>          </select>        </div>        <button class="btn btn-dark" (click)="changeNonMoving()">Go</button>      </div>      <div class="table-responsive" style="height: 33rem">        <table class="hoverable table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="px-1 text-truncate">                <div class="py-0 my-0 form-check d-flex justify-content-center">                  <input                    type="checkbox"                    class="form-check-input"                    id="check-all"                    (change)="handleSelectAll($event)"                  />                </div>              </th>              <th class="text-truncate px-1">Date</th>              <th class="text-truncate px-1">Description</th>              <th class="text-truncate px-1">Classification</th>              <th class="text-truncate px-1">SKU Number</th>              <th class="text-truncate px-1">Quantity</th>              <th class="text-truncate px-1">Price/Unit</th>              <th class="text-truncate px-1">Color</th>              <th class="text-truncate px-1">Size</th>              <th class="text-truncate px-1">Key Partners</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="items.length === 0">              <tr>                <td colspan="11">                  <small class="fw-bold">No Item Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="items.length !== 0">              <tr *ngFor="let data of items; let i = index"  [class]="(data.currentQty <= 20) ? \'table-danger\' : \'\'">                <td class="text-center">                  <div                    class="py-0 my-0 form-check d-flex justify-content-center"                  >                    <input                      type="checkbox"                      class="form-check-input custom-check-me"                      id="check-{{ i }}"                      [value]="data._id"                      (change)="handleSelect($event)"                    />                  </div>                </td>                <td class="text-truncate px-1">                  {{ handleDate(data.createdAt) }}                </td>                <td class="text-truncate px-1">{{ data.desc }}</td>                <td class="text-truncate px-1">                  {{ data.classification.name }}                </td>                <td class="text-truncate px-1">{{ data.sku }}</td>                <td class="text-truncate px-1">                  {{ data.currentQty }}                </td>                <td class="text-truncate px-1">₱ {{ data.price }}</td>                <td class="text-truncate px-1">{{ data.color?.name }}</td>                <td class="text-truncate px-1">{{ data.size?.name }}</td>                <td class="text-truncate px-1">                  {{                    data.keyPartnerId?.name + " - " + data.keyPartnerId?.email                  }}                </td>                <td>                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewItem(data)"                        >                          View Item                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="updateItem(data)"                        >                          Update Item                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="deleteItem(data._id)"                        >                          Delete Item                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>      <!-- <nav class="d-flex justify-content-end mt-3">        <ul class="pagination">          <li class="page-item">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="page <= 1"              (click)="handlePage(\'previous\')"            >              Previous            </button>          </li>          <li class="page-item custom-pagination-label">            <button              class="page-link custom-pagination-label"              type="button"              disabled            >              {{ page + " of " + totalpage }}            </button>          </li>          <li class="page-item custom-pagination-label">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="page >= totalpage"              (click)="handlePage(\'next\')"            >              Next            </button>          </li>        </ul>      </nav> -->    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'InventoryComponent'};

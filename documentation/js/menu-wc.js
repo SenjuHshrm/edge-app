@@ -302,7 +302,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CreatePurchaseOrderModule-cd247aba6e2200bbd791b8509c2d4f3821fd8da7427260d191b2ae28e593564d5015dc8096f7dfd4be3694b238b480ea99056f4999c1033a3348713597dd5f6f"' :
                                             'id="xs-components-links-module-CreatePurchaseOrderModule-cd247aba6e2200bbd791b8509c2d4f3821fd8da7427260d191b2ae28e593564d5015dc8096f7dfd4be3694b238b480ea99056f4999c1033a3348713597dd5f6f"' }>
                                             <li class="link">
-                                                <a href="components/CreatePurchaseOrderComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CreatePurchaseOrderComponent</a>
+                                                <a href="components/CreatePurchaseOrderComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CreatePurchaseOrderComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -599,7 +599,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-KeyPartnersModule-48de0c1b42520674b882cc1b01b240b3c467820ad4d5a341a114dc1f16ea461dcb4aa1e09a951f3adc7042f7b303cbed89a7308365e225718764d4972383c5cb-1"' :
                                             'id="xs-components-links-module-KeyPartnersModule-48de0c1b42520674b882cc1b01b240b3c467820ad4d5a341a114dc1f16ea461dcb4aa1e09a951f3adc7042f7b303cbed89a7308365e225718764d4972383c5cb-1"' }>
                                             <li class="link">
-                                                <a href="components/KeyPartnersComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >KeyPartnersComponent</a>
+                                                <a href="components/KeyPartnersComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >KeyPartnersComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -639,7 +639,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-LoginModule-ab88e0384fc63d43448ec8ad4f2f632a2f6c8357db3670d66b2874d0a8b73dbf372a1fcfdf9b38e0cc9c2805fe9f5a73fe9e4e98a83f27acc744a1d254dd9b56-1"' :
                                             'id="xs-components-links-module-LoginModule-ab88e0384fc63d43448ec8ad4f2f632a2f6c8357db3670d66b2874d0a8b73dbf372a1fcfdf9b38e0cc9c2805fe9f5a73fe9e4e98a83f27acc744a1d254dd9b56-1"' }>
                                             <li class="link">
-                                                <a href="components/LoginComponent-1.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >LoginComponent</a>
+                                                <a href="components/LoginComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >LoginComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -1018,7 +1018,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="components-links"' : 'id="xs-components-links"' }>
                             <li class="link">
-                                <a href="components/CreatePurchaseOrderComponent-1.html" data-type="entity-link" >CreatePurchaseOrderComponent</a>
+                                <a href="components/KeyPartnersComponent-1.html" data-type="entity-link" >KeyPartnersComponent</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/LoginComponent-1.html" data-type="entity-link" >LoginComponent</a>
                             </li>
                         </ul>
                     </li>

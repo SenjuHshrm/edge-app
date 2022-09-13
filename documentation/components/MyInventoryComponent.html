@@ -204,6 +204,12 @@
                                 <a href="#deleteBundle" >deleteBundle</a>
                             </li>
                             <li>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                <a href="#exportInv" >exportInv</a>
+                            </li>
+                            <li>
                                 <a href="#getAllBundles" >getAllBundles</a>
                             </li>
                             <li>
@@ -440,6 +446,124 @@
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadFile(file: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, filename: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="276"
+                            class="link-to-prism">src/app/key-partners/home/my-inventory/my-inventory.component.ts:276</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>filename</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportInv"></a>
+                    <span class="name">
+                        <span ><b>exportInv</b></span>
+                        <a href="#exportInv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportInv()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="265"
+                            class="link-to-prism">src/app/key-partners/home/my-inventory/my-inventory.component.ts:265</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
                     </div>
                 </td>
             </tr>
@@ -1966,6 +2090,36 @@ export class MyInventoryComponent implements OnInit {
       }
     }
   }
+
+  exportInv() {
+    this.invServ.exportByKeyPartner().subscribe({
+      next: (res: any) &#x3D;&gt; {
+        this.downloadFile(res.info.file, res.info.filename)
+      },
+      error: ({error}: any) &#x3D;&gt; {
+        console.log(error)
+      }
+    })
+  }
+
+  downloadFile(file: string, filename: string) {
+    let a &#x3D; document.createElement(&#x27;a&#x27;)
+    document.body.appendChild(a)
+
+    let byteChars &#x3D; atob(file)
+    const byteNums &#x3D; new Array(byteChars.length)
+    for(let i &#x3D; 0; i &lt; byteChars.length; i++) {
+      byteNums[i] &#x3D; byteChars.charCodeAt(i)
+    }
+    const byteArr &#x3D; new Uint8Array(byteNums)
+    let blob &#x3D; new Blob([byteArr], { type: &#x27;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27; })
+    let url &#x3D; window.URL.createObjectURL(blob)
+    a.setAttribute(&#x27;href&#x27;, url)
+    a.setAttribute(&#x27;target&#x27;, &#x27;_blank&#x27;)
+    a.setAttribute(&#x27;download&#x27;, filename)
+    a.click()
+    window.URL.revokeObjectURL(url)
+  }
 }
 </code></pre>
     </div>
@@ -2022,8 +2176,8 @@ export class MyInventoryComponent implements OnInit {
             View Best Seller Items
           &lt;/button&gt;
         &lt;/li&gt;
-        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Print&lt;/button&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Export&lt;/button&gt;&lt;/li&gt;
+        &lt;!-- &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot;&gt;Print&lt;/button&gt;&lt;/li&gt; --&gt;
+        &lt;li&gt;&lt;button class&#x3D;&quot;dropdown-item text-sm&quot; (click)&#x3D;&quot;exportInv()&quot;&gt;Export&lt;/button&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -2067,7 +2221,7 @@ export class MyInventoryComponent implements OnInit {
               &lt;/tr&gt;
             &lt;/ng-template&gt;
             &lt;ng-template [ngIf]&#x3D;&quot;items.length !&#x3D;&#x3D; 0&quot;&gt;
-              &lt;tr *ngFor&#x3D;&quot;let data of items&quot;&gt;
+              &lt;tr *ngFor&#x3D;&quot;let data of items&quot; [class]&#x3D;&quot;(data.currentQty &lt;&#x3D; 20) ? &#x27;table-danger&#x27; : &#x27;&#x27;&quot;&gt;
                 &lt;td class&#x3D;&quot;text-truncate px-1&quot;&gt;
                   {{ handleDate(data.createdAt) }}
                 &lt;/td&gt;
@@ -2326,7 +2480,7 @@ caption {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <h2 class="h2 h2-responsive my-3 fw-bolder">My Inventory</h2>  <div class="col text-end">    <button class="btn btn-dark fw-bold" (click)="createBundleItem()">      <i class="bi bi-plus"></i> Create Bundled Item    </button>  </div>  <div class="d-flex align-items-center">    <div class="dropdown col-3">      <button        class="btn btn-dark dropdown-toggle custom-btn px-5 py-1 text-white fw-bold"        type="button"        id="dropdownMenuButton2"        data-bs-toggle="dropdown"        aria-expanded="false"      >        Actions      </button>      <ul        class="dropdown-menu dropdown-menu-light"        aria-labelledby="dropdownMenuButton2"      >        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'all\')">            View All Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'in\')">            View In Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'out\')">            View Out Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'balance\')">            View Balances          </button>        </li>        <li>          <button            class="dropdown-item text-sm"            (click)="handleSort(\'bestseller\')"          >            View Best Seller Items          </button>        </li>        <li><button class="dropdown-item text-sm">Print</button></li>        <li><button class="dropdown-item text-sm">Export</button></li>      </ul>    </div>  </div>  <div class="d-flex my-3">    <div class="col-md-6 position-relative d-flex align-items-center">      <div class="input-group me-2">        <input          type="text"          class="form-control"          placeholder="Search by Description"          [(ngModel)]="search"        />        <span class="input-group-text"><i class="bi bi-search"></i></span>      </div>    </div>    <button class="btn btn-dark" (click)="handleSearch()">Go</button>  </div>  <div class="card shadow p-3">    <div class="card-body">      <div class="table-responsive" style="height: 23rem">        <table class="hoverable table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="text-truncate px-1">Date</th>              <th class="text-truncate px-1">Description</th>              <th class="text-truncate px-1">Classification</th>              <th class="text-truncate px-1">Current Quantity</th>              <th class="text-truncate px-1">Price/Unit</th>              <th class="text-truncate px-1">Color</th>              <th class="text-truncate px-1">Sizes</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="items.length === 0">              <tr>                <td colspan="8">                  <small class="fw-bold">No Item Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="items.length !== 0">              <tr *ngFor="let data of items">                <td class="text-truncate px-1">                  {{ handleDate(data.createdAt) }}                </td>                <td class="text-truncate px-1">{{ data.desc }}</td>                <td class="text-truncate px-1">                  {{ data.classification?.name }}                </td>                <td class="text-truncate px-1">{{ data.currentQty }}</td>                <td class="text-truncate px-1">₱ {{ data.price }}</td>                <td class="text-truncate px-1">{{ data.color.name }}</td>                <td class="text-truncate px-1">{{ data.size.name }}</td>                <td>                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewItem(data)"                        >                          View Item                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>    </div>  </div>  <div class="d-flex my-3">    <div class="col-md-6 position-relative d-flex align-items-center">      <div class="input-group me-2">        <input          type="text"          class="form-control"          placeholder="Search by Description"          [(ngModel)]="bSearch"        />        <span class="input-group-text"><i class="bi bi-search"></i></span>      </div>    </div>    <button class="btn btn-dark" (click)="handleSearchBundle()">Go</button>  </div>  <div class="card shadow p-3">    <div class="card-body">      <div class="table-responsive" style="height: 23rem">        <table class="table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="text-truncate px-1">Bundle Name</th>              <th class="text-truncate px-1">Total Price</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="bundles.length === 0">              <tr>                <td colspan="3">                  <small class="fw-bold">No Bundle Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="bundles.length !== 0">              <tr *ngFor="let data of bundles">                <td class="text-truncate px-1 align-middle">{{ data.name }}</td>                <td class="text-truncate px-1 align-middle">                  ₱ {{ handleAmount(data.items) }}                </td>                <td class="align-middle">                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewBundleItem(data)"                        >                          View Bundle                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="updateBundleItem(data)"                        >                          Update Bundle                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="deleteBundle(data._id)"                        >                          Delete Bundle                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>      <!-- <nav class="d-flex justify-content-end mt-3">        <ul class="pagination">          <li class="page-item">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="bPage <= 1"              (click)="handleBPage(\'previous\')"            >              Previous            </button>          </li>          <li class="page-item custom-pagination-label">            <button              class="page-link custom-pagination-label"              type="button"              disabled            >              {{ bPage + " of " + bTotalpage }}            </button>          </li>          <li class="page-item custom-pagination-label">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="bPage >= bTotalpage"              (click)="handleBPage(\'next\')"            >              Next            </button>          </li>        </ul>      </nav> -->    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <h2 class="h2 h2-responsive my-3 fw-bolder">My Inventory</h2>  <div class="col text-end">    <button class="btn btn-dark fw-bold" (click)="createBundleItem()">      <i class="bi bi-plus"></i> Create Bundled Item    </button>  </div>  <div class="d-flex align-items-center">    <div class="dropdown col-3">      <button        class="btn btn-dark dropdown-toggle custom-btn px-5 py-1 text-white fw-bold"        type="button"        id="dropdownMenuButton2"        data-bs-toggle="dropdown"        aria-expanded="false"      >        Actions      </button>      <ul        class="dropdown-menu dropdown-menu-light"        aria-labelledby="dropdownMenuButton2"      >        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'all\')">            View All Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'in\')">            View In Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'out\')">            View Out Items          </button>        </li>        <li>          <button class="dropdown-item text-sm" (click)="handleSort(\'balance\')">            View Balances          </button>        </li>        <li>          <button            class="dropdown-item text-sm"            (click)="handleSort(\'bestseller\')"          >            View Best Seller Items          </button>        </li>        <!-- <li><button class="dropdown-item text-sm">Print</button></li> -->        <li><button class="dropdown-item text-sm" (click)="exportInv()">Export</button></li>      </ul>    </div>  </div>  <div class="d-flex my-3">    <div class="col-md-6 position-relative d-flex align-items-center">      <div class="input-group me-2">        <input          type="text"          class="form-control"          placeholder="Search by Description"          [(ngModel)]="search"        />        <span class="input-group-text"><i class="bi bi-search"></i></span>      </div>    </div>    <button class="btn btn-dark" (click)="handleSearch()">Go</button>  </div>  <div class="card shadow p-3">    <div class="card-body">      <div class="table-responsive" style="height: 23rem">        <table class="hoverable table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="text-truncate px-1">Date</th>              <th class="text-truncate px-1">Description</th>              <th class="text-truncate px-1">Classification</th>              <th class="text-truncate px-1">Current Quantity</th>              <th class="text-truncate px-1">Price/Unit</th>              <th class="text-truncate px-1">Color</th>              <th class="text-truncate px-1">Sizes</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="items.length === 0">              <tr>                <td colspan="8">                  <small class="fw-bold">No Item Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="items.length !== 0">              <tr *ngFor="let data of items" [class]="(data.currentQty <= 20) ? \'table-danger\' : \'\'">                <td class="text-truncate px-1">                  {{ handleDate(data.createdAt) }}                </td>                <td class="text-truncate px-1">{{ data.desc }}</td>                <td class="text-truncate px-1">                  {{ data.classification?.name }}                </td>                <td class="text-truncate px-1">{{ data.currentQty }}</td>                <td class="text-truncate px-1">₱ {{ data.price }}</td>                <td class="text-truncate px-1">{{ data.color.name }}</td>                <td class="text-truncate px-1">{{ data.size.name }}</td>                <td>                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewItem(data)"                        >                          View Item                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>    </div>  </div>  <div class="d-flex my-3">    <div class="col-md-6 position-relative d-flex align-items-center">      <div class="input-group me-2">        <input          type="text"          class="form-control"          placeholder="Search by Description"          [(ngModel)]="bSearch"        />        <span class="input-group-text"><i class="bi bi-search"></i></span>      </div>    </div>    <button class="btn btn-dark" (click)="handleSearchBundle()">Go</button>  </div>  <div class="card shadow p-3">    <div class="card-body">      <div class="table-responsive" style="height: 23rem">        <table class="table table-hover text-center">          <thead class="bg-light sticky-top">            <tr>              <th class="text-truncate px-1">Bundle Name</th>              <th class="text-truncate px-1">Total Price</th>              <th class="text-truncate px-1">Actions</th>            </tr>          </thead>          <tbody class="border-top-0">            <ng-template [ngIf]="bundles.length === 0">              <tr>                <td colspan="3">                  <small class="fw-bold">No Bundle Record found.</small>                </td>              </tr>            </ng-template>            <ng-template [ngIf]="bundles.length !== 0">              <tr *ngFor="let data of bundles">                <td class="text-truncate px-1 align-middle">{{ data.name }}</td>                <td class="text-truncate px-1 align-middle">                  ₱ {{ handleAmount(data.items) }}                </td>                <td class="align-middle">                  <div class="dropdown">                    <button                      class="btn btn-light custom-btn"                      type="button"                      id="dropdownMenuButton2"                      data-bs-toggle="dropdown"                      aria-expanded="false"                    >                      <i class="bi bi-three-dots-vertical"></i>                    </button>                    <ul                      class="dropdown-menu dropdown-menu-light"                      aria-labelledby="dropdownMenuButton2"                    >                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="viewBundleItem(data)"                        >                          View Bundle                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="updateBundleItem(data)"                        >                          Update Bundle                        </button>                      </li>                      <li>                        <button                          class="dropdown-item text-sm"                          (click)="deleteBundle(data._id)"                        >                          Delete Bundle                        </button>                      </li>                    </ul>                  </div>                </td>              </tr>            </ng-template>          </tbody>        </table>      </div>      <!-- <nav class="d-flex justify-content-end mt-3">        <ul class="pagination">          <li class="page-item">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="bPage <= 1"              (click)="handleBPage(\'previous\')"            >              Previous            </button>          </li>          <li class="page-item custom-pagination-label">            <button              class="page-link custom-pagination-label"              type="button"              disabled            >              {{ bPage + " of " + bTotalpage }}            </button>          </li>          <li class="page-item custom-pagination-label">            <button              type="button"              class="page-link custom-pagination-label"              [disabled]="bPage >= bTotalpage"              (click)="handleBPage(\'next\')"            >              Next            </button>          </li>        </ul>      </nav> -->    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'MyInventoryComponent'};
