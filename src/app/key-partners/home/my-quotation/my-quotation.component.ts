@@ -12,22 +12,22 @@ import { ExportComponent } from 'src/app/components/modals/export/export.compone
   styleUrls: ['./my-quotation.component.scss'],
 })
 export class MyQuotationComponent implements OnInit {
-  forApproval: any = [];
-  pending: any = [];
+  public quotationLs: any = [];
+  // pending: any = [];
   public allApproval: any = [];
-  public allPending: any = [];
+  // public allPending: any = [];
   public aSearch: string = '';
-  public pSearch: string = '';
+  // public pSearch: string = '';
 
   constructor(private mdCtrl: NgbModal, private quote: QuotationService) {}
 
   ngOnInit(): void {
     this.quote.getQuotationByKeyPartnerId().subscribe({
       next: (res: any) => {
-        this.forApproval = res.info.filter((x: any) => x.status === 'none');
-        this.allApproval = res.info.filter((x: any) => x.status === 'none');
-        this.pending = res.info.filter((x: any) => x.status === 'pending');
-        this.allPending = res.info.filter((x: any) => x.status === 'pending');
+        this.quotationLs = res.info
+        this.allApproval = res.info
+        // this.pending = res.info.filter((x: any) => x.status === 'pending');
+        // this.allPending = res.info.filter((x: any) => x.status === 'pending');
       },
       error: ({ error }: any) => {
         console.log(error);
@@ -36,11 +36,20 @@ export class MyQuotationComponent implements OnInit {
   }
 
   createQuotation(data: any) {
+    console.log(data)
     let createPO: NgbModalRef = this.mdCtrl.open(CreatePurchaseOrderComponent, {
       size: 'xl',
       backdrop: 'static',
     });
     createPO.componentInstance.data = data;
+    createPO.closed.subscribe(res => {
+      if(res !== undefined) {
+        console.log(res)
+        let ind = this.quotationLs.findIndex((x: any) => x._id === data._id)
+        console.log(ind)
+        this.quotationLs[ind].status = 'approved'
+      }
+    })
   }
 
   viewQuotation(data: any) {
@@ -54,21 +63,10 @@ export class MyQuotationComponent implements OnInit {
   setStatusForApproval(id: string, status: string) {
     this.quote.setStatus(id, status).subscribe({
       next: (res: any) => {
-        let msg: string = ''
-        let ind = this.forApproval.findIndex((i: any) => i._id === id)
-        switch(status) {
-          case "pending":
-            msg = 'Quotation marked as pending'
-            this.pending.push(this.forApproval[ind])
-            this.forApproval.splice(ind, 1)
-            break;
-          case "declined":
-            msg = 'Quotation declined'
-            this.forApproval.splice(ind, 1)
-            break;
-        }
+        let ind = this.quotationLs.findIndex((i: any) => i._id === id)
+        this.quotationLs[ind].status = status
         Swal.fire({
-          text: msg,
+          text: 'Success',
           icon: 'success',
         });
       },
@@ -78,21 +76,21 @@ export class MyQuotationComponent implements OnInit {
     });
   }
 
-  setStatusForPending(id: string, status: string) {
-    this.quote.setStatus(id, status).subscribe({
-      next: (res: any) => {
-        let ind = this.pending.findIndex((i: any) => i._id === id)
-        this.pending.splice(ind, 1)
-        Swal.fire({
-          text: 'Quotation declined',
-          icon: 'success',
-        });
-      },
-      error: ({ error }: any) => {
-        console.log(error);
-      },
-    });
-  }
+  // setStatusForPending(id: string, status: string) {
+  //   this.quote.setStatus(id, status).subscribe({
+  //     next: (res: any) => {
+  //       let ind = this.pending.findIndex((i: any) => i._id === id)
+  //       this.pending.splice(ind, 1)
+  //       Swal.fire({
+  //         text: 'Quotation declined',
+  //         icon: 'success',
+  //       });
+  //     },
+  //     error: ({ error }: any) => {
+  //       console.log(error);
+  //     },
+  //   });
+  // }
 
   handleSelectAll(evt: any) {
     const checks: any = document.getElementsByClassName(
@@ -105,16 +103,16 @@ export class MyQuotationComponent implements OnInit {
     }
   }
 
-  handleSelectAllPending(evt: any) {
-    const checks: any = document.getElementsByClassName(
-      'custom-check-me-pending'
-    );
-    if (checks.length > 0) {
-      for (let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false;
-      }
-    }
-  }
+  // handleSelectAllPending(evt: any) {
+  //   const checks: any = document.getElementsByClassName(
+  //     'custom-check-me-pending'
+  //   );
+  //   if (checks.length > 0) {
+  //     for (let i = 0; i < checks.length; i++) {
+  //       checks[i].checked = evt.target.checked ? true : false;
+  //     }
+  //   }
+  // }
 
   downloadSelectedforApproval() {
     let selected: string[] = [];
@@ -124,7 +122,7 @@ export class MyQuotationComponent implements OnInit {
     if (checks.length > 0) {
       for (let i = 0; i < checks.length; i++) {
         if (checks[i].checked) {
-          selected.push(this.forApproval[i].quotationId);
+          selected.push(this.quotationLs[i].quotationId);
         }
       }
       if (selected.length > 0) {
@@ -142,31 +140,31 @@ export class MyQuotationComponent implements OnInit {
     }
   }
 
-  downloadSelectedPending() {
-    let selected: string[] = [];
-    const checks: any = document.getElementsByClassName(
-      'custom-check-me-pending'
-    );
-    if (checks.length > 0) {
-      for (let i = 0; i < checks.length; i++) {
-        if (checks[i].checked) {
-          selected.push(this.pending[i].quotationId);
-        }
-      }
-      if (selected.length > 0) {
-        this.quote.generateMultipleQuote(selected).subscribe({
-          next: (res) => {
-            console.log(res);
-            let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
-            md.componentInstance.data = [res.info];
-          },
-          error: ({ error }) => {
-            console.log(error);
-          },
-        });
-      }
-    }
-  }
+  // downloadSelectedPending() {
+  //   let selected: string[] = [];
+  //   const checks: any = document.getElementsByClassName(
+  //     'custom-check-me-pending'
+  //   );
+  //   if (checks.length > 0) {
+  //     for (let i = 0; i < checks.length; i++) {
+  //       if (checks[i].checked) {
+  //         selected.push(this.pending[i].quotationId);
+  //       }
+  //     }
+  //     if (selected.length > 0) {
+  //       this.quote.generateMultipleQuote(selected).subscribe({
+  //         next: (res) => {
+  //           console.log(res);
+  //           let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
+  //           md.componentInstance.data = [res.info];
+  //         },
+  //         error: ({ error }) => {
+  //           console.log(error);
+  //         },
+  //       });
+  //     }
+  //   }
+  // }
 
   handleApprovalSearch() {
     const data =
@@ -177,18 +175,36 @@ export class MyQuotationComponent implements OnInit {
               .startsWith(this.aSearch.toLocaleLowerCase())
           )
         : this.allApproval;
-    this.forApproval = data;
+    this.quotationLs = data;
   }
 
-  handlePendingSearch() {
-    const data =
-      this.pSearch !== ''
-        ? this.allPending.filter((e: any) =>
-            e.quotationId
-              .toLocaleLowerCase()
-              .startsWith(this.pSearch.toLocaleLowerCase())
-          )
-        : this.allPending;
-    this.pending = data;
+  setTableColor(status: string): string {
+    let res: string = '';
+    switch (status) {
+      case 'none':
+        res = 'table-info';
+        break;
+      case 'pending':
+        res = 'table-warning';
+        break;
+      case 'declined':
+        res = 'table-danger';
+        break;
+      default:
+        res = 'table-success';
+    }
+    return res;
   }
+
+  // handlePendingSearch() {
+  //   const data =
+  //     this.pSearch !== ''
+  //       ? this.allPending.filter((e: any) =>
+  //           e.quotationId
+  //             .toLocaleLowerCase()
+  //             .startsWith(this.pSearch.toLocaleLowerCase())
+  //         )
+  //       : this.allPending;
+  //   this.pending = data;
+  // }
 }

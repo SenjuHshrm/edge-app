@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.validateLogin()) {
-      this.user.login({ username: this.username, password: this.password, access: 0 }).subscribe({
+      this.user.login({ username: this.username, password: this.password, access: [0] }).subscribe({
         next: (res: any) => {
           localStorage.setItem('ACCESS', res.info)
           window.location.href = '/su/home'

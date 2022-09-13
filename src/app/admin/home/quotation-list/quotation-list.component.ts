@@ -85,7 +85,7 @@ export class QuotationListComponent implements OnInit {
       case 'pending':
         res = 'table-warning';
         break;
-      case 'requote':
+      case 'declined':
         res = 'table-danger';
         break;
       default:
