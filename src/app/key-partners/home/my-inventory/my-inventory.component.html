@@ -94,7 +94,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of items" [class]="(data.currentQty <= 20) ? 'table-danger' : ''">
+              <tr *ngFor="let data of items" [class]="(+data.criticalBalance >= +data.currentQty) ? 'table-danger' : ''">
                 <td class="text-truncate px-1">
                   {{ handleDate(data.createdAt) }}
                 </td>

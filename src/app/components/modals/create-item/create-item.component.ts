@@ -29,6 +29,7 @@ export class CreateItemComponent implements OnInit {
     size: '',
     quantity: '',
     price: '',
+    criticalBalance: ''
   };
 
   public loading: boolean = false;

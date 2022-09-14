@@ -34,6 +34,7 @@ export class UpdateItemComponent implements OnInit {
     sequence: '',
     codeName: '',
     codeId: '',
+    criticalBalance: ''
   };
 
   public loading: boolean = false;
@@ -79,6 +80,7 @@ export class UpdateItemComponent implements OnInit {
     this.itemData.sequence = this.data.sequence;
     this.itemData.codeName = this.data.code.code;
     this.itemData.codeId = this.data.code._id;
+    this.itemData.criticalBalance = this.data.criticalBalance
   }
 
   saveData(evt: any) {

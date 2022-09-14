@@ -174,7 +174,7 @@
                   name="currentQty"
                 />
               </div>
-              <div class="mb-2 flex-grow-1">
+              <div class="mb-2 me-2 flex-grow-1">
                 <label for="price" class="form-label fw-bold m-0 p-0"
                   >Price / Unit</label
                 >
@@ -184,6 +184,18 @@
                   id="price"
                   name="price"
                   [(ngModel)]="itemData.price"
+                />
+              </div>
+              <div class="mb-2 flex-grow-1">
+                <label for="currentQty" class="form-label fw-bold m-0 p-0"
+                  >Critical Balance</label
+                >
+                <input
+                  [(ngModel)]="itemData.criticalBalance"
+                  type="text"
+                  class="form-control"
+                  id="criticalBalance"
+                  name="criticalBalance"
                 />
               </div>
             </div>

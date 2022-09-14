@@ -142,7 +142,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of items; let i = index"  [class]="(data.currentQty <= 20) ? 'table-danger' : ''">
+              <tr *ngFor="let data of items; let i = index"  [class]="(+data.criticalBalance >= +data.currentQty) ? 'table-danger' : ''">
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"
