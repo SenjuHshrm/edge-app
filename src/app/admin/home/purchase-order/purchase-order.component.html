@@ -56,7 +56,7 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="poLs.length !== 0">
-              <tr *ngFor="let po of poLs">
+              <tr *ngFor="let po of poLs" [class]="(po.seenBy.indexOf(userId) === -1) ? 'table-info' : ''">
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"

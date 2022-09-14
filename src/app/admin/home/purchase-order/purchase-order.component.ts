@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewPurchaseOrderComponent } from 'src/app/components/modals/view-purchase-order/view-purchase-order.component';
 import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-purchase-order/create-purchase-order.component';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-purchase-order',
@@ -14,10 +15,13 @@ export class PurchaseOrderComponent implements OnInit {
   public poLs: any = [];
   public allData: any = [];
   public search: string = '';
+  public userId: string = ''
 
   constructor(private mdCtrl: NgbModal, private po: PurchaseOrderService) {}
 
   ngOnInit(): void {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    this.userId = token.sub
     this.po.getAllPurchaseOrder().subscribe({
       next: (res: any) => {
         this.poLs = res.info;
@@ -41,6 +45,17 @@ export class PurchaseOrderComponent implements OnInit {
       fullscreen: 'lg',
     });
     viewPO.componentInstance.data = data;
+    if(data.seenBy.indexOf(this.userId) === -1) {
+      this.po.setPOAsSeen(data._id).subscribe({
+        next: (res: any) => {
+          let poLsId = this.poLs.findIndex((x: any) => x._id === data._id)
+          this.poLs[poLsId].seenBy.push(res.info)
+        },
+        error: ({error}: any) => {
+          console.log(error)
+        }
+      })
+    }
   }
 
   handleSelectAll(evt: any) {

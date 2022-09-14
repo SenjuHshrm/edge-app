@@ -29,4 +29,9 @@ export class PurchaseOrderService {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
     return this.http.put(`${environment.apiV1}/api/v1/put/purchase-order/form/selected`, { ids: ids, id: token.sub })
   }
+
+  setPOAsSeen(poId: string): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.put(`${environment.apiV1}/api/v1/put/purchase-order/set-seen/${poId}`, { id: token.sub })
+  }
 }
