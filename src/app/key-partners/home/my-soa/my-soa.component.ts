@@ -29,7 +29,8 @@ export class MySoaComponent implements OnInit {
             id: x._id,
             file: `${environment.apiV1}${x.file}`,
             createdAt: x.createdAt,
-            filename: x.file.substring(i + 1, x.file.length)
+            filename: x.file.substring(i + 1, x.file.length),
+            isSeen: x.isSeen
           })
         })
       },
@@ -52,6 +53,15 @@ export class MySoaComponent implements OnInit {
     } else {
       Swal.fire({ title: 'Please input your password', icon: 'warning' })
     }
+  }
+
+  markAsSeen(id: string) {
+    this.contract.markAsSeen(id).subscribe({
+      next: (res: any) => {
+        let i = this.fileList.findIndex((x: any) => x.id === id)
+        this.fileList[i].isSeen = true
+      }
+    })
   }
 
 }

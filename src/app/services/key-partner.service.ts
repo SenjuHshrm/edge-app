@@ -22,6 +22,10 @@ export class KeyPartnerService {
     );
   }
 
+  rejectKeyPartner(id: string, email: string): Observable<any> {
+    return this.http.delete(`${environment.apiV1}/api/v1/delete/acct-request/reject/${id}/${email}`)
+  }
+
   getApprovedKeyPartners(): Observable<any> {
     return this.http.get(
       `${environment.apiV1}/api/v1/get/key-partners/approved`

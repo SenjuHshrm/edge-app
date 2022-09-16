@@ -43,6 +43,21 @@ export class AcctRequestComponent implements OnInit {
     });
   }
 
+  rejectAcctRequest(id: string, email: string) {
+    this.kp.rejectKeyPartner(id, email).subscribe({
+      next: (res: any) => {
+        Swal.fire('Account request rejected', 'An email has been sent to the rejected account request', 'success')
+          .then(() => {
+            let i = this.keyPartners.findIndex((x: any) => x._id === id)
+            let j = this.allData.findIndex((x: any) => x._id === id)
+
+            this.keyPartners.splice(i, 1)
+            this.allData.splice(j, 1)
+          })
+      }
+    })
+  }
+
   handleSearch() {
     const data =
       this.search !== ''

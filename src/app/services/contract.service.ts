@@ -17,4 +17,8 @@ export class ContractService {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
     return this.http.get(`${environment.apiV1}/api/v1/get/contract/${type}/${token.sub}`)
   }
+
+  markAsSeen(id: string): Observable<any> {
+    return this.http.put(`${environment.apiV1}/api/v1/put/contract/set-seen/${id}`, {})
+  }
 }
