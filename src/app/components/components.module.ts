@@ -30,6 +30,7 @@ import { UpdateKeypartnerComponent } from './modals/update-keypartner/update-key
 import { SelectKeypartnerComponent } from './modals/select-keypartner/select-keypartner.component';
 import { ViewByIdComponent } from './modals/bundles/view-by-id/view-by-id.component';
 import { ExportComponent } from './modals/export/export.component';
+import { UploadBookingComponent } from './modals/upload-booking/upload-booking.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ExportComponent } from './modals/export/export.component';
     UpdateKeypartnerComponent,
     SelectKeypartnerComponent,
     ViewByIdComponent,
-    ExportComponent
+    ExportComponent,
+    UploadBookingComponent
   ],
   imports: [CommonModule, FormsModule, NgApexchartsModule, PipesModule],
   exports: [

@@ -5,6 +5,7 @@ import { CreateBookingComponent } from 'src/app/components/modals/create-booking
 import { BookingService } from 'src/app/services/booking.service';
 import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
 import Swal from 'sweetalert2';
+import { UploadBookingComponent } from 'src/app/components/modals/upload-booking/upload-booking.component';
 
 @Component({
   selector: 'app-booking',
@@ -151,6 +152,18 @@ export class BookingComponent implements OnInit {
       },
       error: ({ error }: any) => {
         console.log(error)
+      }
+    })
+  }
+
+  uploadBooking() {
+    let md: NgbModalRef = this.mdCtrl.open(UploadBookingComponent, { size: 'md' })
+    md.closed.subscribe({
+      next: (res: any) => {
+        res.forEach((x: any) => {
+          this.bookings.unshift(x)
+          this.allData.unshift(x)
+        })
       }
     })
   }

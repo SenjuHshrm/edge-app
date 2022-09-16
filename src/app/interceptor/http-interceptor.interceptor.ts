@@ -25,6 +25,7 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
       `${environment.apiV1}/api/v1/put/addr-temp`,
       `${environment.apiV1}/api/v1/post/key-partners/save-contract`,
       `${environment.apiV1}/api/v1/post/profile/upload`,
+      `${environment.apiV1}/api/v1/post/booking/upload-custom`,
     ];
   }
 

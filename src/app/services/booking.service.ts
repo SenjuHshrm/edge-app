@@ -105,4 +105,8 @@ export class BookingService {
       data
     );
   }
+
+  public uploadBooking(formData: any): Observable<any> {
+    return this.http.post(`${environment.apiV1}/api/v1/post/booking/upload-custom`, formData)
+  }
 }
