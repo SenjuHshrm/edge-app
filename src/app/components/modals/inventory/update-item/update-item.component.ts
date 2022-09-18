@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
   selector: 'app-update-item',
   templateUrl: './update-item.component.html',
   styleUrls: ['./update-item.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class UpdateItemComponent implements OnInit {
   @Input() public data: any;
@@ -63,31 +64,31 @@ export class UpdateItemComponent implements OnInit {
       }
     });
 
-    this.itemData.keyPartnerId = this.data.keyPartnerId._id;
-    this.itemData.desc = this.data.desc;
-    this.itemData.code = this.data.code.code;
-    this.itemData.classification = this.data.classification._id;
-    this.itemData.color = this.data.color._id;
-    this.itemData.size = this.data.size._id;
+    this.itemData.keyPartnerId = this.data?.keyPartnerId._id;
+    this.itemData.desc = this.data?.desc;
+    this.itemData.code = this.data?.code.code;
+    this.itemData.classification = this.data?.classification._id;
+    this.itemData.color = this.data?.color._id;
+    this.itemData.size = this.data?.size._id;
 
-    this.itemData.in = this.data.in;
-    this.itemData.currentQty = this.data.currentQty;
-    this.itemData.out = this.data.out;
-    this.itemData.rts = this.data.rts;
-    this.itemData.defective = this.data.defective;
+    this.itemData.in = this.data?.in;
+    this.itemData.currentQty = this.data?.currentQty;
+    this.itemData.out = this.data?.out;
+    this.itemData.rts = this.data?.rts;
+    this.itemData.defective = this.data?.defective;
 
-    this.itemData.price = this.data.price;
-    this.itemData.sequence = this.data.sequence;
-    this.itemData.codeName = this.data.code.code;
-    this.itemData.codeId = this.data.code._id;
-    this.itemData.criticalBalance = this.data.criticalBalance
+    this.itemData.price = this.data?.price;
+    this.itemData.sequence = this.data?.sequence;
+    this.itemData.codeName = this.data?.code.code;
+    this.itemData.codeId = this.data?.code._id;
+    this.itemData.criticalBalance = this.data?.criticalBalance
   }
 
   saveData(evt: any) {
     evt.preventDefault();
     if (this.validateData(this.itemData)) {
       this.loading = true;
-      this.invServ.update(this.itemData, this.data._id).subscribe({
+      this.invServ.update(this.itemData, this.data?._id).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({

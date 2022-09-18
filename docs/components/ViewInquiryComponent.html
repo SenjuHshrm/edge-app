@@ -91,6 +91,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>NgbActiveModal</code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -183,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -251,7 +257,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:12</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -285,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:33</a></div>
                 </td>
             </tr>
 
@@ -366,8 +372,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:22</a></div>
                 </td>
             </tr>
 
@@ -403,8 +409,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:18</a></div>
                 </td>
             </tr>
 
@@ -440,8 +446,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/app/components/modals/view-inquiry/view-inquiry.component.ts:16</a></div>
                 </td>
             </tr>
 
@@ -471,6 +477,7 @@ import { NgbActiveModal } from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
   selector: &#x27;app-view-inquiry&#x27;,
   templateUrl: &#x27;./view-inquiry.component.html&#x27;,
   styleUrls: [&#x27;./view-inquiry.component.scss&#x27;],
+  providers: [NgbActiveModal]
 })
 export class ViewInquiryComponent implements OnInit {
   @Input() public data: any | undefined;
@@ -542,19 +549,19 @@ export class ViewInquiryComponent implements OnInit {
             &lt;div class&#x3D;&quot;row&quot;&gt;
               &lt;div class&#x3D;&quot;col text-end&quot;&gt;NAME:&lt;/div&gt;
               &lt;div class&#x3D;&quot;col fw-normal text-start&quot;&gt;
-                {{ data.keyPartnerId.name }}
+                {{ data?.keyPartnerId.name }}
               &lt;/div&gt;
               &lt;div class&#x3D;&quot;col text-end&quot;&gt;INQUIRY NO.:&lt;/div&gt;
-              &lt;div class&#x3D;&quot;col fw-normal text-start&quot;&gt;{{ data.inqId }}&lt;/div&gt;
+              &lt;div class&#x3D;&quot;col fw-normal text-start&quot;&gt;{{ data?.inqId }}&lt;/div&gt;
             &lt;/div&gt;
             &lt;div class&#x3D;&quot;row&quot;&gt;
               &lt;div class&#x3D;&quot;col text-end&quot;&gt;STORE/S NAME:&lt;/div&gt;
               &lt;div class&#x3D;&quot;col fw-normal text-start&quot;&gt;
-                {{ data.keyPartnerId.company }}
+                {{ data?.keyPartnerId.company }}
               &lt;/div&gt;
               &lt;div class&#x3D;&quot;col text-end&quot;&gt;DATE:&lt;/div&gt;
               &lt;div class&#x3D;&quot;col fw-normal text-start&quot;&gt;
-                {{ data.createdAt | customDate: &quot;MMMM DD, YYYY&quot; }}
+                {{ data?.createdAt | customDate: &quot;MMMM DD, YYYY&quot; }}
               &lt;/div&gt;
             &lt;/div&gt;
           &lt;/div&gt;
@@ -573,7 +580,7 @@ export class ViewInquiryComponent implements OnInit {
               REMARKS
             &lt;/th&gt;
           &lt;/tr&gt;
-          &lt;tr *ngFor&#x3D;&quot;let item of data.items; let i &#x3D; index&quot;&gt;
+          &lt;tr *ngFor&#x3D;&quot;let item of data?.items; let i &#x3D; index&quot;&gt;
             &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
             &lt;td&gt;{{ item.description }}&lt;/td&gt;
             &lt;td&gt;{{ item.quantity }}&lt;/td&gt;
@@ -657,8 +664,8 @@ export class ViewInquiryComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <div class="card shadow px-3 m-3">    <div class="card-body">      <h1 class="h1 h1-responsive my-2 pb-2 text-center">        Product Cost Inquiry      </h1>      <div class="header-container d-flex flex-row w-100">        <div          class="logo d-flex align-items-end justify-content-center"          style="width: 15%"        >          <img src="/assets/logo.png" class="img-fluid" style="width: 90%" />        </div>        <div class="details w-100 d-flex flex-column justify-content-end">          <div class="d-flex justify-content-center" style="width: 85%">            <div class="subheader">              EdgeCommerce Fulfillment and Ecom Service<br />              • Pedro Buan Road, Alangilan Batangas City 4200 •              edgecommerceph@gmail.com            </div>          </div>          <div class="info pt-4">            <div class="row">              <div class="col text-end">NAME:</div>              <div class="col fw-normal text-start">                {{ data.keyPartnerId.name }}              </div>              <div class="col text-end">INQUIRY NO.:</div>              <div class="col fw-normal text-start">{{ data.inqId }}</div>            </div>            <div class="row">              <div class="col text-end">STORE/S NAME:</div>              <div class="col fw-normal text-start">                {{ data.keyPartnerId.company }}              </div>              <div class="col text-end">DATE:</div>              <div class="col fw-normal text-start">                {{ data.createdAt | customDate: "MMMM DD, YYYY" }}              </div>            </div>          </div>        </div>      </div>      <div class="col mt-3">        <table class="w-100 text-center">          <tr>            <th style="background-color: #f0b663" class="text-black">              Item Number            </th>            <th style="background-color: #f0b663" class="text-black">Item</th>            <th style="background-color: #3f3f3f" class="text-white">QTY</th>            <th style="background-color: #3f3f3f" class="text-white">Units</th>            <th style="background-color: #3f3f3f" class="text-white">              REMARKS            </th>          </tr>          <tr *ngFor="let item of data.items; let i = index">            <td>{{ i + 1 }}</td>            <td>{{ item.description }}</td>            <td>{{ item.quantity }}</td>            <td>{{ item.units }}</td>            <td style="background-color: #f0b663">{{ item.remarks }}</td>          </tr>        </table>      </div>      <div class="text-end mt-3">        <button class="btn btn-dark px-3 me-2" (click)="generateFile()">          Generate File        </button>        <button class="btn btn-dark px-3" (click)="handleClose()">Close</button>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">  <div class="card shadow px-3 m-3">    <div class="card-body">      <h1 class="h1 h1-responsive my-2 pb-2 text-center">        Product Cost Inquiry      </h1>      <div class="header-container d-flex flex-row w-100">        <div          class="logo d-flex align-items-end justify-content-center"          style="width: 15%"        >          <img src="/assets/logo.png" class="img-fluid" style="width: 90%" />        </div>        <div class="details w-100 d-flex flex-column justify-content-end">          <div class="d-flex justify-content-center" style="width: 85%">            <div class="subheader">              EdgeCommerce Fulfillment and Ecom Service<br />              • Pedro Buan Road, Alangilan Batangas City 4200 •              edgecommerceph@gmail.com            </div>          </div>          <div class="info pt-4">            <div class="row">              <div class="col text-end">NAME:</div>              <div class="col fw-normal text-start">                {{ data?.keyPartnerId.name }}              </div>              <div class="col text-end">INQUIRY NO.:</div>              <div class="col fw-normal text-start">{{ data?.inqId }}</div>            </div>            <div class="row">              <div class="col text-end">STORE/S NAME:</div>              <div class="col fw-normal text-start">                {{ data?.keyPartnerId.company }}              </div>              <div class="col text-end">DATE:</div>              <div class="col fw-normal text-start">                {{ data?.createdAt | customDate: "MMMM DD, YYYY" }}              </div>            </div>          </div>        </div>      </div>      <div class="col mt-3">        <table class="w-100 text-center">          <tr>            <th style="background-color: #f0b663" class="text-black">              Item Number            </th>            <th style="background-color: #f0b663" class="text-black">Item</th>            <th style="background-color: #3f3f3f" class="text-white">QTY</th>            <th style="background-color: #3f3f3f" class="text-white">Units</th>            <th style="background-color: #3f3f3f" class="text-white">              REMARKS            </th>          </tr>          <tr *ngFor="let item of data?.items; let i = index">            <td>{{ i + 1 }}</td>            <td>{{ item.description }}</td>            <td>{{ item.quantity }}</td>            <td>{{ item.units }}</td>            <td style="background-color: #f0b663">{{ item.remarks }}</td>          </tr>        </table>      </div>      <div class="text-end mt-3">        <button class="btn btn-dark px-3 me-2" (click)="generateFile()">          Generate File        </button>        <button class="btn btn-dark px-3" (click)="handleClose()">Close</button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ViewInquiryComponent'};
 </script>

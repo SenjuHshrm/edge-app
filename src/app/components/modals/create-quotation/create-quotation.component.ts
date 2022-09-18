@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
   selector: 'app-create-quotation',
   templateUrl: './create-quotation.component.html',
   styleUrls: ['./create-quotation.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class CreateQuotationComponent implements OnInit {
   @Input() public data: any = {};
@@ -28,7 +29,7 @@ export class CreateQuotationComponent implements OnInit {
   constructor(private quote: QuotationService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
-    this.data.items.forEach((x: any) => {
+    this.data?.items?.forEach((x: any) => {
       this.items.push(x);
     });
   }

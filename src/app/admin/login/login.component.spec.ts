@@ -1,3 +1,4 @@
+import { ToastrModule } from 'ngx-toastr';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,7 +12,7 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule ]
+      imports: [ RouterTestingModule, HttpClientTestingModule, ToastrModule.forRoot() ]
     })
     .compileComponents();
   });

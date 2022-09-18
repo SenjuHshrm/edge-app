@@ -90,6 +90,9 @@
                             <li>
                                 <a href="#getAllPurchaseOrder" >getAllPurchaseOrder</a>
                             </li>
+                            <li>
+                                <a href="#setPOAsSeen" >setPOAsSeen</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -400,6 +403,75 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setPOAsSeen"></a>
+                    <span class="name">
+                        <span ><b>setPOAsSeen</b></span>
+                        <a href="#setPOAsSeen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setPOAsSeen(poId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/services/purchase-order.service.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>poId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
     </div>
@@ -436,6 +508,11 @@ export class PurchaseOrderService {
   generateMultiplePO(ids: string[]): Observable&lt;any&gt; {
     let token: any &#x3D; jwtDecode(localStorage.getItem(&#x27;ACCESS&#x27;) as string)
     return this.http.put(&#x60;${environment.apiV1}/api/v1/put/purchase-order/form/selected&#x60;, { ids: ids, id: token.sub })
+  }
+
+  setPOAsSeen(poId: string): Observable&lt;any&gt; {
+    let token: any &#x3D; jwtDecode(localStorage.getItem(&#x27;ACCESS&#x27;) as string)
+    return this.http.put(&#x60;${environment.apiV1}/api/v1/put/purchase-order/set-seen/${poId}&#x60;, { id: token.sub })
   }
 }
 </code></pre>

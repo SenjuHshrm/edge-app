@@ -138,6 +138,10 @@
                                     <span class="modifier">Public</span>
                                 <a href="#returnBooking" >returnBooking</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#uploadBooking" >uploadBooking</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -1153,6 +1157,77 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadBooking"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span ><b>uploadBooking</b></span>
+                        <a href="#uploadBooking"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadBooking(formData: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="109"
+                            class="link-to-prism">src/app/services/booking.service.ts:109</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formData</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
     </div>
@@ -1265,6 +1340,10 @@ export class BookingService {
       &#x60;${environment.apiV1}/api/v1/put/return/booking/${id}&#x60;,
       data
     );
+  }
+
+  public uploadBooking(formData: any): Observable&lt;any&gt; {
+    return this.http.post(&#x60;${environment.apiV1}/api/v1/post/booking/upload-custom&#x60;, formData)
   }
 }
 </code></pre>

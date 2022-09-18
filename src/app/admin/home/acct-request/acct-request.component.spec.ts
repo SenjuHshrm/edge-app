@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AcctRequestComponent } from './acct-request.component';
@@ -8,7 +9,8 @@ describe('AcctRequestComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AcctRequestComponent ]
+      declarations: [ AcctRequestComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });

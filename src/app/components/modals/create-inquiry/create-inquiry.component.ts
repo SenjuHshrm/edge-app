@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
   selector: 'app-create-inquiry',
   templateUrl: './create-inquiry.component.html',
   styleUrls: ['./create-inquiry.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class CreateInquiryComponent implements OnInit {
   public inquiryForm = {

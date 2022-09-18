@@ -9,6 +9,7 @@ import address from 'src/assets/address';
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
   styleUrls: ['./create-customer.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class CreateCustomerComponent implements OnInit {
   public provinces: string[] = [];

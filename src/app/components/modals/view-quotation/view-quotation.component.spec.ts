@@ -1,3 +1,5 @@
+import { PipesModule } from './../../../pipes/pipes.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewQuotationComponent } from './view-quotation.component';
@@ -8,7 +10,8 @@ describe('ViewQuotationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewQuotationComponent ]
+      declarations: [ ViewQuotationComponent ],
+      imports: [HttpClientTestingModule, PipesModule]
     })
     .compileComponents();
   });

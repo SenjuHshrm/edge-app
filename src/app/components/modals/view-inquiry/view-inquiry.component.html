@@ -23,19 +23,19 @@
             <div class="row">
               <div class="col text-end">NAME:</div>
               <div class="col fw-normal text-start">
-                {{ data.keyPartnerId.name }}
+                {{ data?.keyPartnerId.name }}
               </div>
               <div class="col text-end">INQUIRY NO.:</div>
-              <div class="col fw-normal text-start">{{ data.inqId }}</div>
+              <div class="col fw-normal text-start">{{ data?.inqId }}</div>
             </div>
             <div class="row">
               <div class="col text-end">STORE/S NAME:</div>
               <div class="col fw-normal text-start">
-                {{ data.keyPartnerId.company }}
+                {{ data?.keyPartnerId.company }}
               </div>
               <div class="col text-end">DATE:</div>
               <div class="col fw-normal text-start">
-                {{ data.createdAt | customDate: "MMMM DD, YYYY" }}
+                {{ data?.createdAt | customDate: "MMMM DD, YYYY" }}
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
               REMARKS
             </th>
           </tr>
-          <tr *ngFor="let item of data.items; let i = index">
+          <tr *ngFor="let item of data?.items; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.quantity }}</td>

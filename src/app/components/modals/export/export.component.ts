@@ -13,7 +13,7 @@ export class ExportComponent implements OnInit {
 
   ngOnInit(): void {
     let divElement = document.getElementById('files');
-    this.data.forEach(async (x: any) => {
+    this.data?.forEach(async (x: any) => {
       if (x !== null) {
         let a = document.createElement('a');
         a.setAttribute('href', `${environment.apiV1}${x.link}`);

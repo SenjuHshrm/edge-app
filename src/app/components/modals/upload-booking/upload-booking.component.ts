@@ -8,7 +8,8 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-upload-booking',
   templateUrl: './upload-booking.component.html',
-  styleUrls: ['./upload-booking.component.scss']
+  styleUrls: ['./upload-booking.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class UploadBookingComponent implements OnInit {
 

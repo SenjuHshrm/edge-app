@@ -2,7 +2,7 @@
   <h4 class="h4 h4-responsive my-3">View Bundle</h4>
   <div class="card shadow px-3 mb-3">
     <div class="card-body">
-      <h5 class="h5 fw-bold">{{ data.name }}</h5>
+      <h5 class="h5 fw-bold">{{ data?.name }}</h5>
       <div>
         <table class="table table-hover text-center position-relative">
           <thead class="bg-light">
@@ -13,13 +13,13 @@
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr *ngFor="let data of data.items; let i = index">
-              <td class="text-truncate px-1 align-middle">{{ data.item }}</td>
+            <tr *ngFor="let data of data?.items; let i = index">
+              <td class="text-truncate px-1 align-middle">{{ data?.item }}</td>
               <td class="text-truncate px-1 align-middle">
-                {{ data.quantity }}
+                {{ data?.quantity }}
               </td>
               <td class="text-truncate px-1 align-middle">
-                ₱ {{ handleMoney(data.price) }}
+                ₱ {{ handleMoney(data?.price) }}
               </td>
             </tr>
             <tr>

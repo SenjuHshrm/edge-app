@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-select-keypartner',
   templateUrl: './select-keypartner.component.html',
   styleUrls: ['./select-keypartner.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class SelectKeypartnerComponent implements OnInit {
   public keyPartners: any = [];

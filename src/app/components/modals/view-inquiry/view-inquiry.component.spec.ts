@@ -1,3 +1,5 @@
+import { CustomDatePipe } from './../../../pipes/custom-date/custom-date.pipe';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewInquiryComponent } from './view-inquiry.component';
@@ -8,7 +10,8 @@ describe('ViewInquiryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewInquiryComponent ]
+      declarations: [ ViewInquiryComponent, CustomDatePipe ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });

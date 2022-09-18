@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >ContractService</li>
+  <li >ReportService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -58,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/contract.service.ts</code>
+            <code>src/app/services/report.service.ts</code>
         </p>
 
 
@@ -79,10 +79,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getContract" >getContract</a>
+                                <a href="#getMonthlyPO" >getMonthlyPO</a>
                             </li>
                             <li>
-                                <a href="#markAsSeen" >markAsSeen</a>
+                                <a href="#getMonthlyQuotations" >getMonthlyQuotations</a>
                             </li>
                         </ul>
                     </td>
@@ -107,7 +107,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/services/contract.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/services/report.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -154,24 +154,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getContract"></a>
+                    <a name="getMonthlyPO"></a>
                     <span class="name">
-                        <span ><b>getContract</b></span>
-                        <a href="#getContract"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getMonthlyPO</b></span>
+                        <a href="#getMonthlyPO"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getContract(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>getMonthlyPO(params: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/services/contract.service.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/services/report.service.ts:17</a></div>
                 </td>
             </tr>
 
@@ -192,9 +192,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>type</td>
+                                    <td>params</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                     </td>
 
                                     <td>
@@ -223,24 +223,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="markAsSeen"></a>
+                    <a name="getMonthlyQuotations"></a>
                     <span class="name">
-                        <span ><b>markAsSeen</b></span>
-                        <a href="#markAsSeen"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getMonthlyQuotations</b></span>
+                        <a href="#getMonthlyQuotations"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>markAsSeen(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>getMonthlyQuotations(params: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/services/contract.service.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/app/services/report.service.ts:13</a></div>
                 </td>
             </tr>
 
@@ -261,9 +261,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>params</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                     </td>
 
                                     <td>
@@ -294,28 +294,24 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import jwtDecode from &#x27;jwt-decode&#x27;;
-import { environment } from &#x27;src/environments/environment&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { environment } from &#x27;src/environments/environment&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
-export class ContractService {
+export class ReportService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
-  getContract(type: string): Observable&lt;any&gt; {
-    let token: any &#x3D; jwtDecode(localStorage.getItem(&#x27;ACCESS&#x27;) as string)
-    return this.http.get(&#x60;${environment.apiV1}/api/v1/get/contract/${type}/${token.sub}&#x60;)
+  getMonthlyQuotations(params: any): Observable&lt;any&gt; {
+    return this.http.get(&#x60;${environment.apiV1}/api/v1/get/monthly-quotation/${params.start}/${params.end}&#x60;)
   }
 
-  markAsSeen(id: string): Observable&lt;any&gt; {
-    return this.http.put(&#x60;${environment.apiV1}/api/v1/put/contract/set-seen/${id}&#x60;, {})
+  getMonthlyPO(params: any): Observable&lt;any&gt; {
+    return this.http.get(&#x60;${environment.apiV1}/api/v1/get/monthly-po/${params.start}/${params.end}&#x60;)
   }
 }
 </code></pre>
@@ -361,7 +357,7 @@ export class ContractService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'ContractService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ReportService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-view-purchase-order',
   templateUrl: './view-purchase-order.component.html',
   styleUrls: ['./view-purchase-order.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class ViewPurchaseOrderComponent implements OnInit {
   @Input() public data: any | undefined;

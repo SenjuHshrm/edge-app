@@ -3,13 +3,13 @@ import { UserService } from './../../services/user.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit, HostListener } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { ToastrService } from 'ngx-toastr';
+import { ToastInjector, ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   screen: any = window.innerWidth;

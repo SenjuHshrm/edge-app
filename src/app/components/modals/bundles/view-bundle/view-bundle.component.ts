@@ -13,7 +13,7 @@ export class ViewBundleComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.data.items.map((item: any) => {
+    this.data?.items.map((item: any) => {
       this.total += parseFloat(item.price) * parseFloat(item.quantity);
     });
   }

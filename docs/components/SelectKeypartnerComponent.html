@@ -91,6 +91,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>NgbActiveModal</code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -192,7 +198,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -271,8 +277,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:30</a></div>
                 </td>
             </tr>
 
@@ -340,8 +346,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:41</a></div>
                 </td>
             </tr>
 
@@ -421,8 +427,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:22</a></div>
                 </td>
             </tr>
 
@@ -458,8 +464,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:47</a></div>
                 </td>
             </tr>
 
@@ -509,7 +515,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -541,7 +547,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -573,7 +579,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/select-keypartner/select-keypartner.component.ts:12</a></div>
                         </td>
                     </tr>
 
@@ -594,6 +600,7 @@ import { NgbActiveModal } from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
   selector: &#x27;app-select-keypartner&#x27;,
   templateUrl: &#x27;./select-keypartner.component.html&#x27;,
   styleUrls: [&#x27;./select-keypartner.component.scss&#x27;],
+  providers: [NgbActiveModal]
 })
 export class SelectKeypartnerComponent implements OnInit {
   public keyPartners: any &#x3D; [];
@@ -731,7 +738,7 @@ export class SelectKeypartnerComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="container p-4">  <h4 class="h4 h4-responsive">Select Key Partner</h4>  <div class="card shadow px-3">    <div class="card-body">      <div class="mb-3 position-relative">        <label for="date" class="form-label fw-bold m-0 p-0"          >Select Key Partners</label        >        <input          type="text"          class="form-control"          id="keyPartner"          name="keyPartner"          (keyup)="handleSearch($event)"          [(ngModel)]="data.keyPartner"        />        <ng-template [ngIf]="keyList.length !== 0">          <ul class="custom-autocomplete" id="auto-complete">            <li              *ngFor="let key of keyList"              (click)="keyListClick(key._id, key.email + \' - \' + key.company)"            >              {{ key.email + " - " + key.company }}            </li>          </ul>        </ng-template>      </div>      <button class="btn btn-dark" (click)="selectKP()">Select</button>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SelectKeypartnerComponent'};
 </script>

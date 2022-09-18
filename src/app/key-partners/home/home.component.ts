@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.showToggle = window.innerWidth <= 820 ? true : false;
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.img = token.img.includes('https')
+    this.img = token.img?.includes('https')
       ? token.img
       : `${environment.apiV1}${token.img}`;
 

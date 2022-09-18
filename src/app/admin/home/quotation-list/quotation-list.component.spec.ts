@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuotationListComponent } from './quotation-list.component';
@@ -8,7 +9,8 @@ describe('QuotationListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QuotationListComponent ]
+      declarations: [ QuotationListComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });

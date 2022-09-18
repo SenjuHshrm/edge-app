@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-update-bundle',
   templateUrl: './update-bundle.component.html',
   styleUrls: ['./update-bundle.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class UpdateBundleComponent implements OnInit {
   @Input() public current: any;
@@ -36,7 +37,7 @@ export class UpdateBundleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItems();
-    this.bundleServ.getBundle(this.current._id).subscribe((res) => {
+    this.bundleServ.getBundle(this.current?._id).subscribe((res) => {
       if (res.success) {
         this.data = res.info;
       }

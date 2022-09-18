@@ -6,62 +6,62 @@
         <tbody>
           <tr>
             <th>Date In:</th>
-            <td>{{ handleDate(data.createdAt) }}</td>
+            <td>{{ handleDate(data?.createdAt) }}</td>
           </tr>
           <tr>
             <th>Description:</th>
-            <td>{{ data.desc }}</td>
+            <td>{{ data?.desc }}</td>
           </tr>
           <tr>
             <th>Classification:</th>
-            <td>{{ data.classification?.name }}</td>
+            <td>{{ data?.classification?.name }}</td>
           </tr>
           <tr>
             <th>SKU Number:</th>
-            <td>{{ data.sku }}</td>
+            <td>{{ data?.sku }}</td>
           </tr>
           <tr>
             <th>Size:</th>
-            <td>{{ data.size?.name }}</td>
+            <td>{{ data?.size.name }}</td>
           </tr>
           <tr>
             <th>Key Partners:</th>
             <td>
-              {{ data.keyPartnerId?.name + " - " + data.keyPartnerId?.email }}
+              {{ data?.keyPartnerId.name + " - " + data?.keyPartnerId.email }}
             </td>
           </tr>
           <tr>
             <th>Status:</th>
-            <td>{{ data.status }}</td>
+            <td>{{ data?.status }}</td>
           </tr>
           <tr>
             <th>In:</th>
-            <td>{{ data.in }}</td>
+            <td>{{ data?.in }}</td>
           </tr>
           <tr>
             <th>Out:</th>
-            <td>{{ data.out }}</td>
+            <td>{{ data?.out }}</td>
           </tr>
           <tr>
             <th>RTS:</th>
-            <td>{{ data.rts }}</td>
+            <td>{{ data?.rts }}</td>
           </tr>
           <tr>
             <th>Defective:</th>
-            <td>{{ data.defective }}</td>
+            <td>{{ data?.defective }}</td>
           </tr>
           <tr>
             <th>Current Quantity:</th>
-            <td>{{ data.currentQty }}</td>
+            <td>{{ data?.currentQty }}</td>
           </tr>
           <tr>
             <th>Price / Unit:</th>
-            <td>₱ {{ handleMoney(data.price) }}</td>
+            <td>₱ {{ handleMoney(data?.price) }}</td>
           </tr>
           <tr>
             <th>Total Price:</th>
             <td>
-              ₱ {{ handleMoney(handleTotal(data.price, data.currentQty)) }}
+              ₱ {{ handleMoney(handleTotal(data?.price, data?.currentQty)) }}
             </td>
           </tr>
         </tbody>

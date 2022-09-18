@@ -91,6 +91,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>NgbActiveModal</code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -198,7 +204,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -266,7 +272,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:13</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -300,8 +306,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:87</a></div>
                 </td>
             </tr>
 
@@ -337,8 +343,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:24</a></div>
                 </td>
             </tr>
 
@@ -406,8 +412,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:22</a></div>
                 </td>
             </tr>
 
@@ -443,8 +449,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:71</a></div>
                 </td>
             </tr>
 
@@ -523,7 +529,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/modals/codes-update/classification-update/classification-update.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -545,6 +551,7 @@ import Swal from &#x27;sweetalert2&#x27;;
   selector: &#x27;app-classification-update&#x27;,
   templateUrl: &#x27;./classification-update.component.html&#x27;,
   styleUrls: [&#x27;./classification-update.component.scss&#x27;],
+  providers: [NgbActiveModal]
 })
 export class ClassificationUpdateComponent implements OnInit {
   @Input() public data: any;
@@ -573,7 +580,7 @@ export class ClassificationUpdateComponent implements OnInit {
           {
             name: classification.value,
             code: classCode.value,
-            type: this.data.type,
+            type: this.data?.type,
           },
           this.data._id
         )
@@ -581,10 +588,10 @@ export class ClassificationUpdateComponent implements OnInit {
           next: (res: any) &#x3D;&gt; {
             if (res.success) {
               Swal.fire({
-                title: &#x60;${this.data.type} successfully updated.&#x60;,
+                title: &#x60;${this.data?.type} successfully updated.&#x60;,
                 icon: &#x27;success&#x27;,
               });
-              this.mdCtrl.close({ success: true, type: this.data.type });
+              this.mdCtrl.close({ success: true, type: this.data?.type });
               this.loading &#x3D; false;
             } else {
               Swal.fire({
@@ -641,16 +648,16 @@ export class ClassificationUpdateComponent implements OnInit {
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;card m-3&quot;&gt;
   &lt;div class&#x3D;&quot;card-body px-3 py-4&quot;&gt;
-    &lt;h3 class&#x3D;&quot;mb-3 text-capitalize&quot;&gt;{{ data.type }} Update&lt;/h3&gt;
+    &lt;h3 class&#x3D;&quot;mb-3 text-capitalize&quot;&gt;{{ data?.type }} Update&lt;/h3&gt;
     &lt;form (submit)&#x3D;&quot;handleUpdate($event)&quot; id&#x3D;&quot;classification-form&quot;&gt;
       &lt;div class&#x3D;&quot;&quot;&gt;
         &lt;div class&#x3D;&quot;mb-3&quot;&gt;
           &lt;app-input
             [inputType]&#x3D;&quot;&#x27;text&#x27;&quot;
             [name]&#x3D;&quot;&#x27;classification&#x27;&quot;
-            [label]&#x3D;&quot;data.type&quot;
+            [label]&#x3D;&quot;data?.type&quot;
             [required]&#x3D;&quot;true&quot;
-            [value]&#x3D;&quot;data.name&quot;
+            [value]&#x3D;&quot;data?.name&quot;
           &gt;
           &lt;/app-input&gt;
         &lt;/div&gt;
@@ -658,9 +665,9 @@ export class ClassificationUpdateComponent implements OnInit {
           &lt;app-input
             [inputType]&#x3D;&quot;&#x27;text&#x27;&quot;
             [name]&#x3D;&quot;&#x27;classCode&#x27;&quot;
-            [label]&#x3D;&quot;data.type + &#x27; Code&#x27;&quot;
+            [label]&#x3D;&quot;data?.type + &#x27; Code&#x27;&quot;
             [required]&#x3D;&quot;true&quot;
-            [value]&#x3D;&quot;data.code&quot;
+            [value]&#x3D;&quot;data?.code&quot;
           &gt;
           &lt;/app-input&gt;
         &lt;/div&gt;
@@ -724,8 +731,8 @@ export class ClassificationUpdateComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="card m-3">  <div class="card-body px-3 py-4">    <h3 class="mb-3 text-capitalize">{{ data.type }} Update</h3>    <form (submit)="handleUpdate($event)" id="classification-form">      <div class="">        <div class="mb-3">          <app-input            [inputType]="\'text\'"            [name]="\'classification\'"            [label]="data.type"            [required]="true"            [value]="data.name"          >          </app-input>        </div>        <div class="mb-3">          <app-input            [inputType]="\'text\'"            [name]="\'classCode\'"            [label]="data.type + \' Code\'"            [required]="true"            [value]="data.code"          >          </app-input>        </div>        <div class="d-flex justify-content-end">          <button            type="button"            class="btn btn-dark me-2"            (click)="handleClose()"            [disabled]="loading"          >            Cancel          </button>          <button type="submit" class="btn btn-dark" [disabled]="loading">            <ng-template [ngIf]="loading">              <div                class="spinner-border spinner-border-sm text-warning"                role="status"              >                <span class="sr-only"></span>              </div>            </ng-template>            <ng-template [ngIf]="!loading">Save</ng-template>          </button>        </div>      </div>    </form>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+        var COMPONENT_TEMPLATE = '<div><div class="card m-3">  <div class="card-body px-3 py-4">    <h3 class="mb-3 text-capitalize">{{ data?.type }} Update</h3>    <form (submit)="handleUpdate($event)" id="classification-form">      <div class="">        <div class="mb-3">          <app-input            [inputType]="\'text\'"            [name]="\'classification\'"            [label]="data?.type"            [required]="true"            [value]="data?.name"          >          </app-input>        </div>        <div class="mb-3">          <app-input            [inputType]="\'text\'"            [name]="\'classCode\'"            [label]="data?.type + \' Code\'"            [required]="true"            [value]="data?.code"          >          </app-input>        </div>        <div class="d-flex justify-content-end">          <button            type="button"            class="btn btn-dark me-2"            (click)="handleClose()"            [disabled]="loading"          >            Cancel          </button>          <button type="submit" class="btn btn-dark" [disabled]="loading">            <ng-template [ngIf]="loading">              <div                class="spinner-border spinner-border-sm text-warning"                role="status"              >                <span class="sr-only"></span>              </div>            </ng-template>            <ng-template [ngIf]="!loading">Save</ng-template>          </button>        </div>      </div>    </form>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ClassificationUpdateComponent'};
 </script>

@@ -523,62 +523,62 @@ export class ViewItemComponent implements OnInit {
         &lt;tbody&gt;
           &lt;tr&gt;
             &lt;th&gt;Date In:&lt;/th&gt;
-            &lt;td&gt;{{ handleDate(data.createdAt) }}&lt;/td&gt;
+            &lt;td&gt;{{ handleDate(data?.createdAt) }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Description:&lt;/th&gt;
-            &lt;td&gt;{{ data.desc }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.desc }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Classification:&lt;/th&gt;
-            &lt;td&gt;{{ data.classification?.name }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.classification?.name }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;SKU Number:&lt;/th&gt;
-            &lt;td&gt;{{ data.sku }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.sku }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Size:&lt;/th&gt;
-            &lt;td&gt;{{ data.size?.name }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.size.name }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Key Partners:&lt;/th&gt;
             &lt;td&gt;
-              {{ data.keyPartnerId?.name + &quot; - &quot; + data.keyPartnerId?.email }}
+              {{ data?.keyPartnerId.name + &quot; - &quot; + data?.keyPartnerId.email }}
             &lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Status:&lt;/th&gt;
-            &lt;td&gt;{{ data.status }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.status }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;In:&lt;/th&gt;
-            &lt;td&gt;{{ data.in }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.in }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Out:&lt;/th&gt;
-            &lt;td&gt;{{ data.out }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.out }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;RTS:&lt;/th&gt;
-            &lt;td&gt;{{ data.rts }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.rts }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Defective:&lt;/th&gt;
-            &lt;td&gt;{{ data.defective }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.defective }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Current Quantity:&lt;/th&gt;
-            &lt;td&gt;{{ data.currentQty }}&lt;/td&gt;
+            &lt;td&gt;{{ data?.currentQty }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Price / Unit:&lt;/th&gt;
-            &lt;td&gt;₱ {{ handleMoney(data.price) }}&lt;/td&gt;
+            &lt;td&gt;₱ {{ handleMoney(data?.price) }}&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
             &lt;th&gt;Total Price:&lt;/th&gt;
             &lt;td&gt;
-              ₱ {{ handleMoney(handleTotal(data.price, data.currentQty)) }}
+              ₱ {{ handleMoney(handleTotal(data?.price, data?.currentQty)) }}
             &lt;/td&gt;
           &lt;/tr&gt;
         &lt;/tbody&gt;
@@ -621,8 +621,8 @@ export class ViewItemComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container">  <div class="card px-3 my-3 shadow">    <div class="card-body">      <h4>View Item</h4>      <table class="table table-bordered">        <tbody>          <tr>            <th>Date In:</th>            <td>{{ handleDate(data.createdAt) }}</td>          </tr>          <tr>            <th>Description:</th>            <td>{{ data.desc }}</td>          </tr>          <tr>            <th>Classification:</th>            <td>{{ data.classification?.name }}</td>          </tr>          <tr>            <th>SKU Number:</th>            <td>{{ data.sku }}</td>          </tr>          <tr>            <th>Size:</th>            <td>{{ data.size?.name }}</td>          </tr>          <tr>            <th>Key Partners:</th>            <td>              {{ data.keyPartnerId?.name + " - " + data.keyPartnerId?.email }}            </td>          </tr>          <tr>            <th>Status:</th>            <td>{{ data.status }}</td>          </tr>          <tr>            <th>In:</th>            <td>{{ data.in }}</td>          </tr>          <tr>            <th>Out:</th>            <td>{{ data.out }}</td>          </tr>          <tr>            <th>RTS:</th>            <td>{{ data.rts }}</td>          </tr>          <tr>            <th>Defective:</th>            <td>{{ data.defective }}</td>          </tr>          <tr>            <th>Current Quantity:</th>            <td>{{ data.currentQty }}</td>          </tr>          <tr>            <th>Price / Unit:</th>            <td>₱ {{ handleMoney(data.price) }}</td>          </tr>          <tr>            <th>Total Price:</th>            <td>              ₱ {{ handleMoney(handleTotal(data.price, data.currentQty)) }}            </td>          </tr>        </tbody>      </table>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container">  <div class="card px-3 my-3 shadow">    <div class="card-body">      <h4>View Item</h4>      <table class="table table-bordered">        <tbody>          <tr>            <th>Date In:</th>            <td>{{ handleDate(data?.createdAt) }}</td>          </tr>          <tr>            <th>Description:</th>            <td>{{ data?.desc }}</td>          </tr>          <tr>            <th>Classification:</th>            <td>{{ data?.classification?.name }}</td>          </tr>          <tr>            <th>SKU Number:</th>            <td>{{ data?.sku }}</td>          </tr>          <tr>            <th>Size:</th>            <td>{{ data?.size.name }}</td>          </tr>          <tr>            <th>Key Partners:</th>            <td>              {{ data?.keyPartnerId.name + " - " + data?.keyPartnerId.email }}            </td>          </tr>          <tr>            <th>Status:</th>            <td>{{ data?.status }}</td>          </tr>          <tr>            <th>In:</th>            <td>{{ data?.in }}</td>          </tr>          <tr>            <th>Out:</th>            <td>{{ data?.out }}</td>          </tr>          <tr>            <th>RTS:</th>            <td>{{ data?.rts }}</td>          </tr>          <tr>            <th>Defective:</th>            <td>{{ data?.defective }}</td>          </tr>          <tr>            <th>Current Quantity:</th>            <td>{{ data?.currentQty }}</td>          </tr>          <tr>            <th>Price / Unit:</th>            <td>₱ {{ handleMoney(data?.price) }}</td>          </tr>          <tr>            <th>Total Price:</th>            <td>              ₱ {{ handleMoney(handleTotal(data?.price, data?.currentQty)) }}            </td>          </tr>        </tbody>      </table>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ViewItemComponent'};
 </script>

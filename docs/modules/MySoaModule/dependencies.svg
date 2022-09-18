@@ -14,43 +14,43 @@
 <title>cluster_MySoaModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 332,-157.8 332,-32.8 8,-32.8"/>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_MySoaModule_declarations</title>
-<polygon fill="none" stroke="black" points="186,-40.8 186,-92.8 324,-92.8 324,-40.8 186,-40.8"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_MySoaModule_imports</title>
-<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 178,-92.8 178,-40.8 16,-40.8"/>
+<polygon fill="none" stroke="black" points="162,-40.8 162,-92.8 324,-92.8 324,-40.8 162,-40.8"/>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_MySoaModule_declarations</title>
+<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 154,-92.8 154,-40.8 16,-40.8"/>
 </g>
 <!-- MySoaComponent -->
 <g id="node1" class="node">
 <title>MySoaComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="315.78,-84.8 194.22,-84.8 194.22,-48.8 315.78,-48.8 315.78,-84.8"/>
-<text text-anchor="middle" x="255" y="-62.6" font-family="Times,serif" font-size="14.00">MySoaComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="145.78,-84.8 24.22,-84.8 24.22,-48.8 145.78,-48.8 145.78,-84.8"/>
+<text text-anchor="middle" x="85" y="-62.6" font-family="Times,serif" font-size="14.00">MySoaComponent</text>
 </g>
 <!-- MySoaModule -->
 <g id="node2" class="node">
 <title>MySoaModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="226,-149.8 223,-153.8 202,-153.8 199,-149.8 126,-149.8 126,-113.8 226,-113.8 226,-149.8"/>
-<text text-anchor="middle" x="176" y="-127.6" font-family="Times,serif" font-size="14.00">MySoaModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="214,-149.8 211,-153.8 190,-153.8 187,-149.8 114,-149.8 114,-113.8 214,-113.8 214,-149.8"/>
+<text text-anchor="middle" x="164" y="-127.6" font-family="Times,serif" font-size="14.00">MySoaModule</text>
 </g>
 <!-- MySoaComponent&#45;&gt;MySoaModule -->
 <g id="edge1" class="edge">
 <title>MySoaComponent&#45;&gt;MySoaModule</title>
-<path fill="none" stroke="black" d="M210.06,-84.91C210.06,-84.91 210.06,-103.79 210.06,-103.79"/>
-<polygon fill="black" stroke="black" points="206.56,-103.79 210.06,-113.79 213.56,-103.79 206.56,-103.79"/>
+<path fill="none" stroke="black" d="M129.94,-84.91C129.94,-84.91 129.94,-103.79 129.94,-103.79"/>
+<polygon fill="black" stroke="black" points="126.44,-103.79 129.94,-113.79 133.44,-103.79 126.44,-103.79"/>
 </g>
 <!-- MySoaRoutingModule -->
 <g id="node3" class="node">
 <title>MySoaRoutingModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="169.62,-84.8 166.62,-88.8 145.62,-88.8 142.62,-84.8 24.38,-84.8 24.38,-48.8 169.62,-48.8 169.62,-84.8"/>
-<text text-anchor="middle" x="97" y="-62.6" font-family="Times,serif" font-size="14.00">MySoaRoutingModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="315.62,-84.8 312.62,-88.8 291.62,-88.8 288.62,-84.8 170.38,-84.8 170.38,-48.8 315.62,-48.8 315.62,-84.8"/>
+<text text-anchor="middle" x="243" y="-62.6" font-family="Times,serif" font-size="14.00">MySoaRoutingModule</text>
 </g>
 <!-- MySoaRoutingModule&#45;&gt;MySoaModule -->
 <g id="edge2" class="edge">
 <title>MySoaRoutingModule&#45;&gt;MySoaModule</title>
-<path fill="none" stroke="black" d="M147.78,-84.91C147.78,-84.91 147.78,-103.79 147.78,-103.79"/>
-<polygon fill="black" stroke="black" points="144.28,-103.79 147.78,-113.79 151.28,-103.79 144.28,-103.79"/>
+<path fill="none" stroke="black" d="M192.22,-84.91C192.22,-84.91 192.22,-103.79 192.22,-103.79"/>
+<polygon fill="black" stroke="black" points="188.72,-103.79 192.22,-113.79 195.72,-103.79 188.72,-103.79"/>
 </g>
 </g>
 </svg>

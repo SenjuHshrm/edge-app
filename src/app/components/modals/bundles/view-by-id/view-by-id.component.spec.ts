@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewByIdComponent } from './view-by-id.component';
@@ -8,7 +9,8 @@ describe('ViewByIdComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewByIdComponent ]
+      declarations: [ ViewByIdComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 

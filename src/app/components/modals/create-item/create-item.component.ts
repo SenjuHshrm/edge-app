@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   selector: 'app-create-item',
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class CreateItemComponent implements OnInit {
   public active: string = 'individual';

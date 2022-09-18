@@ -20,10 +20,10 @@
           <div class="col-md-4 d-flex align-items-center">
             <div>
               <h5>CUSTOMER</h5>
-              {{ data.keyPartnerId.name }} <br />
-              {{ data.keyPartnerId.company }}<br />
-              {{ data.keyPartnerId.addr }} <br />
-              {{ data.keyPartnerId.contact }}
+              {{ data?.keyPartnerId.name }} <br />
+              {{ data?.keyPartnerId.company }}<br />
+              {{ data?.keyPartnerId.addr }} <br />
+              {{ data?.keyPartnerId.contact }}
             </div>
           </div>
 
@@ -48,7 +48,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  {{ data.quotationId }}
+                  {{ data?.quotationId }}
                 </td>
               </tr>
               <tr>
@@ -70,7 +70,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  {{ data.createdAt | customDate: "MMM. DD, YYYY" }}
+                  {{ data?.createdAt | customDate: "MMM. DD, YYYY" }}
                 </td>
               </tr>
               <tr>
@@ -79,7 +79,7 @@
                   class="text-start text-white px-3"
                   style="background-color: #3f3f3f"
                 >
-                  {{ data.validUntil | customDate: "MMM. DD, YYYY" }}
+                  {{ data?.validUntil | customDate: "MMM. DD, YYYY" }}
                 </td>
               </tr>
             </table>
@@ -98,7 +98,7 @@
             <th style="background-color: #f0b663">Mark Up (15%)</th>
             <th style="background-color: #f0b663">Total Price</th>
           </tr>
-          <tr *ngFor="let item of data.items; let i = index">
+          <tr *ngFor="let item of data?.items; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.price }}</td>

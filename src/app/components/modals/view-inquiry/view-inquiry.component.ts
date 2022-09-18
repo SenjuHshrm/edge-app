@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-view-inquiry',
   templateUrl: './view-inquiry.component.html',
   styleUrls: ['./view-inquiry.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class ViewInquiryComponent implements OnInit {
   @Input() public data: any | undefined;

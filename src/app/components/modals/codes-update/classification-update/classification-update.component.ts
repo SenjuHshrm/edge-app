@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
   selector: 'app-classification-update',
   templateUrl: './classification-update.component.html',
   styleUrls: ['./classification-update.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class ClassificationUpdateComponent implements OnInit {
   @Input() public data: any;
@@ -35,7 +36,7 @@ export class ClassificationUpdateComponent implements OnInit {
           {
             name: classification.value,
             code: classCode.value,
-            type: this.data.type,
+            type: this.data?.type,
           },
           this.data._id
         )
@@ -43,10 +44,10 @@ export class ClassificationUpdateComponent implements OnInit {
           next: (res: any) => {
             if (res.success) {
               Swal.fire({
-                title: `${this.data.type} successfully updated.`,
+                title: `${this.data?.type} successfully updated.`,
                 icon: 'success',
               });
-              this.mdCtrl.close({ success: true, type: this.data.type });
+              this.mdCtrl.close({ success: true, type: this.data?.type });
               this.loading = false;
             } else {
               Swal.fire({

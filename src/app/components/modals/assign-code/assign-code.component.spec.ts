@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssignCodeComponent } from './assign-code.component';
@@ -8,7 +9,8 @@ describe('AssignCodeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssignCodeComponent ]
+      declarations: [ AssignCodeComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 

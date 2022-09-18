@@ -91,6 +91,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>NgbActiveModal</code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -183,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -251,7 +257,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:12</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -285,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:33</a></div>
                 </td>
             </tr>
 
@@ -366,8 +372,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:22</a></div>
                 </td>
             </tr>
 
@@ -403,8 +409,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:18</a></div>
                 </td>
             </tr>
 
@@ -440,8 +446,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/app/components/modals/view-quotation/view-quotation.component.ts:16</a></div>
                 </td>
             </tr>
 
@@ -471,6 +477,7 @@ import { NgbActiveModal } from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
   selector: &#x27;app-view-quotation&#x27;,
   templateUrl: &#x27;./view-quotation.component.html&#x27;,
   styleUrls: [&#x27;./view-quotation.component.scss&#x27;],
+  providers: [NgbActiveModal]
 })
 export class ViewQuotationComponent implements OnInit {
   @Input() public data: any | undefined;
@@ -539,10 +546,10 @@ export class ViewQuotationComponent implements OnInit {
           &lt;div class&#x3D;&quot;col-md-4 d-flex align-items-center&quot;&gt;
             &lt;div&gt;
               &lt;h5&gt;CUSTOMER&lt;/h5&gt;
-              {{ data.keyPartnerId.name }} &lt;br /&gt;
-              {{ data.keyPartnerId.company }}&lt;br /&gt;
-              {{ data.keyPartnerId.addr }} &lt;br /&gt;
-              {{ data.keyPartnerId.contact }}
+              {{ data?.keyPartnerId.name }} &lt;br /&gt;
+              {{ data?.keyPartnerId.company }}&lt;br /&gt;
+              {{ data?.keyPartnerId.addr }} &lt;br /&gt;
+              {{ data?.keyPartnerId.contact }}
             &lt;/div&gt;
           &lt;/div&gt;
 
@@ -567,7 +574,7 @@ export class ViewQuotationComponent implements OnInit {
                   class&#x3D;&quot;text-start text-white px-3&quot;
                   style&#x3D;&quot;background-color: #3f3f3f&quot;
                 &gt;
-                  {{ data.quotationId }}
+                  {{ data?.quotationId }}
                 &lt;/td&gt;
               &lt;/tr&gt;
               &lt;tr&gt;
@@ -589,7 +596,7 @@ export class ViewQuotationComponent implements OnInit {
                   class&#x3D;&quot;text-start text-white px-3&quot;
                   style&#x3D;&quot;background-color: #3f3f3f&quot;
                 &gt;
-                  {{ data.createdAt | customDate: &quot;MMM. DD, YYYY&quot; }}
+                  {{ data?.createdAt | customDate: &quot;MMM. DD, YYYY&quot; }}
                 &lt;/td&gt;
               &lt;/tr&gt;
               &lt;tr&gt;
@@ -598,7 +605,7 @@ export class ViewQuotationComponent implements OnInit {
                   class&#x3D;&quot;text-start text-white px-3&quot;
                   style&#x3D;&quot;background-color: #3f3f3f&quot;
                 &gt;
-                  {{ data.validUntil | customDate: &quot;MMM. DD, YYYY&quot; }}
+                  {{ data?.validUntil | customDate: &quot;MMM. DD, YYYY&quot; }}
                 &lt;/td&gt;
               &lt;/tr&gt;
             &lt;/table&gt;
@@ -617,7 +624,7 @@ export class ViewQuotationComponent implements OnInit {
             &lt;th style&#x3D;&quot;background-color: #f0b663&quot;&gt;Mark Up (15%)&lt;/th&gt;
             &lt;th style&#x3D;&quot;background-color: #f0b663&quot;&gt;Total Price&lt;/th&gt;
           &lt;/tr&gt;
-          &lt;tr *ngFor&#x3D;&quot;let item of data.items; let i &#x3D; index&quot;&gt;
+          &lt;tr *ngFor&#x3D;&quot;let item of data?.items; let i &#x3D; index&quot;&gt;
             &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
             &lt;td&gt;{{ item.description }}&lt;/td&gt;
             &lt;td&gt;{{ item.price }}&lt;/td&gt;
@@ -678,8 +685,8 @@ export class ViewQuotationComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container p-4">  <div class="card shadow px-3">    <div class="card-body">      <div class="title-container mb-2">        <h3 class="h3 h3-responsive text-center">FORMAL QUOTATION</h3>      </div>      <div class="quotation-company-info text-center mb-4">        <p class="m-0 p-0">EdgeCommerce Fulfillment and Ecom Service</p>        <p class="m-0 p-0">          Pedro Buan Road, Alangilan Batangas City 4200 ⚬          edgecommerceph@gmail.com        </p>      </div>      <div class="col-md-12 custom-bg-orange p-3">        <div class="row quotation-header">          <div class="col-md-4 text-center d-flex align-items-center">            <img src="/assets/logo.png" class="img-fluid w-50 mx-auto" />          </div>          <div class="col-md-4 d-flex align-items-center">            <div>              <h5>CUSTOMER</h5>              {{ data.keyPartnerId.name }} <br />              {{ data.keyPartnerId.company }}<br />              {{ data.keyPartnerId.addr }} <br />              {{ data.keyPartnerId.contact }}            </div>          </div>          <div class="col-md-4 d-flex align-items-center">            <div>              <h5>PREPARED BY:</h5>              Adel Bayeta <br />              EdgeCommerce Fulfillment <br />              Pedro Buan Road, Alangilan Batangas City <br />              09366274842            </div>          </div>        </div>      </div>      <div class="my-3">        <div class="row">          <div class="col-md-6">            <table>              <tr>                <td class="text-end px-2">Quote No:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data.quotationId }}                </td>              </tr>              <tr>                <!-- <td class="text-end px-2">Customer Id:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  00001                </td> -->              </tr>            </table>          </div>          <div class="col-md-6 d-flex align-items-end justify-content-end">            <table>              <tr>                <td class="text-end px-2">Date:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data.createdAt | customDate: "MMM. DD, YYYY" }}                </td>              </tr>              <tr>                <td class="text-end px-2">Valid Until:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data.validUntil | customDate: "MMM. DD, YYYY" }}                </td>              </tr>            </table>          </div>        </div>      </div>      <div class="col">        <table class="w-100 text-center">          <tr>            <th style="background-color: #3f3f3f" class="text-white">              Item Number            </th>            <th style="background-color: #3f3f3f" class="text-white">Item</th>            <th style="background-color: #f0b663">Unit Price</th>            <th style="background-color: #f0b663">QTY</th>            <th style="background-color: #f0b663">Mark Up (15%)</th>            <th style="background-color: #f0b663">Total Price</th>          </tr>          <tr *ngFor="let item of data.items; let i = index">            <td>{{ i + 1 }}</td>            <td>{{ item.description }}</td>            <td>{{ item.price }}</td>            <td>{{ item.quantity }}</td>            <td>{{ item.price * 0.15 }}</td>            <td>{{ item.totalPrice }}</td>          </tr>        </table>      </div>      <div class="text-end mt-3">        <button class="btn btn-dark px-3 me-2" (click)="generateFile()">          Generate File        </button>        <button class="btn btn-dark px-3" (click)="handleClose()">Close</button>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container p-4">  <div class="card shadow px-3">    <div class="card-body">      <div class="title-container mb-2">        <h3 class="h3 h3-responsive text-center">FORMAL QUOTATION</h3>      </div>      <div class="quotation-company-info text-center mb-4">        <p class="m-0 p-0">EdgeCommerce Fulfillment and Ecom Service</p>        <p class="m-0 p-0">          Pedro Buan Road, Alangilan Batangas City 4200 ⚬          edgecommerceph@gmail.com        </p>      </div>      <div class="col-md-12 custom-bg-orange p-3">        <div class="row quotation-header">          <div class="col-md-4 text-center d-flex align-items-center">            <img src="/assets/logo.png" class="img-fluid w-50 mx-auto" />          </div>          <div class="col-md-4 d-flex align-items-center">            <div>              <h5>CUSTOMER</h5>              {{ data?.keyPartnerId.name }} <br />              {{ data?.keyPartnerId.company }}<br />              {{ data?.keyPartnerId.addr }} <br />              {{ data?.keyPartnerId.contact }}            </div>          </div>          <div class="col-md-4 d-flex align-items-center">            <div>              <h5>PREPARED BY:</h5>              Adel Bayeta <br />              EdgeCommerce Fulfillment <br />              Pedro Buan Road, Alangilan Batangas City <br />              09366274842            </div>          </div>        </div>      </div>      <div class="my-3">        <div class="row">          <div class="col-md-6">            <table>              <tr>                <td class="text-end px-2">Quote No:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data?.quotationId }}                </td>              </tr>              <tr>                <!-- <td class="text-end px-2">Customer Id:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  00001                </td> -->              </tr>            </table>          </div>          <div class="col-md-6 d-flex align-items-end justify-content-end">            <table>              <tr>                <td class="text-end px-2">Date:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data?.createdAt | customDate: "MMM. DD, YYYY" }}                </td>              </tr>              <tr>                <td class="text-end px-2">Valid Until:</td>                <td                  class="text-start text-white px-3"                  style="background-color: #3f3f3f"                >                  {{ data?.validUntil | customDate: "MMM. DD, YYYY" }}                </td>              </tr>            </table>          </div>        </div>      </div>      <div class="col">        <table class="w-100 text-center">          <tr>            <th style="background-color: #3f3f3f" class="text-white">              Item Number            </th>            <th style="background-color: #3f3f3f" class="text-white">Item</th>            <th style="background-color: #f0b663">Unit Price</th>            <th style="background-color: #f0b663">QTY</th>            <th style="background-color: #f0b663">Mark Up (15%)</th>            <th style="background-color: #f0b663">Total Price</th>          </tr>          <tr *ngFor="let item of data?.items; let i = index">            <td>{{ i + 1 }}</td>            <td>{{ item.description }}</td>            <td>{{ item.price }}</td>            <td>{{ item.quantity }}</td>            <td>{{ item.price * 0.15 }}</td>            <td>{{ item.totalPrice }}</td>          </tr>        </table>      </div>      <div class="text-end mt-3">        <button class="btn btn-dark px-3 me-2" (click)="generateFile()">          Generate File        </button>        <button class="btn btn-dark px-3" (click)="handleClose()">Close</button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ViewQuotationComponent'};
 </script>

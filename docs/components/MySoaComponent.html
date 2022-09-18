@@ -161,6 +161,9 @@
                                 <a href="#authenticate" >authenticate</a>
                             </li>
                             <li>
+                                <a href="#markAsSeen" >markAsSeen</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                         </ul>
@@ -265,8 +268,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/app/key-partners/home/my-soa/my-soa.component.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/app/key-partners/home/my-soa/my-soa.component.ts:43</a></div>
                 </td>
             </tr>
 
@@ -277,6 +280,75 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markAsSeen"></a>
+                    <span class="name">
+                        <span ><b>markAsSeen</b></span>
+                        <a href="#markAsSeen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>markAsSeen(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/key-partners/home/my-soa/my-soa.component.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -458,7 +530,8 @@ export class MySoaComponent implements OnInit {
             id: x._id,
             file: &#x60;${environment.apiV1}${x.file}&#x60;,
             createdAt: x.createdAt,
-            filename: x.file.substring(i + 1, x.file.length)
+            filename: x.file.substring(i + 1, x.file.length),
+            isSeen: x.isSeen
           })
         })
       },
@@ -481,6 +554,15 @@ export class MySoaComponent implements OnInit {
     } else {
       Swal.fire({ title: &#x27;Please input your password&#x27;, icon: &#x27;warning&#x27; })
     }
+  }
+
+  markAsSeen(id: string) {
+    this.contract.markAsSeen(id).subscribe({
+      next: (res: any) &#x3D;&gt; {
+        let i &#x3D; this.fileList.findIndex((x: any) &#x3D;&gt; x.id &#x3D;&#x3D;&#x3D; id)
+        this.fileList[i].isSeen &#x3D; true
+      }
+    })
   }
 
 }
@@ -558,7 +640,7 @@ export class MySoaComponent implements OnInit {
                   &lt;/tr&gt;
                 &lt;/ng-template&gt;
                 &lt;ng-template [ngIf]&#x3D;&quot;fileList.length !&#x3D;&#x3D; 0&quot;&gt;
-                  &lt;tr *ngFor&#x3D;&quot;let file of fileList&quot;&gt;
+                  &lt;tr *ngFor&#x3D;&quot;let file of fileList&quot; [class]&#x3D;&quot;(!file.isSeen) ? &#x27;table-info&#x27; : &#x27;&#x27;&quot;&gt;
                     &lt;td class&#x3D;&quot;text-truncate px-1&quot;&gt;
                       {{
                         file.createdAt | customDate: &quot;MM/DD/YYYY, hh:mm:ss a&quot;
@@ -570,6 +652,7 @@ export class MySoaComponent implements OnInit {
                         title&#x3D;&quot;View SOA&quot;
                         [href]&#x3D;&quot;file.file&quot;
                         target&#x3D;&quot;_blank&quot;
+                        (click)&#x3D;&quot;markAsSeen(file.id)&quot;
                       &gt;
                         &lt;i class&#x3D;&quot;bi bi-door-open&quot;&gt;&lt;/i&gt;
                       &lt;/a&gt;
@@ -655,8 +738,8 @@ export class MySoaComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ng-template [ngIf]="!isAuth">  <div    class="d-flex align-items-center justify-content-center"    style="height: 93vh"  >    <div class="col-md-6 col-12 col-sm-8">      <div class="card py-3 shadow">        <div class="card-body">          <div class="col-md-10 offset-md-1">            <div class="mb-2">              <h4 class="card-title mb-0 pb-0">SOA User Authentication</h4>              <small class="fw-bold"                >*Enter password to view the SOA documents.</small              >            </div>            <div class="form-group mb-3">              <label for="password" class="fw-bold m-0 p-0">Password:</label>              <input                type="password"                class="form-control"                name="password"                [(ngModel)]="password"              />            </div>            <div class="text-end">              <button class="btn btn-dark" (click)="authenticate()">                Authenticate              </button>            </div>          </div>        </div>      </div>    </div>  </div></ng-template><ng-template [ngIf]="isAuth">  <div class="container-fluid">    <h2 class="h2 h2-responsive my-3 fw-bolder">My SOA</h2>    <div class="row">      <div class="col-md-6 offset-md-6">        <div class="input-group mb-3">          <input            type="text"            class="form-control"            placeholder="Search by Date"          />          <span class="input-group-text"><i class="bi bi-search"></i></span>        </div>      </div>    </div>    <div class="col-md-12 mb-5">      <div class="card shadow p-3">        <div class="card-body">          <div class="table-responsive" style="height: 23rem">            <table class="hoverable table table-hover text-center">              <thead class="bg-light sticky-top">                <tr>                  <th class="text-truncate px-1">Date Received</th>                  <th class="text-truncate px-1">Actions</th>                </tr>              </thead>              <tbody class="border-top-0">                <ng-template [ngIf]="fileList.length === 0">                  <tr>                    <td colspan="2">                      <small class="fw-bold">No Files Found.</small>                    </td>                  </tr>                </ng-template>                <ng-template [ngIf]="fileList.length !== 0">                  <tr *ngFor="let file of fileList">                    <td class="text-truncate px-1">                      {{                        file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a"                      }}                    </td>                    <td>                      <a                        class="btn btn-dark text-white fw-bolder py-0 me-2"                        title="View SOA"                        [href]="file.file"                        target="_blank"                      >                        <i class="bi bi-door-open"></i>                      </a>                      <!-- <a                        class="btn btn-dark text-white fw-bolder py-0"                        title="Download SOA"                        [href]="file.file"                        target="_blank"                        [download]="file.filename"                      >                        <i class="bi bi-file-earmark-arrow-down"></i>                      </a> -->                    </td>                  </tr>                </ng-template>              </tbody>            </table>          </div>          <!-- <nav class="d-flex justify-content-end mt-3">            <ul class="pagination">              <li class="page-item">                <a class="page-link custom-pagination-label" href="#">Previous</a>              </li>              <li class="page-item custom-pagination-label">                <a class="page-link custom-pagination-label" href="#">1</a>              </li>              <li class="page-item custom-pagination-label">                <a class="page-link custom-pagination-label" href="#">Next</a>              </li>            </ul>          </nav> -->        </div>      </div>    </div>  </div></ng-template></div>'
-    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
+        var COMPONENT_TEMPLATE = '<div><ng-template [ngIf]="!isAuth">  <div    class="d-flex align-items-center justify-content-center"    style="height: 93vh"  >    <div class="col-md-6 col-12 col-sm-8">      <div class="card py-3 shadow">        <div class="card-body">          <div class="col-md-10 offset-md-1">            <div class="mb-2">              <h4 class="card-title mb-0 pb-0">SOA User Authentication</h4>              <small class="fw-bold"                >*Enter password to view the SOA documents.</small              >            </div>            <div class="form-group mb-3">              <label for="password" class="fw-bold m-0 p-0">Password:</label>              <input                type="password"                class="form-control"                name="password"                [(ngModel)]="password"              />            </div>            <div class="text-end">              <button class="btn btn-dark" (click)="authenticate()">                Authenticate              </button>            </div>          </div>        </div>      </div>    </div>  </div></ng-template><ng-template [ngIf]="isAuth">  <div class="container-fluid">    <h2 class="h2 h2-responsive my-3 fw-bolder">My SOA</h2>    <div class="row">      <div class="col-md-6 offset-md-6">        <div class="input-group mb-3">          <input            type="text"            class="form-control"            placeholder="Search by Date"          />          <span class="input-group-text"><i class="bi bi-search"></i></span>        </div>      </div>    </div>    <div class="col-md-12 mb-5">      <div class="card shadow p-3">        <div class="card-body">          <div class="table-responsive" style="height: 23rem">            <table class="hoverable table table-hover text-center">              <thead class="bg-light sticky-top">                <tr>                  <th class="text-truncate px-1">Date Received</th>                  <th class="text-truncate px-1">Actions</th>                </tr>              </thead>              <tbody class="border-top-0">                <ng-template [ngIf]="fileList.length === 0">                  <tr>                    <td colspan="2">                      <small class="fw-bold">No Files Found.</small>                    </td>                  </tr>                </ng-template>                <ng-template [ngIf]="fileList.length !== 0">                  <tr *ngFor="let file of fileList" [class]="(!file.isSeen) ? \'table-info\' : \'\'">                    <td class="text-truncate px-1">                      {{                        file.createdAt | customDate: "MM/DD/YYYY, hh:mm:ss a"                      }}                    </td>                    <td>                      <a                        class="btn btn-dark text-white fw-bolder py-0 me-2"                        title="View SOA"                        [href]="file.file"                        target="_blank"                        (click)="markAsSeen(file.id)"                      >                        <i class="bi bi-door-open"></i>                      </a>                      <!-- <a                        class="btn btn-dark text-white fw-bolder py-0"                        title="Download SOA"                        [href]="file.file"                        target="_blank"                        [download]="file.filename"                      >                        <i class="bi bi-file-earmark-arrow-down"></i>                      </a> -->                    </td>                  </tr>                </ng-template>              </tbody>            </table>          </div>          <!-- <nav class="d-flex justify-content-end mt-3">            <ul class="pagination">              <li class="page-item">                <a class="page-link custom-pagination-label" href="#">Previous</a>              </li>              <li class="page-item custom-pagination-label">                <a class="page-link custom-pagination-label" href="#">1</a>              </li>              <li class="page-item custom-pagination-label">                <a class="page-link custom-pagination-label" href="#">Next</a>              </li>            </ul>          </nav> -->        </div>      </div>    </div>  </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'AcctRequestComponent', 'selector': 'app-acct-request'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AssignCodeComponent', 'selector': 'app-assign-code'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BookingComponent', 'selector': 'app-booking'},{'name': 'BookingListComponent', 'selector': 'app-booking-list'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'ClassificationUpdateComponent', 'selector': 'app-classification-update'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CoaNdaComponent', 'selector': 'app-coa-nda'},{'name': 'CreateBookingComponent', 'selector': 'app-create-booking'},{'name': 'CreateBundleComponent', 'selector': 'app-create-bundle'},{'name': 'CreateCustomerComponent', 'selector': 'app-create-customer'},{'name': 'CreateInquiryComponent', 'selector': 'app-create-inquiry'},{'name': 'CreateItemComponent', 'selector': 'app-create-item'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreatePurchaseOrderComponent', 'selector': 'app-create-purchase-order'},{'name': 'CreateQuotationComponent', 'selector': 'app-create-quotation'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'ExportComponent', 'selector': 'app-export'},{'name': 'ForbiddenComponent', 'selector': 'app-forbidden'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InquiryComponent', 'selector': 'app-inquiry'},{'name': 'InquiryListComponent', 'selector': 'app-inquiry-list'},{'name': 'InventoryComponent', 'selector': 'app-inventory'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'KeyPartnersComponent', 'selector': 'app-key-partners'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogsComponent', 'selector': 'app-logs'},{'name': 'MyCustomerComponent', 'selector': 'app-my-customer'},{'name': 'MyInventoryComponent', 'selector': 'app-my-inventory'},{'name': 'MyQuotationComponent', 'selector': 'app-my-quotation'},{'name': 'MySoaComponent', 'selector': 'app-my-soa'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'PurchaseOrderComponent', 'selector': 'app-purchase-order'},{'name': 'QuotationListComponent', 'selector': 'app-quotation-list'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReportComponent', 'selector': 'app-report'},{'name': 'RtsComponent', 'selector': 'app-rts'},{'name': 'SelectKeypartnerComponent', 'selector': 'app-select-keypartner'},{'name': 'SetKeypartnerPasswordComponent', 'selector': 'app-set-keypartner-password'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SoaComponent', 'selector': 'app-soa'},{'name': 'SuComponent', 'selector': 'app-su'},{'name': 'UpdateBundleComponent', 'selector': 'app-update-bundle'},{'name': 'UpdateCustomerComponent', 'selector': 'app-update-customer'},{'name': 'UpdateItemComponent', 'selector': 'app-update-item'},{'name': 'UpdateKeypartnerComponent', 'selector': 'app-update-keypartner'},{'name': 'UploadBookingComponent', 'selector': 'app-upload-booking'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'ViewBundleComponent', 'selector': 'app-view-bundle'},{'name': 'ViewByIdComponent', 'selector': 'app-view-by-id'},{'name': 'ViewInquiryComponent', 'selector': 'app-view-inquiry'},{'name': 'ViewItemComponent', 'selector': 'app-view-item'},{'name': 'ViewPurchaseOrderComponent', 'selector': 'app-view-purchase-order'},{'name': 'ViewQuotationComponent', 'selector': 'app-view-quotation'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'MySoaComponent'};
 </script>
