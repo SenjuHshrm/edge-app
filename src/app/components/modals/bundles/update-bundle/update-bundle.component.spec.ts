@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { UpdateBundleComponent } from './update-bundle.component';
 
@@ -14,7 +15,7 @@ describe('UpdateBundleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UpdateBundleComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, FormsModule]
     })
     .compileComponents();
 

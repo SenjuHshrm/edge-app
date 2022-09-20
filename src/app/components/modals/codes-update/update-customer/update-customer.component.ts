@@ -40,7 +40,6 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data)
     this.address = address;
     Object.keys(this.address).forEach((e) => {
       this.provinces.push(e);

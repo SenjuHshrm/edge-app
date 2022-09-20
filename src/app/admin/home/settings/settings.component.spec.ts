@@ -1,3 +1,6 @@
+import { ComponentsModule } from './../../../components/components.module';
+import { InputComponent } from './../../../components/input/input.component';
+import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -9,8 +12,8 @@ describe('SettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ],
-      imports: [HttpClientTestingModule]
+      declarations: [ SettingsComponent, InputComponent ],
+      imports: [HttpClientTestingModule, FormsModule, ComponentsModule]
     })
     .compileComponents();
   });

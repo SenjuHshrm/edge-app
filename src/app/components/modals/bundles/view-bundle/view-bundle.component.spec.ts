@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { ViewBundleComponent } from './view-bundle.component';
 
@@ -8,7 +9,8 @@ describe('ViewBundleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewBundleComponent ]
+      declarations: [ ViewBundleComponent ],
+      imports: [FormsModule]
     })
     .compileComponents();
 

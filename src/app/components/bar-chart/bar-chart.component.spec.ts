@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgApexchartsModule, ChartComponent } from 'ng-apexcharts';
 
 import { BarChartComponent } from './bar-chart.component';
 
@@ -13,8 +14,8 @@ describe('BarChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BarChartComponent ],
-      imports: [HttpClientTestingModule]
+      declarations: [ BarChartComponent, ChartComponent ],
+      imports: [HttpClientTestingModule, NgApexchartsModule]
     })
     .compileComponents();
   });

@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { MySoaComponent } from './my-soa.component';
 
@@ -14,7 +15,7 @@ describe('MySoaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ MySoaComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, FormsModule]
     })
     .compileComponents();
   });

@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -10,7 +11,7 @@ describe('QuotationListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ QuotationListComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, FormsModule]
     })
     .compileComponents();
   });
