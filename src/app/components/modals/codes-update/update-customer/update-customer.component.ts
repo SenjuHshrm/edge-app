@@ -7,8 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-customer',
   templateUrl: './update-customer.component.html',
-  styleUrls: ['./update-customer.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./update-customer.component.scss']
 })
 export class UpdateCustomerComponent implements OnInit {
   @Input() data: any;

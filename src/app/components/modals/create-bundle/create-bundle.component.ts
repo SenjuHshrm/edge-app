@@ -8,8 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-create-bundle',
   templateUrl: './create-bundle.component.html',
-  styleUrls: ['./create-bundle.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./create-bundle.component.scss']
 })
 export class CreateBundleComponent implements OnInit {
   public items: any = [];

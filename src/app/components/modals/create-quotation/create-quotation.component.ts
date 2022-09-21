@@ -7,8 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-quotation',
   templateUrl: './create-quotation.component.html',
-  styleUrls: ['./create-quotation.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./create-quotation.component.scss']
 })
 export class CreateQuotationComponent implements OnInit {
   @Input() public data: any = {};

@@ -6,8 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-purchase-order',
   templateUrl: './create-purchase-order.component.html',
-  styleUrls: ['./create-purchase-order.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./create-purchase-order.component.scss']
 })
 export class CreatePurchaseOrderComponent implements OnInit {
   @Input() public data: any;
@@ -30,7 +29,6 @@ export class CreatePurchaseOrderComponent implements OnInit {
     this.data?.items.forEach((x: any) => {
       this.items.push(x);
     });
-    console.log(this.data)
   }
 
   displayInfo(id: string) {

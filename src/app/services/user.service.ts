@@ -94,4 +94,16 @@ export class UserService {
       data
     );
   }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(`${environment.apiV1}/api/v1/post/request/password-reset`, { email: email })
+  }
+
+  checkPasswordResetToken(token: string): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/check/password-reset/${token}`)
+  }
+
+  resetPassword(data: any): Observable<any> {
+    return this.http.put(`${environment.apiV1}/api/v1/put/reset-password/${data.id}`, { password: data.password })
+  }
 }

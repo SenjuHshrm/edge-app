@@ -8,8 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-update-bundle',
   templateUrl: './update-bundle.component.html',
-  styleUrls: ['./update-bundle.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./update-bundle.component.scss']
 })
 export class UpdateBundleComponent implements OnInit {
   @Input() public current: any;

@@ -1,3 +1,4 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './../../../pipes/pipes.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -11,7 +12,8 @@ describe('ViewQuotationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ViewQuotationComponent ],
-      imports: [HttpClientTestingModule, PipesModule]
+      imports: [HttpClientTestingModule, PipesModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
   });

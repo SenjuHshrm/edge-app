@@ -28,15 +28,25 @@
               <h5 class="card-title">Change Username</h5>
               <div class="col-12">
                 <div class="col-md-12 mb-3 position-relative">
-                  <app-input
-                    [inputType]="'username'"
-                    [name]="'username'"
-                    [label]="'Username'"
-                  ></app-input>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="newUsername"
+                    name="newUsername"
+                    [(ngModel)]="newUsername"
+                  />
                 </div>
                 <div class="col-md-12 text-end">
-                  <button class="btn btn-dark fw-bolder px-5 text-white">
-                    Update
+                  <button class="btn btn-dark fw-bolder px-5 text-white" (click)="changeUsername()">
+                    <ng-template [ngIf]="loading">
+                      <div
+                        class="spinner-border spinner-border-sm text-warning"
+                        role="status"
+                      >
+                        <span class="sr-only"></span>
+                      </div>
+                    </ng-template>
+                    <ng-template [ngIf]="!loading"> Update </ng-template>
                   </button>
                 </div>
               </div>

@@ -7,8 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-create-booking',
   templateUrl: './create-booking.component.html',
-  styleUrls: ['./create-booking.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./create-booking.component.scss']
 })
 export class CreateBookingComponent implements OnInit {
   public active = 'individual';

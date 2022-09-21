@@ -5,8 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-view-quotation',
   templateUrl: './view-quotation.component.html',
-  styleUrls: ['./view-quotation.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./view-quotation.component.scss']
 })
 export class ViewQuotationComponent implements OnInit {
   @Input() public data: any | undefined;

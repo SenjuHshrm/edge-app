@@ -1,3 +1,4 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,7 +15,8 @@ describe('UploadBookingComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UploadBookingComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
 

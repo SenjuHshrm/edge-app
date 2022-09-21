@@ -43,6 +43,7 @@ export class SettingsComponent implements OnInit {
   public sTotalpage: any = 0;
   public sSearch: string = '';
 
+  public newUsername: string = ''
   // password
   public currentPass: string = '';
   public newPass: string = '';
@@ -60,6 +61,28 @@ export class SettingsComponent implements OnInit {
     this.handleGetAllClassifications();
     this.handleGetAllColors();
     this.handleGetAllSizes();
+  }
+
+  changeUsername() {
+    if(this.validateUsername()) {
+      this.loading = true
+      this.user.updateUsername({ username: this.newUsername }).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: res.msg,
+            icon: 'success',
+          });
+          this.loading = false
+        },
+        error: ({error}: any) => {
+          Swal.fire({
+            title: error.msg,
+            icon: 'success',
+          });
+          this.loading = false
+        }
+      })
+    }
   }
 
   changePassword() {
@@ -96,6 +119,23 @@ export class SettingsComponent implements OnInit {
             this.loading = false;
           },
         });
+    }
+  }
+
+  validateUsername() {
+    let message = ''
+    if(this.newUsername === '') {
+      message = 'Please enter new username'
+    }
+
+    if(message === '') {
+      return true
+    } else {
+      Swal.fire({
+        title: message,
+        icon: 'info'
+      })
+      return false
     }
   }
 

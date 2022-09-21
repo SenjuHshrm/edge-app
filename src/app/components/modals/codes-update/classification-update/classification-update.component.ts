@@ -6,8 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-classification-update',
   templateUrl: './classification-update.component.html',
-  styleUrls: ['./classification-update.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./classification-update.component.scss']
 })
 export class ClassificationUpdateComponent implements OnInit {
   @Input() public data: any;

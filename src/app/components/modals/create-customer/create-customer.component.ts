@@ -8,8 +8,7 @@ import address from 'src/assets/address';
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
-  styleUrls: ['./create-customer.component.scss'],
-  providers: [NgbActiveModal]
+  styleUrls: ['./create-customer.component.scss']
 })
 export class CreateCustomerComponent implements OnInit {
   public provinces: string[] = [];

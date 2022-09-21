@@ -1,3 +1,4 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,8 @@ describe('UpdateCustomerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UpdateCustomerComponent ],
-      imports: [HttpClientTestingModule, FormsModule]
+      imports: [HttpClientTestingModule, FormsModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
   });
