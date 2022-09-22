@@ -61,6 +61,7 @@ export class SettingsComponent implements OnInit {
     this.handleGetAllClassifications();
     this.handleGetAllColors();
     this.handleGetAllSizes();
+    this.handleGetProfile()
   }
 
   changeUsername() {
@@ -192,6 +193,17 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+  }
+
+  handleGetProfile() {
+    this.user.getProfile().subscribe({
+      next: ({data}: any) => {
+        this.newUsername = data.username
+      },
+      error: ({error}: any) => {
+        console.log(error)
+      }
+    })
   }
 
   handleGetAllClassifications() {

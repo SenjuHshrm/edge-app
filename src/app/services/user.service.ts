@@ -106,4 +106,9 @@ export class UserService {
   resetPassword(data: any): Observable<any> {
     return this.http.put(`${environment.apiV1}/api/v1/put/reset-password/${data.id}`, { password: data.password })
   }
+
+  getProfile(): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.get(`${environment.apiV1}/api/v1/get/profile/${token.sub}`)
+  }
 }
