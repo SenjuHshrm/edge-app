@@ -95,7 +95,7 @@
             <th style="background-color: #3f3f3f" class="text-white">Item</th>
             <th style="background-color: #f0b663">Unit Price</th>
             <th style="background-color: #f0b663">QTY</th>
-            <th style="background-color: #f0b663">Mark Up (15%)</th>
+            <!-- <th style="background-color: #f0b663">Mark Up (15%)</th> -->
             <th style="background-color: #f0b663">Total Price</th>
           </tr>
           <tr *ngFor="let item of data?.items; let i = index">
@@ -103,7 +103,7 @@
             <td>{{ item.description }}</td>
             <td>{{ item.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.price * 0.15 }}</td>
+            <!-- <td>{{ item.price * 0.15 }}</td> -->
             <td>{{ item.totalPrice }}</td>
           </tr>
         </table>

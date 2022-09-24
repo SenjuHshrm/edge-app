@@ -47,7 +47,8 @@ export class CreateQuotationComponent implements OnInit {
   }
 
   computeTotalPrice() {
-    this.quoteData.totalPrice = (this.quoteData.quantity * (+this.quoteData.price + +this.quoteData.price * 0.15)).toFixed(2);
+    // this.quoteData.totalPrice = (this.quoteData.quantity * (+this.quoteData.price + +this.quoteData.price * 0.15)).toFixed(2);
+    this.quoteData.totalPrice = (this.quoteData.quantity * +this.quoteData.price).toFixed(2)
   }
 
   handleSaveQuotation(e: any) {
