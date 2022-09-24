@@ -167,4 +167,30 @@ export class BookingComponent implements OnInit {
       }
     })
   }
+
+  handleDeleteBooking(id: string, bookingId: string) {
+    Swal.fire({
+      title: `Delete booking ${bookingId}?`,
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then(x => {
+      if(x.isConfirmed) {
+        this.booking.removeBooking(id).subscribe({
+          next: (_) => {
+            Swal.fire({
+              title: `Booking ${bookingId} deleted`,
+              icon: 'success'
+            })
+            let i = this.bookings.findIndex((j: any) => j._id === id)
+            this.bookings.splice(i, 1)
+          },
+          error: ({error}) => {
+            console.log(error)
+          }
+        })
+      }
+    })
+  }
 }

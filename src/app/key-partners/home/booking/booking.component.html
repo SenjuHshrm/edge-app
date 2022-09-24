@@ -153,6 +153,7 @@
               <th col="scope" className="text-truncate px-3">Contact No</th>
               <th col="scope" className="text-truncate px-3">Date Booked</th>
               <th col="scope" className="text-truncate px-3">Remarks</th>
+              <th col="scope" className="text-truncate px-3"></th>
             </tr>
           </thead>
           <tbody class="border-top-0">
@@ -194,6 +195,15 @@
                   {{ handleDate(td.createdAt) }}
                 </td>
                 <td class="text-truncate px-3">{{ td.remarks }}</td>
+                <td class="text-truncate px-3">
+                  <button
+                    class="btn btn-dark text-white fw-bolder py-0"
+                    title="Delete booking {{ td.bookingId }}"
+                    (click)="handleDeleteBooking(td._id, td.bookingId)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
               </tr>
             </ng-template>
           </tbody>

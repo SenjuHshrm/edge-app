@@ -109,4 +109,8 @@ export class BookingService {
   public uploadBooking(formData: any): Observable<any> {
     return this.http.post(`${environment.apiV1}/api/v1/post/booking/upload-custom`, formData)
   }
+
+  public removeBooking(id: string): Observable<any> {
+    return this.http.delete(`${environment.apiV1}/api/v1/delete/booking/remove/${id}`)
+  }
 }
