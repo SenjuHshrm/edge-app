@@ -31,6 +31,13 @@
             </td>
           </tr>
           <tr>
+            <th>Key Partners Owned:</th>
+            <td>
+              <ng-template [ngIf]="data?.kpOwned">Yes</ng-template>
+              <ng-template [ngIf]="!data?.kpOwned">No</ng-template>
+            </td>
+          </tr>
+          <tr>
             <th>Status:</th>
             <td>{{ data?.status }}</td>
           </tr>

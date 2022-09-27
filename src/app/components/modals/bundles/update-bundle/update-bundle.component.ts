@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-update-bundle',
   templateUrl: './update-bundle.component.html',
-  styleUrls: ['./update-bundle.component.scss']
+  styleUrls: ['./update-bundle.component.scss'],
 })
 export class UpdateBundleComponent implements OnInit {
   @Input() public current: any;
@@ -35,8 +35,10 @@ export class UpdateBundleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.current);
     this.getAllItems();
-    this.bundleServ.getBundle(this.current?._id).subscribe((res) => {
+    const id = this.current?._id ? this.current._id : this.current.id;
+    this.bundleServ.getBundle(id).subscribe((res) => {
       if (res.success) {
         this.data = res.info;
       }
@@ -136,7 +138,8 @@ export class UpdateBundleComponent implements OnInit {
     } else {
       if (this.validateData(this.data)) {
         this.loading = true;
-        this.bundleServ.update(this.data, this.current._id).subscribe({
+        const id = this.current?._id ? this.current._id : this.current.id;
+        this.bundleServ.update(this.data, id).subscribe({
           next: (res: any) => {
             if (res.success) {
               Swal.fire({

@@ -230,7 +230,13 @@
                         *ngFor="let item of individualItem"
                         [value]="item._id"
                       >
-                        {{ item.desc }}
+                        {{
+                          item.desc +
+                            " - " +
+                            item.color.name +
+                            " - " +
+                            item.size.name
+                        }}
                       </option>
                     </select>
                   </div>
@@ -258,7 +264,8 @@
                     <thead class="bg-light">
                       <tr>
                         <th class="text-truncate px-1">Item Name</th>
-                        <!-- <th class="text-truncate px-1">Description</th> -->
+                        <th class="text-truncate px-1">Color</th>
+                        <th class="text-truncate px-1">Size</th>
                         <th class="text-truncate px-1">Quantity</th>
                         <th class="text-truncate px-1">Actions</th>
                       </tr>
@@ -266,7 +273,8 @@
                     <tbody class="border-top-0">
                       <tr *ngFor="let i of individualItemTable">
                         <td class="text-truncate px-1">{{ i.name }}</td>
-                        <!-- <td class="text-truncate px-1">Writing Pad Paper</td> -->
+                        <td class="text-truncate px-1">{{ i.color }}</td>
+                        <td class="text-truncate px-1">{{ i.size }}</td>
                         <td class="text-truncate px-1">{{ i.quantity }}</td>
                         <td>
                           <button
@@ -358,11 +366,18 @@
                         </td>
                         <td class="align-middle">
                           <button
-                            class="btn btn-dark text-white fw-bolder py-0"
-                            title="Remove Item"
+                            class="btn btn-dark text-white fw-bolder py-0 me-2"
+                            title="Remove Bundle"
                             (click)="removeToBundledOrderList(i.id)"
                           >
                             <i class="bi bi-trash"></i>
+                          </button>
+                          <button
+                            class="btn btn-dark text-white fw-bolder py-0"
+                            title="Update Bundle"
+                            (click)="updateBundleItem(i)"
+                          >
+                            <i class="bi bi-pencil"></i>
                           </button>
                         </td>
                       </tr>

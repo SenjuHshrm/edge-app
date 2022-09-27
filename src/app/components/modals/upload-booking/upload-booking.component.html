@@ -2,17 +2,23 @@
   <h4>Upload booking</h4>
   <div class="card shadow px-3">
     <div class="card-body">
-      <button class="px-5 btn btn-dark text-white fw-bold shadow" (click)="selectFile()">Upload File</button>
-      <input type="file" id="bookingFile" class="d-none" (change)="changeFile($event)" />
+      <button
+        class="px-5 btn btn-dark text-white fw-bold shadow"
+        (click)="selectFile()"
+      >
+        Upload File
+      </button>
+      <input
+        type="file"
+        id="bookingFile"
+        class="d-none"
+        (change)="changeFile($event)"
+      />
       <span class="ms-2">{{ filename }}</span>
     </div>
-    <div class="pt-3 text-end">
-      <button class="btn btn-dark me-2" (click)="handleClose()">
-        Cancel
-      </button>
-      <button class="btn btn-dark" (click)="handleUpload()">
-        Upload
-      </button>
+    <div class="pt-3 text-end pb-3">
+      <button class="btn btn-dark me-2" (click)="handleClose()">Cancel</button>
+      <button class="btn btn-dark" (click)="handleUpload()">Upload</button>
     </div>
   </div>
 </div>
