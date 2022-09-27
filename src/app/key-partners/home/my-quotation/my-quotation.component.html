@@ -117,7 +117,7 @@
                           View
                         </button>
                       </li>
-                      <li *ngIf="table.status !== 'declined' && table.status !== 'approved'">
+                      <li *ngIf="table.status !== 'declined'">
                         <button
                           class="dropdown-item text-sm"
                           (click)="createQuotation(table)"
