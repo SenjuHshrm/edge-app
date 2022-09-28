@@ -22,6 +22,7 @@ export class InventoryComponent implements OnInit {
   public search: string = '';
 
   public selectCategory: string = '';
+  public loading: boolean = false;
 
   constructor(private mdCtrl: NgbModal, private invServ: InventoryService) {}
 
@@ -239,8 +240,15 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  updateManyStatus() {
+    this.selectCategory === 'nonmoving'
+      ? this.changeNonMoving()
+      : this.changeMoving();
+  }
+
   changeNonMoving() {
     if (this.selectCategory !== '') {
+      this.loading = true;
       let ids: any = [];
       const checks: any = document.getElementsByClassName('custom-check-me');
       for (let i = 0; i < checks.length; i++) {
@@ -270,11 +278,13 @@ export class InventoryComponent implements OnInit {
                   this.allItems[ind].status = 'non-moving';
                   this.items[ind2].status = 'non-moving';
                 });
+                this.loading = false;
               } else {
                 Swal.fire({
                   title: 'Failed to update the status.',
                   icon: 'info',
                 });
+                this.loading = false;
               }
             });
           } else {
@@ -282,6 +292,7 @@ export class InventoryComponent implements OnInit {
               title: 'Update cancelled.',
               icon: 'info',
             });
+            this.loading = false;
           }
         });
       } else {
@@ -289,42 +300,111 @@ export class InventoryComponent implements OnInit {
           title: 'No selected item.',
           icon: 'info',
         });
+        this.loading = false;
       }
     } else {
       Swal.fire({
         title: 'Please select an action for the selected items.',
         icon: 'info',
       });
+      this.loading = false;
+    }
+  }
+
+  changeMoving() {
+    if (this.selectCategory !== '') {
+      this.loading = true;
+      let ids: any = [];
+      const checks: any = document.getElementsByClassName('custom-check-me');
+      for (let i = 0; i < checks.length; i++) {
+        if (checks[i].checked) {
+          ids.push(checks[i].value);
+        }
+      }
+      if (ids.length !== 0) {
+        Swal.fire({
+          title:
+            'Are you sure you want to set the selected items as non moving?',
+          icon: 'question',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: `No`,
+        }).then((res) => {
+          if (res.isConfirmed) {
+            this.invServ.updateManyMoving({ ids }).subscribe((res) => {
+              if (res.success) {
+                Swal.fire({
+                  title: 'Items has been updated successfully.',
+                  icon: 'success',
+                });
+                res.info.map((id: any) => {
+                  let ind = this.allItems.findIndex((e: any) => e._id === id);
+                  let ind2 = this.items.findIndex((e: any) => e._id === id);
+                  this.allItems[ind].status = 'moving';
+                  this.items[ind2].status = 'moving';
+                });
+                this.loading = false;
+              } else {
+                Swal.fire({
+                  title: 'Failed to update the status.',
+                  icon: 'info',
+                });
+                this.loading = false;
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Update cancelled.',
+              icon: 'info',
+            });
+            this.loading = false;
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'No selected item.',
+          icon: 'info',
+        });
+        this.loading = false;
+      }
+    } else {
+      Swal.fire({
+        title: 'Please select an action for the selected items.',
+        icon: 'info',
+      });
+      this.loading = false;
     }
   }
 
   exportInv() {
     this.invServ.exportAll().subscribe({
       next: (res: any) => {
-        this.downloadFile(res.info.file, res.info.filename)
+        this.downloadFile(res.info.file, res.info.filename);
       },
-      error: ({error}: any) => {
-        console.log(error)
-      }
-    })
+      error: ({ error }: any) => {
+        console.log(error);
+      },
+    });
   }
 
   downloadFile(file: string, filename: string) {
-    let a = document.createElement('a')
-    document.body.appendChild(a)
+    let a = document.createElement('a');
+    document.body.appendChild(a);
 
-    let byteChars = atob(file)
-    const byteNums = new Array(byteChars.length)
-    for(let i = 0; i < byteChars.length; i++) {
-      byteNums[i] = byteChars.charCodeAt(i)
+    let byteChars = atob(file);
+    const byteNums = new Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) {
+      byteNums[i] = byteChars.charCodeAt(i);
     }
-    const byteArr = new Uint8Array(byteNums)
-    let blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-    let url = window.URL.createObjectURL(blob)
-    a.setAttribute('href', url)
-    a.setAttribute('target', '_blank')
-    a.setAttribute('download', filename)
-    a.click()
-    window.URL.revokeObjectURL(url)
+    const byteArr = new Uint8Array(byteNums);
+    let blob = new Blob([byteArr], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    let url = window.URL.createObjectURL(blob);
+    a.setAttribute('href', url);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('download', filename);
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }

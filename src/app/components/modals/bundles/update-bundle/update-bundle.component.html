@@ -23,7 +23,7 @@
           >
             <option value="" selected>Choose Item...</option>
             <option *ngFor="let data of items" [value]="data._id">
-              {{ data.desc }}
+              {{ data.desc + " - " + data.color.name + " - " + data.size.name }}
             </option>
           </select>
         </div>

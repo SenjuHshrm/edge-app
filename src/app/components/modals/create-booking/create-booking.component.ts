@@ -2,12 +2,13 @@ import { BookingService } from './../../../services/booking.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import address from 'src/assets/address';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateBundleComponent } from '../bundles/update-bundle/update-bundle.component';
 
 @Component({
   selector: 'app-create-booking',
   templateUrl: './create-booking.component.html',
-  styleUrls: ['./create-booking.component.scss']
+  styleUrls: ['./create-booking.component.scss'],
 })
 export class CreateBookingComponent implements OnInit {
   public active = 'individual';
@@ -49,7 +50,11 @@ export class CreateBookingComponent implements OnInit {
   public loading: boolean = false;
   public courierLoads: boolean = false;
 
-  constructor(private booking: BookingService, private md: NgbActiveModal) {}
+  constructor(
+    private booking: BookingService,
+    private md: NgbActiveModal,
+    private mdCtrl: NgbModal
+  ) {}
 
   ngOnInit(): void {
     Object.keys(address).forEach((e) => {
@@ -166,6 +171,8 @@ export class CreateBookingComponent implements OnInit {
           this.individualItemTable.push({
             id: this.individualItem[i]._id,
             name: this.individualItem[i].desc,
+            color: this.individualItem[i].color.name,
+            size: this.individualItem[i].size.name,
             quantity: this.indQuantity,
           });
 
@@ -272,10 +279,6 @@ export class CreateBookingComponent implements OnInit {
       message = 'Please select barangay';
     } else if (address.hsStNum === '') {
       message = 'Please select address';
-    } else if (booking.zip == '') {
-      message = 'Please enter zip code.';
-    } else if (/^[0-9]+$/.test(booking.zip) === false) {
-      message = 'Invalid zip code.';
     } else if (booking.courier === '') {
       message = 'Please enter courier.';
     } else if (this.didCheck === false) {
@@ -382,4 +385,23 @@ export class CreateBookingComponent implements OnInit {
       }
     });
   };
+
+  updateBundleItem(data: any) {
+    let updateBundle = this.mdCtrl.open(UpdateBundleComponent, {
+      size: 'lg',
+      backdrop: 'static',
+    });
+    updateBundle.componentInstance.current = data;
+    updateBundle.result
+      .then((res) => {
+        if (res.success) {
+          this.bundledItemTable[0].items = [...res.data.items];
+          const ind = this.bundledItem.findIndex(
+            (e: any) => e._id === res.data._id
+          );
+          this.bundledItem[ind].items = [...res.data.items];
+        }
+      })
+      .catch((e) => console.log());
+  }
 }

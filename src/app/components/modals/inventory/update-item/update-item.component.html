@@ -199,6 +199,19 @@
                 />
               </div>
             </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="kpOwned"
+                [(ngModel)]="itemData.kpOwned"
+                (change)="nemen($event)"
+                name="kpOwned"
+              />
+              <label class="form-check-label fw-bold" for="kpOwned">
+                Is item owned by the keypartners?
+              </label>
+            </div>
           </div>
         </div>
 

@@ -29,7 +29,8 @@ export class CreateItemComponent implements OnInit {
     size: '',
     quantity: '',
     price: '',
-    criticalBalance: ''
+    criticalBalance: '',
+    kpOwned: true,
   };
 
   public loading: boolean = false;
@@ -171,5 +172,9 @@ export class CreateItemComponent implements OnInit {
         this.mdCtrl.close();
       }
     });
+  }
+
+  nemen(e: any) {
+    this.data.kpOwned = e.target.checked;
   }
 }

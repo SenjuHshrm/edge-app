@@ -56,7 +56,11 @@
           </button>
         </li>
         <!-- <li><button class="dropdown-item text-sm">Print</button></li> -->
-        <li><button class="dropdown-item text-sm" (click)="exportInv()">Export</button></li>
+        <li>
+          <button class="dropdown-item text-sm" (click)="exportInv()">
+            Export
+          </button>
+        </li>
       </ul>
     </div>
 
@@ -103,9 +107,24 @@
           >
             <option value="" selected>--------</option>
             <option value="nonmoving">Mark All Selected As Non Moving</option>
+            <option value="moving">Mark All Selected As Moving</option>
           </select>
         </div>
-        <button class="btn btn-dark" (click)="changeNonMoving()">Go</button>
+        <button
+          class="btn btn-dark"
+          (click)="updateManyStatus()"
+          [disabled]="loading"
+        >
+          <ng-template [ngIf]="loading">
+            <div
+              class="spinner-border spinner-border-sm text-warning"
+              role="status"
+            >
+              <span class="sr-only"></span>
+            </div>
+          </ng-template>
+          <ng-template [ngIf]="!loading"> Go </ng-template>
+        </button>
       </div>
       <div class="table-responsive" style="height: 33rem">
         <table class="hoverable table table-hover text-center">
@@ -142,7 +161,14 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
-              <tr *ngFor="let data of items; let i = index"  [class]="(+data.criticalBalance >= +data.currentQty) ? 'table-danger' : ''">
+              <tr
+                *ngFor="let data of items; let i = index"
+                [class]="
+                  +data.criticalBalance >= +data.currentQty
+                    ? 'table-danger'
+                    : ''
+                "
+              >
                 <td class="text-center">
                   <div
                     class="py-0 my-0 form-check d-flex justify-content-center"

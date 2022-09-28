@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-item',
   templateUrl: './update-item.component.html',
-  styleUrls: ['./update-item.component.scss']
+  styleUrls: ['./update-item.component.scss'],
 })
 export class UpdateItemComponent implements OnInit {
   @Input() public data: any;
@@ -34,7 +34,8 @@ export class UpdateItemComponent implements OnInit {
     sequence: '',
     codeName: '',
     codeId: '',
-    criticalBalance: ''
+    criticalBalance: '',
+    kpOwned: false,
   };
 
   public loading: boolean = false;
@@ -70,7 +71,7 @@ export class UpdateItemComponent implements OnInit {
     this.itemData.color = this.data?.color._id;
     this.itemData.size = this.data?.size._id;
 
-    this.itemData.in = this.data?.in;
+    this.itemData.in = '0';
     this.itemData.currentQty = this.data?.currentQty;
     this.itemData.out = this.data?.out;
     this.itemData.rts = this.data?.rts;
@@ -80,7 +81,8 @@ export class UpdateItemComponent implements OnInit {
     this.itemData.sequence = this.data?.sequence;
     this.itemData.codeName = this.data?.code.code;
     this.itemData.codeId = this.data?.code._id;
-    this.itemData.criticalBalance = this.data?.criticalBalance
+    this.itemData.criticalBalance = this.data?.criticalBalance;
+    this.itemData.kpOwned = this.data?.kpOwned;
   }
 
   saveData(evt: any) {
@@ -193,5 +195,9 @@ export class UpdateItemComponent implements OnInit {
         this.mdCtrl.close();
       }
     });
+  }
+
+  nemen(e: any) {
+    this.itemData.kpOwned = e.target.checked;
   }
 }
