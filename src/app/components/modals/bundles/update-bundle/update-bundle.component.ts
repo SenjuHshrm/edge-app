@@ -35,9 +35,9 @@ export class UpdateBundleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.current);
+    // console.log(this.current);
     this.getAllItems();
-    const id = this.current?._id ? this.current._id : this.current.id;
+    const id = this.current?._id ? this.current?._id : this.current?.id;
     this.bundleServ.getBundle(id).subscribe((res) => {
       if (res.success) {
         this.data = res.info;

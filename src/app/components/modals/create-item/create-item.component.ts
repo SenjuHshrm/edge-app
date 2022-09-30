@@ -65,7 +65,7 @@ export class CreateItemComponent implements OnInit {
     const data =
       search !== ''
         ? this.keyPartners.filter((e: any) =>
-            e.email.toLowerCase().startsWith(search.toLowerCase())
+            e.company.toLowerCase().startsWith(search.toLowerCase())
           )
         : [];
     this.keyList = data;
