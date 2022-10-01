@@ -35,14 +35,15 @@ export class UpdateBundleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // console.log(this.current);
+    console.log(this.current);
     this.getAllItems();
-    const id = this.current?._id ? this.current?._id : this.current?.id;
-    this.bundleServ.getBundle(id).subscribe((res) => {
-      if (res.success) {
-        this.data = res.info;
-      }
-    });
+    // const id = this.current?._id ? this.current?._id : this.current?.id;
+    // this.bundleServ.getBundle(id).subscribe((res) => {
+    //   if (res.success) {
+    //     this.data = res.info;
+    //   }
+    // });
+    this.data = this.current;
   }
 
   getAllItems() {
@@ -129,7 +130,24 @@ export class UpdateBundleComponent implements OnInit {
     this.data.items.splice(ind, 1);
   }
 
-  saveData() {
+  saveData(type: string) {
+    type === 'customize' ? this.handleCustomize() : this.handleUpdate();
+  }
+
+  handleCustomize() {
+    if (this.data.items.length < 2) {
+      Swal.fire({
+        title: 'Minimum of 2 items per bundle.',
+        icon: 'info',
+      });
+    } else {
+      if (this.validateData(this.data)) {
+        this.mdCtrl.close({ success: true, data: this.data });
+      }
+    }
+  }
+
+  handleUpdate() {
     if (this.data.items.length < 2) {
       Swal.fire({
         title: 'Minimum of 2 items per bundle.',

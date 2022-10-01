@@ -49,6 +49,7 @@ export class CreateBookingComponent implements OnInit {
 
   public loading: boolean = false;
   public courierLoads: boolean = false;
+  savingType: string = 'update';
 
   constructor(
     private booking: BookingService,
@@ -352,7 +353,7 @@ export class CreateBookingComponent implements OnInit {
         senderContact: this.bookingData.senderContact,
         remarks: this.bookingData.remarks,
         itemId: items[0].itemId,
-        bundleId: items[0].itemId,
+        bundleId: this.bundledItemTable[0],
         quantity: items[0].quantity,
         itemType: items[0].itemType,
       };
@@ -391,17 +392,27 @@ export class CreateBookingComponent implements OnInit {
       size: 'lg',
       backdrop: 'static',
     });
+    data.type = 'customize';
     updateBundle.componentInstance.current = data;
     updateBundle.result
       .then((res) => {
         if (res.success) {
           this.bundledItemTable[0].items = [...res.data.items];
-          const ind = this.bundledItem.findIndex(
-            (e: any) => e._id === res.data._id
-          );
-          this.bundledItem[ind].items = [...res.data.items];
         }
       })
       .catch((e) => console.log());
+  }
+
+  compareData(data: any, newData: any): string {
+    const datum = {
+      id: data._id,
+      name: data.name,
+      quantity: '',
+      items: data.items,
+      type: 'customize',
+    };
+    return JSON.stringify(datum) === JSON.stringify(newData)
+      ? 'update'
+      : 'customize';
   }
 }

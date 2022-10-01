@@ -30,13 +30,19 @@
         aria-labelledby="dropdownMenuButton2"
       >
         <li>
-          <button class="dropdown-item text-sm" (click)="export('flash')">Flash Template</button>
+          <button class="dropdown-item text-sm" (click)="export('flash')">
+            Flash Template
+          </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="export('jnt')">JNT Template</button>
+          <button class="dropdown-item text-sm" (click)="export('jnt')">
+            JNT Template
+          </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="export('all')">All</button>
+          <button class="dropdown-item text-sm" (click)="export('all')">
+            All
+          </button>
         </li>
       </ul>
     </div>
@@ -165,7 +171,12 @@
               </tr>
             </ng-template>
             <ng-template [ngIf]="bookings.length !== 0">
-              <tr *ngFor="let td of bookings" [class]="(td.status === 'fulfilled') ? 'table-success' : 'table-danger'">
+              <tr
+                *ngFor="let td of bookings"
+                [class]="
+                  td.status === 'fulfilled' ? 'table-success' : 'table-danger'
+                "
+              >
                 <td class="text-truncate px-3">{{ td.customer }}</td>
                 <td class="text-truncate px-3">{{ td.customerContact }}</td>
                 <td class="text-truncate px-3">{{ td.hsStNum }}</td>
@@ -181,7 +192,7 @@
                     <div
                       class="fw-bold text-primary"
                       style="cursor: pointer"
-                      (click)="viewBundle(td.bundleId._id)"
+                      (click)="viewBundle(td.bundleId)"
                     >
                       <u>{{ handleProduct(td) }}</u>
                     </div>
