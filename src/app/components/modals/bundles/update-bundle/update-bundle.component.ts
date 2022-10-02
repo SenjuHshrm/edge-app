@@ -43,7 +43,12 @@ export class UpdateBundleComponent implements OnInit {
     //     this.data = res.info;
     //   }
     // });
-    this.data = this.current;
+    // this.data = this.current;
+    this.data = {
+      name: this.current?.name,
+      items: this.current?.items,
+      keyPartnerId: this.current?.id,
+    }
   }
 
   getAllItems() {

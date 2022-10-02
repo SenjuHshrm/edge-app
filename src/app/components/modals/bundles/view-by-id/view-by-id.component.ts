@@ -16,7 +16,7 @@ export class ViewByIdComponent implements OnInit {
 
   ngOnInit(): void {
     this.data = { ...this.current };
-    this.current.items.map((item: any) => {
+    this.current?.items.map((item: any) => {
       this.total += parseFloat(item.price) * parseFloat(item.quantity);
     });
   }

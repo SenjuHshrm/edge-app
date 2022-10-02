@@ -17,4 +17,8 @@ export class ReportService {
   getMonthlyPO(params: any): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/monthly-po/${params.start}/${params.end}`)
   }
+
+  getTodaysReport(start: any, end: any): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/report/current/${start}/${end}`)
+  }
 }
