@@ -7,7 +7,7 @@ import { BundleService } from 'src/app/services/bundle.service';
   styleUrls: ['./view-by-id.component.scss'],
 })
 export class ViewByIdComponent implements OnInit {
-  @Input() private id: string = '';
+  @Input() private current: any;
 
   public data: any = {};
   public total = 0;
@@ -15,13 +15,9 @@ export class ViewByIdComponent implements OnInit {
   constructor(private bundleServ: BundleService) {}
 
   ngOnInit(): void {
-    this.bundleServ.getBundle(this.id).subscribe({
-      next: (res) => {
-        this.data = res.info;
-        res.info.items.map((item: any) => {
-          this.total += parseFloat(item.price) * parseFloat(item.quantity);
-        });
-      },
+    this.data = { ...this.current };
+    this.current.items.map((item: any) => {
+      this.total += parseFloat(item.price) * parseFloat(item.quantity);
     });
   }
 

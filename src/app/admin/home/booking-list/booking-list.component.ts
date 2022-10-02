@@ -107,11 +107,11 @@ export class BookingListComponent implements OnInit {
     this.selectedDate = '';
   }
 
-  viewBundle(id: string) {
+  viewBundle(bundle: any) {
     let viewBundle = this.mdCtrl.open(ViewByIdComponent, {
       size: 'md',
     });
-    viewBundle.componentInstance.id = id;
+    viewBundle.componentInstance.current = bundle;
   }
 
   handleSelectAll(evt: any) {

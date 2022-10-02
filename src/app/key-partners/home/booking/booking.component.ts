@@ -122,50 +122,56 @@ export class BookingComponent implements OnInit {
     this.selectedDate = '';
   }
 
-  viewBundle(id: string) {
+  viewBundle(bundle: string) {
     let viewBundle = this.mdCtrl.open(ViewByIdComponent, {
       size: 'md',
     });
-    viewBundle.componentInstance.id = id;
+    viewBundle.componentInstance.current = bundle;
   }
 
   export(cat: string) {
     let selected: any;
-    switch(cat) {
+    switch (cat) {
       case 'jnt':
-        selected = this.bookings.filter((x: any) => { return x.courier === 'jnt' })
-        selected = selected.map((x: any) => x._id)
+        selected = this.bookings.filter((x: any) => {
+          return x.courier === 'jnt';
+        });
+        selected = selected.map((x: any) => x._id);
         break;
       case 'flash':
-        selected = this.bookings.filter((x: any) => { return x.courier === 'flash' })
-        selected = selected.map((x: any) => x._id)
+        selected = this.bookings.filter((x: any) => {
+          return x.courier === 'flash';
+        });
+        selected = selected.map((x: any) => x._id);
         break;
       default:
-        selected = this.bookings.map((x: any) => x._id)
+        selected = this.bookings.map((x: any) => x._id);
     }
     this.booking.exportSelected({ ids: [...selected] }).subscribe({
       next: (res: any) => {
         let md: NgbModalRef = this.mdCtrl.open(ExportComponent, {
-          size: 'md'
-        })
-        md.componentInstance.data = res.info
+          size: 'md',
+        });
+        md.componentInstance.data = res.info;
       },
       error: ({ error }: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   uploadBooking() {
-    let md: NgbModalRef = this.mdCtrl.open(UploadBookingComponent, { size: 'md' })
+    let md: NgbModalRef = this.mdCtrl.open(UploadBookingComponent, {
+      size: 'md',
+    });
     md.closed.subscribe({
       next: (res: any) => {
         res.forEach((x: any) => {
-          this.bookings.unshift(x)
-          this.allData.unshift(x)
-        })
-      }
-    })
+          this.bookings.unshift(x);
+          this.allData.unshift(x);
+        });
+      },
+    });
   }
 
   handleDeleteBooking(id: string, bookingId: string) {
@@ -174,23 +180,23 @@ export class BookingComponent implements OnInit {
       icon: 'question',
       showDenyButton: true,
       confirmButtonText: 'Yes',
-      denyButtonText: 'No'
-    }).then(x => {
-      if(x.isConfirmed) {
+      denyButtonText: 'No',
+    }).then((x) => {
+      if (x.isConfirmed) {
         this.booking.removeBooking(id).subscribe({
           next: (_) => {
             Swal.fire({
               title: `Booking ${bookingId} deleted`,
-              icon: 'success'
-            })
-            let i = this.bookings.findIndex((j: any) => j._id === id)
-            this.bookings.splice(i, 1)
+              icon: 'success',
+            });
+            let i = this.bookings.findIndex((j: any) => j._id === id);
+            this.bookings.splice(i, 1);
           },
-          error: ({error}) => {
-            console.log(error)
-          }
-        })
+          error: ({ error }) => {
+            console.log(error);
+          },
+        });
       }
-    })
+    });
   }
 }
