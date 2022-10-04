@@ -21,7 +21,6 @@ export class UpdateItemComponent implements OnInit {
   public itemData = {
     keyPartnerId: '',
     desc: '',
-    code: '',
     classification: '',
     color: '',
     size: '',
@@ -32,8 +31,6 @@ export class UpdateItemComponent implements OnInit {
     defective: '',
     price: '',
     sequence: '',
-    codeName: '',
-    codeId: '',
     criticalBalance: '',
     kpOwned: false,
   };
@@ -66,7 +63,6 @@ export class UpdateItemComponent implements OnInit {
 
     this.itemData.keyPartnerId = this.data?.keyPartnerId._id;
     this.itemData.desc = this.data?.desc;
-    this.itemData.code = this.data?.code.code;
     this.itemData.classification = this.data?.classification._id;
     this.itemData.color = this.data?.color._id;
     this.itemData.size = this.data?.size._id;
@@ -79,8 +75,6 @@ export class UpdateItemComponent implements OnInit {
 
     this.itemData.price = this.data?.price;
     this.itemData.sequence = this.data?.sequence;
-    this.itemData.codeName = this.data?.code.code;
-    this.itemData.codeId = this.data?.code._id;
     this.itemData.criticalBalance = this.data?.criticalBalance;
     this.itemData.kpOwned = this.data?.kpOwned;
   }
@@ -121,7 +115,6 @@ export class UpdateItemComponent implements OnInit {
     const {
       keyPartnerId,
       desc,
-      code,
       classification,
       color,
       size,
@@ -138,8 +131,6 @@ export class UpdateItemComponent implements OnInit {
       message = 'Please select a key partner.';
     } else if (desc === '') {
       message = 'Please enter the item name,';
-    } else if (code === '') {
-      message = 'Please enter the type code.';
     } else if (classification === '') {
       message = 'Please select a classification.';
     } else if (color === '') {

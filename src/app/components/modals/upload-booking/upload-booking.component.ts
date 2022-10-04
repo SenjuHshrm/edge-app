@@ -1,3 +1,4 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { BookingService } from 'src/app/services/booking.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +16,8 @@ export class UploadBookingComponent implements OnInit {
   public filename: string = ''
   public file: any;
   public id: string = ''
+  public isUploading: boolean = false;
+  public progress: number = 0;
 
   constructor(private md: NgbActiveModal, private booking: BookingService) { }
 
@@ -45,12 +48,22 @@ export class UploadBookingComponent implements OnInit {
       bookingData.append('type', 'booking')
       bookingData.append('filename', `BOOKING_${moment().format('MMDDYYYhhmmss')}_${this.id}_${this.filename}`)
       bookingData.append('file', this.file)
+      this.isUploading = true
       this.booking.uploadBooking(bookingData).subscribe({
-        next: (res: any) => {
-          Swal.fire({ title: 'Booking uploaded and saved', icon: 'success' })
-            .then(() => {
-              this.md.close(res.info)
-            })
+        next: (res: HttpEvent<any>) => {
+          switch(res.type) {
+            case HttpEventType.UploadProgress:
+              this.progress = Math.round((res.loaded / Number(res.total)) * 100)
+              break;
+            case HttpEventType.Response:
+              Swal.fire({ title: 'Booking uploaded and saved', icon: 'success' })
+                .then(() => {
+                  this.md.close(res.body.info)
+                })
+              this.progress = 0
+              this.filename = ''
+          }
+          
         },
         error: ({error}: any) => {
           console.log(error)

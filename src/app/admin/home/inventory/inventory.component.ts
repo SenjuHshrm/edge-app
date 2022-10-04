@@ -47,7 +47,7 @@ export class InventoryComponent implements OnInit {
   }
 
   createSKU(data: any): string {
-    return `SKU-EC-${data.classification?.code}-${data.code?.code}-${data.color?.code}-${data.size?.code}-${data.sequence}`;
+    return `SKU-EC-${data.classification?.code}-${data.color?.code}-${data.size?.code}-${data.sequence}`;
   }
 
   createNewItem() {
@@ -191,6 +191,9 @@ export class InventoryComponent implements OnInit {
 
   handleSort(category: any) {
     switch (category) {
+      case 'non-moving':
+        this.items = this.allItems.filter((i: any) => i.status === category)
+        break;
       case 'in':
         this.items.sort(
           (a: any, b: any) => parseFloat(b.in) - parseFloat(a.in)

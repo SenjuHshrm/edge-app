@@ -55,7 +55,8 @@ export class InventoryService {
   }
 
   exportAll(): Observable<any> {
-    return this.http.get(`${environment.apiV1}/api/v1/get/inventory/form/all`);
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
+    return this.http.get(`${environment.apiV1}/api/v1/get/inventory/form/all/${token.sub}`);
   }
 
   exportByKeyPartner(): Observable<any> {

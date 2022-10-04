@@ -107,7 +107,10 @@ export class BookingService {
   }
 
   public uploadBooking(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiV1}/api/v1/post/booking/upload-custom`, formData)
+    return this.http.post(`${environment.apiV1}/api/v1/post/booking/upload-custom`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
   }
 
   public removeBooking(id: string): Observable<any> {

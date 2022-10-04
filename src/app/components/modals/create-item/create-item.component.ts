@@ -23,7 +23,6 @@ export class CreateItemComponent implements OnInit {
     keyPartner: '',
     keyPartnerId: '',
     desc: '',
-    code: '',
     classification: '',
     color: '',
     size: '',
@@ -113,7 +112,6 @@ export class CreateItemComponent implements OnInit {
     const {
       keyPartnerId,
       desc,
-      code,
       classification,
       color,
       size,
@@ -131,8 +129,6 @@ export class CreateItemComponent implements OnInit {
       message = 'Invalid KeyPartner.';
     } else if (desc === '') {
       message = 'Please enter the item name.';
-    } else if (code === '') {
-      message = 'Please enter the type code.';
     } else if (classification === '') {
       message = 'Please select a classification.';
     } else if (color === '') {
