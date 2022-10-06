@@ -29,21 +29,30 @@
   <div class="card shadow p-3">
     <div class="card-body">
       <div class="mb-3 d-flex flex-wrap">
-        <div
-          class="d-flex align-items-center justify-content-end mb-2 flex-grow-1 pe-0 pe-md-0 pe-lg-3"
-        >
+        <div class="d-flex flex-column align-items-center justify-content-end mb-2 flex-grow-1 pe-0 pe-md-0 pe-lg-3">
           <span class="me-2">Filter by date:</span>
-          <div class="me-2">
+          <div class="mb-1">
+            <label>From:</label>
             <input
               type="date"
               class="form-control"
-              [(ngModel)]="selectedDate"
+              [(ngModel)]="bookFrom"
             />
           </div>
-          <button class="btn btn-dark me-2" (click)="handleDateFilter()">
-            Go
-          </button>
-          <button class="btn btn-dark" (click)="handleReset()">Reset</button>
+          <div class="mb-2">
+            <label>To:</label>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="bookTo"
+            />
+          </div>
+          <div>
+            <button class="btn btn-dark me-2" (click)="handleDateFilter()">
+              Go
+            </button>
+            <button class="btn btn-dark" (click)="handleReset()">Reset</button>
+          </div>
         </div>
 
         <div

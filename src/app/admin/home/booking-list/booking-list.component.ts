@@ -17,6 +17,8 @@ export class BookingListComponent implements OnInit {
   public search: string = '';
   public category: string = 'keyPartnerId';
   public selectedDate: string = '';
+  public bookFrom: string = '';
+  public bookTo: string = '';
   public status: string = 'all';
   public action: string = '';
 
@@ -97,8 +99,7 @@ export class BookingListComponent implements OnInit {
   handleDateFilter() {
     this.bookings = this.allData.filter(
       (e: any) =>
-        new Date(e.createdAt).toLocaleDateString() ===
-        new Date(this.selectedDate).toLocaleDateString()
+        (new Date(e.createdAt).toLocaleDateString() >= new Date(this.bookFrom).toLocaleDateString()) && (new Date(e.createdAt).toLocaleDateString() <= new Date(this.bookTo).toLocaleDateString())
     );
   }
 

@@ -22,6 +22,8 @@ export class BookingComponent implements OnInit {
   public category: string = 'sender';
   public status: string = 'all';
   public selectedDate: string = '';
+  public bookFrom: string = '';
+  public bookTo: string = '';
 
   constructor(private mdCtrl: NgbModal, private booking: BookingService) {}
 
@@ -112,8 +114,7 @@ export class BookingComponent implements OnInit {
   handleDateFilter() {
     this.bookings = this.allData.filter(
       (e: any) =>
-        new Date(e.createdAt).toLocaleDateString() ===
-        new Date(this.selectedDate).toLocaleDateString()
+        (new Date(e.createdAt).toLocaleDateString() >= new Date(this.bookFrom).toLocaleDateString()) && (new Date(e.createdAt).toLocaleDateString() <= new Date(this.bookTo).toLocaleDateString())
     );
   }
 
