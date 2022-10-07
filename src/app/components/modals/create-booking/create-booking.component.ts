@@ -323,7 +323,7 @@ export class CreateBookingComponent implements OnInit {
         this.bundledItemTable
       )
     ) {
-      this.loading = true;
+      // this.loading = true;
       let items: any = [];
       this.individualItemTable.forEach((x: any) => {
         items.push({
@@ -360,13 +360,14 @@ export class CreateBookingComponent implements OnInit {
       this.booking.addBooking(req).subscribe({
         next: (res: any) => {
           if (res.success) {
+            console.log(res)
             Swal.fire('Booked successfully.', '', 'success');
             this.md.close({ success: true, data: res.info });
             this.loading = false;
           }
         },
         error: ({ error }: any) => {
-          console.log(error);
+          Swal.fire(error.msg, '', 'error');
           this.loading = false;
         },
       });

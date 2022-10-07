@@ -74,12 +74,22 @@
     <button class="btn btn-dark" (click)="handleSearch()">Go</button>
   </div>
 
+  <div class="d-flex flex-column justify-content-start align-items-start mb-2">
+    <div>
+      <i class="bi bi-shop"></i> - Owned by EdgeCommerce
+    </div>
+    <div>
+      <i class="bi bi-person-circle"></i> - Key partner's selling items
+    </div>
+  </div>
+
   <div class="card shadow p-3">
     <div class="card-body">
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
             <tr>
+              <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Description</th>
               <th class="text-truncate px-1">Classification</th>
@@ -100,6 +110,14 @@
             </ng-template>
             <ng-template [ngIf]="items.length !== 0">
               <tr *ngFor="let data of items" [class]="(+data.criticalBalance >= +data.currentQty) ? 'table-danger' : ''">
+                <td class="text-truncate px-1">
+                  <ng-template [ngIf]="data.kpOwned">
+                    <i class="bi bi-person-circle"></i>
+                  </ng-template>
+                  <ng-template [ngIf]="!data.kpOwned">
+                    <i class="bi bi-shop"></i>
+                  </ng-template>
+                </td>
                 <td class="text-truncate px-1">
                   {{ handleDate(data.createdAt) }}
                 </td>
