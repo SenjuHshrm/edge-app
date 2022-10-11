@@ -97,9 +97,11 @@ export class BookingListComponent implements OnInit {
   }
 
   handleDateFilter() {
+    let start = new Date(this.bookFrom).setHours(0, 0, 0),
+        end = new Date(this.bookTo).setHours(23, 59, 59)
     this.bookings = this.allData.filter(
       (e: any) =>
-        (new Date(e.createdAt).toLocaleDateString() >= new Date(this.bookFrom).toLocaleDateString()) && (new Date(e.createdAt).toLocaleDateString() <= new Date(this.bookTo).toLocaleDateString())
+        (new Date(e.createdAt).toISOString() >= new Date(start).toISOString()) && (new Date(e.createdAt).toLocaleDateString() <= new Date(end).toISOString())
     );
   }
 
