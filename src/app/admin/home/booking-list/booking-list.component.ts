@@ -101,7 +101,7 @@ export class BookingListComponent implements OnInit {
         end = new Date(this.bookTo).setHours(23, 59, 59)
     this.bookings = this.allData.filter(
       (e: any) =>
-        (new Date(e.createdAt).toISOString() >= new Date(start).toISOString()) && (new Date(e.createdAt).toLocaleDateString() <= new Date(end).toISOString())
+        (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
     );
   }
 
