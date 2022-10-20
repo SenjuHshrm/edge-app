@@ -244,9 +244,20 @@ export class InventoryComponent implements OnInit {
   }
 
   updateManyStatus() {
-    this.selectCategory === 'nonmoving'
-      ? this.changeNonMoving()
-      : this.changeMoving();
+    // this.selectCategory === 'nonmoving'
+    //   ? this.changeNonMoving()
+    //   : this.changeMoving();
+    switch(this.selectCategory) {
+      case 'nonmoving':
+        this.changeNonMoving()
+        break;
+      case 'moving':
+        this.changeMoving()
+        break;
+      case 'export':
+        this.exportInv()
+        break;
+    }
   }
 
   changeNonMoving() {
@@ -380,14 +391,28 @@ export class InventoryComponent implements OnInit {
   }
 
   exportInv() {
-    this.invServ.exportAll().subscribe({
-      next: (res: any) => {
-        this.downloadFile(res.info.file, res.info.filename);
-      },
-      error: ({ error }: any) => {
-        console.log(error);
-      },
-    });
+    this.loading = true;
+    let ids: any = []
+    const checks: any = document.getElementsByClassName('custom-check-me')
+    for(let i = 0; i < checks.length; i++) {
+      if(checks[i].checked) {
+        ids.push(checks[i].value)
+      }
+    }
+    if(ids.length !== 0) {
+      this.invServ.exportSelected(ids).subscribe({
+        next: (res: any) => {
+          this.loading = false
+          this.downloadFile(res.info.file, res.info.filename);
+        },
+        error: ({ error }: any) => {
+          this.loading = false
+          console.log(error);
+        }
+      });
+    } else {
+      this.loading = false
+    }
   }
 
   downloadFile(file: string, filename: string) {

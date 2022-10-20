@@ -59,6 +59,11 @@ export class InventoryService {
     return this.http.get(`${environment.apiV1}/api/v1/get/inventory/form/all/${token.sub}`);
   }
 
+  exportSelected(ids: string[]): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
+    return this.http.put(`${environment.apiV1}/api/v1/put/inventory/form/selected`, { id: token.sub, items: ids })
+  }
+
   exportByKeyPartner(): Observable<any> {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
     return this.http.get(
