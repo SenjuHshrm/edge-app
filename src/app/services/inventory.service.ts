@@ -54,6 +54,10 @@ export class InventoryService {
     );
   }
 
+  deleteSelected(ids: string[]): Observable<any> {
+    return this.http.delete(`${environment.apiV1}/api/v1/delete/items/selected?ids=${JSON.stringify(ids)}`)
+  }
+
   exportAll(): Observable<any> {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string);
     return this.http.get(`${environment.apiV1}/api/v1/get/inventory/form/all/${token.sub}`);

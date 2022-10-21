@@ -257,6 +257,47 @@ export class InventoryComponent implements OnInit {
       case 'export':
         this.exportInv()
         break;
+      case 'delete':
+        this.deleteSelected()
+        break;
+    }
+  }
+
+  deleteSelected() {
+    if(this.selectCategory !== '') {
+      let ids: any = []
+      const checks: any = document.getElementsByClassName('custom-check-me')
+      for(let ch of checks) {
+        if(ch.checked) {
+          ids.push(ch.value)
+        }
+      }
+      if(ids.length !== 0) {
+        Swal.fire({
+          title: 'Are you sure you want to delete the selected items?',
+          icon: 'question',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: 'No'
+        }).then((x) => {
+          if(x.isConfirmed) {
+            this.invServ.deleteSelected(ids).subscribe({
+              next: (_) => {
+                Swal.fire({ title: 'Items deleted successfully', icon: 'success' })
+                for(let id of ids) {
+                  let allItemsIndex = this.allItems.findIndex((x: any) => x._id === id ),
+                      itemsIndex = this.items.findIndex((x: any) => x._id === id)
+                  this.allItems.splice(allItemsIndex, 1)
+                  this.items.splice(itemsIndex, 1)
+                }
+              },
+              error: ({ error }) => {
+                console.log(error)
+              }
+            })
+          }
+        })
+      }
     }
   }
 
