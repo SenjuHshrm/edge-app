@@ -265,9 +265,11 @@ export class ProfileComponent implements OnInit {
             this.progress = 0;
             Swal.fire({
               title:
-                'Profile Picture has been updated!. \n Please reload page to see changes.',
+                'Profile Picture has been updated!',
               icon: 'success',
             }).then(() => {
+              localStorage.setItem('ACCESS', evt.body.info)
+              window.location.href = '/key-partners/home/profile'
               this.loading = false;
             });
         }
