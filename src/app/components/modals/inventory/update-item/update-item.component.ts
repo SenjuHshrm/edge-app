@@ -18,7 +18,7 @@ export class UpdateItemComponent implements OnInit {
   public size: any = [];
   public keyPartners: any = [];
 
-  public itemData = {
+  public itemData: any = {
     keyPartnerId: '',
     desc: '',
     classification: '',
@@ -34,6 +34,18 @@ export class UpdateItemComponent implements OnInit {
     criticalBalance: '',
     kpOwned: false,
   };
+
+  public currentQty: number = 0;
+
+  public currentIn: number = 0
+  public currentOut: number = 0
+  public currentRTS: number = 0
+  public currentDef: number = 0
+
+  public addValIn: number = 0
+  public addValOut: number = 0
+  public addValRTS: number = 0
+  public addValDef: number = 0
 
   public loading: boolean = false;
 
@@ -77,6 +89,12 @@ export class UpdateItemComponent implements OnInit {
     this.itemData.sequence = this.data?.sequence;
     this.itemData.criticalBalance = this.data?.criticalBalance;
     this.itemData.kpOwned = this.data?.kpOwned;
+
+    this.currentQty = +this.itemData.currentQty
+    this.currentIn = +this.itemData.in
+    this.currentOut = +this.itemData.out
+    this.currentRTS = +this.itemData.rts
+    this.currentDef = +this.itemData.defective
   }
 
   saveData(evt: any) {
@@ -190,5 +208,23 @@ export class UpdateItemComponent implements OnInit {
 
   nemen(e: any) {
     this.itemData.kpOwned = e.target.checked;
+  }
+
+  updateQuantity(field: string, current: number, update: number): void {
+    this.itemData[field] = (current  + update).toString()
+    this.itemData.currentQty = this.currentQty + ((this.addValIn + this.addValRTS) - (this.addValOut + this.addValDef))
+  }
+
+  resetTable() {
+    this.itemData.in = this.currentIn.toString()
+    this.itemData.out = this.currentOut.toString()
+    this.itemData.rts = this.currentRTS.toString()
+    this.itemData.defective = this.currentDef.toString()
+    this.itemData.currentQty = this.currentQty.toString()
+
+    this.addValIn = 0
+    this.addValOut = 0
+    this.addValRTS = 0
+    this.addValDef = 0
   }
 }

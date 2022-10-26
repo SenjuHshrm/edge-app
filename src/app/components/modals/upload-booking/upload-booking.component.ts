@@ -65,8 +65,14 @@ export class UploadBookingComponent implements OnInit {
           }
           
         },
-        error: ({error}: any) => {
+        error: ({ error }: any) => {
           console.log(error)
+          Swal.fire({
+            title: error.msg,
+            icon: 'error'
+          })
+          this.progress = 0
+          this.isUploading = false
         }
       })
     }

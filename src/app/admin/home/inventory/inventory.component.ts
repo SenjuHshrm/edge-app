@@ -158,7 +158,7 @@ export class InventoryComponent implements OnInit {
             ? this.allItems.filter((e: any) =>
                 e.keyPartnerId.email
                   .toLowerCase()
-                  .startsWith(this.search.toLowerCase())
+                  .match(this.search.toLowerCase())
               )
             : this.allItems;
         break;
@@ -167,7 +167,7 @@ export class InventoryComponent implements OnInit {
         data =
           this.search !== ''
             ? this.allItems.filter((e: any) =>
-                e.sku.toLowerCase().startsWith(this.search.toLowerCase())
+                e.sku.toLowerCase().match(this.search.trim().toLowerCase())
               )
             : this.allItems;
         break;
@@ -176,7 +176,7 @@ export class InventoryComponent implements OnInit {
         data =
           this.search !== ''
             ? this.allItems.filter((e: any) =>
-                e.desc.toLowerCase().startsWith(this.search.toLowerCase())
+                e.desc.toLowerCase().match(this.search.toLowerCase())
               )
             : this.allItems;
         break;
@@ -192,6 +192,9 @@ export class InventoryComponent implements OnInit {
   handleSort(category: any) {
     switch (category) {
       case 'non-moving':
+        this.items = this.allItems.filter((i: any) => i.status === category)
+        break;
+      case 'moving':
         this.items = this.allItems.filter((i: any) => i.status === category)
         break;
       case 'in':

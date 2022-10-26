@@ -103,52 +103,86 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="d-flex align-items-center">
-              <!-- <div class="mb-2 me-2">
-                <label for="in" class="form-label fw-bold m-0 p-0">In</label>
-                <input
-                  [(ngModel)]="itemData.in"
-                  type="text"
-                  class="form-control"
-                  id="in"
-                  name="in"
-                />
-              </div> -->
-              <!-- <div class="mb-2 me-2 flex-grow-1">
-                <label for="out" class="form-label fw-bold m-0 p-0">Out</label>
-                <input
-                  [(ngModel)]="itemData.out"
-                  type="text"
-                  class="form-control"
-                  id="out"
-                  name="out"
-                  (input)="manipulateQty('out')"
-                />
-              </div>
-              <div class="mb-2 me-2 flex-grow-1">
-                <label for="rts" class="form-label fw-bold m-0 p-0">RTS</label>
-                <input
-                  [(ngModel)]="itemData.rts"
-                  type="text"
-                  class="form-control"
-                  id="rts"
-                  name="rts"
-                  (input)="manipulateQty('rts')"
-                />
-              </div>
-              <div class="mb-2 flex-grow-1">
-                <label for="defective" class="form-label fw-bold m-0 p-0"
-                  >Defective</label
-                >
-                <input
-                  [(ngModel)]="itemData.defective"
-                  type="text"
-                  class="form-control"
-                  id="defective"
-                  name="defective"
-                  (input)="manipulateQty('def')"
-                />
-              </div> -->
+            <div class="d-flex flex-column align-items-center">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <th>Input Value</th>
+                    <th>Previous Value</th>
+                    <th>Updated Value</th>
+                  </tr>
+                  <tr>
+                    <td><label for="in" class="form-label fw-bold m-0 p-0">In</label></td>
+                    <td>
+                      <div class="d-flex flex-row justify-content-stretch align-items-center gap-1">
+                        <input
+                          [(ngModel)]="addValIn"
+                          type="number"
+                          class="form-control"
+                          id="in"
+                          name="in"
+                        />
+                        <button class="btn btn-dark" type="button" (click)="updateQuantity('in', currentIn, addValIn)">Update</button>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ currentIn }}</td>
+                    <td class="text-center">{{ itemData.in }}</td>
+                  </tr>
+                  <tr>
+                    <td><label for="out" class="form-label fw-bold m-0 p-0">Out</label></td>
+                    <td>
+                      <div class="d-flex flex-row justify-content-stretch align-items-center gap-1">
+                        <input
+                          [(ngModel)]="addValOut"
+                          type="number"
+                          class="form-control"
+                          id="out"
+                          name="out"
+                        />
+                        <button class="btn btn-dark" type="button" (click)="updateQuantity('out', currentOut, addValOut)">Update</button>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ currentOut }}</td>
+                    <td class="text-center">{{ itemData.out }}</td>
+                  </tr>
+                  <tr>
+                    <td><label for="rts" class="form-label fw-bold m-0 p-0">RTS</label></td>
+                    <td>
+                      <div class="d-flex flex-row justify-content-stretch align-items-center gap-1">
+                        <input
+                          [(ngModel)]="addValRTS"
+                          type="number"
+                          class="form-control"
+                          id="rts"
+                          name="rts"
+                        />
+                        <button class="btn btn-dark" type="button" (click)="updateQuantity('rts', currentRTS, addValRTS)">Update</button>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ currentRTS }}</td>
+                    <td class="text-center">{{ itemData.rts }}</td>
+                  </tr>
+                  <tr>
+                    <td><label for="defective" class="form-label fw-bold m-0 p-0">Defective</label></td>
+                    <td>
+                      <div class="d-flex flex-row justify-content-stretch align-items-center gap-1">
+                        <input
+                          [(ngModel)]="addValDef"
+                          type="number"
+                          class="form-control"
+                          id="defective"
+                          name="defective"
+                        />
+                        <button class="btn btn-dark" type="button" (click)="updateQuantity('defective', currentDef, addValDef)">Update</button>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ currentDef }}</td>
+                    <td class="text-center">{{ itemData.defective }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-dark" (click)="resetTable()">Reset Table</button>
             </div>
             <div class="d-flex">
               <div class="mb-2 me-2 flex-grow-1">
@@ -161,6 +195,7 @@
                   class="form-control"
                   id="currentQty"
                   name="currentQty"
+                  readonly
                 />
               </div>
               <div class="mb-2 me-2 flex-grow-1">

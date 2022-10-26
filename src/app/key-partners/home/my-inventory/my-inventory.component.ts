@@ -87,7 +87,7 @@ export class MyInventoryComponent implements OnInit {
     data =
       this.search !== ''
         ? this.allItems.filter((e: any) =>
-            e.desc.toLowerCase().startsWith(this.search.toLowerCase())
+            e.desc.toLowerCase().match(this.search.toLowerCase())
           )
         : this.allItems;
 
@@ -101,6 +101,9 @@ export class MyInventoryComponent implements OnInit {
   handleSort(category: any) {
     switch (category) {
       case 'non-moving':
+        this.items = this.allItems.filter((i: any) => i.status === category)
+        break;
+      case 'moving':
         this.items = this.allItems.filter((i: any) => i.status === category)
         break;
       case 'in':
