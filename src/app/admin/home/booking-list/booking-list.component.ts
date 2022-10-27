@@ -70,44 +70,38 @@ export class BookingListComponent implements OnInit {
         ? this.allData.filter((e: any) =>
             e[this.category]
               .toLocaleLowerCase()
-              .startsWith(this.search.toLocaleLowerCase())
+              .match(this.search.toLocaleLowerCase())
           )
         : this.allData;
     this.bookings = data;
   }
 
-  handleStatusFilter() {
-    switch (this.status) {
-      case 'fulfilled':
-        this.bookings = this.allData.filter(
-          (e: any) => e.status === 'fulfilled'
-        );
-        break;
-
-      case 'unfulfilled':
-        this.bookings = this.allData.filter(
-          (e: any) => e.status === 'unfulfilled'
-        );
-        break;
-
-      default:
-        this.bookings = this.allData;
-        break;
-    }
-  }
-
-  handleDateFilter() {
+  handleFilter() {
     let start = new Date(this.bookFrom).setHours(0, 0, 0),
-        end = new Date(this.bookTo).setHours(23, 59, 59)
-    this.bookings = this.allData.filter(
-      (e: any) =>
+        end = new Date(this.bookTo).setHours(23, 59, 59),
+        temp = [];
+    temp = this.allData.filter(
+      (e: any) => (
         (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
-    );
+      )
+    )
+    switch(this.status) {
+      case 'fulfilled':
+        this.bookings = temp.filter((e: any) => e.status === 'fulfilled')
+        break;
+      case 'unfulfilled':
+        this.bookings = temp.filter((e: any) => e.status === 'unfulfilled')
+        break;
+      default:
+        this.bookings = temp
+    }
   }
 
   handleReset() {
     this.bookings = this.allData;
-    this.selectedDate = '';
+    this.status = 'all'
+    this.bookFrom = ''
+    this.bookTo = ''
   }
 
   viewBundle(bundle: any) {
