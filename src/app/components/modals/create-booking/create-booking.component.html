@@ -349,7 +349,7 @@
                             </thead>
                             <tbody class="border-top-0">
                               <tr *ngFor="let item of i.items">
-                                <td class="text-truncate">{{ item.item }}</td>
+                                <td class="text-truncate">{{ item.item }} - {{ item.itemId.color.name }} - {{ item.itemId.size.name }}</td>
                                 <!-- <td class="text-truncate w-100">
                                   {{
                                     handleTextLimit(

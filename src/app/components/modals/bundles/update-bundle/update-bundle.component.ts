@@ -64,12 +64,12 @@ export class UpdateBundleComponent implements OnInit {
       if (this.data.items.length < 7) {
         let ind = this.items.findIndex((e: any) => e._id === this.item.id);
         const itemData = {
-          itemId: this.item.id,
+          itemId: this.items[ind],
           item: this.items[ind].desc,
           quantity: this.item.quantity,
-          price: this.items[ind].price,
+          price: this.items[ind].price
         };
-        this.data.items = [itemData, ...this.data.items];
+        this.data.items = [...this.data.items, itemData];
         this.item.id = '';
         this.item.quantity = '';
       } else {

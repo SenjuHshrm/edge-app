@@ -57,6 +57,8 @@ export class CreateBundleComponent implements OnInit {
           desc: this.items[ind].desc,
           quantity: this.item.quantity,
           price: this.items[ind].price,
+          color: this.items[ind].color.name,
+          size: this.items[ind].size.name
         };
         this.data.items = [itemData, ...this.data.items];
         this.item.id = '';

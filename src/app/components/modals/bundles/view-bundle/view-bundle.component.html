@@ -14,7 +14,7 @@
           </thead>
           <tbody class="border-top-0">
             <tr *ngFor="let data of data?.items; let i = index">
-              <td class="text-truncate px-1 align-middle">{{ data?.item }}</td>
+              <td class="text-truncate px-1 align-middle">{{ data?.item }} - {{ data?.itemId.color.name }} - {{ data?.itemId.size.name }}</td>
               <td class="text-truncate px-1 align-middle">
                 {{ data?.quantity }}
               </td>
