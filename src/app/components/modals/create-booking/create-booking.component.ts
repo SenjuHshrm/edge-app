@@ -1,7 +1,7 @@
 import { BookingService } from './../../../services/booking.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import address from 'src/assets/address';
+// import address from 'src/assets/address';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateBundleComponent } from '../bundles/update-bundle/update-bundle.component';
 
@@ -51,6 +51,8 @@ export class CreateBookingComponent implements OnInit {
   public courierLoads: boolean = false;
   savingType: string = 'update';
 
+  public address: any = {}
+
   constructor(
     private booking: BookingService,
     private md: NgbActiveModal,
@@ -58,9 +60,6 @@ export class CreateBookingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    Object.keys(address).forEach((e) => {
-      this.provinces.push(e);
-    });
     this.booking.getIndividualItemByKeyPartner().subscribe({
       next: (res: any) => {
         this.individualItem = res.info;
@@ -97,10 +96,9 @@ export class CreateBookingComponent implements OnInit {
   }
 
   changeCities(str: string): void {
-    this.didCheck = false;
     this.cities = [];
     this.brgys = [];
-    Object.keys(address[str as keyof typeof address].municipality_list).forEach(
+    Object.keys(this.address[str as keyof typeof this.address].municipality_list).forEach(
       (e) => {
         this.cities.push(e);
       }
@@ -108,51 +106,33 @@ export class CreateBookingComponent implements OnInit {
   }
 
   changeBrgys(str: string): void {
-    this.didCheck = false;
     this.brgys = [];
     let prov = this.addr.province;
-    let provs: any = address[prov as keyof typeof address].municipality_list;
+    let provs: any = this.address[prov as keyof typeof this.address].municipality_list;
     provs[str].barangay_list.map((brgy: any) => {
       this.brgys.push(brgy);
     });
   }
 
-  checkAddress(a: any, b: any) {
-    this.courierLoads = true;
-    let params = {
-      province: a.province,
-      city: a.city,
-      brgy: a.brgy,
-      type: b.courier,
-    };
-    this.booking.checkAddress(params).subscribe({
+  checkAddress(b: any) {
+    this.provinces = []
+    this.cities = []
+    this.brgys = []
+    this.courierLoads = true
+    this.booking.checkAddress(b).subscribe({
       next: (res: any) => {
-        if (res.info === 'YES') {
-          Swal.fire(
-            'Success',
-            'The address is available for Door to Door Delivery',
-            'success'
-          );
-          this.didCheck = true;
-          this.courierLoads = false;
-        } else {
-          Swal.fire(
-            'Error',
-            'The address is not available for Door to Door Delivery',
-            'error'
-          );
-          this.didCheck = false;
-          this.courierLoads = false;
-        }
+        this.address = res
+        Object.keys(this.address).forEach(e => {
+          this.provinces.push(e)
+        })
+        this.courierLoads = false
       },
-      error: ({ error }: any) => {
-        Swal.fire(
-          'Error',
-          'The address is not available for Door to Door Delivery',
-          'error'
-        );
-        this.didCheck = false;
-        this.courierLoads = false;
+      error: (_) => {
+        Swal.fire({
+          title: 'An error occured',
+          icon: 'error'
+        })
+        this.courierLoads = false
       },
     });
   }
@@ -282,8 +262,6 @@ export class CreateBookingComponent implements OnInit {
       message = 'Please select address';
     } else if (booking.courier === '') {
       message = 'Please enter courier.';
-    } else if (this.didCheck === false) {
-      message = 'Please check address if available in courier.';
     } else if (booking.cod === '') {
       message = 'Please enter cod.';
     } else if (booking.sender === '') {
@@ -311,7 +289,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   resetCheck() {
-    this.didCheck = false;
+    
   }
 
   addBooking() {

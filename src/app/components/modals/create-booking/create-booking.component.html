@@ -29,6 +29,34 @@
           </div>
 
           <div class="mb-3">
+            <div class="d-flex align-items-end flex-wrap mt-3">
+              <div class="form-group me-2">
+                <label for="contact" class="fs-6 fw-bold">Courier</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="courier"
+                  (change)="resetCheck()"
+                  [(ngModel)]="bookingData.courier"
+                >
+                  <option value="flash">FLASH</option>
+                  <option value="jnt">JNT</option>
+                </select>
+              </div>
+              <div>
+                <button
+                  class="btn btn-dark"
+                  (click)="checkAddress(bookingData.courier)"
+                  [disabled]="courierLoads">
+                  Load Address List
+                  <ng-template [ngIf]="courierLoads">
+                    <div class="spinner-border spinner-border-sm text-warning" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  </ng-template>
+                </button>
+              </div>
+            </div>
             <div class="d-flex flex-wrap">
               <div class="me-0 me-md-2 flex-grow-1">
                 <label class="fw-bold m-0 p-0 text-capitalize" for="province"
@@ -83,7 +111,7 @@
                 </select>
               </div>
             </div>
-            <div class="d-flex align-items-end flex-wrap mt-3">
+            <div class="d-flex flex-wrap">
               <div class="form-group me-0 me-md-2 flex-grow-1">
                 <label for="address" class="fs-6 fw-bold">Address</label>
                 <input
@@ -103,41 +131,6 @@
                   name="zipCode"
                   [(ngModel)]="bookingData.zip"
                 />
-              </div>
-              <div class="form-group me-2 flex-grow-1">
-                <label for="contact" class="fs-6 fw-bold">Courier</label>
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  name="courier"
-                  (change)="resetCheck()"
-                  [(ngModel)]="bookingData.courier"
-                >
-                  <option value="flash">FLASH</option>
-                  <option value="jnt">JNT</option>
-                </select>
-              </div>
-              <div>
-                <button
-                  class="btn {{ didCheck ? 'btn-success px-5' : 'btn-dark' }}"
-                  (click)="checkAddress(addr, bookingData)"
-                  [disabled]="courierLoads"
-                >
-                  <ng-template [ngIf]="!courierLoads">
-                    <ng-template [ngIf]="didCheck">
-                      <i class="bi bi-check-circle"></i> Available
-                    </ng-template>
-                    <ng-template [ngIf]="!didCheck">Check Courier</ng-template>
-                  </ng-template>
-                  <ng-template [ngIf]="courierLoads">
-                    <div
-                      class="spinner-border spinner-border-sm text-warning"
-                      role="status"
-                    >
-                      <span class="sr-only"></span>
-                    </div>
-                  </ng-template>
-                </button>
               </div>
             </div>
           </div>

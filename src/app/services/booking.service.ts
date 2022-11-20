@@ -10,9 +10,9 @@ import jwtDecode from 'jwt-decode';
 export class BookingService {
   constructor(private http: HttpClient) {}
 
-  public checkAddress(params: any): Observable<any> {
+  public checkAddress(type: any): Observable<any> {
     return this.http.get(
-      `${environment.apiV1}/api/v1/get/check-address/${params.province}/${params.city}/${params.brgy}/${params.type}`
+      `${environment.apiV1}/api/v1/get/check-address/${type}`
     );
   }
 
