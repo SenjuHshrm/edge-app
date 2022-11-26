@@ -27,7 +27,7 @@ export class MySoaComponent implements OnInit {
           let i = x.file.lastIndexOf('/')
           this.fileList.push({
             id: x._id,
-            file: `${environment.apiV1}${x.file}`,
+            url: `${environment.apiV1}${x.url}`,
             createdAt: x.createdAt,
             filename: x.file.substring(i + 1, x.file.length),
             isSeen: x.isSeen

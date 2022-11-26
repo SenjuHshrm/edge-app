@@ -21,4 +21,8 @@ export class ContractService {
   markAsSeen(id: string): Observable<any> {
     return this.http.put(`${environment.apiV1}/api/v1/put/contract/set-seen/${id}`, {})
   }
+
+  deleteContract(id: string): Observable<any> {
+    return this.http.delete(`${environment.apiV1}/api/v1/delete/contract/${id}`)
+  }
 }

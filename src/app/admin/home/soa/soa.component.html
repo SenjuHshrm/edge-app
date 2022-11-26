@@ -115,15 +115,22 @@
                   </td>
                   <td class="text-truncate px-1">{{ i.keyPartner.name }}</td>
                   <td class="text-truncate px-1">{{ i.keyPartner.company }}</td>
-                  <td>
+                  <td class="d-flex flex-row gap-2">
                     <a
                       class="btn btn-dark text-white fw-bolder py-0"
                       title="View SOA"
-                      [href]="i.file"
+                      [href]="i.url"
                       target="_blank"
                     >
                       <i class="bi bi-door-open"></i>
                     </a>
+                    <button
+                      class="btn btn-dark text-white fw-bolder py-0"
+                      title="Delete SOA"
+                      (click)="handleDelete(i._id, i.keyPartner.name)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
                   </td>
                 </tr>
               </ng-template>

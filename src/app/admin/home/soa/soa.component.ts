@@ -1,3 +1,4 @@
+import { ContractService } from './../../../services/contract.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
@@ -25,7 +26,10 @@ export class SoaComponent implements OnInit {
   public loading: boolean = false;
   public progress: number = 0;
 
-  constructor(private kp: KeyPartnerService) {}
+  constructor(
+    private kp: KeyPartnerService,
+    private contract: ContractService
+  ) {}
 
   ngOnInit(): void {
     this.kp.getActivatedKeyPartners().subscribe({
@@ -40,7 +44,7 @@ export class SoaComponent implements OnInit {
           let i = x.file.lastIndexOf('/')
           this.sentFileHistory.push({ 
             ...x,
-            file: `${environment.apiV1}${x.file}`
+            url: `${environment.apiV1}${x.url}`
           })
         })
       },
@@ -119,7 +123,7 @@ export class SoaComponent implements OnInit {
                 '';
               this.filename = 'Selected File';
               this.progress = 0;
-              this.sentFileHistory.unshift({ ...evt.body.info, file: `${environment.apiV1}${evt.body.info.file}` })
+              this.sentFileHistory.unshift({ ...evt.body.info, url: `${environment.apiV1}${evt.body.info.url}` })
             }
             // } else {
             //   Swal.fire('Success', 'File sent successfully', 'success');
@@ -146,5 +150,34 @@ export class SoaComponent implements OnInit {
       Swal.fire(message, '', 'info');
       return false;
     }
+  }
+
+  handleDelete(id: string, kp: string) {
+    Swal.fire({
+      text: `Are you sure to delete SOA for key partner: ${kp}`,
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then(q => {
+      if(q.isConfirmed) {
+        this.contract.deleteContract(id).subscribe({
+          next: (_) => {
+            Swal.fire({
+              text: 'Contract deleted',
+              icon: 'success'
+            })
+            let ind: number = this.sentFileHistory.findIndex((x: any) => x._id === id)
+            this.sentFileHistory.splice(ind, 1)
+          },
+          error: (_) => {
+            Swal.fire({
+              text: 'An error occured',
+              icon: 'error'
+            })
+          }
+        })
+      }
+    })
   }
 }
