@@ -88,6 +88,9 @@
             <td>{{ item.totalPrice }}</td>
           </tr>
         </table>
+        <div class="text-end mt-3">
+          <strong>Grand Total: </strong> {{ grandTotal }}
+        </div>
       </div>
       <div class="text-end mt-3">
         <button class="btn btn-dark px-3 me-2" (click)="generateFile()">

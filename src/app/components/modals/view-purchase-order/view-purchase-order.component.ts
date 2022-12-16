@@ -9,10 +9,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ViewPurchaseOrderComponent implements OnInit {
   @Input() public data: any | undefined;
+  public grandTotal: number = 0;
 
   constructor(private md: NgbActiveModal, private po: PurchaseOrderService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    for(let i = 0; i < this.data.items.length; i++) {
+      this.grandTotal += parseFloat(this.data.items[i].totalPrice)
+    }
+  }
 
   handleClose() {
     this.md.close();
