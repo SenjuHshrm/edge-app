@@ -1,31 +1,12 @@
-h1{
-    border-bottom:4px solid black;
-  }
-.header-container{
-    text-align:center;
-      
-    .logo{   
-        width:20%;   
-    }
-    .details{
-        .subheader{
-            font-size:large;
-        }
-        .info{
-            height:100px;
-            color:white;
-            font-weight:bold;
-            background-color:#3F3F3F;
-   
-        }
-    }
-    
-      .text-white{
-        color:white;
-      }
-      .text-black{
-        color:black;
-      }
+.title-container {
+  border-bottom: 3px solid black;
+}
+
+.custom-bg-black {
+  background-color: #3F3F3F;
 }
 
 
+td {
+  word-break: break-word;
+}
