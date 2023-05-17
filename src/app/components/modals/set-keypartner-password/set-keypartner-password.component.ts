@@ -1,14 +1,15 @@
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-set-keypartner-password',
   templateUrl: './set-keypartner-password.component.html',
   styleUrls: ['./set-keypartner-password.component.scss'],
 })
-export class SetKeypartnerPasswordComponent implements OnInit {
+export class SetKeypartnerPasswordComponent implements OnInit, OnDestroy {
   @Input() public id: string = '';
   public characters: string =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*_+<>?abcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,9 +18,15 @@ export class SetKeypartnerPasswordComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private md: NgbModal, private kp: KeyPartnerService) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   randomPassword(ln: number, pass: string) {
     const chLn = this.characters.length;
@@ -34,7 +41,7 @@ export class SetKeypartnerPasswordComponent implements OnInit {
   setPassword() {
     if (this.validatePassword()) {
       this.loading = true;
-      this.kp
+      let setKeyPartnerPassword = this.kp
         .setKeyPartnerPassword(this.id, {
           password: this.password,
           secondPassword: this.password2,
@@ -50,6 +57,7 @@ export class SetKeypartnerPasswordComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(setKeyPartnerPassword)
     }
   }
 

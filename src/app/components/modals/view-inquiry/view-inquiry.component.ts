@@ -1,25 +1,32 @@
 import { InquiryService } from './../../../services/inquiry.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-inquiry',
   templateUrl: './view-inquiry.component.html',
   styleUrls: ['./view-inquiry.component.scss']
 })
-export class ViewInquiryComponent implements OnInit {
+export class ViewInquiryComponent implements OnInit, OnDestroy {
   @Input() public data: any | undefined;
+
+  private subs: Subscription = new Subscription()
 
   constructor(private md: NgbActiveModal, private inquiry: InquiryService) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   handleClose() {
     this.md.close();
   }
 
   generateFile() {
-    this.inquiry.generateInquiryForm(this.data.inqId).subscribe({
+    let generateInquiryForm = this.inquiry.generateInquiryForm(this.data.inqId).subscribe({
       next: (res: any) => {
         this.downloadFile(res.info.file, res.info.filename)
       },
@@ -27,6 +34,7 @@ export class ViewInquiryComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(generateInquiryForm)
   }
 
   downloadFile(file: string, filename: string) {

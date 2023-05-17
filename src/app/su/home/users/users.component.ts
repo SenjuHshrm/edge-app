@@ -1,13 +1,14 @@
 import { UserService } from './../../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   public data: any = {
     email: '',
     username: '',
@@ -19,11 +20,17 @@ export class UsersComponent implements OnInit {
     accessLvl: '',
   };
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private user: UserService
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   validateData(): boolean {
     let message = '';
@@ -60,7 +67,7 @@ export class UsersComponent implements OnInit {
 
   saveUser() {
     if (this.validateData()) {
-      this.user.registerKeyPartner(this.data).subscribe({
+      let registerKeyPartner = this.user.registerKeyPartner(this.data).subscribe({
         next: (res: any) => {
           Swal.fire('EdgeCommerce admin registered', '', 'success')
         },
@@ -68,6 +75,7 @@ export class UsersComponent implements OnInit {
           console.log(error)
         }
       })
+      this.subs.add(registerKeyPartner)
     }
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { CreateItemComponent } from 'src/app/components/modals/create-item/create-item.component';
 import { UpdateItemComponent } from 'src/app/components/modals/inventory/update-item/update-item.component';
 import { ViewItemComponent } from 'src/app/components/modals/inventory/view-item/view-item.component';
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
 })
-export class InventoryComponent implements OnInit {
+export class InventoryComponent implements OnInit, OnDestroy {
   // good items
   public items: any = [];
   public allItems: any = [];
@@ -24,10 +25,16 @@ export class InventoryComponent implements OnInit {
   public selectCategory: string = '';
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription();
+
   constructor(private mdCtrl: NgbModal, private invServ: InventoryService) {}
 
   ngOnInit(): void {
     this.getAllItems();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handleDate(date: any): string {
@@ -35,7 +42,7 @@ export class InventoryComponent implements OnInit {
   }
 
   getAllItems() {
-    this.invServ.getAll().subscribe((res) => {
+    let getAll = this.invServ.getAll().subscribe((res) => {
       if (res.success) {
         let totalPages = Math.floor(res.info.length / this.size);
         if (res.info.length % this.size > 0) totalPages += 1;
@@ -44,6 +51,7 @@ export class InventoryComponent implements OnInit {
         this.allItems = res.info;
       }
     });
+    this.subs.add(getAll)
   }
 
   createSKU(data: any): string {
@@ -104,7 +112,7 @@ export class InventoryComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        this.invServ.delete(id).subscribe((res) => {
+        let deleteItem = this.invServ.delete(id).subscribe((res) => {
           if (res.success) {
             Swal.fire({
               title: 'Item has been deleted!.',
@@ -124,6 +132,7 @@ export class InventoryComponent implements OnInit {
             });
           }
         });
+        this.subs.add(deleteItem)
       } else {
         Swal.fire({
           title: 'Deletion cancelled.',
@@ -247,9 +256,6 @@ export class InventoryComponent implements OnInit {
   }
 
   updateManyStatus() {
-    // this.selectCategory === 'nonmoving'
-    //   ? this.changeNonMoving()
-    //   : this.changeMoving();
     switch(this.selectCategory) {
       case 'nonmoving':
         this.changeNonMoving()
@@ -284,7 +290,7 @@ export class InventoryComponent implements OnInit {
           denyButtonText: 'No'
         }).then((x) => {
           if(x.isConfirmed) {
-            this.invServ.deleteSelected(ids).subscribe({
+            let deleteSelected = this.invServ.deleteSelected(ids).subscribe({
               next: (_) => {
                 Swal.fire({ title: 'Items deleted successfully', icon: 'success' })
                 for(let id of ids) {
@@ -298,6 +304,7 @@ export class InventoryComponent implements OnInit {
                 console.log(error)
               }
             })
+            this.subs.add(deleteSelected)
           }
         })
       }
@@ -324,7 +331,7 @@ export class InventoryComponent implements OnInit {
           denyButtonText: `No`,
         }).then((res) => {
           if (res.isConfirmed) {
-            this.invServ.updateManyStatus({ ids }).subscribe((res) => {
+            let updateManyStatus = this.invServ.updateManyStatus({ ids }).subscribe((res) => {
               if (res.success) {
                 Swal.fire({
                   title: 'Items has been updated successfully.',
@@ -345,6 +352,7 @@ export class InventoryComponent implements OnInit {
                 this.loading = false;
               }
             });
+            this.subs.add(updateManyStatus)
           } else {
             Swal.fire({
               title: 'Update cancelled.',
@@ -389,7 +397,7 @@ export class InventoryComponent implements OnInit {
           denyButtonText: `No`,
         }).then((res) => {
           if (res.isConfirmed) {
-            this.invServ.updateManyMoving({ ids }).subscribe((res) => {
+            let updateManyMoving = this.invServ.updateManyMoving({ ids }).subscribe((res) => {
               if (res.success) {
                 Swal.fire({
                   title: 'Items has been updated successfully.',
@@ -410,6 +418,7 @@ export class InventoryComponent implements OnInit {
                 this.loading = false;
               }
             });
+            this.subs.add(updateManyMoving)
           } else {
             Swal.fire({
               title: 'Update cancelled.',
@@ -444,7 +453,7 @@ export class InventoryComponent implements OnInit {
       }
     }
     if(ids.length !== 0) {
-      this.invServ.exportSelected(ids).subscribe({
+      let exportSelected = this.invServ.exportSelected(ids).subscribe({
         next: (res: any) => {
           this.loading = false
           this.downloadFile(res.info.file, res.info.filename);
@@ -454,6 +463,7 @@ export class InventoryComponent implements OnInit {
           console.log(error);
         }
       });
+      this.subs.add(exportSelected)
     } else {
       this.loading = false
     }

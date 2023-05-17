@@ -1,15 +1,16 @@
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuotationService } from './../../../services/quotation.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-quotation',
   templateUrl: './create-quotation.component.html',
   styleUrls: ['./create-quotation.component.scss']
 })
-export class CreateQuotationComponent implements OnInit {
+export class CreateQuotationComponent implements OnInit, OnDestroy {
   @Input() public data: any = {};
   public quotations: any = [];
   public itemPlaceholder: any = [];
@@ -25,12 +26,18 @@ export class CreateQuotationComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private quote: QuotationService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
     this.data?.items?.forEach((x: any) => {
       this.items.push(x);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   displayInfo(id: string) {
@@ -61,7 +68,7 @@ export class CreateQuotationComponent implements OnInit {
         items: this.quotations,
         validUntil: moment().add(30, 'days').format(),
       };
-      this.quote.createQuotation(req).subscribe({
+      let createQuotation = this.quote.createQuotation(req).subscribe({
         next: (res: any) => {
           this.md.close(res.info);
           this.loading = false;
@@ -75,6 +82,7 @@ export class CreateQuotationComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(createQuotation)
     } else {
       Swal.fire({
         title: 'Please select an item.',

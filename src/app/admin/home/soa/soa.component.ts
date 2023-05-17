@@ -1,17 +1,18 @@
 import { ContractService } from './../../../services/contract.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-soa',
   templateUrl: './soa.component.html',
   styleUrls: ['./soa.component.scss'],
 })
-export class SoaComponent implements OnInit {
+export class SoaComponent implements OnInit, OnDestroy {
   public keyPartners: any = [];
   public keyList: any = [];
   public filename: string = 'Selected File';
@@ -26,19 +27,21 @@ export class SoaComponent implements OnInit {
   public loading: boolean = false;
   public progress: number = 0;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private kp: KeyPartnerService,
     private contract: ContractService
   ) {}
 
   ngOnInit(): void {
-    this.kp.getActivatedKeyPartners().subscribe({
+    let getActivatedKeyPartners = this.kp.getActivatedKeyPartners().subscribe({
       next: (res: any) => {
         this.keyPartners = res.info;
       },
     });
 
-    this.kp.getContractSendingHistory('soa').subscribe({
+    let getContractSendingHistory = this.kp.getContractSendingHistory('soa').subscribe({
       next: (res: any) => {
         res.info.forEach((x: any) => {
           let i = x.file.lastIndexOf('/')
@@ -50,6 +53,12 @@ export class SoaComponent implements OnInit {
       },
       error: ({ error }: any) => {},
     });
+    this.subs.add(getActivatedKeyPartners)
+    this.subs.add(getContractSendingHistory)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   selectFile() {
@@ -98,17 +107,7 @@ export class SoaComponent implements OnInit {
       contractData.append('type', 'soa');
       contractData.append('filename', filename);
       contractData.append('file', this.file);
-      // this.kp.saveContract(contractData).subscribe({
-      //   next: (res: any) => {
-      //     Swal.fire('Success', 'File sent successfully', 'success');
-      //     this.loading = false;
-      //   },
-      //   error: ({ error }: any) => {
-      //     console.log(error);
-      //     this.loading = false;
-      //   },
-      // });
-      this.kp.saveContract(contractData).subscribe((evt: HttpEvent<any>) => {
+      let saveContract = this.kp.saveContract(contractData).subscribe((evt: HttpEvent<any>) => {
         switch (evt.type) {
           case HttpEventType.UploadProgress:
             this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
@@ -125,13 +124,9 @@ export class SoaComponent implements OnInit {
               this.progress = 0;
               this.sentFileHistory.unshift({ ...evt.body.info, url: `${environment.apiV1}${evt.body.info.url}` })
             }
-            // } else {
-            //   Swal.fire('Success', 'File sent successfully', 'success');
-            //   this.progress = 0;
-            //   this.loading = false;
-            // }
         }
       });
+      this.subs.add(saveContract)
     }
   }
 
@@ -161,7 +156,7 @@ export class SoaComponent implements OnInit {
       denyButtonText: 'No'
     }).then(q => {
       if(q.isConfirmed) {
-        this.contract.deleteContract(id).subscribe({
+        let deleteContract = this.contract.deleteContract(id).subscribe({
           next: (_) => {
             Swal.fire({
               text: 'Contract deleted',
@@ -177,6 +172,7 @@ export class SoaComponent implements OnInit {
             })
           }
         })
+        this.subs.add(deleteContract)
       }
     })
   }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { ClassificationService } from 'src/app/services/classification.service';
 import Swal from 'sweetalert2';
 
@@ -8,10 +9,12 @@ import Swal from 'sweetalert2';
   templateUrl: './classification-update.component.html',
   styleUrls: ['./classification-update.component.scss']
 })
-export class ClassificationUpdateComponent implements OnInit {
+export class ClassificationUpdateComponent implements OnInit, OnDestroy {
   @Input() public data: any;
 
   public loading: boolean = false;
+
+  private subs: Subscription = new Subscription()
 
   constructor(
     private mdCtrl: NgbActiveModal,
@@ -19,6 +22,10 @@ export class ClassificationUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   handleUpdate(e: any) {
     e.preventDefault();
@@ -30,7 +37,7 @@ export class ClassificationUpdateComponent implements OnInit {
       })
     ) {
       this.loading = true;
-      this.classServ
+      let update = this.classServ
         .update(
           {
             name: classification.value,
@@ -64,6 +71,7 @@ export class ClassificationUpdateComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(update)
     }
   }
 

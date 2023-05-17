@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select-keypartner',
   templateUrl: './select-keypartner.component.html',
   styleUrls: ['./select-keypartner.component.scss']
 })
-export class SelectKeypartnerComponent implements OnInit {
+export class SelectKeypartnerComponent implements OnInit, OnDestroy {
   public keyPartners: any = [];
   public keyList: any = [];
 
@@ -16,14 +17,21 @@ export class SelectKeypartnerComponent implements OnInit {
     keyPartnerId: '',
   };
 
+  private subs: Subscription = new Subscription()
+
   constructor(private kp: KeyPartnerService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
-    this.kp.getActivatedKeyPartners().subscribe({
+    let getActivatedKeyPartners = this.kp.getActivatedKeyPartners().subscribe({
       next: (res: any) => {
         this.keyPartners = res.info;
       },
     });
+    this.subs.add(getActivatedKeyPartners)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handleSearch(evt: any) {

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import jwtDecode from 'jwt-decode';
 import address from 'src/assets/address';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
   styleUrls: ['./create-customer.component.scss']
 })
-export class CreateCustomerComponent implements OnInit {
+export class CreateCustomerComponent implements OnInit, OnDestroy {
   public provinces: string[] = [];
   public cities: string[] = [];
   public brgys: string[] = [];
@@ -30,6 +31,8 @@ export class CreateCustomerComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private custServ: CustomerService,
     private mdCtrl: NgbActiveModal
@@ -41,13 +44,17 @@ export class CreateCustomerComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   saveCustomer(evt: any) {
     evt.preventDefault();
     if (this.validateCustomer(evt.target)) {
       this.loading = true;
       let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
       this.customer.keyPartnerId = token.sub;
-      this.custServ.create(this.customer).subscribe({
+      let create = this.custServ.create(this.customer).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({
@@ -72,6 +79,7 @@ export class CreateCustomerComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(create)
     }
   }
 

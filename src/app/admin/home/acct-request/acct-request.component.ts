@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 
 @Component({
@@ -7,16 +8,18 @@ import { KeyPartnerService } from 'src/app/services/key-partner.service';
   templateUrl: './acct-request.component.html',
   styleUrls: ['./acct-request.component.scss'],
 })
-export class AcctRequestComponent implements OnInit {
+export class AcctRequestComponent implements OnInit, OnDestroy {
   public keyPartners: any = [];
   public allData: any = [];
   public search: string = '';
   public category: string = 'email';
 
+  private subs: Subscription = new Subscription();
+
   constructor(private kp: KeyPartnerService) {}
 
   ngOnInit(): void {
-    this.kp.getKeyPartnerForApproval().subscribe({
+    let getKeyPartnerForApproval = this.kp.getKeyPartnerForApproval().subscribe({
       next: (res: any) => {
         res.info.forEach((x: any) => {
           this.keyPartners.push(x);
@@ -27,10 +30,15 @@ export class AcctRequestComponent implements OnInit {
         console.log(e);
       },
     });
+    this.subs.add(getKeyPartnerForApproval)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   approveKeyPartner(id: string) {
-    this.kp.approveKeyPartner(id).subscribe({
+    let approveKeyPartner = this.kp.approveKeyPartner(id).subscribe({
       next: (res: any) => {
         Swal.fire('Success', res.msg, 'success').then((result: any) => {
           let i = this.keyPartners.findIndex((x: any) => x._id === id);
@@ -41,10 +49,11 @@ export class AcctRequestComponent implements OnInit {
         console.log(e);
       },
     });
+    this.subs.add(approveKeyPartner)
   }
 
   rejectAcctRequest(id: string, email: string) {
-    this.kp.rejectKeyPartner(id, email).subscribe({
+    let rejectKeyPartner = this.kp.rejectKeyPartner(id, email).subscribe({
       next: (res: any) => {
         Swal.fire('Account request rejected', 'An email has been sent to the rejected account request', 'success')
           .then(() => {
@@ -56,6 +65,7 @@ export class AcctRequestComponent implements OnInit {
           })
       }
     })
+    this.subs.add(rejectKeyPartner)
   }
 
   handleSearch() {

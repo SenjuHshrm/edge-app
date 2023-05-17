@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
 import address from 'src/assets/address';
 import Swal from 'sweetalert2';
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   templateUrl: './update-customer.component.html',
   styleUrls: ['./update-customer.component.scss']
 })
-export class UpdateCustomerComponent implements OnInit {
+export class UpdateCustomerComponent implements OnInit, OnDestroy {
   @Input() data: any;
 
   public provinces: string[] = [];
@@ -33,6 +34,8 @@ export class UpdateCustomerComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private custServ: CustomerService,
     private mdCtrl: NgbActiveModal
@@ -47,11 +50,15 @@ export class UpdateCustomerComponent implements OnInit {
     this.changeBrgys(this.data?.addr?.city);
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   saveCustomer(evt: any) {
     evt.preventDefault();
     if (this.validateCustomer(evt.target)) {
       this.loading = true;
-      this.custServ.update(this.data, this.data?._id).subscribe({
+      let update = this.custServ.update(this.data, this.data?._id).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({
@@ -76,6 +83,7 @@ export class UpdateCustomerComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(update)
     }
   }
 

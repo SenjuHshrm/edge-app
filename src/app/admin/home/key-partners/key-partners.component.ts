@@ -1,26 +1,29 @@
 import { AssignCodeComponent } from './../../../components/modals/assign-code/assign-code.component';
 import { SetKeypartnerPasswordComponent } from './../../../components/modals/set-keypartner-password/set-keypartner-password.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import Swal from 'sweetalert2';
 import { UpdateKeypartnerComponent } from 'src/app/components/modals/update-keypartner/update-keypartner.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-key-partners',
   templateUrl: './key-partners.component.html',
   styleUrls: ['./key-partners.component.scss'],
 })
-export class KeyPartnersComponent implements OnInit {
+export class KeyPartnersComponent implements OnInit, OnDestroy {
   keyPartners: any = [];
   public allData: any = [];
   public search: string = '';
   public category: string = 'email';
 
+  private subs: Subscription = new Subscription();
+
   constructor(private kp: KeyPartnerService, private md: NgbModal) {}
 
   ngOnInit(): void {
-    this.kp.getApprovedKeyPartners().subscribe({
+    let getApprovedKeyPartners = this.kp.getApprovedKeyPartners().subscribe({
       next: (res: any) => {
         res.info.forEach((x: any) => {
           this.keyPartners.push(x);
@@ -31,8 +34,13 @@ export class KeyPartnersComponent implements OnInit {
         console.log(e);
       },
     });
+    this.subs.add(getApprovedKeyPartners)
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+  
   setPassword(id: string): any {
     // let sp: NgbModalRef = this.md.open(SetKeypartnerPasswordComponent, { size: 'md', backdrop: 'static', keyboard: false })
     let i = this.keyPartners.findIndex((x: any) => x._id === id);
@@ -77,7 +85,7 @@ export class KeyPartnersComponent implements OnInit {
   }
 
   setActiveStatus(id: string, isActivated: boolean) {
-    this.kp.setStatus(isActivated, id).subscribe({
+    let setStatus = this.kp.setStatus(isActivated, id).subscribe({
       next: (res: any) => {
         Swal.fire('Success', res.msg, 'success').then((result: any) => {
           let i = this.keyPartners.findIndex((x: any) => x._id === id);
@@ -88,6 +96,7 @@ export class KeyPartnersComponent implements OnInit {
         console.log(e);
       },
     });
+    this.subs.add(setStatus)
   }
 
   // assignCode(data: any) {
@@ -104,7 +113,7 @@ export class KeyPartnersComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        this.kp.deleteKeypartner(id).subscribe({
+        let deleteKeypartner = this.kp.deleteKeypartner(id).subscribe({
           next: (res: any) => {
             if (res.success) {
               const datas = this.keyPartners.filter(
@@ -120,6 +129,7 @@ export class KeyPartnersComponent implements OnInit {
             Swal.fire('Failed to delete the record.', '', 'error');
           },
         });
+        this.subs.add(deleteKeypartner)
       } else {
         Swal.fire({
           title: 'Delete cancelled.',

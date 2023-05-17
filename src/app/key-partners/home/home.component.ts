@@ -1,19 +1,20 @@
 import { ToastrService } from 'ngx-toastr';
 import { SocketService } from './../../services/socket.service';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public screen: any = window.innerWidth;
 
   links: any = [
@@ -48,6 +49,8 @@ export class HomeComponent implements OnInit {
   status: boolean = window.innerWidth < 821 ? true : false;
   showToggle: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   @HostListener('window:resize', ['$event'])
   onResize(e: any) {
     this.showToggle = window.innerWidth <= 821 ? true : false;
@@ -61,37 +64,38 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private toast: ToastrService
   ) {
-    router.events.subscribe({
+    let routerEvents = router.events.subscribe({
       next: (res: any) => {
         if (res instanceof NavigationEnd) {
-          if (router.url === '/key-partners/home/my-coa-nda') {
-            user.updateNotifStatus({ field: 'coanda' }).subscribe({
-              next: (res: any) => {
-                this.links[2].data = '';
-              },
-            });
-          } else if (router.url === '/key-partners/home/my-soa') {
-            user.updateNotifStatus({ field: 'soa' }).subscribe({
-              next: (res: any) => {
-                this.links[3].data = '';
-              },
-            });
-          } else if (router.url === '/key-partners/home/my-quotation') {
-            user.updateNotifStatus({ field: 'quotation' }).subscribe({
-              next: (res: any) => {
-                this.links[5].data = '';
-              },
-            });
-          } else if (router.url === '/key-partners/home/my-inventory') {
-            user.updateNotifStatus({ field: 'kpInv' }).subscribe({
-              next: (res: any) => {
-                this.links[7].data = '';
-              },
-            });
+          let field: string = '', ind: number = 0;
+          switch(router.url) {
+            case '/key-partners/home/my-coa-nda':
+              field = 'coanda'
+              ind = 2
+              break;
+            case '/key-partners/home/my-soa':
+              field = 'soa'
+              ind = 3
+              break;
+            case '/key-partners/home/my-quotation':
+              field = 'quotation'
+              ind = 5
+              break;
+            case '/key-partners/home/my-inventory':
+              field = 'kpInv'
+              ind = 7
+              break;
           }
+          let updateNotifStatus = user.updateNotifStatus({ field }).subscribe({
+            next: (res: any) => {
+              this.links[ind].data = '';
+            },
+          });
+          this.subs.add(updateNotifStatus)
         }
       },
     });
+    this.subs.add(routerEvents)
   }
   // public data: any = {};
   public img: string = '';
@@ -103,7 +107,7 @@ export class HomeComponent implements OnInit {
       ? token.img
       : `${environment.apiV1}${token.img}`;
 
-    this.user.getNotificationCounts().subscribe({
+    let getNotificationCounts = this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
         this.links[2].data = res.info.coanda === 0 ? '' : res.info.coanda;
         this.links[3].data = res.info.soa === 0 ? '' : res.info.soa;
@@ -115,6 +119,8 @@ export class HomeComponent implements OnInit {
       },
     });
 
+    this.subs.add(getNotificationCounts)
+
     if (!this.socket.isConnected()) {
       let data: any = jwtDecode(localStorage.getItem('ACCESS') as string);
       this.socket.emit('join', { id: data.sub });
@@ -122,7 +128,7 @@ export class HomeComponent implements OnInit {
       // listeners
 
       // coa-nda
-      this.socket.listen('new coa-nda').subscribe({
+      let newCoaNda = this.socket.listen('new coa-nda').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/key-partners/home/my-coa-nda') {
             if (data.sub === res.id) {
@@ -140,7 +146,7 @@ export class HomeComponent implements OnInit {
       });
 
       // soa
-      this.socket.listen('new soa').subscribe({
+      let newSoa = this.socket.listen('new soa').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/key-partners/home/my-soa') {
             if (data.sub === res.id) {
@@ -158,7 +164,7 @@ export class HomeComponent implements OnInit {
       });
 
       // quotation
-      this.socket.listen('new quotation').subscribe({
+      let newQuotation = this.socket.listen('new quotation').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/key-partners/home/my-quotation') {
             if (data.sub === res.id) {
@@ -176,7 +182,7 @@ export class HomeComponent implements OnInit {
       });
 
       // inventory
-      this.socket.listen('keypartner inventory warning').subscribe({
+      let keyPartnerInvWarn = this.socket.listen('keypartner inventory warning').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/key-partners/home/my-inventory') {
             if (data.sub === res.id) {
@@ -188,7 +194,15 @@ export class HomeComponent implements OnInit {
           console.log(error);
         },
       });
+      this.subs.add(newCoaNda)
+      this.subs.add(newSoa)
+      this.subs.add(newQuotation)
+      this.subs.add(keyPartnerInvWarn)
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   logout(e: any): void {
@@ -200,12 +214,13 @@ export class HomeComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        this.user.logout().subscribe({
+        let logout = this.user.logout().subscribe({
           next: (res) => {
             localStorage.removeItem('ACCESS');
             window.location.href = '/key-partners/login';
           },
         });
+        this.subs.add(logout)
       }
     });
   }

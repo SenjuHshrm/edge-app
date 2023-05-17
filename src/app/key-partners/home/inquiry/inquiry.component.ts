@@ -1,23 +1,26 @@
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CreateInquiryComponent } from 'src/app/components/modals/create-inquiry/create-inquiry.component';
 import { ViewInquiryComponent } from 'src/app/components/modals/view-inquiry/view-inquiry.component';
 import { InquiryService } from 'src/app/services/inquiry.service';
 import { ExportComponent } from 'src/app/components/modals/export/export.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-inquiry',
   templateUrl: './inquiry.component.html',
   styleUrls: ['./inquiry.component.scss'],
 })
-export class InquiryComponent implements OnInit {
+export class InquiryComponent implements OnInit, OnDestroy {
   public inquiryList: any = [];
   public allData: any = [];
   public search: string = '';
 
+  private subs: Subscription = new Subscription();
+
   constructor(private mdCtrl: NgbModal, private inq: InquiryService) {}
 
   ngOnInit(): void {
-    this.inq.getInquiries().subscribe({
+    let getInquiries = this.inq.getInquiries().subscribe({
       next: (res) => {
         res.info.map((i: any) => {
           // i.createdAt = moment(i.createdAt).format('MM/DD/YYYY, hh:mm a')
@@ -31,6 +34,11 @@ export class InquiryComponent implements OnInit {
         }
       },
     });
+    this.subs.add(getInquiries)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   createNewInquiry() {
@@ -73,7 +81,7 @@ export class InquiryComponent implements OnInit {
         }
       }
       if (selected.length > 0) {
-        this.inq.generateInquiryFromSelected(selected).subscribe({
+        let generateInquiryFromSelected = this.inq.generateInquiryFromSelected(selected).subscribe({
           next: (res) => {
             console.log(res);
             let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
@@ -83,6 +91,7 @@ export class InquiryComponent implements OnInit {
             console.log(error);
           },
         });
+        this.subs.add(generateInquiryFromSelected)
       }
     }
   }

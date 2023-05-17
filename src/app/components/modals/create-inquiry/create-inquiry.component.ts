@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InquiryService } from 'src/app/services/inquiry.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-inquiry',
   templateUrl: './create-inquiry.component.html',
   styleUrls: ['./create-inquiry.component.scss']
 })
-export class CreateInquiryComponent implements OnInit {
+export class CreateInquiryComponent implements OnInit, OnDestroy {
   public inquiryForm = {
     description: '',
     quantity: '',
@@ -19,9 +20,15 @@ export class CreateInquiryComponent implements OnInit {
   public inquiry: any = [];
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private inq: InquiryService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   handleNewItem({ description, quantity, units, remarks }: any) {
     if (this.validateItem({ description, quantity, units, remarks })) {
@@ -79,7 +86,7 @@ export class CreateInquiryComponent implements OnInit {
         keyPartnerId: token.sub,
         items: this.inquiry,
       };
-      this.inq.createInquiry(data).subscribe({
+      let createInquiry = this.inq.createInquiry(data).subscribe({
         next: (res: any) => {
           this.md.close(res.info);
           this.loading = false;
@@ -89,6 +96,7 @@ export class CreateInquiryComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(createInquiry)
     } else {
       Swal.fire({
         title: 'Please create an item.',

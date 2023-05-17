@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import address from 'src/assets/address';
 import { BookingService } from 'src/app/services/booking.service';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-rts',
   templateUrl: './rts.component.html',
   styleUrls: ['./rts.component.scss'],
 })
-export class RtsComponent implements OnInit {
+export class RtsComponent implements OnInit, OnDestroy {
   public provinces: string[] = [];
   public cities: string[] = [];
   public brgys: string[] = [];
@@ -30,6 +31,8 @@ export class RtsComponent implements OnInit {
 
   public newRemarks: string = '';
 
+  private subs: Subscription = new Subscription()
+
   constructor(private bookServ: BookingService) {}
 
   ngOnInit(): void {
@@ -48,6 +51,10 @@ export class RtsComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   changeBrgys(str: string): void {
     this.brgys = [];
     let prov = this.addr.province;
@@ -60,7 +67,7 @@ export class RtsComponent implements OnInit {
   findRts(): void {
     if (this.bookingId !== '') {
       this.sLoading = true;
-      this.bookServ.getOneBooking(this.bookingId).subscribe({
+      let getOneBooking = this.bookServ.getOneBooking(this.bookingId).subscribe({
         next: (res: any) => {
           if (res.info) {
             this.data = res.info;
@@ -98,6 +105,7 @@ export class RtsComponent implements OnInit {
           this.sLoading = false;
         },
       });
+      this.subs.add(getOneBooking)
     } else {
       Swal.fire('Please enter Customer Booking ID.', '', 'info');
     }
@@ -106,7 +114,7 @@ export class RtsComponent implements OnInit {
   saveRts() {
     if (this.handleValidation(this.itemContainer)) {
       this.cLoading = true;
-      this.bookServ
+      let returnBooking = this.bookServ
         .returnBooking(this.data._id, {
           remarks: this.newRemarks,
           items: this.itemContainer,
@@ -128,6 +136,7 @@ export class RtsComponent implements OnInit {
             this.cLoading = false;
           },
         });
+      this.subs.add(returnBooking)
     }
   }
 

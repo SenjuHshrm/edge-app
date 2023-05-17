@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ExportComponent } from './../../../components/modals/export/export.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
@@ -10,7 +11,7 @@ import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/
   templateUrl: './booking-list.component.html',
   styleUrls: ['./booking-list.component.scss'],
 })
-export class BookingListComponent implements OnInit {
+export class BookingListComponent implements OnInit, OnDestroy {
   public bookings: any = [];
   public allData: any = [];
 
@@ -24,10 +25,12 @@ export class BookingListComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {
-    this.bookServ.getAllBooking().subscribe({
+    let getAllBooking = this.bookServ.getAllBooking().subscribe({
       next: (res) => {
         this.bookings = [
           ...res.info.sort((a: any, b: any) =>
@@ -42,6 +45,11 @@ export class BookingListComponent implements OnInit {
       },
       error: (error) => console.log(error),
     });
+    this.subs.add(getAllBooking)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handleProduct(data: any): string {
@@ -172,7 +180,7 @@ export class BookingListComponent implements OnInit {
         }
       }
       if (selected.length > 0) {
-        this.bookServ.exportSelected({ ids: [...selected] }).subscribe({
+        let exportSelected = this.bookServ.exportSelected({ ids: [...selected] }).subscribe({
           next: (res: any) => {
             // res.info.forEach((x: any) => {
             //   setTimeout(async () => {
@@ -188,6 +196,7 @@ export class BookingListComponent implements OnInit {
             console.log(error);
           },
         });
+        this.subs.add(exportSelected)
       } else {
         Swal.fire('Please select records to export.', '', 'info');
       }
@@ -195,7 +204,7 @@ export class BookingListComponent implements OnInit {
   }
 
   markOneAsFulfilled(id: string) {
-    this.bookServ.markOneAsFulfilled(id).subscribe({
+    let markOneAsFulfilled = this.bookServ.markOneAsFulfilled(id).subscribe({
       next: (res: any) => {
         Swal.fire('', 'Item marked as fulfilled', 'success');
       },
@@ -203,10 +212,11 @@ export class BookingListComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(markOneAsFulfilled)
   }
 
   markOneAsUnfulfilled(id: string) {
-    this.bookServ.markOneAsUnfulfilled(id).subscribe({
+    let markOneAsUnfulfilled = this.bookServ.markOneAsUnfulfilled(id).subscribe({
       next: (res: any) => {
         Swal.fire('', 'Item marked as unfulfilled', 'success');
       },
@@ -214,10 +224,11 @@ export class BookingListComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(markOneAsUnfulfilled)
   }
 
   exportOne(id: string) {
-    this.bookServ.exportOne(id).subscribe({
+    let exportOne = this.bookServ.exportOne(id).subscribe({
       next: (res: any) => {
         let md: NgbModalRef = this.mdCtrl.open(ExportComponent, { size: 'lg' });
         md.componentInstance.data = [res.info];
@@ -226,5 +237,6 @@ export class BookingListComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(exportOne)
   }
 }

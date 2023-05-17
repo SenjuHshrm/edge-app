@@ -1,19 +1,22 @@
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { ContractService } from './../../../services/contract.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-soa',
   templateUrl: './my-soa.component.html',
   styleUrls: ['./my-soa.component.scss']
 })
-export class MySoaComponent implements OnInit {
+export class MySoaComponent implements OnInit, OnDestroy {
 
   public fileList: any = []
   public isAuth: boolean = false;
   public password: string = ''
+
+  private subs: Subscription = new Subscription()
 
   constructor(
     private contract: ContractService,
@@ -21,7 +24,7 @@ export class MySoaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.contract.getContract('soa').subscribe({
+    let getContract = this.contract.getContract('soa').subscribe({
       next: (res: any) => {
         res.info.forEach((x: any) => {
           let i = x.file.lastIndexOf('/')
@@ -38,11 +41,16 @@ export class MySoaComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(getContract)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   authenticate() {
     if(this.password !== '') {
-      this.user.authInternalPage({ secPass: this.password }).subscribe({
+      let authInternalPage = this.user.authInternalPage({ secPass: this.password }).subscribe({
         next: (_) => {
           this.isAuth = !this.isAuth
         },
@@ -50,18 +58,20 @@ export class MySoaComponent implements OnInit {
           Swal.fire({ title: error.msg, icon: 'warning' })
         }
       })
+      this.subs.add(authInternalPage)
     } else {
       Swal.fire({ title: 'Please input your password', icon: 'warning' })
     }
   }
 
   markAsSeen(id: string) {
-    this.contract.markAsSeen(id).subscribe({
+    let markAsSeen = this.contract.markAsSeen(id).subscribe({
       next: (res: any) => {
         let i = this.fileList.findIndex((x: any) => x.id === id)
         this.fileList[i].isSeen = true
       }
     })
+    this.subs.add(markAsSeen)
   }
 
 }

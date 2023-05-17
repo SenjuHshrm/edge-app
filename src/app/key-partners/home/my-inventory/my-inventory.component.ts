@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import jwtDecode from 'jwt-decode';
 import { CreateBundleComponent } from 'src/app/components/modals/create-bundle/create-bundle.component';
@@ -8,13 +8,14 @@ import { BundleService } from 'src/app/services/bundle.service';
 import { ViewBundleComponent } from 'src/app/components/modals/bundles/view-bundle/view-bundle.component';
 import Swal from 'sweetalert2';
 import { UpdateBundleComponent } from 'src/app/components/modals/bundles/update-bundle/update-bundle.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-inventory',
   templateUrl: './my-inventory.component.html',
   styleUrls: ['./my-inventory.component.scss'],
 })
-export class MyInventoryComponent implements OnInit {
+export class MyInventoryComponent implements OnInit, OnDestroy {
   public tableData = [{}, {}, {}, {}, {}];
 
   // items
@@ -33,6 +34,8 @@ export class MyInventoryComponent implements OnInit {
   public bTotalpage: any = 0;
   public bSearch: string = '';
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private mdCtrl: NgbModal,
     private invServ: InventoryService,
@@ -44,9 +47,13 @@ export class MyInventoryComponent implements OnInit {
     this.getAllBundles();
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   getAllItems() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
         this.items = res.info;
         this.allItems = res.info;
@@ -55,6 +62,7 @@ export class MyInventoryComponent implements OnInit {
         this.totalpage = totalPages;
       }
     });
+    this.subs.add(getAllByKeyPartners)
   }
 
   viewItem(data: any) {
@@ -141,7 +149,7 @@ export class MyInventoryComponent implements OnInit {
 
   getAllBundles() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.bundleServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.bundleServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
         this.bundles = res.info;
         this.allBundles = res.info;
@@ -150,6 +158,7 @@ export class MyInventoryComponent implements OnInit {
         this.bTotalpage = bTotalPages;
       }
     });
+    this.subs.add(getAllByKeyPartners)
   }
 
   createBundleItem() {
@@ -204,7 +213,7 @@ export class MyInventoryComponent implements OnInit {
       denyButtonText: `No`,
     }).then((response) => {
       if (response.isConfirmed) {
-        this.bundleServ.delete(id).subscribe((res) => {
+        let del = this.bundleServ.delete(id).subscribe((res) => {
           if (res.success) {
             Swal.fire({
               title: 'Successfully delete.',
@@ -224,6 +233,7 @@ export class MyInventoryComponent implements OnInit {
             });
           }
         });
+        this.subs.add(del)
       } else {
         Swal.fire({
           title: 'Deletion cancelled.',
@@ -270,7 +280,7 @@ export class MyInventoryComponent implements OnInit {
   }
 
   exportInv() {
-    this.invServ.exportByKeyPartner().subscribe({
+    let exportByKeyPartner = this.invServ.exportByKeyPartner().subscribe({
       next: (res: any) => {
         this.downloadFile(res.info.file, res.info.filename);
       },
@@ -278,6 +288,7 @@ export class MyInventoryComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(exportByKeyPartner)
   }
 
   downloadFile(file: string, filename: string) {

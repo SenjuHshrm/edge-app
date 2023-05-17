@@ -1,17 +1,18 @@
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { UserService } from 'src/app/services/user.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-item',
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.scss'],
 })
-export class CreateItemComponent implements OnInit {
+export class CreateItemComponent implements OnInit, OnDestroy {
   public active: string = 'individual';
   public classification: any = [];
   public color: any = [];
@@ -34,6 +35,8 @@ export class CreateItemComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private classServ: ClassificationService,
     private invServ: InventoryService,
@@ -42,7 +45,7 @@ export class CreateItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.classServ.getAll().subscribe((res) => {
+    let getAll = this.classServ.getAll().subscribe((res) => {
       if (res.success) {
         this.classification = res.info.filter(
           (e: any) => e.type === 'classification'
@@ -52,11 +55,18 @@ export class CreateItemComponent implements OnInit {
       }
     });
 
-    this.kp.getActivatedKeyPartners().subscribe({
+    let getActivatedKeyPartners = this.kp.getActivatedKeyPartners().subscribe({
       next: (res: any) => {
         this.keyPartners = res.info;
       },
     });
+
+    this.subs.add(getAll)
+    this.subs.add(getActivatedKeyPartners)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handleSearch(evt: any) {
@@ -80,7 +90,7 @@ export class CreateItemComponent implements OnInit {
     evt.preventDefault();
     if (this.validateData(this.data)) {
       this.loading = true;
-      this.invServ.create(this.data).subscribe({
+      let create = this.invServ.create(this.data).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({
@@ -105,6 +115,7 @@ export class CreateItemComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(create)
     }
   }
 

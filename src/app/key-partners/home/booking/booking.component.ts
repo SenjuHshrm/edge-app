@@ -1,18 +1,19 @@
 import { ExportComponent } from './../../../components/modals/export/export.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CreateBookingComponent } from 'src/app/components/modals/create-booking/create-booking.component';
 import { BookingService } from 'src/app/services/booking.service';
 import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/view-by-id.component';
 import Swal from 'sweetalert2';
 import { UploadBookingComponent } from 'src/app/components/modals/upload-booking/upload-booking.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss'],
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent implements OnInit, OnDestroy {
   public tableHeader = [];
   public tableData: any = [];
   public bookings: any = [];
@@ -25,14 +26,20 @@ export class BookingComponent implements OnInit {
   public bookFrom: string = '';
   public bookTo: string = '';
 
+  private subs: Subscription = new Subscription()
+
   constructor(private mdCtrl: NgbModal, private booking: BookingService) {}
 
   ngOnInit(): void {
     this.getAllBooking();
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   getAllBooking() {
-    this.booking.getAllBookingByKP().subscribe({
+    let getAllBookingByKP = this.booking.getAllBookingByKP().subscribe({
       next: (res: any) => {
         let sorted = res.info.sort((a: any, b: any) =>
           b.createdAt.localeCompare(a.createdAt)
@@ -42,6 +49,7 @@ export class BookingComponent implements OnInit {
       },
       error: (err: any) => console.log(err),
     });
+    this.subs.add(getAllBookingByKP)
   }
 
   createNewBooking() {
@@ -145,7 +153,7 @@ export class BookingComponent implements OnInit {
       default:
         selected = this.bookings.map((x: any) => x._id);
     }
-    this.booking.exportSelected({ ids: [...selected] }).subscribe({
+    let exportSelected = this.booking.exportSelected({ ids: [...selected] }).subscribe({
       next: (res: any) => {
         let md: NgbModalRef = this.mdCtrl.open(ExportComponent, {
           size: 'md',
@@ -156,6 +164,7 @@ export class BookingComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(exportSelected)
   }
 
   uploadBooking() {
@@ -181,7 +190,7 @@ export class BookingComponent implements OnInit {
       denyButtonText: 'No',
     }).then((x) => {
       if (x.isConfirmed) {
-        this.booking.removeBooking(id).subscribe({
+        let removeBooking = this.booking.removeBooking(id).subscribe({
           next: (_) => {
             Swal.fire({
               title: `Booking ${bookingId} deleted`,
@@ -194,6 +203,7 @@ export class BookingComponent implements OnInit {
             console.log(error);
           },
         });
+        this.subs.add(removeBooking)
       }
     });
   }

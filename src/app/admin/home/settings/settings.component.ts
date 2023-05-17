@@ -1,18 +1,19 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassificationUpdateComponent } from 'src/app/components/modals/codes-update/classification-update/classification-update.component';
 import jwtDecode from 'jwt-decode';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
   addButton: boolean = true;
   updateButton: boolean = false;
   indexNum: any;
@@ -51,6 +52,8 @@ export class SettingsComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private classServ: ClassificationService,
     private mdCtrl: NgbModal,
@@ -64,10 +67,14 @@ export class SettingsComponent implements OnInit {
     this.handleGetProfile()
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   changeUsername() {
     if(this.validateUsername()) {
       this.loading = true
-      this.user.updateUsername({ username: this.newUsername }).subscribe({
+      let updateUsername = this.user.updateUsername({ username: this.newUsername }).subscribe({
         next: (res: any) => {
           Swal.fire({
             title: res.msg,
@@ -83,6 +90,7 @@ export class SettingsComponent implements OnInit {
           this.loading = false
         }
       })
+      this.subs.add(updateUsername)
     }
   }
 
@@ -90,7 +98,7 @@ export class SettingsComponent implements OnInit {
     if (this.validatePassword()) {
       this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-      this.user
+      let changePassword = this.user
         .changePassword({
           oldPass: this.currentPass,
           newPass: this.newPass,
@@ -120,6 +128,7 @@ export class SettingsComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(changePassword)
     }
   }
 
@@ -166,7 +175,7 @@ export class SettingsComponent implements OnInit {
   }
 
   handleGetAllColors() {
-    this.classServ.getByType('color').subscribe((res) => {
+    let getByType = this.classServ.getByType('color').subscribe((res) => {
       if (res.success) {
         this.colors = res.info;
         this.allColors = res.info;
@@ -178,10 +187,11 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+    this.subs.add(getByType)
   }
 
   handleGetAllSizes() {
-    this.classServ.getByType('size').subscribe((res) => {
+    let getByType = this.classServ.getByType('size').subscribe((res) => {
       if (res.success) {
         this.sizes = res.info;
         this.allSizes = res.info;
@@ -193,10 +203,11 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+    this.subs.add(getByType)
   }
 
   handleGetProfile() {
-    this.user.getProfile().subscribe({
+    let getProfile = this.user.getProfile().subscribe({
       next: ({data}: any) => {
         this.newUsername = data.username
       },
@@ -204,10 +215,11 @@ export class SettingsComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(getProfile)
   }
 
   handleGetAllClassifications() {
-    this.classServ.getByType('classification').subscribe((res) => {
+    let getByType = this.classServ.getByType('classification').subscribe((res) => {
       if (res.success) {
         this.classifications = res.info;
         this.allClassifications = res.info;
@@ -219,6 +231,7 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+    this.subs.add(getByType)
   }
 
   handleClassificationCreate(e: any, type: string) {
@@ -233,7 +246,7 @@ export class SettingsComponent implements OnInit {
 
     if (this.validateClassification(classData)) {
       this.loading = true;
-      this.classServ.create(classData).subscribe({
+      let createClassification = this.classServ.create(classData).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({
@@ -258,6 +271,7 @@ export class SettingsComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(createClassification)
     }
   }
 
@@ -336,7 +350,7 @@ export class SettingsComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        this.classServ.delete(id).subscribe((res) => {
+        let deleteClassification = this.classServ.delete(id).subscribe((res) => {
           if (res.success) {
             Swal.fire({
               title: 'Classification has been deleted!.',
@@ -350,6 +364,7 @@ export class SettingsComponent implements OnInit {
             });
           }
         });
+        this.subs.add(deleteClassification)
       } else {
         Swal.fire({
           title: 'Deletion cancelled.',
@@ -435,10 +450,11 @@ export class SettingsComponent implements OnInit {
       file = type === 'flash' ? this.flashTemp : this.jntTemp;
     form.append('name', type);
     form.append('file', file);
-    this.user.uploadTemp(form).subscribe({
+    let uploadTemp = this.user.uploadTemp(form).subscribe({
       next: (_) => {
         Swal.fire('Success', 'File uploaded successfully', 'success');
       },
     });
+    this.subs.add(uploadTemp)
   }
 }

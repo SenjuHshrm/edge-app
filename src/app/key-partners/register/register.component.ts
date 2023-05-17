@@ -1,19 +1,22 @@
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Register } from 'src/app/interfaces/register';
 import { Response } from 'src/app/interfaces/response';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm: FormGroup<Register>;
 
   public loading: boolean = false;
+
+  private subs: Subscription = new Subscription()
 
   constructor(private user: UserService) {
     this.registerForm = new FormGroup<Register>({
@@ -27,12 +30,16 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   register(evt: any, data: FormGroup<Register>) {
     evt.preventDefault();
     if (data.valid) {
       this.loading = true;
       let req = { ...data.value, accessLvl: 3, img: '' };
-      this.user.registerKeyPartner(req).subscribe({
+      let registerKeyPartner = this.user.registerKeyPartner(req).subscribe({
         next: (res: Response) => {
           Swal.fire(
             'Success',
@@ -48,6 +55,7 @@ export class RegisterComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(registerKeyPartner)
     }
   }
 

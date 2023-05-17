@@ -1,7 +1,8 @@
+import { Subscription } from 'rxjs';
 import { SocketService } from './../../services/socket.service';
 import { UserService } from './../../services/user.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { ToastInjector, ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   screen: any = window.innerWidth;
 
   links: any = [
@@ -51,43 +52,46 @@ export class HomeComponent implements OnInit {
   status: boolean = window.innerWidth < 821 ? true : false;
   showToggle: boolean = false;
 
+  private subs: Subscription = new Subscription();
+
   constructor(
     private router: Router,
     private user: UserService,
     private socket: SocketService,
     private toast: ToastrService
   ) {
-    router.events.subscribe({
+    let routerEvent = router.events.subscribe({
       next: (res: any) => {
         if (res instanceof NavigationEnd) {
-          if (router.url === '/admin/home/purchase-order') {
-            user.updateNotifStatus({ field: 'purchaseOrder' }).subscribe({
-              next: (res: any) => {
-                this.links[6].data = '';
-              },
-            });
-          } else if (router.url === '/admin/home/acct-request') {
-            user.updateNotifStatus({ field: 'acctReq' }).subscribe({
-              next: (res: any) => {
-                this.links[9].data = '';
-              },
-            });
-          } else if (router.url === '/admin/home/inquiry-list') {
-            user.updateNotifStatus({ field: 'inquiry' }).subscribe({
-              next: (res: any) => {
-                this.links[4].data = '';
-              },
-            });
-          } else if (router.url === '/admin/home/inventory') {
-            user.updateNotifStatus({ field: 'adminInv' }).subscribe({
-              next: (res: any) => {
-                this.links[10].data = '';
-              },
-            });
+          let field: string = '', ind: number = 0
+          switch(router.url) {
+            case '/admin/home/purchase-order':
+              field = 'purchaseOrder'
+              ind = 6
+              break;
+            case '/admin/home/acct-request':
+              field = 'acctReq'
+              ind = 9
+              break;
+            case '/admin/home/inquiry-list':
+              field = 'inquiry'
+              ind = 4
+              break;
+            case '/admin/home/inventory':
+              field = 'adminInv'
+              ind = 10
+              break;
           }
+          let updateNotifStatus = user.updateNotifStatus({ field }).subscribe({
+            next: (res: any) => {
+              this.links[ind].data = ''
+            }
+          })
+          this.subs.add(updateNotifStatus)
         }
       },
     });
+    this.subs.add(routerEvent)
   }
 
   @HostListener('window:resize', ['$event'])
@@ -100,7 +104,7 @@ export class HomeComponent implements OnInit {
     this.showToggle = window.innerWidth <= 821 ? true : false;
     // this.status = (window.innerWidth <= 767) ? false : true
 
-    this.user.getNotificationCounts().subscribe({
+    let getNotificationCounts = this.user.getNotificationCounts().subscribe({
       next: (res: any) => {
         this.links[4].data = res.info.inquiry === 0 ? '' : res.info.inquiry;
         this.links[6].data =
@@ -120,7 +124,7 @@ export class HomeComponent implements OnInit {
       // listeners
 
       // purchase order counter
-      this.socket.listen('new inquiry').subscribe({
+       let newInquiry = this.socket.listen('new inquiry').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/inquiry-list') {
             if (data.sub === res.id) {
@@ -138,7 +142,7 @@ export class HomeComponent implements OnInit {
       });
 
       // purchase order counter
-      this.socket.listen('new purchase order').subscribe({
+      let newPurchaseOrder = this.socket.listen('new purchase order').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/purchase-order') {
             if (data.sub === res.id) {
@@ -156,7 +160,7 @@ export class HomeComponent implements OnInit {
       });
 
       // account request counter
-      this.socket.listen('new account request').subscribe({
+      let newAccountRequest = this.socket.listen('new account request').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/acct-request') {
             if (data.sub === res.id) {
@@ -174,7 +178,7 @@ export class HomeComponent implements OnInit {
       });
 
       // inventory
-      this.socket.listen('admin inventory warning').subscribe({
+      let adminInventoryWarning = this.socket.listen('admin inventory warning').subscribe({
         next: (res: any) => {
           if (this.router.url !== '/admin/home/inventory') {
             if (data.sub === res.id) {
@@ -186,7 +190,17 @@ export class HomeComponent implements OnInit {
           console.log(error);
         },
       });
+      this.subs.add(newInquiry)
+      this.subs.add(newPurchaseOrder)
+      this.subs.add(newAccountRequest)
+      this.subs.add(adminInventoryWarning)
     }
+
+    this.subs.add(getNotificationCounts)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   logout(e: any): void {
@@ -198,7 +212,7 @@ export class HomeComponent implements OnInit {
       denyButtonText: `No`,
     }).then((res) => {
       if (res.isConfirmed) {
-        this.user.logout().subscribe({
+        let logout = this.user.logout().subscribe({
           next: (res) => {
             localStorage.removeItem('ACCESS');
             window.location.href = '/admin/login';
@@ -207,6 +221,7 @@ export class HomeComponent implements OnInit {
             console.log(err);
           },
         });
+        this.subs.add(logout)
       }
     });
   }

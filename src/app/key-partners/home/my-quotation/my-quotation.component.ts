@@ -1,28 +1,30 @@
 import { ViewQuotationComponent } from 'src/app/components/modals/view-quotation/view-quotation.component';
 import Swal from 'sweetalert2';
 import { QuotationService } from './../../../services/quotation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreatePurchaseOrderComponent } from 'src/app/components/modals/create-purchase-order/create-purchase-order.component';
 import { ExportComponent } from 'src/app/components/modals/export/export.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-quotation',
   templateUrl: './my-quotation.component.html',
   styleUrls: ['./my-quotation.component.scss'],
 })
-export class MyQuotationComponent implements OnInit {
+export class MyQuotationComponent implements OnInit, OnDestroy {
   public quotationLs: any = [];
   // pending: any = [];
   public allApproval: any = [];
   // public allPending: any = [];
   public aSearch: string = '';
   // public pSearch: string = '';
+  private subs: Subscription = new Subscription()
 
   constructor(private mdCtrl: NgbModal, private quote: QuotationService) {}
 
   ngOnInit(): void {
-    this.quote.getQuotationByKeyPartnerId().subscribe({
+    let getQuotationByKeyPartnerId = this.quote.getQuotationByKeyPartnerId().subscribe({
       next: (res: any) => {
         this.quotationLs = res.info
         this.allApproval = res.info
@@ -33,6 +35,11 @@ export class MyQuotationComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(getQuotationByKeyPartnerId)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   createQuotation(data: any) {
@@ -61,7 +68,7 @@ export class MyQuotationComponent implements OnInit {
   }
 
   setStatusForApproval(id: string, status: string) {
-    this.quote.setStatus(id, status).subscribe({
+    let setStatus = this.quote.setStatus(id, status).subscribe({
       next: (res: any) => {
         let ind = this.quotationLs.findIndex((i: any) => i._id === id)
         this.quotationLs[ind].status = status
@@ -74,23 +81,8 @@ export class MyQuotationComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(setStatus)
   }
-
-  // setStatusForPending(id: string, status: string) {
-  //   this.quote.setStatus(id, status).subscribe({
-  //     next: (res: any) => {
-  //       let ind = this.pending.findIndex((i: any) => i._id === id)
-  //       this.pending.splice(ind, 1)
-  //       Swal.fire({
-  //         text: 'Quotation declined',
-  //         icon: 'success',
-  //       });
-  //     },
-  //     error: ({ error }: any) => {
-  //       console.log(error);
-  //     },
-  //   });
-  // }
 
   handleSelectAll(evt: any) {
     const checks: any = document.getElementsByClassName(
@@ -126,7 +118,7 @@ export class MyQuotationComponent implements OnInit {
         }
       }
       if (selected.length > 0) {
-        this.quote.generateMultipleQuote(selected).subscribe({
+        let generateMultipleQuote = this.quote.generateMultipleQuote(selected).subscribe({
           next: (res) => {
             console.log(res);
             let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
@@ -136,35 +128,10 @@ export class MyQuotationComponent implements OnInit {
             console.log(error);
           },
         });
+        this.subs.add(generateMultipleQuote)
       }
     }
   }
-
-  // downloadSelectedPending() {
-  //   let selected: string[] = [];
-  //   const checks: any = document.getElementsByClassName(
-  //     'custom-check-me-pending'
-  //   );
-  //   if (checks.length > 0) {
-  //     for (let i = 0; i < checks.length; i++) {
-  //       if (checks[i].checked) {
-  //         selected.push(this.pending[i].quotationId);
-  //       }
-  //     }
-  //     if (selected.length > 0) {
-  //       this.quote.generateMultipleQuote(selected).subscribe({
-  //         next: (res) => {
-  //           console.log(res);
-  //           let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
-  //           md.componentInstance.data = [res.info];
-  //         },
-  //         error: ({ error }) => {
-  //           console.log(error);
-  //         },
-  //       });
-  //     }
-  //   }
-  // }
 
   handleApprovalSearch() {
     const data =

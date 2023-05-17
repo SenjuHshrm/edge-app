@@ -1,15 +1,18 @@
 import { PurchaseOrderService } from './../../../services/purchase-order.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-purchase-order',
   templateUrl: './view-purchase-order.component.html',
   styleUrls: ['./view-purchase-order.component.scss']
 })
-export class ViewPurchaseOrderComponent implements OnInit {
+export class ViewPurchaseOrderComponent implements OnInit, OnDestroy {
   @Input() public data: any | undefined;
   public grandTotal: number = 0;
+
+  private subs: Subscription = new Subscription()
 
   constructor(private md: NgbActiveModal, private po: PurchaseOrderService) {}
 
@@ -19,12 +22,16 @@ export class ViewPurchaseOrderComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   handleClose() {
     this.md.close();
   }
 
   generateFile() {
-    this.po.generatePOFile(this.data.poId).subscribe({
+    let generatePOFile = this.po.generatePOFile(this.data.poId).subscribe({
       next: (res: any) => {
         console.log(res)
         this.downloadFile(res.info.file, res.info.filename)
@@ -33,6 +40,7 @@ export class ViewPurchaseOrderComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(generatePOFile)
   }
 
   downloadFile(file: string, filename: string) {

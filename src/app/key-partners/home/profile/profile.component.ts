@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵ_sanitizeUrl } from '@angular/core';
+import { Component, OnDestroy, OnInit, ɵ_sanitizeUrl } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
 import Swal from 'sweetalert2';
@@ -6,13 +6,14 @@ import { UserService } from 'src/app/services/user.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private kp: KeyPartnerService, private user: UserService) {}
 
   // password
@@ -42,9 +43,11 @@ export class ProfileComponent implements OnInit {
   public loading: boolean = false;
   public username: string = '';
 
+  private subs: Subscription = new Subscription()
+
   ngOnInit(): void {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.kp.getOneKeyPartner(token.sub).subscribe({
+    let getOneKeyPartner = this.kp.getOneKeyPartner(token.sub).subscribe({
       next: (res: any) => {
         this.fullname = res.info.name;
         this.address = res.info.addr;
@@ -57,6 +60,11 @@ export class ProfileComponent implements OnInit {
       },
       error: (e: any) => console.log(e),
     });
+    this.subs.add(getOneKeyPartner)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   validatePassword(currPass: string, newPass: string, authPass: string): boolean {
@@ -88,7 +96,7 @@ export class ProfileComponent implements OnInit {
     if (this.validatePassword(this.currentPass, this.newPass, this.confirmPass)) {
       this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-      this.user
+      let changePassword = this.user
         .changePassword({
           oldPass: this.currentPass,
           newPass: this.newPass,
@@ -118,6 +126,7 @@ export class ProfileComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(changePassword)
     }
   }
 
@@ -125,7 +134,7 @@ export class ProfileComponent implements OnInit {
     if (this.validatePassword(this.currentIPAPass, this.newIPAPass, this.confirmIPAPass)) {
       this.loading = true;
       const token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-      this.user
+      let changeIPAPassword = this.user
         .changeIPAPassword({
           oldPass: this.currentIPAPass,
           newPass: this.newIPAPass,
@@ -155,6 +164,7 @@ export class ProfileComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(changeIPAPassword)
     }
   }
 
@@ -185,7 +195,7 @@ export class ProfileComponent implements OnInit {
 
   updateProfile() {
     if (this.validateProfile()) {
-      this.user
+      let updateProfile = this.user
         .updateProfile({
           name: this.fullname,
           company: this.company,
@@ -204,6 +214,7 @@ export class ProfileComponent implements OnInit {
           },
           error: (e) => console.log(e),
         });
+      this.subs.add(updateProfile)
     }
   }
 
@@ -255,7 +266,7 @@ export class ProfileComponent implements OnInit {
       dpData.append('image', this.file);
       dpData.append('keyPartnerId', token.sub);
 
-      this.user.updateProfileImage(dpData).subscribe((evt: HttpEvent<any>) => {
+      let updateProfileImage = this.user.updateProfileImage(dpData).subscribe((evt: HttpEvent<any>) => {
         switch (evt.type) {
           case HttpEventType.UploadProgress:
             this.progress = Math.round((evt.loaded / Number(evt.total)) * 100);
@@ -274,6 +285,7 @@ export class ProfileComponent implements OnInit {
             });
         }
       });
+      this.subs.add(updateProfileImage)
     } else {
       Swal.fire({
         title: 'Please select an image.',
@@ -284,7 +296,7 @@ export class ProfileComponent implements OnInit {
 
   updateUsername() {
     if(this.username !== '') {
-      this.user.updateUsername({ username: this.username }).subscribe({
+      let updateUsername = this.user.updateUsername({ username: this.username }).subscribe({
         next: (res: any) => {
           Swal.fire({ title: 'Username updated', icon: 'success' })
         },
@@ -292,6 +304,7 @@ export class ProfileComponent implements OnInit {
           Swal.fire({ title: error.msg, icon: 'error' })
         }
       })
+      this.subs.add(updateUsername)
     } else {
       Swal.fire({
         title: 'Please input your new username',

@@ -1,14 +1,15 @@
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseOrderService } from './../../../services/purchase-order.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-purchase-order',
   templateUrl: './create-purchase-order.component.html',
   styleUrls: ['./create-purchase-order.component.scss']
 })
-export class CreatePurchaseOrderComponent implements OnInit {
+export class CreatePurchaseOrderComponent implements OnInit, OnDestroy {
   @Input() public data: any;
   public pos: any = [];
   public itemPlaceholder: any = [];
@@ -23,12 +24,18 @@ export class CreatePurchaseOrderComponent implements OnInit {
   };
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private po: PurchaseOrderService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {
     this.data?.items.forEach((x: any) => {
       this.items.push(x);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   displayInfo(id: string) {
@@ -58,7 +65,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
         poFrom: this.data.quotationId,
         items: this.pos,
       };
-      this.po.createPurchaseOrder(req).subscribe({
+      let createPurchaseOrder = this.po.createPurchaseOrder(req).subscribe({
         next: (res: any) => {
           this.md.close(res.info);
           this.loading = false;
@@ -72,6 +79,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(createPurchaseOrder)
     } else {
       Swal.fire({
         title: 'Please select an item.',

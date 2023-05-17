@@ -1,17 +1,18 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { BookingService } from 'src/app/services/booking.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import jwtDecode from 'jwt-decode';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upload-booking',
   templateUrl: './upload-booking.component.html',
   styleUrls: ['./upload-booking.component.scss']
 })
-export class UploadBookingComponent implements OnInit {
+export class UploadBookingComponent implements OnInit, OnDestroy {
 
   public filename: string = ''
   public file: any;
@@ -19,11 +20,17 @@ export class UploadBookingComponent implements OnInit {
   public isUploading: boolean = false;
   public progress: number = 0;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private md: NgbActiveModal, private booking: BookingService) { }
 
   ngOnInit(): void {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
     this.id = token.sub
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   selectFile() {
@@ -49,7 +56,7 @@ export class UploadBookingComponent implements OnInit {
       bookingData.append('filename', `BOOKING_${moment().format('MMDDYYYhhmmss')}_${this.id}_${this.filename}`)
       bookingData.append('file', this.file)
       this.isUploading = true
-      this.booking.uploadBooking(bookingData).subscribe({
+      let uploadBooking = this.booking.uploadBooking(bookingData).subscribe({
         next: (res: HttpEvent<any>) => {
           switch(res.type) {
             case HttpEventType.UploadProgress:
@@ -75,6 +82,7 @@ export class UploadBookingComponent implements OnInit {
           this.isUploading = false
         }
       })
+      this.subs.add(uploadBooking)
     }
   }
 

@@ -1,15 +1,16 @@
 import { ReportService } from './../../services/report.service';
 import { BookingService } from 'src/app/services/booking.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { ApexAxisChartSeries, ApexChart } from 'ng-apexcharts';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnDestroy {
   public title: any = {
     text: 'Booking',
   };
@@ -29,6 +30,8 @@ export class LineChartComponent implements OnInit {
   };
 
   @Input() public graphtype: string = '';
+
+  private subs: Subscription = new Subscription()
 
   constructor(
     private booking: BookingService,
@@ -53,25 +56,32 @@ export class LineChartComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()  
+  }
+
   dailySalesData(params: any) {
-    this.booking.getCurrentMonthBookingCount(params).subscribe({
+    let getCurrentMonthBookingCount = this.booking.getCurrentMonthBookingCount(params).subscribe({
       next: (res: any) => this.initializeChart(res.info, 'Daily Sales'),
       error: ({error}: any) => console.log(error)
     })
+    this.subs.add(getCurrentMonthBookingCount)
   }
 
   dailyQuotationsData(params: any) {
-    this.report.getMonthlyQuotations(params).subscribe({
+    let getMonthlyQuotations = this.report.getMonthlyQuotations(params).subscribe({
       next: (res: any) => this.initializeChart(res.info, 'Daily Number of Quotations'),
       error: ({error}: any) => console.log(error)
     })
+    this.subs.add(getMonthlyQuotations)
   }
 
   dailyPurchaseOrdersData(params: any) {
-    this.report.getMonthlyPO(params).subscribe({
+    let getMonthlyPO = this.report.getMonthlyPO(params).subscribe({
       next: (res: any) => this.initializeChart(res.info, 'Daily Number of Purchase Orders'),
       error: ({error}: any) => console.log(error)
     })
+    this.subs.add(getMonthlyPO)
   }
 
   initializeChart(data: number[], title: string) {

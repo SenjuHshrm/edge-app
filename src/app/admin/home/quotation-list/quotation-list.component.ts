@@ -1,24 +1,27 @@
 import { ExportComponent } from './../../../components/modals/export/export.component';
 import { QuotationService } from './../../../services/quotation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewQuotationComponent } from 'src/app/components/modals/view-quotation/view-quotation.component';
 import { CreateQuotationComponent } from 'src/app/components/modals/create-quotation/create-quotation.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-quotation-list',
   templateUrl: './quotation-list.component.html',
   styleUrls: ['./quotation-list.component.scss'],
 })
-export class QuotationListComponent implements OnInit {
+export class QuotationListComponent implements OnInit, OnDestroy {
   public quoteList: any = [];
   public allQuote: any = [];
   public search: string = '';
 
+  private subs: Subscription= new Subscription()
+
   constructor(private mdCtrl: NgbModal, private quote: QuotationService) {}
 
   ngOnInit(): void {
-    this.quote.getAllQuotations().subscribe({
+    let getAllQuotations = this.quote.getAllQuotations().subscribe({
       next: (res: any) => {
         this.quoteList = res.info;
         this.allQuote = res.info;
@@ -27,6 +30,11 @@ export class QuotationListComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(getAllQuotations)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   viewQuotation(i: any) {
@@ -63,7 +71,7 @@ export class QuotationListComponent implements OnInit {
         }
       }
       if (selected.length > 0) {
-        this.quote.generateMultipleQuote(selected).subscribe({
+        let generateMultipleQuote = this.quote.generateMultipleQuote(selected).subscribe({
           next: (res) => {
             let md = this.mdCtrl.open(ExportComponent, { size: 'md' });
             md.componentInstance.data = [res.info];
@@ -72,6 +80,7 @@ export class QuotationListComponent implements OnInit {
             console.log(error);
           },
         });
+        this.subs.add(generateMultipleQuote)
       }
     }
   }

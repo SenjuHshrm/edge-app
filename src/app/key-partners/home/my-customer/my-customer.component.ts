@@ -1,17 +1,18 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CreateCustomerComponent } from 'src/app/components/modals/create-customer/create-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
 import { UpdateCustomerComponent } from 'src/app/components/modals/codes-update/update-customer/update-customer.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-customer',
   templateUrl: './my-customer.component.html',
   styleUrls: ['./my-customer.component.scss'],
 })
-export class MyCustomerComponent implements OnInit {
+export class MyCustomerComponent implements OnInit, OnDestroy {
   public customers: any = [];
   public allData: any = [];
   public page: any = 1;
@@ -20,10 +21,16 @@ export class MyCustomerComponent implements OnInit {
   public category: string = 'email';
   public search: string = '';
 
+  private subs: Subscription = new Subscription()
+
   constructor(private mdCtrl: NgbModal, private custServ: CustomerService) {}
 
   ngOnInit(): void {
     this.getCustomers();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handlePagination(data: any, page: any, size: any): any {
@@ -58,7 +65,7 @@ export class MyCustomerComponent implements OnInit {
 
   getCustomers() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.custServ.getAllByKeyPartner(token.sub).subscribe((res) => {
+    let getAllByKeyPartner = this.custServ.getAllByKeyPartner(token.sub).subscribe((res) => {
       if (res.success) {
         let totalPages = Math.floor(res.info.length / this.size);
         if (res.info.length % this.size > 0) totalPages += 1;
@@ -67,6 +74,7 @@ export class MyCustomerComponent implements OnInit {
         this.allData = res.info;
       }
     });
+    this.subs.add(getAllByKeyPartner)
   }
 
   fullAddress(addr: any) {
@@ -94,7 +102,7 @@ export class MyCustomerComponent implements OnInit {
       denyButtonText: `No`,
     }).then((response) => {
       if (response.isConfirmed) {
-        this.custServ.delete(id).subscribe((res) => {
+        let del = this.custServ.delete(id).subscribe((res) => {
           if (res.success) {
             this.getCustomers();
           } else {
@@ -104,6 +112,7 @@ export class MyCustomerComponent implements OnInit {
             });
           }
         });
+        this.subs.add(del)
       } else {
         Swal.fire({
           title: 'Deletion cancelled.',

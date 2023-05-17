@@ -1,17 +1,18 @@
 import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Login } from 'src/app/interfaces/login';
 // import { Toast } from '@ng-bootstrap'
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public cred: FormGroup<Login> = new FormGroup<Login>({
     username: new FormControl('', [
       Validators.required,
@@ -24,6 +25,8 @@ export class LoginComponent implements OnInit {
   });
   public isLoading: boolean = false;
 
+  private subs: Subscription = new Subscription();
+
   constructor(
     private router: Router,
     private user: UserService,
@@ -32,11 +35,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   login(e: any, data: any): void {
     e.preventDefault();
     if (data.valid) {
       this.isLoading = true;
-      this.user.login({ ...data.value, access: [1, 2] }).subscribe({
+      let login = this.user.login({ ...data.value, access: [1, 2] }).subscribe({
         next: (res: any) => {
           this.isLoading = false;
           localStorage.setItem('ACCESS', res.info);
@@ -47,6 +54,7 @@ export class LoginComponent implements OnInit {
           this.toast.error('Failed to login.', error.msg);
         },
       });
+      this.subs.add(login)
     } else {
       this.validateError(
         data.controls.username.errors,

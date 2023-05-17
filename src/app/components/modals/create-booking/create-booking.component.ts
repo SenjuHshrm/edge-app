@@ -1,16 +1,17 @@
 import { BookingService } from './../../../services/booking.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 // import address from 'src/assets/address';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateBundleComponent } from '../bundles/update-bundle/update-bundle.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-booking',
   templateUrl: './create-booking.component.html',
   styleUrls: ['./create-booking.component.scss'],
 })
-export class CreateBookingComponent implements OnInit {
+export class CreateBookingComponent implements OnInit, OnDestroy {
   public active = 'individual';
 
   public provinces: string[] = [];
@@ -53,6 +54,8 @@ export class CreateBookingComponent implements OnInit {
 
   public address: any = {}
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private booking: BookingService,
     private md: NgbActiveModal,
@@ -60,7 +63,7 @@ export class CreateBookingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.booking.getIndividualItemByKeyPartner().subscribe({
+    let getIndividualItemByKeyPartner = this.booking.getIndividualItemByKeyPartner().subscribe({
       next: (res: any) => {
         this.individualItem = res.info;
       },
@@ -68,7 +71,7 @@ export class CreateBookingComponent implements OnInit {
         console.log(error);
       },
     });
-    this.booking.getBundledItemByKeyPartner().subscribe({
+    let getBundledItemByKeyPartner = this.booking.getBundledItemByKeyPartner().subscribe({
       next: (res: any) => {
         this.bundledItem = res.info;
       },
@@ -76,6 +79,12 @@ export class CreateBookingComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(getIndividualItemByKeyPartner)
+    this.subs.add(getBundledItemByKeyPartner)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
   handleActive(str: string) {
@@ -119,7 +128,7 @@ export class CreateBookingComponent implements OnInit {
     this.cities = []
     this.brgys = []
     this.courierLoads = true
-    this.booking.checkAddress(b).subscribe({
+    let checkAddress = this.booking.checkAddress(b).subscribe({
       next: (res: any) => {
         this.address = res
         Object.keys(this.address).forEach(e => {
@@ -135,6 +144,7 @@ export class CreateBookingComponent implements OnInit {
         this.courierLoads = false
       },
     });
+    this.subs.add(checkAddress)
   }
 
   addToIndividualOrderList(id: string) {
@@ -335,7 +345,7 @@ export class CreateBookingComponent implements OnInit {
         quantity: items[0].quantity,
         itemType: items[0].itemType,
       };
-      this.booking.addBooking(req).subscribe({
+      let addBooking = this.booking.addBooking(req).subscribe({
         next: (res: any) => {
           if (res.success) {
             console.log(res)
@@ -349,6 +359,7 @@ export class CreateBookingComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(addBooking)
     }
   }
 

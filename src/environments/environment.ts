@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiV1: 'http://localhost:3000'
+  apiV1: 'http://localhost:3000',
+  // apiV1: 'https://edgecommerceph.com'
+
 };
 
 /*

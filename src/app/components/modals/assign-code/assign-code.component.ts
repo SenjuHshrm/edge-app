@@ -1,14 +1,15 @@
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { KeyPartnerService } from 'src/app/services/key-partner.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-assign-code',
   templateUrl: './assign-code.component.html',
   styleUrls: ['./assign-code.component.scss']
 })
-export class AssignCodeComponent implements OnInit {
+export class AssignCodeComponent implements OnInit, OnDestroy {
   @Input() public data: any;
   public userId: string = '';
 
@@ -19,12 +20,18 @@ export class AssignCodeComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(private kp: KeyPartnerService, private md: NgbActiveModal) {}
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   setUserId() {
-    this.kp.setUserId(this.data._id, { userId: this.userId }).subscribe({
+    let setUserId = this.kp.setUserId(this.data._id, { userId: this.userId }).subscribe({
       next: (res: any) => {
         Swal.fire('Success', 'User id assigned', 'success').then(() => {
           this.md.close();
@@ -34,6 +41,7 @@ export class AssignCodeComponent implements OnInit {
         console.log(error);
       },
     });
+    this.subs.add(setUserId)
   }
 
   randomPassword(ln: number, pass: string) {
@@ -52,7 +60,7 @@ export class AssignCodeComponent implements OnInit {
   setPassword() {
     if (this.validateCP()) {
       this.loading = true;
-      this.kp
+      let assignCodeAndPassword = this.kp
         .assignCodeAndPassword(this.data._id, {
           userId: this.userId.toUpperCase(),
           password: this.password,
@@ -70,6 +78,7 @@ export class AssignCodeComponent implements OnInit {
             this.loading = false;
           },
         });
+      this.subs.add(assignCodeAndPassword)
     }
   }
 

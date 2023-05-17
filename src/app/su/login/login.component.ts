@@ -1,18 +1,21 @@
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public show: boolean = false;
 
   public username: string = '';
   public password: string = '';
+
+  private subs: Subscription = new Subscription()
 
   constructor(
     private user: UserService,
@@ -21,13 +24,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   toggleShow() {
     this.show = !this.show;
   }
 
   login() {
     if (this.validateLogin()) {
-      this.user.login({ username: this.username, password: this.password, access: [0] }).subscribe({
+      let login = this.user.login({ username: this.username, password: this.password, access: [0] }).subscribe({
         next: (res: any) => {
           localStorage.setItem('ACCESS', res.info)
           window.location.href = '/su/home'
@@ -36,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.toast.error('Failed to login', error.msg)
         }
       })
+      this.subs.add(login)
     }
   }
 

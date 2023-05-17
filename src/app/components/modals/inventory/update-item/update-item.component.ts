@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { UserService } from 'src/app/services/user.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-update-item',
   templateUrl: './update-item.component.html',
   styleUrls: ['./update-item.component.scss'],
 })
-export class UpdateItemComponent implements OnInit {
+export class UpdateItemComponent implements OnInit, OnDestroy {
   @Input() public data: any;
 
   public classification: any = [];
@@ -49,6 +50,8 @@ export class UpdateItemComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private classServ: ClassificationService,
     private userServ: UserService,
@@ -57,7 +60,7 @@ export class UpdateItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.classServ.getAll().subscribe((res) => {
+    let getAll = this.classServ.getAll().subscribe((res) => {
       if (res.success) {
         this.classification = res.info.filter(
           (e: any) => e.type === 'classification'
@@ -67,11 +70,14 @@ export class UpdateItemComponent implements OnInit {
       }
     });
 
-    this.userServ.getKeyPartners().subscribe((res) => {
+    let getKeyPartners = this.userServ.getKeyPartners().subscribe((res) => {
       if (res.success) {
         this.keyPartners = res.info;
       }
     });
+
+    this.subs.add(getAll)
+    this.subs.add(getKeyPartners)
 
     this.itemData.keyPartnerId = this.data?.keyPartnerId._id;
     this.itemData.desc = this.data?.desc;
@@ -97,11 +103,15 @@ export class UpdateItemComponent implements OnInit {
     this.currentDef = +this.itemData.defective
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   saveData(evt: any) {
     evt.preventDefault();
     if (this.validateData(this.itemData)) {
       this.loading = true;
-      this.invServ.update(this.itemData, this.data?._id).subscribe({
+      let update = this.invServ.update(this.itemData, this.data?._id).subscribe({
         next: (res: any) => {
           if (res.success) {
             Swal.fire({
@@ -126,6 +136,7 @@ export class UpdateItemComponent implements OnInit {
           this.loading = false;
         },
       });
+      this.subs.add(update)
     }
   }
 

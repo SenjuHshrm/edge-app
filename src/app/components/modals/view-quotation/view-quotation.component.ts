@@ -1,25 +1,32 @@
 import { QuotationService } from './../../../services/quotation.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-quotation',
   templateUrl: './view-quotation.component.html',
   styleUrls: ['./view-quotation.component.scss']
 })
-export class ViewQuotationComponent implements OnInit {
+export class ViewQuotationComponent implements OnInit, OnDestroy {
   @Input() public data: any | undefined;
+
+  private subs: Subscription = new Subscription()
 
   constructor(private md: NgbActiveModal, private quote: QuotationService) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
 
   handleClose() {
     this.md.close();
   }
 
   generateFile() {
-    this.quote.generateQuoteFile(this.data.quotationId).subscribe({
+    let generateQuoteFile = this.quote.generateQuoteFile(this.data.quotationId).subscribe({
       next: (res: any) => {
         this.downloadFile(res.info.file, res.info.filename)
       },
@@ -27,6 +34,7 @@ export class ViewQuotationComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(generateQuoteFile)
   }
 
   downloadFile(file: string, filename: string) {

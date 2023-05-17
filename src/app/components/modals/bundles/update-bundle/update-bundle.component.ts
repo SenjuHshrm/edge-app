@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { BundleService } from 'src/app/services/bundle.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-update-bundle',
   templateUrl: './update-bundle.component.html',
   styleUrls: ['./update-bundle.component.scss'],
 })
-export class UpdateBundleComponent implements OnInit {
+export class UpdateBundleComponent implements OnInit, OnDestroy {
   @Input() public current: any;
 
   public items: any = [];
@@ -28,6 +29,8 @@ export class UpdateBundleComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private invServ: InventoryService,
     private bundleServ: BundleService,
@@ -36,13 +39,6 @@ export class UpdateBundleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItems();
-    // const id = this.current?._id ? this.current?._id : this.current?.id;
-    // this.bundleServ.getBundle(id).subscribe((res) => {
-    //   if (res.success) {
-    //     this.data = res.info;
-    //   }
-    // });
-    // this.data = this.current;
     this.data = {
       name: this.current?.name,
       items: this.current?.items,
@@ -50,13 +46,18 @@ export class UpdateBundleComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   getAllItems() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
         this.items = res.info;
       }
     });
+    this.subs.add(getAllByKeyPartners)
   }
 
   handleAddedItem() {
@@ -161,7 +162,7 @@ export class UpdateBundleComponent implements OnInit {
       if (this.validateData(this.data)) {
         this.loading = true;
         const id = this.current?._id ? this.current._id : this.current.id;
-        this.bundleServ.update(this.data, id).subscribe({
+        let update = this.bundleServ.update(this.data, id).subscribe({
           next: (res: any) => {
             if (res.success) {
               Swal.fire({
@@ -186,6 +187,7 @@ export class UpdateBundleComponent implements OnInit {
             this.loading = false;
           },
         });
+        this.subs.add(update)
       }
     }
   }

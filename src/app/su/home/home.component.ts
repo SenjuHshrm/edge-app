@@ -1,13 +1,16 @@
 import { UserService } from './../../services/user.service';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public screen: any = window.innerWidth;
+
+  private subs: Subscription = new Subscription()
 
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
@@ -29,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   clickEvent() {
     this.status = !this.status;
   }
@@ -42,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout(e: any): void {
-    this.user.logout().subscribe({
+    let logout = this.user.logout().subscribe({
       next: (res) => {
         localStorage.removeItem('ACCESS')
         window.location.href = '/su/login'
@@ -51,5 +58,6 @@ export class HomeComponent implements OnInit {
         console.log(error)
       }
     })
+    this.subs.add(logout)
   }
 }

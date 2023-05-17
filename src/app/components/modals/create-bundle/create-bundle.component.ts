@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { BundleService } from 'src/app/services/bundle.service';
 import Swal from 'sweetalert2';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-bundle',
   templateUrl: './create-bundle.component.html',
   styleUrls: ['./create-bundle.component.scss']
 })
-export class CreateBundleComponent implements OnInit {
+export class CreateBundleComponent implements OnInit, OnDestroy {
   public items: any = [];
 
   public data: any = {
@@ -26,6 +27,8 @@ export class CreateBundleComponent implements OnInit {
 
   public loading: boolean = false;
 
+  private subs: Subscription = new Subscription()
+
   constructor(
     private invServ: InventoryService,
     private bunServ: BundleService,
@@ -38,13 +41,18 @@ export class CreateBundleComponent implements OnInit {
     this.getAllItems();
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   getAllItems() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
       if (res.success) {
         this.items = res.info;
       }
     });
+    this.subs.add(getAllByKeyPartners)
   }
 
   handleAddedItem() {
@@ -134,7 +142,7 @@ export class CreateBundleComponent implements OnInit {
     } else {
       if (this.validateData(this.data)) {
         this.loading = true;
-        this.bunServ.create(this.data).subscribe((res) => {
+        let create = this.bunServ.create(this.data).subscribe((res) => {
           if (res.success) {
             Swal.fire({
               title: 'New Bundle has been created.',
@@ -150,6 +158,7 @@ export class CreateBundleComponent implements OnInit {
             this.loading = false;
           }
         });
+        this.subs.add(create)
       }
     }
   }
