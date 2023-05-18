@@ -12,11 +12,15 @@ import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/
   styleUrls: ['./booking-list.component.scss'],
 })
 export class BookingListComponent implements OnInit, OnDestroy {
+  public page: number = 1;
+  public limit: number = 50;
+  public bookingSize: number = 0
+  
   public bookings: any = [];
   public allData: any = [];
 
   public search: string = '';
-  public category: string = 'keyPartnerId';
+  public category: string = '';
   public selectedDate: string = '';
   public bookFrom: string = '';
   public bookTo: string = '';
@@ -30,26 +34,32 @@ export class BookingListComponent implements OnInit, OnDestroy {
   constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {
-    let getAllBooking = this.bookServ.getAllBooking().subscribe({
+    this.getBookingPerPage(this.page, this.limit)
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
+  getBookingPerPage(page: number, limit: number): void {
+    let getAllBooking = this.bookServ.getAllBookingPerPage(page, limit).subscribe({
       next: (res) => {
-        this.bookings = [
-          ...res.info.sort((a: any, b: any) =>
-            b.createdAt.localeCompare(a.createdAt)
-          ),
-        ];
-        this.allData = [
-          ...res.info.sort((a: any, b: any) =>
-            b.createdAt.localeCompare(a.createdAt)
-          ),
-        ];
+        console.log(res)
+        this.bookingSize = res.length
+        this.bookings = res.info
       },
       error: (error) => console.log(error),
     });
     this.subs.add(getAllBooking)
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe()
+  handleChangeMaxPerPage() {
+    console.log(this.page, this.limit)
+    this.getBookingPerPage(this.page, this.limit)
+  }
+
+  handlePageChange(e: any) {
+    this.getBookingPerPage(e, this.limit)
   }
 
   handleProduct(data: any): string {
@@ -73,40 +83,47 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   handleSearch() {
-    const data =
-      this.search !== ''
-        ? this.allData.filter((e: any) =>
-            e[this.category]
-              .toLocaleLowerCase()
-              .match(this.search.toLocaleLowerCase())
-          )
-        : this.allData;
-    this.bookings = data;
+    // const data =
+    //   this.search !== ''
+    //     ? this.allData.filter((e: any) =>
+    //         e[this.category]
+    //           .toLocaleLowerCase()
+    //           .match(this.search.toLocaleLowerCase())
+    //       )
+    //     : this.allData;
+    // this.bookings = data;
+    let getAllBookingSearch = this.bookServ.getAllBooking({ field: this.category, value: this.search }).subscribe({
+      next: (res) => {
+        console.log(res)
+      }
+    })
+    this.subs.add(getAllBookingSearch)
   }
 
   handleFilter() {
-    let start = new Date(this.bookFrom).setHours(0, 0, 0),
-        end = new Date(this.bookTo).setHours(23, 59, 59),
-        temp = [];
-    temp = this.allData.filter(
-      (e: any) => (
-        (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
-      )
-    )
-    switch(this.status) {
-      case 'fulfilled':
-        this.bookings = temp.filter((e: any) => e.status === 'fulfilled')
-        break;
-      case 'unfulfilled':
-        this.bookings = temp.filter((e: any) => e.status === 'unfulfilled')
-        break;
-      default:
-        this.bookings = temp
-    }
+    // let start = new Date(this.bookFrom).setHours(0, 0, 0),
+    //     end = new Date(this.bookTo).setHours(23, 59, 59),
+    //     temp = [];
+    // temp = this.allData.filter(
+    //   (e: any) => (
+    //     (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
+    //   )
+    // )
+    // switch(this.status) {
+    //   case 'fulfilled':
+    //     this.bookings = temp.filter((e: any) => e.status === 'fulfilled')
+    //     break;
+    //   case 'unfulfilled':
+    //     this.bookings = temp.filter((e: any) => e.status === 'unfulfilled')
+    //     break;
+    //   default:
+    //     this.bookings = temp
+    // }
+    
   }
 
   handleReset() {
-    this.bookings = this.allData;
+    // this.bookings = this.allData;
     this.status = 'all'
     this.bookFrom = ''
     this.bookTo = ''

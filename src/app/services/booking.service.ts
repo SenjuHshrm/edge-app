@@ -45,8 +45,13 @@ export class BookingService {
     );
   }
 
-  public getAllBooking(): Observable<any> {
-    return this.http.get(`${environment.apiV1}/api/v1/get/get-all/booking`);
+  public getAllBookingPerPage(page: number, limit: number): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/get-all/booking/${page}/${limit}`);
+  }
+
+  public getAllBooking(data?: { field: string, value: string }): Observable<any> {
+    let url = (data === undefined) ? `${environment.apiV1}/api/v1/get/get-all/booking` : `${environment.apiV1}/api/v1/get/get-all/booking?key=${data!.field}&value=${data!.value}`;
+    return this.http.get(url)
   }
 
   public getOneBooking(bookingId: string): Observable<any> {

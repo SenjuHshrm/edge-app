@@ -83,6 +83,13 @@
         </div>
         <button class="btn btn-dark" (click)="handleAction()">Go</button>
       </div>
+      <ngb-pagination
+          class="d-flex justify-content-center"
+          (pageChange)="handlePageChange($event)"
+          [maxSize]="7"
+          [(page)]="page"
+          [pageSize]="limit"
+          [collectionSize]="bookingSize"></ngb-pagination>
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
@@ -103,6 +110,7 @@
                   </label>
                 </div>
               </th>
+              <th col="scope" class="text-truncate px-1">Actions</th>
               <th col="scope" class="text-truncate px-1">ID</th>
               <th col="scope" class="text-truncate px-1">Date</th>
               <th col="scope" class="text-truncate px-1">Receiver Name</th>
@@ -118,7 +126,7 @@
               <th col="scope" class="text-truncate px-1">Sender / Page Name</th>
               <th col="scope" class="text-truncate px-1">Contact Number</th>
               <th col="scope" class="text-truncate px-1">Remarks</th>
-              <th col="scope" class="text-truncate px-1">Actions</th>
+              
             </tr>
           </thead>
           <tbody class="border-top-0">
@@ -150,38 +158,6 @@
                     />
                   </div>
                 </td>
-                <td scope="row" class="text-truncate px-3">
-                  {{ td.bookingId }}
-                </td>
-                <td class="text-truncate px-3">
-                  {{ handleDate(td.createdAt) }}
-                </td>
-                <td class="text-truncate px-3">{{ td.customer }}</td>
-                <td class="text-truncate px-3">{{ td.customerContact }}</td>
-                <td class="text-truncate px-3">{{ td.hsStNum }}</td>
-                <td class="text-truncate px-3">{{ td.zip }}</td>
-                <td class="text-truncate px-3">{{ td.province }}</td>
-                <td class="text-truncate px-3">{{ td.city }}</td>
-                <td class="text-truncate px-3">{{ td.brgy }}</td>
-                <td class="text-truncate px-3">
-                  <ng-template [ngIf]="td.itemType === 'individual'">
-                    {{ handleProduct(td) }}
-                  </ng-template>
-                  <ng-template [ngIf]="td.itemType === 'bundle'">
-                    <div
-                      class="fw-bold text-primary"
-                      style="cursor: pointer"
-                      (click)="viewBundle(td.bundleId)"
-                    >
-                      <u>{{ handleProduct(td) }}</u>
-                    </div>
-                  </ng-template>
-                </td>
-                <td class="text-truncate px-3">{{ handleQuantity(td) }}</td>
-                <td class="text-truncate px-3">{{ td.cod }}</td>
-                <td class="text-truncate px-3">{{ td.sender }}</td>
-                <td class="text-truncate px-3">{{ td.senderContact }}</td>
-                <td class="text-truncate px-3">{{ td.remarks }}</td>
                 <td class="px-3">
                   <div class="dropdown">
                     <button
@@ -224,10 +200,53 @@
                     </ul>
                   </div>
                 </td>
+                <td scope="row" class="text-truncate px-3">
+                  {{ td.bookingId }}
+                </td>
+                <td class="text-truncate px-3">
+                  {{ handleDate(td.createdAt) }}
+                </td>
+                <td class="text-truncate px-3">{{ td.customer }}</td>
+                <td class="text-truncate px-3">{{ td.customerContact }}</td>
+                <td class="text-truncate px-3">{{ td.hsStNum }}</td>
+                <td class="text-truncate px-3">{{ td.zip }}</td>
+                <td class="text-truncate px-3">{{ td.province }}</td>
+                <td class="text-truncate px-3">{{ td.city }}</td>
+                <td class="text-truncate px-3">{{ td.brgy }}</td>
+                <td class="text-truncate px-3">
+                  <ng-template [ngIf]="td.itemType === 'individual'">
+                    {{ handleProduct(td) }}
+                  </ng-template>
+                  <ng-template [ngIf]="td.itemType === 'bundle'">
+                    <div
+                      class="fw-bold text-primary"
+                      style="cursor: pointer"
+                      (click)="viewBundle(td.bundleId)"
+                    >
+                      <u>{{ handleProduct(td) }}</u>
+                    </div>
+                  </ng-template>
+                </td>
+                <td class="text-truncate px-3">{{ handleQuantity(td) }}</td>
+                <td class="text-truncate px-3">{{ td.cod }}</td>
+                <td class="text-truncate px-3">{{ td.sender }}</td>
+                <td class="text-truncate px-3">{{ td.senderContact }}</td>
+                <td class="text-truncate px-3">{{ td.remarks }}</td>
+                
               </tr>
             </ng-template>
           </tbody>
         </table>
+      </div>
+      <br/>
+      <div class="d-flex flex-row align-items-baseline">
+        <span>Total: <b>{{ bookingSize.toLocaleString('en-US') }}</b></span>
+        <select class="form-select w-25" [(ngModel)]="limit" (change)="handleChangeMaxPerPage()">
+          <option [value]="15">15</option>
+          <option [value]="20">20</option>
+          <option [value]="35">35</option>
+          <option [value]="50">50</option>
+        </select>
       </div>
     </div>
   </div>
