@@ -13,8 +13,10 @@ import { ViewByIdComponent } from 'src/app/components/modals/bundles/view-by-id/
 })
 export class BookingListComponent implements OnInit, OnDestroy {
   public page: number = 1;
-  public limit: number = 50;
+  public limit: number = 20;
   public bookingSize: number = 0
+
+  private isFiltered: boolean = false;
   
   public bookings: any = [];
   public allData: any = [];
@@ -54,12 +56,11 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   handleChangeMaxPerPage() {
-    console.log(this.page, this.limit)
-    this.getBookingPerPage(this.page, this.limit)
+    (this.isFiltered) ? this.handleFilter() : this.getBookingPerPage(this.page, this.limit)
   }
 
   handlePageChange(e: any) {
-    this.getBookingPerPage(e, this.limit)
+    (this.isFiltered) ? this.handleFilter(e) : this.getBookingPerPage(e, this.limit)
   }
 
   handleProduct(data: any): string {
@@ -100,7 +101,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
     this.subs.add(getAllBookingSearch)
   }
 
-  handleFilter() {
+  handleFilter(page?: number) {
     // let start = new Date(this.bookFrom).setHours(0, 0, 0),
     //     end = new Date(this.bookTo).setHours(23, 59, 59),
     //     temp = [];
@@ -119,14 +120,39 @@ export class BookingListComponent implements OnInit, OnDestroy {
     //   default:
     //     this.bookings = temp
     // }
-    
+    this.isFiltered = true
+    let filterData: any = {}, searchData: any = {}
+    if(this.search !== '' && this.category !== '') {
+      searchData.key = this.category
+      searchData.value = this.search
+    }
+
+    if(this.bookFrom !== '' && this.bookTo !== '' && this.status !== '') {
+      filterData.bookFrom = new Date(this.bookFrom).setHours(0, 0, 0)
+      filterData.bookTo = new Date(this.bookTo).setHours(23, 59, 59)
+      filterData.status = this.status
+    }
+    if(Object.keys(filterData).length > 0 || Object.keys(searchData).length > 0) {
+      let getAllBookingFiltered = this.bookServ.getAllBookingFiltered(page || this.page, this.limit, filterData, searchData).subscribe({
+        next: (res) => {
+          this.bookings = res.info
+          this.bookingSize = res.length
+        }
+      })
+      this.subs.add(getAllBookingFiltered)
+    }
   }
 
   handleReset() {
-    // this.bookings = this.allData;
+    this.search = ''
+    this.category = ''
     this.status = 'all'
     this.bookFrom = ''
     this.bookTo = ''
+    this.isFiltered = false
+    this.page = 1
+    this.limit = 20
+    this.getBookingPerPage(this.page, this.limit)
   }
 
   viewBundle(bundle: any) {

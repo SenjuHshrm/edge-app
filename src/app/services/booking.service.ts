@@ -54,6 +54,10 @@ export class BookingService {
     return this.http.get(url)
   }
 
+  public getAllBookingFiltered(page: number, limit: number, filter: any, search: any): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/get-all/booking-filtered/${page}/${limit}?filter=${encodeURIComponent(JSON.stringify(filter))}&search=${encodeURIComponent(JSON.stringify(search))}`)
+  }
+
   public getOneBooking(bookingId: string): Observable<any> {
     return this.http.get(
       `${environment.apiV1}/api/v1/get/booking/${bookingId}`
