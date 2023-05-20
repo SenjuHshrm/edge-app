@@ -17,13 +17,13 @@ export class BookingListComponent implements OnInit, OnDestroy {
   public bookingSize: number = 0
 
   private isFiltered: boolean = false;
+  public selectedBooking: string[] = []
   
   public bookings: any = [];
   public allData: any = [];
 
   public search: string = '';
   public category: string = '';
-  public selectedDate: string = '';
   public bookFrom: string = '';
   public bookTo: string = '';
   public status: string = 'all';
@@ -83,53 +83,18 @@ export class BookingListComponent implements OnInit, OnDestroy {
     return new Date(date).toLocaleString();
   }
 
-  handleSearch() {
-    // const data =
-    //   this.search !== ''
-    //     ? this.allData.filter((e: any) =>
-    //         e[this.category]
-    //           .toLocaleLowerCase()
-    //           .match(this.search.toLocaleLowerCase())
-    //       )
-    //     : this.allData;
-    // this.bookings = data;
-    let getAllBookingSearch = this.bookServ.getAllBooking({ field: this.category, value: this.search }).subscribe({
-      next: (res) => {
-        console.log(res)
-      }
-    })
-    this.subs.add(getAllBookingSearch)
-  }
-
   handleFilter(page?: number) {
-    // let start = new Date(this.bookFrom).setHours(0, 0, 0),
-    //     end = new Date(this.bookTo).setHours(23, 59, 59),
-    //     temp = [];
-    // temp = this.allData.filter(
-    //   (e: any) => (
-    //     (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
-    //   )
-    // )
-    // switch(this.status) {
-    //   case 'fulfilled':
-    //     this.bookings = temp.filter((e: any) => e.status === 'fulfilled')
-    //     break;
-    //   case 'unfulfilled':
-    //     this.bookings = temp.filter((e: any) => e.status === 'unfulfilled')
-    //     break;
-    //   default:
-    //     this.bookings = temp
-    // }
     this.isFiltered = true
     let filterData: any = {}, searchData: any = {}
     if(this.search !== '' && this.category !== '') {
       searchData.key = this.category
       searchData.value = this.search
     }
-
-    if(this.bookFrom !== '' && this.bookTo !== '' && this.status !== '') {
+    if(this.bookFrom !== '' && this.bookTo !== '') {
       filterData.bookFrom = new Date(this.bookFrom).setHours(0, 0, 0)
       filterData.bookTo = new Date(this.bookTo).setHours(23, 59, 59)
+    }
+    if(this.status !== '') {
       filterData.status = this.status
     }
     if(Object.keys(filterData).length > 0 || Object.keys(searchData).length > 0) {
@@ -169,6 +134,32 @@ export class BookingListComponent implements OnInit, OnDestroy {
         checks[i].checked = evt.target.checked ? true : false;
       }
     }
+    if(evt.target.checked) {
+      if(this.isFiltered) {
+        this.bookings.forEach((book: any) => this.selectedBooking.push(book._id))
+      } else {
+        this.selectedBooking.push('*')
+      }
+    } else {
+      this.selectedBooking = []
+    }
+    console.log(this.selectedBooking)
+  }
+
+  selectOne(evt: any, id: string) {
+    // (evt.target.checked) ? this.selectedBooking.push(id) : this.selectedBooking = [...this.selectedBooking.filter((book: string) => book !== id)]
+    // console.log(this.selectedBooking)
+    // if(evt.target.checked) {
+
+    // } else {
+    //   if(this.) {
+
+    //   }
+    // }
+  }
+
+  checkSelected(book: any) {
+    console.log()
   }
 
   handleAction() {

@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 export class HomeComponent implements OnInit, OnDestroy {
   screen: any = window.innerWidth;
 
+  pageTitle: string = 'Dashboard'
+
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
     { name: 'Booking List', icon: 'bi bi-book', path: 'booking-list' },
@@ -88,10 +90,55 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
           })
           this.subs.add(updateNotifStatus)
+          this.handleTitleChange(router.url)
         }
       },
     });
     this.subs.add(routerEvent)
+  }
+
+  handleTitleChange(url: string) {
+    switch(url) {
+      case '/admin/home/dashboard':
+        this.pageTitle = 'Dashboard';
+        break;
+      case '/admin/home/booking-list':
+        this.pageTitle = 'Booking List';
+        break;
+      case '/admin/home/coa-nda':
+        this.pageTitle = 'COA/NDA';
+        break;
+      case '/admin/home/soa':
+        this.pageTitle = 'SOA';
+        break;
+      case '/admin/home/inquiry-list':
+        this.pageTitle = 'Inquiry List';
+        break;
+      case '/admin/home/quotation-list':
+        this.pageTitle = 'Quotation List';
+        break;
+      case '/admin/home/purchase-order':
+        this.pageTitle = 'Purchase Order';
+        break;
+      case '/admin/home/key-partners':
+        this.pageTitle = 'Key Partners';
+        break;
+      case '/admin/home/report':
+        this.pageTitle = 'Report';
+        break;
+      case '/admin/home/acct-request':
+        this.pageTitle = 'Account Request';
+        break;
+      case '/admin/home/inventory':
+        this.pageTitle = 'Inventory';
+        break;
+      case '/admin/home/rts':
+        this.pageTitle = 'Return to Seller';
+        break;
+      case '/admin/home/settings':
+        this.pageTitle = 'Settings';
+        break;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
