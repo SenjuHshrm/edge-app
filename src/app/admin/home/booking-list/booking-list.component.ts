@@ -46,9 +46,9 @@ export class BookingListComponent implements OnInit, OnDestroy {
   getBookingPerPage(page: number, limit: number): void {
     let getAllBooking = this.bookServ.getAllBookingPerPage(page, limit).subscribe({
       next: (res) => {
-        console.log(res)
         this.bookingSize = res.length
         this.bookings = res.info
+        setTimeout(() => this.checkSelected(this.bookings), 100)
       },
       error: (error) => console.log(error),
     });
@@ -56,6 +56,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   handleChangeMaxPerPage() {
+    this.selectedBooking = [];
     (this.isFiltered) ? this.handleFilter() : this.getBookingPerPage(this.page, this.limit)
   }
 
@@ -83,6 +84,11 @@ export class BookingListComponent implements OnInit, OnDestroy {
     return new Date(date).toLocaleString();
   }
 
+  handleSearchAndFilter() {
+    this.selectedBooking = []
+    this.handleFilter()
+  }
+
   handleFilter(page?: number) {
     this.isFiltered = true
     let filterData: any = {}, searchData: any = {}
@@ -102,6 +108,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.bookings = res.info
           this.bookingSize = res.length
+          setTimeout(() => this.checkSelected(this.bookings), 100)
         }
       })
       this.subs.add(getAllBookingFiltered)
@@ -117,6 +124,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
     this.isFiltered = false
     this.page = 1
     this.limit = 20
+    this.selectedBooking = []
     this.getBookingPerPage(this.page, this.limit)
   }
 
@@ -131,35 +139,33 @@ export class BookingListComponent implements OnInit, OnDestroy {
     const checks: any = document.getElementsByClassName('select-field');
     if (checks.length !== 0) {
       for (let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false;
+        checks[i].checked = evt.target.checked;
+        (evt.target.checked) ? this.selectedBooking.push(this.bookings[i]._id) : this.selectedBooking = [...this.selectedBooking.filter((book: string) => book !== this.bookings[i]._id)]
       }
     }
-    if(evt.target.checked) {
-      if(this.isFiltered) {
-        this.bookings.forEach((book: any) => this.selectedBooking.push(book._id))
-      } else {
-        this.selectedBooking.push('*')
-      }
-    } else {
-      this.selectedBooking = []
-    }
-    console.log(this.selectedBooking)
+    this.selectedBooking = [...new Set(this.selectedBooking)]
   }
 
   selectOne(evt: any, id: string) {
-    // (evt.target.checked) ? this.selectedBooking.push(id) : this.selectedBooking = [...this.selectedBooking.filter((book: string) => book !== id)]
-    // console.log(this.selectedBooking)
-    // if(evt.target.checked) {
-
-    // } else {
-    //   if(this.) {
-
-    //   }
-    // }
+    (evt.target.checked) ? this.selectedBooking.push(id) : this.selectedBooking = [...this.selectedBooking.filter((book: string) => book !== id)];
+    let selectAll: any = document.getElementById('checkAll');
+    selectAll.checked = this.selectedBooking.length === this.limit
   }
 
   checkSelected(book: any) {
-    console.log()
+    let selected: number = 0
+    let selectAll: any = document.getElementById('checkAll')
+    book.forEach((b: any) => {
+      let ind: number = this.selectedBooking.findIndex((i: string) => i === b._id)
+      let checkbox: any = document.getElementById(b._id)
+      if(ind === -1) {
+        checkbox.checked = false;
+      } else {
+        checkbox.checked = true;
+        selected += 1
+      }
+    })
+    selectAll.checked = (selected === book.length)
   }
 
   handleAction() {
@@ -176,31 +182,22 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   handleMarkAsFulfilled() {
-    let selected: any = [];
-    const checks: any = document.getElementsByClassName('select-field');
-    if (checks.length !== 0) {
-      for (let i = 0; i < checks.length; i++) {
-        if (checks[i].checked) {
-          selected.push(this.bookings[i]._id);
-        }
-      }
-      if (selected.length > 0) {
-        this.bookServ.markAsFulfilled({ ids: [...selected] }).subscribe({
-          next: (res: any) => {
-            Swal.fire('', 'Marked as fullfilled', 'success').then((_) => {
-              this.bookings.forEach((x: any) => {
-                let ind = selected.indexOf(x._id);
-                if (ind !== -1) {
-                  x.status = 'fulfilled';
-                }
-              });
+    if (this.selectedBooking.length > 0) {
+      this.bookServ.markAsFulfilled({ ids: [...this.selectedBooking] }).subscribe({
+        next: (res: any) => {
+          Swal.fire('', 'Marked as fullfilled', 'success').then((_) => {
+            this.bookings.forEach((x: any) => {
+              let ind = this.selectedBooking.indexOf(x._id);
+              if (ind !== -1) {
+                x.status = 'fulfilled';
+              }
             });
-          },
-          error: ({ error }: any) => {
-            console.log(error);
-          },
-        });
-      }
+          });
+        },
+        error: ({ error }: any) => {
+          console.log(error);
+        },
+      });
     }
   }
 

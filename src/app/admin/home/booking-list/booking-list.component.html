@@ -23,7 +23,7 @@
         <option value="bookingId">ID Number</option>
       </select>
     </div>
-    <button class="btn btn-dark" (click)="handleFilter()">Go</button>
+    <button class="btn btn-dark" (click)="handleSearchAndFilter()">Go</button>
   </div>
 
   <div class="mb-3 d-flex flex-wrap">
@@ -60,7 +60,7 @@
             </select>
         </div>
         <div class="mb-2 d-flex flex-row justify-content-start align-items-baseline">
-          <button class="btn btn-dark me-2" (click)="handleFilter()">
+          <button class="btn btn-dark me-2" (click)="handleSearchAndFilter()">
             Go
           </button>
           <button class="btn btn-dark" (click)="handleReset()">Reset</button>
@@ -153,7 +153,7 @@
                       class="form-check-input select-field"
                       type="checkbox"
                       value=""
-                      id="checkAll"
+                      [id]="td._id"
                       (click)="selectOne($event, td._id)"
                     />
                   </div>
@@ -242,10 +242,9 @@
       <div class="d-flex flex-row align-items-baseline">
         <span>Total: <b>{{ bookingSize.toLocaleString('en-US') }}</b></span>
         <select class="form-select w-25" [(ngModel)]="limit" (change)="handleChangeMaxPerPage()">
-          <option [value]="15">15</option>
           <option [value]="20">20</option>
-          <option [value]="35">35</option>
-          <option [value]="50">50</option>
+          <option [value]="40">40</option>
+          <option [value]="60">60</option>
         </select>
       </div>
     </div>
