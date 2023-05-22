@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h2 class="h2 h2-responsive my-3 fw-bolder">My Booking</h2>
+  <br/>
   <div class="row">
     <div class="col-md-12 text-end my-2">
       <button
@@ -98,7 +98,7 @@
         </select>
       </div>
 
-      <button class="btn btn-dark" (click)="handleSearch()">Go</button>
+      <button class="btn btn-dark" (click)="handleFilter()">Go</button>
     </div>
   </div>
 
@@ -147,6 +147,13 @@
           </div>
         </div>
       </div>
+      <ngb-pagination
+        class="d-flex justify-content-center"
+        (pageChange)="handlePageChange($event)"
+        [maxSize]="7"
+        [(page)]="page"
+        [pageSize]="limit"
+        [collectionSize]="bookingSize"></ngb-pagination>
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
@@ -231,19 +238,15 @@
           </tbody>
         </table>
       </div>
+      <br/>
+      <div class="d-flex flex-row align-items-baseline">
+        <span>Total: <b>{{ bookingSize }}</b></span>
+        <select class="form-select w-25" [(ngModel)]="limit" (change)="handleChangeMaxPerPage()">
+          <option [value]="20">20</option>
+          <option [value]="40">40</option>
+          <option [value]="60">60</option>
+        </select>
+      </div>
     </div>
   </div>
-  <!-- <nav class="d-flex justify-content-end my-4">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link custom-pagination-label" href="#">Previous</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">1</a>
-      </li>
-      <li class="page-item custom-pagination-label">
-        <a class="page-link custom-pagination-label" href="#">Next</a>
-      </li>
-    </ul>
-  </nav> -->
 </div>

@@ -1,3 +1,4 @@
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +9,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [BookingComponent],
-  imports: [CommonModule, BookingRoutingModule, ComponentsModule, FormsModule],
+  imports: [CommonModule, BookingRoutingModule, ComponentsModule, FormsModule, NgbPaginationModule],
 })
 export class BookingModule {}

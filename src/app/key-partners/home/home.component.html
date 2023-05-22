@@ -69,12 +69,15 @@
   >
     <div class="container-fluid p-0 m-0">
       <div class="top-nav p-2 d-flex justify-content-between">
-        <button
-          (click)="clickEvent()"
-          class="btn text-white bg-transparent border-0"
-        >
-          <i class="bi bi-list fs-4"></i>
-        </button>
+        <div class="d-flex flex-row align-items-baseline">
+          <button
+            (click)="clickEvent()"
+            class="btn text-white bg-transparent border-0"
+          >
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <h2 class="text-white">{{ pageTitle }}</h2>
+        </div>
         <a routerLink="profile" class="text-decoration-none">
           <div
             class="d-flex align-items-center justify-content-end py-1 px-2 custom-pointer"

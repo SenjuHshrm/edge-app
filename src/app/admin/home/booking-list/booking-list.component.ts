@@ -97,8 +97,10 @@ export class BookingListComponent implements OnInit, OnDestroy {
       searchData.value = this.search
     }
     if(this.bookFrom !== '' && this.bookTo !== '') {
-      filterData.bookFrom = new Date(this.bookFrom).setHours(0, 0, 0)
-      filterData.bookTo = new Date(this.bookTo).setHours(23, 59, 59)
+      filterData.createdAt = {
+        $gte: new Date(this.bookFrom).setHours(0, 0, 0),
+        $lte: new Date(this.bookTo).setHours(23, 59, 59)
+      }
     }
     if(this.status !== '') {
       filterData.status = this.status

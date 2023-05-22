@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
   status: boolean = window.innerWidth < 821 ? true : false;
   showToggle: boolean = false;
+  pageTitle: string = ''
 
   private subs: Subscription = new Subscription()
 
@@ -92,11 +93,45 @@ export class HomeComponent implements OnInit, OnDestroy {
             },
           });
           this.subs.add(updateNotifStatus)
+          this.handleTitleChange(router.url)
         }
       },
     });
     this.subs.add(routerEvents)
   }
+
+  handleTitleChange(url: string) {
+    switch(url) {
+      case '/key-partners/home/dashboard':
+        this.pageTitle = 'Dashboard';
+        break;
+      case '/key-partners/home/booking':
+        this.pageTitle = 'Booking';
+        break;
+      case '/key-partners/home/my-coa-nda':
+        this.pageTitle = 'COA/NDA';
+        break;
+      case '/key-partners/home/my-soa':
+        this.pageTitle = 'SOA';
+        break;
+      case '/key-partners/home/inquiry':
+        this.pageTitle = 'Inquiry';
+        break;
+      case '/key-partners/home/my-quotation':
+        this.pageTitle = 'Quotation';
+        break;
+      case '/key-partners/home/my-customer':
+        this.pageTitle = 'My Customer';
+        break;
+      case '/key-partners/home/my-inventory':
+        this.pageTitle = 'Inventory';
+        break;
+      case '/key-partners/home/profile':
+        this.pageTitle = 'Profile';
+        break;
+    }
+  }
+
   // public data: any = {};
   public img: string = '';
 

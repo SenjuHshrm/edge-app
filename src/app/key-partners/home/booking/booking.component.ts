@@ -14,6 +14,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent implements OnInit, OnDestroy {
+  public page: number = 1;
+  public limit: number = 20;
+  public bookingSize: number = 0;
+  public isFiltered: boolean = false;
+
   public tableHeader = [];
   public tableData: any = [];
   public bookings: any = [];
@@ -31,25 +36,26 @@ export class BookingComponent implements OnInit, OnDestroy {
   constructor(private mdCtrl: NgbModal, private booking: BookingService) {}
 
   ngOnInit(): void {
-    this.getAllBooking();
+    this.getAllBooking(this.page, this.limit);
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe()
   }
 
-  getAllBooking() {
-    let getAllBookingByKP = this.booking.getAllBookingByKP().subscribe({
+  getAllBooking(page: number, limit: number) {
+    let getAllBookingByKP = this.booking.getAllBookingByKP(page, limit).subscribe({
       next: (res: any) => {
-        let sorted = res.info.sort((a: any, b: any) =>
-          b.createdAt.localeCompare(a.createdAt)
-        );
-        this.bookings = [...sorted];
-        this.allData = [...sorted];
+        this.bookingSize = res.length
+        this.bookings = res.info
       },
       error: (err: any) => console.log(err),
     });
     this.subs.add(getAllBookingByKP)
+  }
+
+  handlePageChange(evt: any) {
+    
   }
 
   createNewBooking() {
@@ -99,32 +105,51 @@ export class BookingComponent implements OnInit, OnDestroy {
     return new Date(date).toLocaleString();
   }
 
-  handleFilter() {
-    let start = new Date(this.bookFrom).setHours(0, 0, 0),
-        end = new Date(this.bookTo).setHours(23, 59, 59),
-        temp = [];
-    temp = this.allData.filter(
-      (e: any) => (
-        (new Date(e.createdAt) >= new Date(start)) && (new Date(e.createdAt) <= new Date(end))
-      )
-    )
-    switch(this.status) {
-      case 'fulfilled':
-        this.bookings = temp.filter((e: any) => e.status === 'fulfilled')
-        break;
-      case 'unfulfilled':
-        this.bookings = temp.filter((e: any) => e.status === 'unfulfilled')
-        break;
-      default:
-        this.bookings = temp
+  handleFilter(page?: number) {
+    this.isFiltered = true
+    let filteredData: any = {}, searchData: any = {}
+    if(this.search !== ''  && this.category !== '') {
+      searchData.key = this.category;
+      searchData.value = this.search;
     }
+
+    if(this.bookFrom !== '' && this.bookTo !== '') {
+      filteredData.createdAt = {
+        $gte: new Date(this.bookFrom).setHours(0, 0, 0),
+        $lte: new Date(this.bookTo).setHours(0, 0, 0)
+      }
+    }
+
+    if(this.status !== '') {
+      filteredData.status = this.status
+    }
+
+    if(Object.keys(filteredData).length > 0 || Object.keys(searchData).length > 0) {
+      let getAllBookingByKPFiltered = this.booking.getAllBookingByKPFiltered(page || this.page, this.limit, filteredData, searchData).subscribe({
+        next: (res: any) => {
+          this.bookingSize = res.length
+          this.bookings = res.info
+        }
+      })
+      this.subs.add(getAllBookingByKPFiltered)
+    }
+
+  }
+
+  handleChangeMaxPerPage() {
+    (this.isFiltered) ? this.handleFilter() : this.getAllBooking(this.page, this.limit)
   }
 
   handleReset() {
-    this.bookings = this.allData;
+    this.isFiltered = false
     this.status = 'all'
+    this.search = '';
+    this.category = ''
     this.bookFrom = ''
     this.bookTo = ''
+    this.page = 1;
+    this.limit = 20;
+    this.getAllBooking(this.page, this.limit)
     // this.selectedDate = '';
   }
 
