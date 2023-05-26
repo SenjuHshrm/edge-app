@@ -28,39 +28,39 @@
         aria-labelledby="dropdownMenuButton2"
       >
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('all')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('all')">
             View All Items
           </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('moving')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('moving')">
             View All Moving Items
           </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('non-moving')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('non-moving')">
             View All Non Moving Items
           </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('in')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('in')">
             View In Items
           </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('out')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('out')">
             View Out Items
           </button>
         </li>
         <li>
-          <button class="dropdown-item text-sm" (click)="handleSort('balance')">
+          <button class="dropdown-item text-sm" (click)="handleFilter('balance')">
             View Balances
           </button>
         </li>
         <li>
           <button
             class="dropdown-item text-sm"
-            (click)="handleSort('bestseller')"
+            (click)="handleFilter('bestseller')"
           >
             View Best Seller Items
           </button>
@@ -94,12 +94,13 @@
             name="category"
             [(ngModel)]="category"
           >
-            <option value="description">Description</option>
+            <option value="desc">Description</option>
             <option value="email">Key Partners Email</option>
             <option value="sku">SKU Number</option>
           </select>
         </div>
-        <button class="btn btn-dark" (click)="handleSearch()">Go</button>
+        <button class="btn btn-dark" (click)="handleFilter(viewBy)">Go</button>
+        <button class="btn btn-dark" (click)="handleReset()">Reset</button>
       </div>
     </div>
   </div>
@@ -115,7 +116,6 @@
 
   <div class="card shadow p-3">
     <div class="card-body">
-      <h4 class="h4 fw-bold">Inventory Items</h4>
       <div class="d-flex align-items-center justify-content-end mb-4">
         <span class="me-2">Action:</span>
         <div class="me-2">
@@ -147,6 +147,17 @@
           <ng-template [ngIf]="!loading"> Go </ng-template>
         </button>
       </div>
+      <ngb-pagination
+        class="d-flex justify-content-center"
+        (pageChange)="handlePageChangeInventory($event)"
+        [maxSize]="7"
+        [(page)]="page"
+        [pageSize]="limit"
+        [collectionSize]="total"
+        ></ngb-pagination>
+      <div *ngIf="selectedItems.length > 0">
+        <span>Selected items: <b>{{ selectedItems.length }}</b></span>
+      </div>
       <div class="table-responsive" style="height: 33rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
@@ -161,6 +172,7 @@
                   />
                 </div>
               </th>
+              <th class="text-truncate px-1">Actions</th>
               <th class="text-truncate px-1"></th>
               <th class="text-truncate px-1">Date</th>
               <th class="text-truncate px-1">Description</th>
@@ -171,7 +183,7 @@
               <th class="text-truncate px-1">Color</th>
               <th class="text-truncate px-1">Size</th>
               <th class="text-truncate px-1">Key Partners</th>
-              <th class="text-truncate px-1">Actions</th>
+              
             </tr>
           </thead>
           <tbody class="border-top-0">
@@ -198,40 +210,12 @@
                     <input
                       type="checkbox"
                       class="form-check-input custom-check-me"
-                      id="check-{{ i }}"
-                      [value]="data._id"
-                      (change)="handleSelect($event)"
+                      [id]="data._id"
+                      value=""
+                      (change)="handleSelect($event, data._id)"
                     />
                   </div>
                 </td>
-                <td class="text-truncate px-1">
-                  <ng-template [ngIf]="data.kpOwned">
-                    <i class="bi bi-person-circle"></i>
-                  </ng-template>
-                  <ng-template [ngIf]="!data.kpOwned">
-                    <i class="bi bi-shop"></i>
-                  </ng-template>
-                </td>
-                <td class="text-truncate px-1">
-                  {{ handleDate(data.createdAt) }}
-                </td>
-                <td class="text-truncate px-1">{{ data.desc }}</td>
-                <td class="text-truncate px-1">
-                  {{ data.classification.name }}
-                </td>
-                <td class="text-truncate px-1">{{ data.sku }}</td>
-                <td class="text-truncate px-1">
-                  {{ data.currentQty }}
-                </td>
-                <td class="text-truncate px-1">₱ {{ data.price }}</td>
-                <td class="text-truncate px-1">{{ data.color?.name }}</td>
-                <td class="text-truncate px-1">{{ data.size?.name }}</td>
-                <td class="text-truncate px-1">
-                  {{
-                    data.keyPartnerId?.name + " - " + data.keyPartnerId?.email
-                  }}
-                </td>
-
                 <td>
                   <div class="dropdown">
                     <button
@@ -274,44 +258,47 @@
                     </ul>
                   </div>
                 </td>
+                <td class="text-truncate px-1">
+                  <ng-template [ngIf]="data.kpOwned">
+                    <i class="bi bi-person-circle"></i>
+                  </ng-template>
+                  <ng-template [ngIf]="!data.kpOwned">
+                    <i class="bi bi-shop"></i>
+                  </ng-template>
+                </td>
+                <td class="text-truncate px-1">
+                  {{ handleDate(data.createdAt) }}
+                </td>
+                <td class="text-truncate px-1">{{ data.desc }}</td>
+                <td class="text-truncate px-1">
+                  {{ data.classification.name }}
+                </td>
+                <td class="text-truncate px-1">{{ data.sku }}</td>
+                <td class="text-truncate px-1">
+                  {{ data.currentQty }}
+                </td>
+                <td class="text-truncate px-1">₱ {{ data.price }}</td>
+                <td class="text-truncate px-1">{{ data.color?.name }}</td>
+                <td class="text-truncate px-1">{{ data.size?.name }}</td>
+                <td class="text-truncate px-1">
+                  {{
+                    data.keyPartnerId?.name + " - " + data.keyPartnerId?.email
+                  }}
+                </td>
               </tr>
             </ng-template>
           </tbody>
         </table>
       </div>
-      <!-- <nav class="d-flex justify-content-end mt-3">
-        <ul class="pagination">
-          <li class="page-item">
-            <button
-              type="button"
-              class="page-link custom-pagination-label"
-              [disabled]="page <= 1"
-              (click)="handlePage('previous')"
-            >
-              Previous
-            </button>
-          </li>
-          <li class="page-item custom-pagination-label">
-            <button
-              class="page-link custom-pagination-label"
-              type="button"
-              disabled
-            >
-              {{ page + " of " + totalpage }}
-            </button>
-          </li>
-          <li class="page-item custom-pagination-label">
-            <button
-              type="button"
-              class="page-link custom-pagination-label"
-              [disabled]="page >= totalpage"
-              (click)="handlePage('next')"
-            >
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav> -->
+      <br/>
+      <div class="d-flex flex-row align-items-baseline">
+        <span>Total: <b>{{ total.toLocaleString('en-US') }}</b></span>
+        <select class="form-select w-25" [(ngModel)]="limit" (change)="handleChangeMaxPerPage()">
+          <option [value]="20">20</option>
+          <option [value]="40">40</option>
+          <option [value]="60">60</option>
+        </select>
+      </div>
     </div>
   </div>
 </div>

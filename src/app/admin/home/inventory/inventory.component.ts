@@ -13,12 +13,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent implements OnInit, OnDestroy {
+  public page: any = 1;
+  public limit: any = 20;
+  public total: number = 0;
+  public isFiltered: boolean = false;
+  public viewBy: string = ''
+  public selectedItems: string[] = []
+
   // good items
   public items: any = [];
   public allItems: any = [];
-  public page: any = 1;
-  public size: any = 10;
-  public totalpage: any = 0;
   public category: string = 'email';
   public search: string = '';
 
@@ -30,7 +34,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
   constructor(private mdCtrl: NgbModal, private invServ: InventoryService) {}
 
   ngOnInit(): void {
-    this.getAllItems();
+    this.getAllItems(this.page, this.limit);
   }
 
   ngOnDestroy(): void {
@@ -41,17 +45,19 @@ export class InventoryComponent implements OnInit, OnDestroy {
     return new Date(date).toLocaleString();
   }
 
-  getAllItems() {
-    let getAll = this.invServ.getAll().subscribe((res) => {
-      if (res.success) {
-        let totalPages = Math.floor(res.info.length / this.size);
-        if (res.info.length % this.size > 0) totalPages += 1;
-        this.totalpage = totalPages;
-        this.items = res.info;
-        this.allItems = res.info;
+  getAllItems(page: number, limit: number) {
+    let getAll = this.invServ.getAll(page, limit).subscribe({
+      next: (res: any) => {
+        this.items = res.info
+        this.total = res.length
+        setTimeout(() => this.checkSelected(this.items), 100)
       }
     });
     this.subs.add(getAll)
+  }
+
+  handlePageChangeInventory(evt: any) {
+    this.getAllItems(evt, this.limit)
   }
 
   createSKU(data: any): string {
@@ -66,12 +72,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
     createBooking.result
       .then((res) => {
         if (res.success) {
-          res.data.sku = this.createSKU(res.data);
-          this.items = [res.data, ...this.allItems];
-          this.allItems = [res.data, ...this.allItems];
-          let totalPages = Math.floor(this.items.length / this.size);
-          if (this.items.length % this.size > 0) totalPages += 1;
-          this.totalpage = totalPages;
+          (this.isFiltered) ? this.handleFilter() : this.getAllItems(this.page, this.limit)
         }
       })
       .catch((e) => console.log());
@@ -86,11 +87,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
     updateItem.result
       .then((res) => {
         if (res.success) {
-          res.data.sku = this.createSKU(res.data);
-          let ind = this.allItems.findIndex((e: any) => e._id === res.data._id);
-          this.allItems[ind] = res.data;
-          let ind2 = this.items.findIndex((e: any) => e._id === res.data._id);
-          this.items[ind2] = res.data;
+          (this.isFiltered) ? this.handleFilter() : this.getAllItems(this.page, this.limit);
         }
       })
       .catch((e) => console.log());
@@ -118,13 +115,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
               title: 'Item has been deleted!.',
               icon: 'success',
             });
-            this.allItems = this.allItems.filter(
-              (e: any) => e._id !== res.info
-            );
-            this.items = this.items.filter((e: any) => e._id !== res.info);
-            let totalPages = Math.floor(this.items.length / this.size);
-            if (this.items.length % this.size > 0) totalPages += 1;
-            this.totalpage = totalPages;
+            (this.isFiltered) ? this.handleFilter() : this.getAllItems(this.page, this.limit);
           } else {
             Swal.fire({
               title: res.msg,
@@ -142,117 +133,112 @@ export class InventoryComponent implements OnInit, OnDestroy {
     });
   }
 
+  handleChangeMaxPerPage() {
+    this.selectedItems = [];
+    (this.isFiltered) ? this.handleFilter() : this.getAllItems(this.page, this.limit)
+  }
+
   handlePagination(data: any, page: any, size: any): any {
     return data.slice((page - 1) * size, size + (page - 1) * size);
   }
 
-  handlePage(str: string) {
-    if (str === 'next') {
-      if (this.page < this.totalpage) {
-        this.page += 1;
-      }
-    } else {
-      if (this.page > 1) {
-        this.page -= 1;
-      }
-    }
+  handleReset() {
+    this.isFiltered = false
+    this.search = ''
+    this.category = 'email'
+    this.page = 1
+    this.limit = 20
+    this.getAllItems(this.page, this.limit)
   }
 
-  handleSearch() {
-    let data: any = [];
-    switch (this.category) {
-      case 'email':
-        data =
-          this.search !== ''
-            ? this.allItems.filter((e: any) =>
-                e.keyPartnerId.email
-                  .toLowerCase()
-                  .match(this.search.toLowerCase())
-              )
-            : this.allItems;
-        break;
+  handleFilter(category?: any) {
+    this.isFiltered = true
+    this.selectedItems = []
+    this.viewBy = category
+    let filterData: any = {}, searchData: any = {}, sortData: any = {}
+    filterData.deletedAt = ''
 
-      case 'sku':
-        data =
-          this.search !== ''
-            ? this.allItems.filter((e: any) =>
-                e.sku.toLowerCase().match(this.search.trim().toLowerCase())
-              )
-            : this.allItems;
-        break;
-
-      default:
-        data =
-          this.search !== ''
-            ? this.allItems.filter((e: any) =>
-                e.desc.toLowerCase().match(this.search.toLowerCase())
-              )
-            : this.allItems;
-        break;
+    if(this.viewBy === 'non-moving' || this.viewBy === 'moving') {
+      filterData.status = this.viewBy
     }
 
-    this.items = data;
-    let totalPages = Math.floor(data.length / this.size);
-    if (data.length % this.size > 0) totalPages += 1;
-    this.page = 1;
-    this.totalpage = totalPages;
-  }
-
-  handleSort(category: any) {
-    switch (category) {
-      case 'non-moving':
-        this.items = this.allItems.filter((i: any) => i.status === category)
-        break;
-      case 'moving':
-        this.items = this.allItems.filter((i: any) => i.status === category)
-        break;
-      case 'in':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.in) - parseFloat(a.in)
-        );
-        break;
-
-      case 'out':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
-        );
-        break;
-
-      case 'balance':
-        this.items.sort(
-          (a: any, b: any) =>
-            parseFloat(b.currentQty) - parseFloat(a.currentQty)
-        );
-        break;
-
-      case 'bestseller':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
-        );
-        break;
-
-      default:
-        this.items = this.allItems;
-        break;
+    if(this.viewBy === 'in' || this.viewBy === 'out') {
+      sortData.sortBy = { [this.viewBy]: -1 }
     }
+
+    if(this.viewBy === 'balance') {
+      sortData.sortBy = { currentQty: -1 }
+    }
+
+    if(this.viewBy === 'bestseller') {
+      sortData.sortBy = { out: -1 }
+    }
+
+    if(this.search !== '' && this.category !== '') {
+      switch(this.category) {
+        case 'sku':
+          let sku = this.search.split('-')
+          searchData.key = 'sku'
+          searchData.value = {
+            classification: [sku[2], sku[3], sku[4]],
+            sequence: sku[5]
+          }
+          break;
+        case 'email':
+          searchData.key = 'email'
+          searchData.value = this.search
+          break;
+        case 'desc':
+          searchData.key = 'desc'
+          searchData.value = this.search
+          break;
+      }
+    }
+
+    let allFilter = { filterData, searchData, sortData }
+    console.log(allFilter)
+
+    let getAllFiltered = this.invServ.getAllFiltered(this.page, this.limit, allFilter).subscribe({
+      next: (res: any) => {
+        this.items = res.info
+        this.total = res.length
+        setTimeout(() => this.checkSelected(this.items), 100)
+      }
+    })
+    this.subs.add(getAllFiltered)
   }
 
   handleSelectAll(evt: any) {
     const checks: any = document.getElementsByClassName('custom-check-me');
     if (checks.length !== 0) {
       for (let i = 0; i < checks.length; i++) {
-        checks[i].checked = evt.target.checked ? true : false;
+        checks[i].checked = evt.target.checked;
+        (evt.target.checked) ? this.selectedItems.push(this.items[i]._id) : this.selectedItems = [...this.selectedItems.filter(item => item !== this.items[i]._id)]
       }
     }
+    this.selectedItems = [...new Set(this.selectedItems)]
   }
 
-  handleSelect(evt: any) {
-    const all: any = document.getElementById('check-all');
-    if (!evt.target.checked) {
-      if (all.checked) {
-        all.checked = false;
+  handleSelect(evt: any, id: string) {
+    (evt.target.checked) ? this.selectedItems.push(id) : this.selectedItems = [...this.selectedItems.filter(i => i !== id)]
+    let selectAll: any = document.getElementById('check-all')
+    selectAll.checked = this.selectedItems.length === this.limit
+  }
+  
+  checkSelected(item: any) {
+    let selected: number = 0
+    let selectAll: any = document.getElementById('check-all')
+    item.forEach((i: any) => {
+      let ind: number = this.selectedItems.findIndex((j: string) => j === i._id)
+      let checkbox: any = document.getElementById(i._id);
+      if(ind === -1) {
+        checkbox.checked = false;
+      } else {
+        checkbox.checked = true;
+        selected += 1
       }
-    }
+    })
+    selectAll.checked = (selected === item.length)
   }
 
   updateManyStatus() {
@@ -274,14 +260,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
 
   deleteSelected() {
     if(this.selectCategory !== '') {
-      let ids: any = []
-      const checks: any = document.getElementsByClassName('custom-check-me')
-      for(let ch of checks) {
-        if(ch.checked) {
-          ids.push(ch.value)
-        }
-      }
-      if(ids.length !== 0) {
+      this.loading = true
+      if(this.selectedItems.length > 0) {
         Swal.fire({
           title: 'Are you sure you want to delete the selected items?',
           icon: 'question',
@@ -290,15 +270,11 @@ export class InventoryComponent implements OnInit, OnDestroy {
           denyButtonText: 'No'
         }).then((x) => {
           if(x.isConfirmed) {
-            let deleteSelected = this.invServ.deleteSelected(ids).subscribe({
+            let deleteSelected = this.invServ.deleteSelected(this.selectedItems).subscribe({
               next: (_) => {
                 Swal.fire({ title: 'Items deleted successfully', icon: 'success' })
-                for(let id of ids) {
-                  let allItemsIndex = this.allItems.findIndex((x: any) => x._id === id ),
-                      itemsIndex = this.items.findIndex((x: any) => x._id === id)
-                  this.allItems.splice(allItemsIndex, 1)
-                  this.items.splice(itemsIndex, 1)
-                }
+                this.handleReset()
+                this.loading = false
               },
               error: ({ error }) => {
                 console.log(error)
@@ -307,21 +283,26 @@ export class InventoryComponent implements OnInit, OnDestroy {
             this.subs.add(deleteSelected)
           }
         })
+      } else {
+        Swal.fire({
+          title: 'No selected item.',
+          icon: 'info',
+        });
+        this.loading = false;
       }
+    } else {
+      Swal.fire({
+        title: 'Please select an action for the selected items.',
+        icon: 'info',
+      });
+      this.loading = false;
     }
   }
 
   changeNonMoving() {
     if (this.selectCategory !== '') {
       this.loading = true;
-      let ids: any = [];
-      const checks: any = document.getElementsByClassName('custom-check-me');
-      for (let i = 0; i < checks.length; i++) {
-        if (checks[i].checked) {
-          ids.push(checks[i].value);
-        }
-      }
-      if (ids.length !== 0) {
+      if (this.selectedItems.length !== 0) {
         Swal.fire({
           title:
             'Are you sure you want to set the selected items as non moving?',
@@ -331,18 +312,13 @@ export class InventoryComponent implements OnInit, OnDestroy {
           denyButtonText: `No`,
         }).then((res) => {
           if (res.isConfirmed) {
-            let updateManyStatus = this.invServ.updateManyStatus({ ids }).subscribe((res) => {
+            let updateManyStatus = this.invServ.updateManyStatus({ ids: this.selectedItems }).subscribe((res) => {
               if (res.success) {
                 Swal.fire({
                   title: 'Items has been updated successfully.',
                   icon: 'success',
                 });
-                res.info.map((id: any) => {
-                  let ind = this.allItems.findIndex((e: any) => e._id === id);
-                  let ind2 = this.items.findIndex((e: any) => e._id === id);
-                  this.allItems[ind].status = 'non-moving';
-                  this.items[ind2].status = 'non-moving';
-                });
+                this.handleReset()
                 this.loading = false;
               } else {
                 Swal.fire({
@@ -380,14 +356,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
   changeMoving() {
     if (this.selectCategory !== '') {
       this.loading = true;
-      let ids: any = [];
-      const checks: any = document.getElementsByClassName('custom-check-me');
-      for (let i = 0; i < checks.length; i++) {
-        if (checks[i].checked) {
-          ids.push(checks[i].value);
-        }
-      }
-      if (ids.length !== 0) {
+      if (this.selectedItems.length > 0) {
         Swal.fire({
           title:
             'Are you sure you want to set the selected items as non moving?',
@@ -397,18 +366,13 @@ export class InventoryComponent implements OnInit, OnDestroy {
           denyButtonText: `No`,
         }).then((res) => {
           if (res.isConfirmed) {
-            let updateManyMoving = this.invServ.updateManyMoving({ ids }).subscribe((res) => {
+            let updateManyMoving = this.invServ.updateManyMoving({ ids: this.selectedItems }).subscribe((res) => {
               if (res.success) {
                 Swal.fire({
                   title: 'Items has been updated successfully.',
                   icon: 'success',
                 });
-                res.info.map((id: any) => {
-                  let ind = this.allItems.findIndex((e: any) => e._id === id);
-                  let ind2 = this.items.findIndex((e: any) => e._id === id);
-                  this.allItems[ind].status = 'moving';
-                  this.items[ind2].status = 'moving';
-                });
+                this.handleReset()
                 this.loading = false;
               } else {
                 Swal.fire({
@@ -444,28 +408,33 @@ export class InventoryComponent implements OnInit, OnDestroy {
   }
 
   exportInv() {
-    this.loading = true;
-    let ids: any = []
-    const checks: any = document.getElementsByClassName('custom-check-me')
-    for(let i = 0; i < checks.length; i++) {
-      if(checks[i].checked) {
-        ids.push(checks[i].value)
+    if(this.selectCategory !== '') {
+      this.loading = true
+      if(this.selectedItems.length > 0) {
+        let exportSelected = this.invServ.exportSelected(this.selectedItems).subscribe({
+          next: (res: any) => {
+            this.loading = false
+            this.downloadFile(res.info.file, res.info.filename);
+          },
+          error: ({ error }: any) => {
+            this.loading = false
+            console.log(error);
+          }
+        });
+        this.subs.add(exportSelected)
+      } else {
+        Swal.fire({
+          title: 'No selected item.',
+          icon: 'info',
+        });
+        this.loading = false;
       }
-    }
-    if(ids.length !== 0) {
-      let exportSelected = this.invServ.exportSelected(ids).subscribe({
-        next: (res: any) => {
-          this.loading = false
-          this.downloadFile(res.info.file, res.info.filename);
-        },
-        error: ({ error }: any) => {
-          this.loading = false
-          console.log(error);
-        }
-      });
-      this.subs.add(exportSelected)
     } else {
-      this.loading = false
+      Swal.fire({
+        title: 'Please select an action for the selected items.',
+        icon: 'info',
+      });
+      this.loading = false;
     }
   }
 

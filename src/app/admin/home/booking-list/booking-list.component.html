@@ -89,6 +89,9 @@
           [(page)]="page"
           [pageSize]="limit"
           [collectionSize]="bookingSize"></ngb-pagination>
+      <div *ngIf="selectedBooking.length > 0">
+        <span>Selected items: <b>{{ selectedBooking.length }}</b></span>
+      </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
