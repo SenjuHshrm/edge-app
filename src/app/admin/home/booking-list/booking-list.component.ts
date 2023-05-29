@@ -213,7 +213,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
         }
       }
       if (selected.length > 0) {
-        let exportSelected = this.bookServ.exportSelected({ ids: [...selected] }).subscribe({
+        let exportSelected = this.bookServ.exportSelected({ ids: [...this.selectedBooking] }).subscribe({
           next: (res: any) => {
             // res.info.forEach((x: any) => {
             //   setTimeout(async () => {

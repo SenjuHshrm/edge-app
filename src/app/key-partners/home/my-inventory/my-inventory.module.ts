@@ -1,3 +1,4 @@
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MyInventoryComponent],
-  imports: [CommonModule, MyInventoryRoutingModule, FormsModule],
+  imports: [CommonModule, MyInventoryRoutingModule, FormsModule, NgbPaginationModule],
 })
 export class MyInventoryModule {}

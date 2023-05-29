@@ -16,12 +16,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./my-inventory.component.scss'],
 })
 export class MyInventoryComponent implements OnInit, OnDestroy {
+  public page: number = 1;
+  public limit: number = 20;
+  public totalItems: number = 0;
+  public isFiltered: boolean = false;
+  public viewBy: string = '';
+  public selectedItems: string[] = []
+
+
   public tableData = [{}, {}, {}, {}, {}];
 
   // items
   public items: any = [];
   public allItems: any = [];
-  public page: any = 1;
   public size: any = 10;
   public totalpage: any = 0;
   public search: string = '';
@@ -43,7 +50,7 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getAllItems();
+    this.getAllItems(this.page, this.limit);
     this.getAllBundles();
   }
 
@@ -51,15 +58,12 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe()
   }
 
-  getAllItems() {
+  getAllItems(page: number, limit: number) {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub, page, limit).subscribe((res) => {
       if (res.success) {
         this.items = res.info;
-        this.allItems = res.info;
-        let totalPages = Math.floor(res.info.length / this.size);
-        if (res.info.length % this.size > 0) totalPages += 1;
-        this.totalpage = totalPages;
+        this.totalItems = res.length
       }
     });
     this.subs.add(getAllByKeyPartners)
@@ -77,16 +81,8 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
     return data.slice((page - 1) * size, size + (page - 1) * size);
   }
 
-  handlePage(str: string) {
-    if (str === 'next') {
-      if (this.page < this.totalpage) {
-        this.page += 1;
-      }
-    } else {
-      if (this.page > 1) {
-        this.page -= 1;
-      }
-    }
+  handlePageChangeInventory(evt: any) {
+    this.getAllItems(evt, this.limit)
   }
 
   handleSearch() {
@@ -169,7 +165,7 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
     createBundle.result
       .then((res) => {
         if (res.success) {
-          this.getAllItems();
+          this.getAllItems(this.page, this.limit);
           this.getAllBundles();
         }
       })
@@ -198,7 +194,7 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
       .then((res) => {
         if (res.success) {
           this.getAllBundles();
-          this.getAllItems();
+          this.getAllItems(this.page, this.limit);
         }
       })
       .catch((e) => console.log());

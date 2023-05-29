@@ -90,6 +90,17 @@
 
   <div class="card shadow p-3">
     <div class="card-body">
+      <ngb-pagination
+        class="d-flex justify-content-center"
+        (pageChange)="handlePageChangeInventory($event)"
+        [maxSize]="7"
+        [(page)]="page"
+        [pageSize]="limit"
+        [collectionSize]="totalItems"
+        ></ngb-pagination>
+      <div *ngIf="selectedItems.length > 0">
+        <span>Selected items: <b>{{ selectedItems.length }}</b></span>
+      </div>
       <div class="table-responsive" style="height: 23rem">
         <table class="hoverable table table-hover text-center">
           <thead class="bg-light sticky-top">
@@ -164,6 +175,10 @@
             </ng-template>
           </tbody>
         </table>
+      </div>
+      <br/>
+      <div class="d-flex flex-row align-items-baseline">
+
       </div>
     </div>
   </div>
@@ -255,39 +270,6 @@
           </tbody>
         </table>
       </div>
-      <!-- <nav class="d-flex justify-content-end mt-3">
-        <ul class="pagination">
-          <li class="page-item">
-            <button
-              type="button"
-              class="page-link custom-pagination-label"
-              [disabled]="bPage <= 1"
-              (click)="handleBPage('previous')"
-            >
-              Previous
-            </button>
-          </li>
-          <li class="page-item custom-pagination-label">
-            <button
-              class="page-link custom-pagination-label"
-              type="button"
-              disabled
-            >
-              {{ bPage + " of " + bTotalpage }}
-            </button>
-          </li>
-          <li class="page-item custom-pagination-label">
-            <button
-              type="button"
-              class="page-link custom-pagination-label"
-              [disabled]="bPage >= bTotalpage"
-              (click)="handleBPage('next')"
-            >
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav> -->
     </div>
   </div>
 </div>

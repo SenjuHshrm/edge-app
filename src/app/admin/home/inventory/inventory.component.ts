@@ -57,7 +57,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
   }
 
   handlePageChangeInventory(evt: any) {
-    this.getAllItems(evt, this.limit)
+    this.selectedItems = [];
+    (this.isFiltered) ? this.handleFilter(this.viewBy, evt) : this.getAllItems(evt, this.limit)
   }
 
   createSKU(data: any): string {
@@ -151,9 +152,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
     this.getAllItems(this.page, this.limit)
   }
 
-  handleFilter(category?: any) {
+  handleFilter(category?: any, page?: number) {
     this.isFiltered = true
-    this.selectedItems = []
     this.viewBy = category
     let filterData: any = {}, searchData: any = {}, sortData: any = {}
     filterData.deletedAt = ''
@@ -198,7 +198,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
     let allFilter = { filterData, searchData, sortData }
     console.log(allFilter)
 
-    let getAllFiltered = this.invServ.getAllFiltered(this.page, this.limit, allFilter).subscribe({
+    let getAllFiltered = this.invServ.getAllFiltered(page || this.page, this.limit, allFilter).subscribe({
       next: (res: any) => {
         this.items = res.info
         this.total = res.length
