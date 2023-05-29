@@ -82,7 +82,11 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
   }
 
   handlePageChangeInventory(evt: any) {
-    this.getAllItems(evt, this.limit)
+    (this.isFiltered) ? this.handleFilter(this.viewBy, evt) : this.getAllItems(evt, this.limit)
+  }
+
+  handleChangeMaxPerPage() {
+    (this.isFiltered) ? this.handleFilter() : this.getAllItems(this.page, this.limit)
   }
 
   handleSearch() {
@@ -102,43 +106,55 @@ export class MyInventoryComponent implements OnInit, OnDestroy {
     this.totalpage = totalPages;
   }
 
-  handleSort(category: any) {
-    switch (category) {
-      case 'non-moving':
-        this.items = this.allItems.filter((i: any) => i.status === category)
-        break;
-      case 'moving':
-        this.items = this.allItems.filter((i: any) => i.status === category)
-        break;
-      case 'in':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.in) - parseFloat(a.in)
-        );
-        break;
+  handleReset() {
+    this.page = 1;
+    this.limit = 20;
+    this.totalItems = 0;
+    this.isFiltered = false;
+    this.viewBy = '';
+    this.selectedItems = []
+    this.getAllItems(this.page, this.limit)
+    this.getAllBundles()
+  }
 
-      case 'out':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
-        );
-        break;
+  handleFilter(category?: any, page?: any) {
+    this.isFiltered = true
+    this.viewBy = category
+    let filterData: any = {}, searchData: any = {}, sortData: any = {}
+    filterData.deletedAt = ''
 
-      case 'balance':
-        this.items.sort(
-          (a: any, b: any) =>
-            parseFloat(b.currentQty) - parseFloat(a.currentQty)
-        );
-        break;
-
-      case 'bestseller':
-        this.items.sort(
-          (a: any, b: any) => parseFloat(b.out) - parseFloat(a.out)
-        );
-        break;
-
-      default:
-        this.items = this.allItems;
-        break;
+    if(this.viewBy === 'non-moving' || this.viewBy === 'moving') {
+      filterData.status = this.viewBy
     }
+
+    if(this.viewBy === 'in' || this.viewBy === 'out') {
+      sortData.sortBy = { [this.viewBy]: -1 }
+    }
+
+    if(this.viewBy === 'balance') {
+      sortData.sortBy = { currentQty: -1 }
+    }
+
+    if(this.viewBy === 'bestseller') {
+      sortData.sortBy = { out: -1 }
+    }
+
+    if(this.search !== '') {
+      searchData.desc = this.search
+    }
+
+    let allFilter = { filterData, searchData, sortData }
+
+    let getByKeyFiltered = this.invServ.getAllByKeyPartnersFiltered(page || this.page, this.limit, allFilter).subscribe({
+      next: (res: any) => {
+        this.items = res.info
+        this.totalItems = res.length
+      },
+      error: ({ error }) => {
+        console.log(error)
+      }
+    })
+    this.subs.add(getByKeyFiltered)
   }
 
   // Bundles

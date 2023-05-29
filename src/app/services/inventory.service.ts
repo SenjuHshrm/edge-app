@@ -31,6 +31,13 @@ export class InventoryService {
     );
   }
 
+  getAllByKeyPartnersFiltered(page: number, limit: number, data: any): Observable<any> {
+    let token: any = jwtDecode(localStorage.getItem('ACCESS') as string)
+    return this.http.get(
+      `${environment.apiV1}/api/v1/get/get-all-inventory-byKey-filtered/${token.sub}/${page}/${limit}?filter=${encodeURIComponent(JSON.stringify(data.filterData))}&sort=${encodeURIComponent(JSON.stringify(data.sortData))}&search=${encodeURIComponent(JSON.stringify(data.searchData))}`
+    );
+  }
+
   update(data: any, id: any): Observable<any> {
     return this.http.put(
       `${environment.apiV1}/api/v1/put/update-inventory/${id}`,
