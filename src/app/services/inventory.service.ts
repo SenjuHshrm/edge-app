@@ -21,6 +21,10 @@ export class InventoryService {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-all-inventory/${page}/${limit}`);
   }
 
+  getListByKey(id: string): Observable<any> {
+    return this.http.get(`${environment.apiV1}/api/v1/get/get-all-inventory-byKey/${id}`)
+  }
+
   getAllFiltered(page: number, limit: number, data: any): Observable<any> {
     return this.http.get(`${environment.apiV1}/api/v1/get/get-all-inventory-filtered/${page}/${limit}?filter=${encodeURIComponent(JSON.stringify(data.filterData))}&sort=${encodeURIComponent(JSON.stringify(data.sortData))}&search=${encodeURIComponent(JSON.stringify(data.searchData))}`)
   }

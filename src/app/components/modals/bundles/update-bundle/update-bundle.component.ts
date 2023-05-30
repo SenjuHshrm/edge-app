@@ -52,7 +52,7 @@ export class UpdateBundleComponent implements OnInit, OnDestroy {
 
   getAllItems() {
     let token: any = jwtDecode(localStorage.getItem('ACCESS') as any);
-    let getAllByKeyPartners = this.invServ.getAllByKeyPartners(token.sub).subscribe((res) => {
+    let getAllByKeyPartners = this.invServ.getListByKey(token.sub).subscribe((res) => {
       if (res.success) {
         this.items = res.info;
       }
