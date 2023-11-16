@@ -14,8 +14,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   links: any = [
     { name: 'Dashboard', icon: 'bi bi-house-door', path: 'dashboard' },
-    { name: 'Users', icon: 'bi bi-people', path: 'users' },
-    { name: 'Logs', icon: 'bi bi-file-text', path: 'logs' },
+    { name: 'Add Users', icon: 'bi bi-people', path: 'users' },
+    { name: 'Error Logs', icon: 'bi bi-file-text', path: 'logs' },
+    { name: 'API Key', icon: 'bi bi-key', path: 'api-key' }
   ];
   status: boolean = window.innerWidth < 768 ? true : false;
   showToggle: boolean = false;

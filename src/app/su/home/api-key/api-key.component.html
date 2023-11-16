@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <br/>
+
+  <div class="d-flex mb-3">
+    <div class="col-md-6 me-2">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search client"
+          [(ngModel)]="search"
+        />
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+      </div>
+    </div>
+    <button class="btn btn-dark" (click)="handleSearch()">Go</button>
+  </div>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-end mb-2 flex-grow-1">
+        <button class="btn btn-dark" (click)="handleAddClient()">Add client</button>
+      </div>
+      <div class="table-responsive" style="height: 23rem">
+        <table class="hoverable table table-hover text-center">
+          <thead class="bg-light sticky-top">
+            <tr>
+              <th class="px-1 text-truncate">Client</th>
+              <th class="px-1 text-truncate">Key</th>
+              <th class="px-1 text-truncate">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="border-top-0">
+            <ng-template [ngIf]="clients.length === 0">
+              <tr>
+                <td colspan="3">
+                  <small class="fw-bold">No Records Found.</small>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="clients.length > 0">
+              <tr *ngFor="let client of clients">
+                <td class="text-truncate px-3">{{ client.client }}</td>
+                <td class="text-truncate">{{ client.key }}</td>
+                <td class="px-3">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light custom-btn"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton">
+                      <li>
+                        <button class="dropdown-item text-sm" (click)="handleGenerateKey(client)">Set API Key</button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-sm" (click)="handleRemoveClient(client)">Remove Client</button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

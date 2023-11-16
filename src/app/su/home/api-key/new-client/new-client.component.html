@@ -1,0 +1,36 @@
+<div class="container p-4">
+  <h4 class="h4 h4-responsive">Add new Client</h4>
+  <div class="card shadow px-3">
+    <div class="card-body">
+      <div class="d-flex align-items-end mb-3">
+        <div class="form-group me-2 flex-grow-1">
+          <label for="name" class="fs-6 fw-bold">Client name</label>
+          <input type="text" name="client" class="form-control" [(ngModel)]="client" />
+        </div>
+      </div>
+      <div class="text-end">
+        <button
+          class="btn btn-dark me-2"
+          (click)="handleClose()"
+          [disabled]="loading">
+          Cancel
+        </button>
+
+        <button
+          class="btn btn-dark me-2"
+          (click)="handleAddClient()"
+          [disabled]="loading">
+          <ng-template [ngIf]="loading">
+            <div
+              class="spinner-border spinner-border-sm text-warning"
+              role="status"
+            >
+              <span class="sr-only"></span>
+            </div>
+          </ng-template>
+          <ng-template [ngIf]="!loading">Add</ng-template>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

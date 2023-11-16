@@ -25,6 +25,10 @@ const routes: Routes = [
       {
         path: 'logs',
         loadChildren: () => import('./logs/logs.module').then(m => m.LogsModule)
+      },
+      {
+        path: 'api-key',
+        loadChildren: () => import('./api-key/api-key.module').then(m => m.ApiKeyModule)
       }
     ]
   }
