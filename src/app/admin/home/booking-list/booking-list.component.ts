@@ -1,3 +1,4 @@
+import { SocketService } from './../../../services/socket.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ExportComponent } from './../../../components/modals/export/export.component';
@@ -33,9 +34,13 @@ export class BookingListComponent implements OnInit, OnDestroy {
 
   private subs: Subscription = new Subscription()
 
-  constructor(private bookServ: BookingService, private mdCtrl: NgbModal) {}
+  constructor(
+    private socket: SocketService,
+    private bookServ: BookingService,
+    private mdCtrl: NgbModal) {}
 
   ngOnInit(): void {
+    this._initSocket()
     this.getBookingPerPage(this.page, this.limit)
   }
 
@@ -271,5 +276,18 @@ export class BookingListComponent implements OnInit, OnDestroy {
       },
     });
     this.subs.add(exportOne)
+  }
+
+  private _initSocket(): void {
+    let listenUpdateBookingStatus = this.socket.listen('booking:update-status').subscribe({
+      next: (res: any) => {
+        let i: number = this.bookings.findIndex((book: any) => book.bookingId === res.bookingId)
+        if(i > -1) {
+          this.bookings[i].status = res.status
+        }
+      }
+    })
+    
+    this.subs.add(listenUpdateBookingStatus)
   }
 }

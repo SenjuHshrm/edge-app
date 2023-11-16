@@ -1,3 +1,4 @@
+import { SocketService } from './../../../services/socket.service';
 import { ExportComponent } from './../../../components/modals/export/export.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -33,9 +34,13 @@ export class BookingComponent implements OnInit, OnDestroy {
 
   private subs: Subscription = new Subscription()
 
-  constructor(private mdCtrl: NgbModal, private booking: BookingService) {}
+  constructor(
+    private mdCtrl: NgbModal,
+    private booking: BookingService,
+    private socket: SocketService) {}
 
   ngOnInit(): void {
+    this._initSocket()
     this.getAllBooking(this.page, this.limit);
   }
 
@@ -231,5 +236,17 @@ export class BookingComponent implements OnInit, OnDestroy {
         this.subs.add(removeBooking)
       }
     });
+  }
+
+  private _initSocket(): void {
+    let listenUpdateBookingStatus = this.socket.listen('booking:update-status').subscribe({
+      next: (res: any) => {
+        let i: number = this.bookings.findIndex((book: any) => book.bookingId === res.bookingId)
+        if(i > -1) {
+          this.bookings[i].status = res.status
+        }
+      }
+    })
+    this.subs.add(listenUpdateBookingStatus)
   }
 }

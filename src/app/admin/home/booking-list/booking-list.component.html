@@ -204,7 +204,7 @@
                   </div>
                 </td>
                 <td scope="row" class="text-truncate px-3">
-                  {{ td.bookingId }}
+                  {{ td.bookingId }} {{ (td.deliveryStatus) ? '(' + td.deliveryStatus + ')' : '' }}
                 </td>
                 <td class="text-truncate px-3">
                   {{ handleDate(td.createdAt) }}
