@@ -17,7 +17,7 @@
         />
         <label for="name">Name:</label>
       </div>
-      <div class="form-floating my-3 w-100">
+      <!-- <div class="form-floating my-3 w-100">
         <input
           type="text"
           class="form-control"
@@ -26,7 +26,7 @@
           name="address"
         />
         <label for="address">Address:</label>
-      </div>
+      </div> -->
       <div class="form-floating my-4 w-100">
         <input
           type="text"
@@ -56,6 +56,74 @@
           name="company"
         />
         <label for="company">Company name:</label>
+      </div>
+      <div>
+        Address
+        <div class="form-floating my-4 w-100">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bldgNum"
+            placeholder="Building / House Number:"
+            name="bldgNum"
+          />
+          <label for="bldgNum">Building / House Number:</label>
+        </div>
+        <div class="form-floating my-4 w-100">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="street"
+            placeholder="Street / Village:"
+            name="street"
+          />
+          <label for="street">Street / Village:</label>
+        </div>
+        <div class="form-floating my-4 w-100">
+          <select
+            class="form-control"
+            formControlName="province"
+            placeholder="Province:"
+            name="province"
+            (change)="handleChangeProvince($event)"
+          >
+            <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+          </select>
+          <label for="province">Province:</label>
+        </div>
+        <div class="form-floating my-4 w-100">
+          <select
+            class="form-control"
+            formControlName="city"
+            placeholder="City / Municipality:"
+            name="city"
+            (change)="handleChangeCity($event)"
+          >
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+          <label for="city">City / Municipality:</label>
+        </div>
+        <div class="form-floating my-4 w-100">
+          <select
+            class="form-control"
+            formControlName="brgy"
+            placeholder="Barangay:"
+            name="brgy"
+          >
+            <option *ngFor="let brgy of brgys" [value]="brgy">{{ brgy }}</option>
+          </select>
+          <label for="brgy">Barangay:</label>
+        </div>
+        <div class="form-floating my-4 w-100">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="zip"
+            placeholder="Zip Code:"
+            name="zip"
+          />
+          <label for="zip">Zip Code:</label>
+        </div>
       </div>
       <div class="col-md-4 offset-md-4">
         <button class="btn btn-dark" type="submit" [disabled]="loading">

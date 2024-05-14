@@ -155,4 +155,14 @@ export class KeyPartnersComponent implements OnInit, OnDestroy {
         : this.allData;
     this.keyPartners = data;
   }
+
+  constructAddr(addr: any) {
+    let addrArr: string[] = []
+    Object.keys(addr).forEach(e => {
+      if(addr[e] !== '') {
+        addrArr.push(addr[e])
+      }
+    })
+    return addrArr.join(', ')
+  }
 }

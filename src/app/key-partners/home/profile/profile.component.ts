@@ -7,6 +7,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
+import address from './../../../../assets/address'
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +27,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public newIPAPass: string = '';
   public confirmIPAPass: string = '';
 
+  public addressList: any = address;
+  public provinces: string[] = [];
+  public cities: string[] = [];
+  public brgys: string[] = [];
+
   //profile
   public fullname: string = '';
-  public address: string = '';
+  public bldgNum: string = '';
+  public street: string = '';
+  public brgy: string = '';
+  public city: string = '';
+  public province: string = '';
+  public zip: string = '';
   public contact: string = '';
   public email: string = '';
   public company: string = '';
@@ -50,13 +61,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let getOneKeyPartner = this.kp.getOneKeyPartner(token.sub).subscribe({
       next: (res: any) => {
         this.fullname = res.info.name;
-        this.address = res.info.addr;
+        // this.address = res.info.addr;
+        this.bldgNum = res.info.addr.bldgNum
+        this.street = res.info.addr.street
+        // this.brgy = res.info.addr.brgy
+        // this.city = res.info.addr.city
+        // this.province = res.info.addr.province
+        this.zip = res.info.addr.zip
         this.contact = res.info.contact;
         this.email = res.info.email;
         this.company = res.info.company;
         this.image = res.info.img.includes('https')
           ? res.info.img
           : `${environment.apiV1}${res.info.img}`;
+        this.initializeAddress(res.info.addr.province, res.info.addr.city, res.info.addr.brgy)
+        
       },
       error: (e: any) => console.log(e),
     });
@@ -172,8 +191,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let message = '';
     if (this.fullname === '') {
       message = 'Please enter fullname.';
-    } else if (this.address === '') {
-      message = 'Please enter address.';
+    // } else if (this.address === '') {
+    //   message = 'Please enter address.';
     } else if (this.contact === '') {
       message = 'Please enter contact.';
     } else if (this.email === '') {
@@ -199,7 +218,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .updateProfile({
           name: this.fullname,
           company: this.company,
-          addr: this.address,
+          addr: {
+            bldgNum: this.bldgNum,
+            street: this.street,
+            brgy: this.brgy,
+            city: this.city,
+            province: this.province,
+            zip: this.zip
+          },
           contact: this.contact,
           email: this.email,
         })
@@ -311,5 +337,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
         icon: 'warning'
       })
     }
+  }
+
+  handleChangeProvince(e: any) {
+    let cityList = this.addressList[e.target.value as keyof typeof this.addressList].municipality_list
+    this.cities = Object.keys(cityList).map((e) => e)
+    this.brgy = ''
+  }
+
+  handleChangeCity(e: any) {
+    let cityList: any = this.addressList[this.province as keyof typeof this.addressList].municipality_list
+    this.brgys = cityList[e.target.value as keyof typeof cityList].barangay_list
+  }
+
+  initializeAddress(prov: string, c: string, b: string) {
+    this.provinces = Object.keys(this.addressList).map((e) => e)
+    let cityList = this.addressList[prov].municipality_list
+    this.cities = Object.keys(cityList).map(e => e)
+    this.brgys = cityList[c].barangay_list
+    this.province = prov
+    this.city = c
+    this.brgy = b
   }
 }

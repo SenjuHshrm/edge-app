@@ -47,7 +47,7 @@
             <ng-template [ngIf]="keyPartners.length !== 0">
               <tr *ngFor="let i of keyPartners">
                 <td class="px-1 text-truncate">{{ i.name }}</td>
-                <td class="px-1 text-truncate">{{ i.addr }}</td>
+                <td class="px-1 text-truncate">{{ constructAddr(i.addr) }}</td>
                 <td class="px-1 text-truncate">{{ i.contact }}</td>
                 <td class="px-1 text-truncate">{{ i.email }}</td>
                 <td class="px-1 text-truncate">{{ i.company }}</td>
