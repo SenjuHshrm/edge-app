@@ -130,4 +130,8 @@ export class BookingService {
   public removeBooking(id: string): Observable<any> {
     return this.http.delete(`${environment.apiV1}/api/v1/delete/booking/remove/${id}`)
   }
+
+  public generateJntWaybill(bookingId: string): Observable<any> {
+    return this.http.post(`${environment.apiV1}/api/v1/post/booking/jnt-waybill/generate`, { id: bookingId })
+  }
 }

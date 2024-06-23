@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { SocketService } from './../../../services/socket.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -278,12 +279,30 @@ export class BookingListComponent implements OnInit, OnDestroy {
     this.subs.add(exportOne)
   }
 
+  generateSingleWaybillJnt(id: string) {
+    // console.log(id)
+    this.subs.add(this.bookServ.generateJntWaybill(id).subscribe({
+      next: (res: any) => {
+        let i = this.bookings.findIndex((b: any) => b._id === id)
+        this.bookings[i].jtWaybill = {
+          number: res.waybillNo,
+          link: `${environment.apiV1}${res.link}`
+        }
+        console.log(this.bookings[i])
+      },
+      error: ({ error }) => {
+        console.log(error)
+      }
+    }))
+  }
+
   private _initSocket(): void {
     let listenUpdateBookingStatus = this.socket.listen('booking:update-status').subscribe({
       next: (res: any) => {
-        let i: number = this.bookings.findIndex((book: any) => book.bookingId === res.bookingId)
+        let i: number = this.bookings.findIndex((book: any) => book.jtWaybill.number === res.waybill)
         if(i > -1) {
           this.bookings[i].status = res.status
+          this.bookings[i].deliveryStatus = res.deliveryStatus
         }
       }
     })
