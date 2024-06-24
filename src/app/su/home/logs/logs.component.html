@@ -1,1 +1,42 @@
-<p>Soon</p>
+<div class="container-fluid">
+  <br />
+  <div class="d-flex mb-3">
+    <div class="col-md-6 me-2">
+      <div class="input-group">
+        <input type="date" class="form-control" [(ngModel)]="selectedDate" [max]="maxDate">
+      </div>
+    </div>
+    <button class="btn btn-dark" (click)="getLogsByDate()">Go</button>
+  </div>
+  <div class="card shadow p-3">
+    <div class="card-body">
+      <div class="table-responsive" style="height: 23rem">
+        <table class="table text center">
+          <thead class="bg-light sticky-top">
+            <tr>
+              <th class="px-1 text-truncate">Date</th>
+              <th class="px-1 text-truncate">Endpoint Controller</th>
+              <th class="px-1 text-truncate">Code</th>
+              <th class="px-1 text-truncate">Info</th>
+            </tr>
+          </thead>
+          <tbody class="border-top-0">
+            <ng-template [ngIf]="logs.length === 0">
+              <tr>
+                <td colspan="4">No Records Found.</td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="logs.length > 0">
+              <tr *ngFor="let log of logs">
+                <td class="text-truncate px-3">{{ log.date }}</td>
+                <td class="text-truncate px-3">{{ log.controller }}</td>
+                <td class="text-truncate px-3">{{ log.code }}</td>
+                <td class="text-truncate px-3">{{ log.info }}</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
