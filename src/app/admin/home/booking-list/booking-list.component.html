@@ -114,6 +114,7 @@
               </th>
               <th col="scope" class="text-truncate px-1">Actions</th>
               <th col="scope" class="text-truncate px-1">Waybill</th>
+              <th col="scope" class="text-truncate px-1">Delivery Status</th>
               <th col="scope" class="text-truncate px-1">ID</th>
               <th col="scope" class="text-truncate px-1">Date</th>
               <th col="scope" class="text-truncate px-1">Receiver Name</th>
@@ -211,10 +212,13 @@
                   </div>
                 </td>
                 <td scope="row" class="text-truncate px-3">
-                  <a [href]="td.jtWaybill.link">{{ td.jtWaybill.number }}</a>
+                  <a [href]="td.jtWaybill.file">{{ td.jtWaybill.number }}</a>
                 </td>
                 <td scope="row" class="text-truncate px-3">
-                  {{ td.bookingId }} {{ (td.deliveryStatus) ? '(' + td.deliveryStatus + ')' : '' }}
+                  {{ td.courier }}: {{ td.deliveryStatus }}
+                </td>
+                <td scope="row" class="text-truncate px-3">
+                  {{ td.bookingId }}
                 </td>
                 <td class="text-truncate px-3">
                   {{ handleDate(td.createdAt) }}

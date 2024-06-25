@@ -50,10 +50,19 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   getBookingPerPage(page: number, limit: number): void {
+    this.bookings = []
     let getAllBooking = this.bookServ.getAllBookingPerPage(page, limit).subscribe({
       next: (res) => {
         this.bookingSize = res.length
-        this.bookings = res.info
+        res.info.forEach((b: any) => {
+          this.bookings.push({
+            ...b,
+            jtWaybill: {
+              number: b.jtWaybill.number,
+              file: `${environment.apiV1}${b.jtWaybill.file}`
+            }
+          })
+        })
         setTimeout(() => this.checkSelected(this.bookings), 100)
       },
       error: (error) => console.log(error),
@@ -286,7 +295,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
         let i = this.bookings.findIndex((b: any) => b._id === id)
         this.bookings[i].jtWaybill = {
           number: res.waybillNo,
-          link: `${environment.apiV1}${res.link}`
+          file: `${environment.apiV1}${res.link}`
         }
         console.log(this.bookings[i])
       },

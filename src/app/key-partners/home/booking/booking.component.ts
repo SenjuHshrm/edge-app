@@ -241,12 +241,23 @@ export class BookingComponent implements OnInit, OnDestroy {
   private _initSocket(): void {
     let listenUpdateBookingStatus = this.socket.listen('booking:update-status').subscribe({
       next: (res: any) => {
-        let i: number = this.bookings.findIndex((book: any) => book.bookingId === res.bookingId)
+        let i: number = this.bookings.findIndex((book: any) => book.jtWaybill.number === res.waybill)
         if(i > -1) {
           this.bookings[i].status = res.status
+          this.bookings[i].deliveryStatus = res.deliveryStatus
         }
       }
     })
+
+    // let listenUpdateBookingWaybillJT = this.socket.listen('booking:update-waybill-jt').subscribe({
+    //   next: (res: any) => {
+    //     let i: number = this.bookings.findIndex((book: any) => book.bookingId === res.bookingId)
+    //     if(i > -1) {
+    //       this.bookings[i].jtWaybill = res.jtWaybill
+    //     }
+    //   }
+    // })
     this.subs.add(listenUpdateBookingStatus)
+    // this.subs.add(listenUpdateBookingWaybillJT)
   }
 }
